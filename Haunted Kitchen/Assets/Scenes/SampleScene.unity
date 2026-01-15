@@ -510,7 +510,7 @@ GameObject:
   - component: {fileID: 474298048}
   - component: {fileID: 474298051}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: StaminaBarCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
