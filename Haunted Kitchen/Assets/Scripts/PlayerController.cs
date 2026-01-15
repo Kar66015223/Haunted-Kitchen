@@ -5,12 +5,11 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public float gravity = -9.81f;
+    public float runSpeed = 9f;
 
     private CharacterController controller;
-    private Vector3 velocity;
-
     private Vector2 moveInput;
+    private bool isRunning;
 
     void Awake()
     {
@@ -27,11 +26,17 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10 * Time.deltaTime);
         }
 
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        float currentSpeed = isRunning ? runSpeed : moveSpeed;
+        controller.Move(move * currentSpeed * Time.deltaTime);
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnRun(InputAction.CallbackContext context)
+    {
+        isRunning = context.ReadValueAsButton();
     }
 }
