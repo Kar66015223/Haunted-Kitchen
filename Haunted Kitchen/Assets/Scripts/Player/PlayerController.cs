@@ -11,9 +11,12 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private bool isRunning;
 
+    private PlayerStamina stamina;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
+        stamina = GetComponent<PlayerStamina>();
     }
 
     void Update()
@@ -26,8 +29,17 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10 * Time.deltaTime);
         }
 
-        float currentSpeed = isRunning ? runSpeed : moveSpeed;
+        bool canRun = isRunning && stamina != null && stamina.CanRun(); // if player is running, CanRun = true
+        float currentSpeed = canRun ? runSpeed : moveSpeed;
+
         controller.Move(move * currentSpeed * Time.deltaTime);
+
+        if (canRun && move.sqrMagnitude > 0.001f) // if player is moving and running, drain stamina
+        {
+            stamina.Drain(Time.deltaTime * 10f);
+        }
+
+        Debug.Log(stamina.currentStamina);
     }
 
     public void OnMove(InputAction.CallbackContext context)

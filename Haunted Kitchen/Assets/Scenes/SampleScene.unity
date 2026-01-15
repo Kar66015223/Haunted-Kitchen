@@ -509,6 +509,7 @@ GameObject:
   - component: {fileID: 480308424}
   - component: {fileID: 480308423}
   - component: {fileID: 480308427}
+  - component: {fileID: 480308430}
   - component: {fileID: 480308428}
   - component: {fileID: 480308429}
   m_Layer: 0
@@ -625,8 +626,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d3af9e9c656e24fa6802f1a9fdd1d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  moveSpeed: 6
-  runSpeed: 9
+  moveSpeed: 5
+  runSpeed: 10
 --- !u!143 &480308428
 CharacterController:
   m_ObjectHideFlags: 0
@@ -782,6 +783,23 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &480308430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480308421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5bdf0d1a070b0d4da6a3bae2843517a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStamina
+  maxStamina: 100
+  currentStamina: 100
+  drainRate: 20
+  regenRate: 15
+  regenDelay: 1
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
