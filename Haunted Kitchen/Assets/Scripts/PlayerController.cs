@@ -19,7 +19,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
+        Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y);
+
+        if (move.sqrMagnitude > 0.001f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(move);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10 * Time.deltaTime);
+        }
+
         controller.Move(move * moveSpeed * Time.deltaTime);
     }
 
