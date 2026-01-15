@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
         if (canRun && move.sqrMagnitude > 0.001f) // if player is moving and running, drain stamina
         {
-            stamina.Drain(Time.deltaTime * 10f);
+            stamina.Drain(stamina.drainRate * Time.deltaTime);
         }
 
         Debug.Log(stamina.currentStamina);

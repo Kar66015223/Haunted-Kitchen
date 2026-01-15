@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStamina : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class PlayerStamina : MonoBehaviour
     public float regenRate = 15f;
     public float regenDelay = 1f;
 
+    public Image staminaBar;
+
     private float lastDrainTime;
 
     private void Update()
@@ -16,6 +19,8 @@ public class PlayerStamina : MonoBehaviour
         {
             currentStamina += regenRate * Time.deltaTime;
             currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+
+            StaminaUIUpdate();
         }
     }
 
@@ -29,5 +34,12 @@ public class PlayerStamina : MonoBehaviour
         currentStamina -= amount;
         currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
         lastDrainTime = Time.time;
+
+        StaminaUIUpdate();
+    }
+
+    public void StaminaUIUpdate()
+    {
+        staminaBar.fillAmount = currentStamina / maxStamina;
     }
 }
