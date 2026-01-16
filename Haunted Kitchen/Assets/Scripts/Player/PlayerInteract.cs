@@ -11,21 +11,50 @@ public class PlayerInteract : MonoBehaviour
 
     private Iinteractable currentInteractable;
 
+    private void Start()
+    {
+        interactPrompt.enabled = false;
+    }
+
+    private void Update()
+    {
+        CheckForInteractable();
+    }
+
     public void TryInteract()
+    {
+        if (currentInteractable != null)
+        {
+            currentInteractable.Interact(gameObject);
+        }
+    }
+
+    public void CheckForInteractable()
     {
         Vector3 rayOrigin = transform.position + Vector3.up * rayHeightOffset;
         Ray ray = new Ray(rayOrigin, transform.forward);
-        RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, interactRange, interactLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactLayer))
         {
-            Iinteractable obj = hit.collider.GetComponent<Iinteractable>();
+            Iinteractable interactable = hit.collider.GetComponent<Iinteractable>();
 
-            if (obj != null)
+            if (interactable != null)
             {
-                obj.Interact(gameObject);
+                currentInteractable = interactable;
+                interactPrompt.enabled = true;
             }
         }
+
+        else
+        {
+            ClearInteractable(); 
+        }
+    }
+
+    public void ClearInteractable()
+    {
+        currentInteractable = null;
+        interactPrompt.enabled = false;
     }
 
 #if UNITY_EDITOR // only show in editor
