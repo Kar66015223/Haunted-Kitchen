@@ -12,11 +12,13 @@ public class PlayerController : MonoBehaviour
     private bool isRunning;
 
     private PlayerStamina stamina;
+    private PlayerInteract playerInteract;
 
     void Awake()
     {
         controller = GetComponent<CharacterController>();
         stamina = GetComponent<PlayerStamina>();
+        playerInteract = GetComponent<PlayerInteract>();
     }
 
     void Update()
@@ -38,8 +40,6 @@ public class PlayerController : MonoBehaviour
         {
             stamina.Drain(stamina.drainRate * Time.deltaTime);
         }
-
-        Debug.Log(stamina.currentStamina);
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -50,5 +50,13 @@ public class PlayerController : MonoBehaviour
     public void OnRun(InputAction.CallbackContext context)
     {
         isRunning = context.ReadValueAsButton();
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.performed && playerInteract != null)
+        {
+            playerInteract.TryInteract();
+        }
     }
 }
