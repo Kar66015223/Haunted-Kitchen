@@ -646,7 +646,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerItem
   currentHeldItemData: {fileID: 0}
   currentHeldItemObj: {fileID: 0}
-  rayLength: 10
 --- !u!1 &501430112
 GameObject:
   m_ObjectHideFlags: 0

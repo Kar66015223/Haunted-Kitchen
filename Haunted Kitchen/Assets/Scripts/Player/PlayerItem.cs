@@ -7,15 +7,14 @@ public class PlayerItem : MonoBehaviour
 {
     public ItemData currentHeldItemData;
     public GameObject currentHeldItemObj;
-    public float rayLength = 10f;
 
-    private void Update()
-    {
-        if (currentHeldItemData != null)
-        {
-            Debug.Log(currentHeldItemData.name); 
-        }
-    }
+    //private void Update()
+    //{
+    //    if (currentHeldItemData != null)
+    //    {
+    //        Debug.Log(currentHeldItemData.name); 
+    //    }
+    //}
 
     public void PickUp(ItemData data, GameObject itemObj)
     {
@@ -42,7 +41,7 @@ public class PlayerItem : MonoBehaviour
         //Ray ray = new Ray(rayOrigin, Vector3.down);
 
         //int groundLayerMask = LayerMask.GetMask("Ground");
-        //if (Physics.Raycast(ray, out RaycastHit hit, rayLength, groundLayerMask))
+        //if (Physics.Raycast(ray, out RaycastHit hit, 10f, groundLayerMask))
         //{
         //    currentHeldItemObj.transform.position = hit.point + Vector3.up * 0.5f;
         //}
