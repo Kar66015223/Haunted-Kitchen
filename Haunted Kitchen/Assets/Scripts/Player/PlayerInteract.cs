@@ -1,3 +1,4 @@
+using System.Transactions;
 using TMPro;
 using UnityEngine;
 
@@ -10,10 +11,12 @@ public class PlayerInteract : MonoBehaviour
     public TMP_Text interactPrompt;
 
     private Iinteractable currentInteractable;
+    private PlayerItem playerItem;
 
     private void Start()
     {
         interactPrompt.enabled = false;
+        playerItem = GetComponent<PlayerItem>();
     }
 
     private void Update()
@@ -26,6 +29,13 @@ public class PlayerInteract : MonoBehaviour
         if (currentInteractable != null)
         {
             currentInteractable.Interact(gameObject);
+
+            GameObject currentInteractableObj = ((MonoBehaviour)currentInteractable).gameObject;
+            if (currentInteractableObj.tag == "Item")
+            {
+                Item item = currentInteractableObj.GetComponent<Item>();
+                playerItem.PickUp(item.itemData, item.gameObject);
+            }
         }
     }
 
@@ -36,7 +46,7 @@ public class PlayerInteract : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactLayer))
         {
-            Iinteractable interactable = hit.collider.GetComponent<Iinteractable>();
+            Iinteractable interactable = hit.collider.GetComponentInParent<Iinteractable>();
 
             if (interactable != null)
             {

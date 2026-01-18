@@ -13,12 +13,14 @@ public class PlayerController : MonoBehaviour
 
     private PlayerStamina stamina;
     private PlayerInteract playerInteract;
+    private PlayerItem playerItem;
 
     void Awake()
     {
         controller = GetComponent<CharacterController>();
         stamina = GetComponent<PlayerStamina>();
         playerInteract = GetComponent<PlayerInteract>();
+        playerItem = GetComponent<PlayerItem>();
     }
 
     void Update()
@@ -57,6 +59,14 @@ public class PlayerController : MonoBehaviour
         if (context.performed && playerInteract != null)
         {
             playerInteract.TryInteract();
+        }
+    }
+
+    public void OnDrop(InputAction.CallbackContext context)
+    {
+        if (context.performed && playerItem != null)
+        {
+            playerItem.DropItem();
         }
     }
 }

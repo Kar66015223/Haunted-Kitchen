@@ -6,9 +6,4 @@ public class BurgerPatty : Ingredient
     {
         ingredientState = IngredientState.NotHeld;
     }
-
-    private void Update()
-    {
-        Debug.Log(ingredientState);
-    }
 }

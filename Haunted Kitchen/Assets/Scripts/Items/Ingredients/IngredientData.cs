@@ -5,10 +5,7 @@ using UnityEngine;
     menuName = "Game Data/Items/Ingredient"
     )]
 
-public class IngredientData : ScriptableObject
+public class IngredientData : ItemData
 {
-    public string itemName;
-    public Sprite icon;
     public int price;
-    public GameObject cookedIngredientPrefab;
 }
