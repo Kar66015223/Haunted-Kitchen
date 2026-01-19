@@ -1,9 +1,6 @@
 using UnityEngine;
 
-public class BurgerPatty : Ingredient
+public class BurgerPatty : Item
 {
-    private void Start()
-    {
-        ingredientState = IngredientState.NotHeld;
-    }
+
 }

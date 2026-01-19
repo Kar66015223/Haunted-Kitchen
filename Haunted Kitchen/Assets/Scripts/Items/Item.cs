@@ -14,11 +14,6 @@ public abstract class Item : MonoBehaviour, Iinteractable
 
     public void Interact(GameObject interactor)
     {
-        if (itemState == ItemState.NotHeld)
-        {
-            itemState = ItemState.Held;
-        }
-
         Debug.Log($"Picking up {gameObject.name}");
     }
 }

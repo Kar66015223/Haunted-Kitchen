@@ -29,6 +29,9 @@ public class PlayerItem : MonoBehaviour
         itemObj.transform.SetParent(transform);
         itemObj.transform.localPosition = new Vector3(0, 0, 1);
         itemObj.transform.localRotation = Quaternion.identity;
+
+        Item item = itemObj.GetComponent<Item>();
+        item.itemState = Item.ItemState.Held;
     }
 
     public void DropItem()
@@ -36,6 +39,9 @@ public class PlayerItem : MonoBehaviour
         if (currentHeldItemObj == null) return;
 
         currentHeldItemObj.transform.SetParent(null, true);
+
+        Item item = currentHeldItemObj.GetComponent<Item>();
+        item.itemState = Item.ItemState.NotHeld;
 
         //Vector3 rayOrigin = currentHeldItemObj.transform.position + Vector3.up;
         //Ray ray = new Ray(rayOrigin, Vector3.down);

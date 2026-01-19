@@ -5,7 +5,7 @@ using UnityEngine;
     menuName = "Game Data/Items/CookedIngredient"
     )]
 
-public class CookedIngredientData : ScriptableObject
+public class CookedIngredientData : ItemData
 {
-    public string itemName;
+
 }

@@ -8,4 +8,6 @@ using UnityEngine;
 public class IngredientData : ItemData
 {
     public int price;
+    public CookedIngredientData cookedResult;
+    public Material cookedMaterial;
 }
