@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Xml.Serialization;
-using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
-public class MakingBurger : MonoBehaviour, Iinteractable
+public class MakingBurger : MonoBehaviour, Iinteractable, ITableInteractable
 {
     public RecipeData recipe;
     public Transform stackRoot;
@@ -11,6 +9,23 @@ public class MakingBurger : MonoBehaviour, Iinteractable
 
     public int currentStepIndex = 0;
     private List<GameObject> stackedItems = new();
+
+    public GameObject resultPrefab;
+    private bool isCompleted = false;
+
+    public bool HandleTableInteraction(GameObject interactor)
+    {
+        PlayerItem playerItem = interactor.GetComponent<PlayerItem>();
+        if (playerItem == null) return false;
+
+        if (playerItem.currentHeldItemObj != null)
+        {
+            Interact(interactor);
+            return true;
+        }
+
+        return false;
+    }
 
     public void Interact(GameObject interactor)
     {
@@ -72,6 +87,28 @@ public class MakingBurger : MonoBehaviour, Iinteractable
 
     void CompleteRecipe()
     {
+        if (isCompleted) return;
+        isCompleted = true;
+
+        Transform parent = transform.parent;
+        Vector3 position = transform.position;
+        Quaternion rotation = transform.rotation;
+
+        foreach (GameObject item in stackedItems)
+        {
+            Destroy(item);
+        }
+
+        GameObject resultObj = Instantiate(resultPrefab, position, rotation, parent);
+
+        Table table = parent.GetComponent<Table>();
+        if (table != null)
+        {
+            table.SetItem(resultObj.GetComponent<Item>());
+        }
+
         Debug.Log("burger completed");
+
+        Destroy(gameObject);
     }
 }

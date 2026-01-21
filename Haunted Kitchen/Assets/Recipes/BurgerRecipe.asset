@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RecipeData
   recipeName: Burger
   steps:
-  - ingredient: {fileID: 11400000, guid: 3f07a5c00b438034b9a065b7d41b7090, type: 2}
   - ingredient: {fileID: 11400000, guid: b51200e73a0255845a29106f12e33708, type: 2}
   - ingredient: {fileID: 11400000, guid: 226bbca7ed84eb148bfba08672fe6d84, type: 2}
   - ingredient: {fileID: 11400000, guid: bec80be18dab92c41826e10565b0b705, type: 2}

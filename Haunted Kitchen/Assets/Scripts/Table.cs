@@ -16,11 +16,18 @@ public class Table : MonoBehaviour, Iinteractable
             return;
         }
 
-        if ((currentItem != null && playerItem.currentHeldItemObj == null))
+        if (currentItem == null) return;
+
+        if (currentItem.TryGetComponent(out ITableInteractable tableInteractable))
+        {
+            if (tableInteractable.HandleTableInteraction(interactor))
+                return;
+        }
+
+        if (playerItem.currentHeldItemObj == null)
         {
             playerItem.PickUp(currentItem.itemData, currentItem.gameObject);
             currentItem = null;
-            return;
         }
 
         Debug.Log($"{gameObject.name} interacted with by {interactor.name}");
@@ -44,5 +51,10 @@ public class Table : MonoBehaviour, Iinteractable
         {
             rb.isKinematic = true;
         }
+    }
+
+    public void SetItem(Item item)
+    {
+        currentItem = item;
     }
 }
