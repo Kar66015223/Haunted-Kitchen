@@ -8,14 +8,6 @@ public class PlayerItem : MonoBehaviour
     public ItemData currentHeldItemData;
     public GameObject currentHeldItemObj;
 
-    //private void Update()
-    //{
-    //    if (currentHeldItemData != null)
-    //    {
-    //        Debug.Log(currentHeldItemData.name); 
-    //    }
-    //}
-
     public void PickUp(ItemData data, GameObject itemObj)
     {
         currentHeldItemData = data;
@@ -42,15 +34,6 @@ public class PlayerItem : MonoBehaviour
 
         Item item = currentHeldItemObj.GetComponent<Item>();
         item.itemState = Item.ItemState.NotHeld;
-
-        //Vector3 rayOrigin = currentHeldItemObj.transform.position + Vector3.up;
-        //Ray ray = new Ray(rayOrigin, Vector3.down);
-
-        //int groundLayerMask = LayerMask.GetMask("Ground");
-        //if (Physics.Raycast(ray, out RaycastHit hit, 10f, groundLayerMask))
-        //{
-        //    currentHeldItemObj.transform.position = hit.point + Vector3.up * 0.5f;
-        //}
 
         if (currentHeldItemObj.TryGetComponent(out Rigidbody rb))
         {

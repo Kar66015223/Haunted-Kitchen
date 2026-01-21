@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public abstract class Kitchenware : MonoBehaviour, Iinteractable
 {
@@ -19,14 +20,29 @@ public abstract class Kitchenware : MonoBehaviour, Iinteractable
 
     public void Interact(GameObject interactor)
     {
-        if (kitchenwareStatus == KitchenwareStatus.Usable)
-        {
-            PlayerItem playerItem = interactor.GetComponent<PlayerItem>();
+        PlayerItem playerItem = interactor.GetComponent<PlayerItem>();
 
-            if (!isCooking && playerItem.currentHeldItemObj != null)
+        if (playerItem == null) return;
+
+        if (kitchenwareStatus == KitchenwareStatus.Usable && !isCooking && currentItem == null && playerItem.currentHeldItemObj != null)
+        {
+            Item heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
+            IngredientData ingredient = heldItem.itemData as IngredientData;
+
+            if (ingredient == null || !ingredient.isCookable)
             {
-                PlaceItem(playerItem);
+                Debug.Log("This ingredient cannot be cooked");
+                return;
             }
+
+            PlaceItem(playerItem);
+            return;
+        }
+
+        if (currentItem != null && !isCooking)
+        {
+            playerItem.PickUp(currentItem.itemData, currentItem.gameObject);
+            currentItem = null;
         }
 
         Debug.Log($"{gameObject.name} interacted with by {interactor.name}");
@@ -35,7 +51,10 @@ public abstract class Kitchenware : MonoBehaviour, Iinteractable
     void PlaceItem(PlayerItem playerItem)
     {
         GameObject itemObj = playerItem.currentHeldItemObj;
+        if (itemObj == null) return;
+
         currentItem = itemObj.GetComponent<Item>();
+        if (currentItem == null) return;
 
         playerItem.DropItem();
 

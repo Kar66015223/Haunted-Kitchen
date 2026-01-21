@@ -31,7 +31,7 @@ public class PlayerInteract : MonoBehaviour
             currentInteractable.Interact(gameObject);
 
             GameObject currentInteractableObj = ((MonoBehaviour)currentInteractable).gameObject;
-            if (currentInteractableObj.tag == "Item")
+            if (currentInteractableObj.tag == "Item" && playerItem.currentHeldItemObj == null)
             {
                 Item item = currentInteractableObj.GetComponent<Item>();
                 playerItem.PickUp(item.itemData, item.gameObject);

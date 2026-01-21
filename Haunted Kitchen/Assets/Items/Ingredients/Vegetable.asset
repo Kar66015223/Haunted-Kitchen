@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c045aa3b6a3f7074e97494cc68d4d22d, type: 3}
-  m_Name: CookedBurgerPatty
+  m_Name: Vegetable
   m_EditorClassIdentifier: Assembly-CSharp::IngredientData
-  itemName: CookedBurgerPatty
+  itemName: Vegetable
   icon: {fileID: 0}
-  price: 0
+  price: 10
   isCookable: 0
   cookedResult: {fileID: 0}
   cookedMaterial: {fileID: 0}
