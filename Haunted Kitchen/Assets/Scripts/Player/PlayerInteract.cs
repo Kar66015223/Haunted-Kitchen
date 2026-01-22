@@ -1,5 +1,6 @@
 using System.Transactions;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
@@ -13,6 +14,19 @@ public class PlayerInteract : MonoBehaviour
     {
         interactPrompt.enabled = false;
         playerItem = GetComponent<PlayerItem>();
+    }
+
+    private void Update()
+    {
+        if (currentInteractable is IContextInteractable context)
+        {
+            if (!context.CanInteract(playerItem))
+            {
+                ClearInteractable();
+            }
+        }
+
+        Debug.Log(currentInteractable);
     }
 
     public void TryInteract()
@@ -39,15 +53,20 @@ public class PlayerInteract : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Interactable") || other.CompareTag("Item"))
+        if (!other.CompareTag("Interactable") && !other.CompareTag("Item"))
+            return;
+
+        Iinteractable interactable = other.GetComponentInParent<Iinteractable>();
+        if (interactable == null) return;
+
+        if (interactable is IContextInteractable context)
         {
-            Iinteractable interactable = other.GetComponentInParent<Iinteractable>();
-
-            if (interactable == null) return;
-
-            currentInteractable = interactable;
-            interactPrompt.enabled = true;   
+            if (!context.CanInteract(playerItem))
+                return;
         }
+
+        currentInteractable = interactable;
+        interactPrompt.enabled = true;
     }
 
     private void OnTriggerExit(Collider other)

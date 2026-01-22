@@ -1,9 +1,32 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Table : MonoBehaviour, Iinteractable
+public class Table : MonoBehaviour, Iinteractable, IContextInteractable
 {
     private Item currentItem;
     public Transform placePoint;
+
+    public bool CanInteract(PlayerItem playerItem)
+    {
+        // if table has nothing & player has something (put item on table)
+        if (currentItem == null && playerItem.currentHeldItemObj != null)
+            return true;
+
+        // if table has something & player has nothing (player take the object)
+        if (currentItem != null && playerItem.currentHeldItemObj == null)
+            return true;
+ 
+        // if table has MakingFood items & player is holding the right ingredient
+        if (currentItem != null && playerItem.currentHeldItemObj != null)
+        {
+            if (currentItem.TryGetComponent(out IContextInteractable context))
+            {
+                return context.CanInteract(playerItem);
+            }
+        }
+
+        return false;
+    }
 
     public void Interact(GameObject interactor)
     {

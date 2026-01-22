@@ -1,7 +1,6 @@
 using System.Transactions;
 using Unity.VisualScripting;
 using UnityEngine;
-//using static UnityEngine.Rendering.DynamicArray<T>;
 
 public class PlayerItem : MonoBehaviour
 {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MakingBurger : MonoBehaviour, Iinteractable, ITableInteractable
+public class MakingBurger : MonoBehaviour, Iinteractable, ITableInteractable, IContextInteractable
 {
     public RecipeData recipe;
     public Transform stackRoot;
@@ -12,6 +12,20 @@ public class MakingBurger : MonoBehaviour, Iinteractable, ITableInteractable
 
     public GameObject resultPrefab;
     private bool isCompleted = false;
+
+    public bool CanInteract(PlayerItem playerItem)
+    {
+        if(isCompleted) return false;
+        if(playerItem?.currentHeldItemObj == null) return false;
+
+        Item heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
+        if(heldItem == null) return false;
+
+        IngredientData ingredient = heldItem.itemData as IngredientData;
+        if(ingredient == null) return false;
+
+        return IsCorrectIngredient(ingredient);
+    }
 
     public bool HandleTableInteraction(GameObject interactor)
     {
