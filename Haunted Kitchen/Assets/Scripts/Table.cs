@@ -66,8 +66,6 @@ public class Table : MonoBehaviour, Iinteractable, IContextInteractable
 
         playerItem.DropItem();
 
-        itemObj.tag = "Untagged";
-
         itemObj.transform.position = placePoint.position;
         itemObj.transform.rotation = placePoint.rotation;
         itemObj.transform.SetParent(transform);
