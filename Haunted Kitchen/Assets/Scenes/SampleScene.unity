@@ -1812,6 +1812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ce0d8448da102419b2c43a7017c63f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractTest
+  currentItem: {fileID: 0}
   placePoint: {fileID: 631254706}
 --- !u!1 &2018370063
 GameObject:
