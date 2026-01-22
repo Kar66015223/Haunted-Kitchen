@@ -626,11 +626,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aa993808ddbaf2489f80375cae2cad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  interactRange: 2
-  interactLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  rayHeightOffset: -0.8
   interactPrompt: {fileID: 1016654145}
 --- !u!114 &480308439
 MonoBehaviour:
@@ -646,6 +641,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerItem
   currentHeldItemData: {fileID: 0}
   currentHeldItemObj: {fileID: 0}
+--- !u!54 &480308447
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480308421}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &480308448
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480308421}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 1}
 --- !u!1 &501430112
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,7 +703,7 @@ GameObject:
   - component: {fileID: 501430119}
   - component: {fileID: 501430114}
   - component: {fileID: 501430118}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: BurgerPatty
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -810,7 +853,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 631254706}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PlacePoint
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -895,7 +938,7 @@ GameObject:
   - component: {fileID: 980130182}
   - component: {fileID: 980130181}
   - component: {fileID: 980130186}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Ketchup
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -1267,7 +1310,7 @@ GameObject:
   - component: {fileID: 1604145584}
   - component: {fileID: 1604145590}
   - component: {fileID: 1604145589}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: BurgerBun
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -1435,7 +1478,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1812522295}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: StackRoot
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -1471,7 +1514,7 @@ GameObject:
   - component: {fileID: 1832685793}
   - component: {fileID: 1832685792}
   - component: {fileID: 1832685791}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Mustard
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -1621,7 +1664,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1858974141}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: CookPoint
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -1656,9 +1699,9 @@ GameObject:
   - component: {fileID: 1995545777}
   - component: {fileID: 1995545776}
   - component: {fileID: 1995545780}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Table
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1783,9 +1826,9 @@ GameObject:
   - component: {fileID: 2018370066}
   - component: {fileID: 2018370065}
   - component: {fileID: 2018370064}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Griddle
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1912,7 +1955,7 @@ GameObject:
   - component: {fileID: 2057824764}
   - component: {fileID: 2057824763}
   - component: {fileID: 2057824762}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Vegetable
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -2185,16 +2228,26 @@ PrefabInstance:
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 7735033026005802010, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1536483965337830122, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      insertIndex: 6
-      addedObject: {fileID: 480308431}
+      insertIndex: 3
+      addedObject: {fileID: 480308448}
     - targetCorrespondingSourceObject: {fileID: 1536483965337830122, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
       insertIndex: 7
+      addedObject: {fileID: 480308431}
+    - targetCorrespondingSourceObject: {fileID: 1536483965337830122, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
+      insertIndex: 8
       addedObject: {fileID: 480308439}
+    - targetCorrespondingSourceObject: {fileID: 1536483965337830122, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 480308447}
   m_SourcePrefab: {fileID: 100100000, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

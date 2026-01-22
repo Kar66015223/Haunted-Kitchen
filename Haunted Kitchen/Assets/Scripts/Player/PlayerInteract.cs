@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
-    public float interactRange = 2f;
-    public LayerMask interactLayer;
-    public float rayHeightOffset = -0.8f;
-
     public TMP_Text interactPrompt;
 
     private Iinteractable currentInteractable;
@@ -19,45 +15,50 @@ public class PlayerInteract : MonoBehaviour
         playerItem = GetComponent<PlayerItem>();
     }
 
-    private void Update()
-    {
-        CheckForInteractable();
-    }
-
     public void TryInteract()
     {
-        if (currentInteractable != null)
-        {
-            currentInteractable.Interact(gameObject);
+        if (currentInteractable == null) return;
 
-            GameObject currentInteractableObj = ((MonoBehaviour)currentInteractable).gameObject;
-            if (currentInteractableObj.tag == "Item" && playerItem.currentHeldItemObj == null)
+        currentInteractable.Interact(gameObject);
+
+        // PickUp
+        if (playerItem.currentHeldItemData == null) // If player's hands is free
+        {
+            GameObject obj = ((MonoBehaviour)currentInteractable).gameObject; // Iinteractable with Monobehaviour
+
+            if (obj.CompareTag("Item"))
             {
-                Item item = currentInteractableObj.GetComponent<Item>();
-                playerItem.PickUp(item.itemData, item.gameObject);
+                Item item = obj.GetComponent<Item>();
+                if (item != null)
+                {
+                    playerItem.PickUp(item.itemData, item.gameObject);
+                }
             }
         }
     }
 
-    public void CheckForInteractable()
+    private void OnTriggerEnter(Collider other)
     {
-        Vector3 rayOrigin = transform.position + Vector3.up * rayHeightOffset;
-        Ray ray = new Ray(rayOrigin, transform.forward);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactLayer))
+        if (other.CompareTag("Interactable") || other.CompareTag("Item"))
         {
-            Iinteractable interactable = hit.collider.GetComponentInParent<Iinteractable>();
+            Iinteractable interactable = other.GetComponentInParent<Iinteractable>();
 
-            if (interactable != null)
-            {
-                currentInteractable = interactable;
-                interactPrompt.enabled = true;
-            }
+            if (interactable == null) return;
+
+            currentInteractable = interactable;
+            interactPrompt.enabled = true;   
         }
+    }
 
-        else
+    private void OnTriggerExit(Collider other)
+    {
+        Iinteractable interactable = other.GetComponentInParent<Iinteractable>();
+
+        if(interactable == null) return;
+
+        if (interactable == currentInteractable)
         {
-            ClearInteractable(); 
+            ClearInteractable();
         }
     }
 
@@ -66,13 +67,4 @@ public class PlayerInteract : MonoBehaviour
         currentInteractable = null;
         interactPrompt.enabled = false;
     }
-
-#if UNITY_EDITOR // only show in editor
-    void OnDrawGizmosSelected() // show interact range when selected
-    {
-        Gizmos.color = Color.yellow;
-        Vector3 rayOrigin = transform.position + Vector3.up * rayHeightOffset;
-        Gizmos.DrawLine(rayOrigin, rayOrigin + transform.forward * interactRange);
-    }
-#endif
 }
