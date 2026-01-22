@@ -17,6 +17,8 @@ public class PlayerItem : MonoBehaviour
             rb.isKinematic = true;
         }
 
+        itemObj.tag = "Item";
+
         itemObj.transform.SetParent(transform);
         itemObj.transform.localPosition = new Vector3(0, 0, 1);
         itemObj.transform.localRotation = Quaternion.identity;
