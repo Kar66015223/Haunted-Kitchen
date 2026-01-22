@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Table : MonoBehaviour, Iinteractable, IContextInteractable
 {
-    private Item currentItem;
+    [SerializeField] private Item currentItem;
     public Transform placePoint;
 
     public bool CanInteract(PlayerItem playerItem)
