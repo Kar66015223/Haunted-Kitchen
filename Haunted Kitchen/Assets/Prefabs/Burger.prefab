@@ -263,8 +263,8 @@ GameObject:
   - component: {fileID: 5023549600101163248}
   - component: {fileID: 6268134040016035157}
   - component: {fileID: 8621645976379769138}
+  - component: {fileID: 3580771978661857152}
   - component: {fileID: 4076412777206856608}
-  - component: {fileID: 8164441818521526489}
   - component: {fileID: 357818477993761543}
   m_Layer: 3
   m_Name: Burger
@@ -346,6 +346,20 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3580771978661857152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8439268545345854669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3171d36acf36644eaad712cd0b7b259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  itemData: {fileID: 11400000, guid: 0b775496f96d9074da5470f0dadd738e, type: 2}
+  itemState: 0
 --- !u!65 &4076412777206856608
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -367,20 +381,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8164441818521526489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8439268545345854669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e009648da255b341b42e1d0afea9acc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BurgerTest
-  itemData: {fileID: 11400000, guid: 0b775496f96d9074da5470f0dadd738e, type: 2}
-  itemState: 0
 --- !u!54 &357818477993761543
 Rigidbody:
   m_ObjectHideFlags: 0

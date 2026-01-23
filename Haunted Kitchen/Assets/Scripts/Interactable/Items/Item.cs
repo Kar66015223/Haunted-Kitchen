@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using NUnit.Framework.Internal.Execution;
 using UnityEngine;
 
-public abstract class Item : MonoBehaviour, Iinteractable, IContextInteractable
+public class Item : MonoBehaviour, Iinteractable, IContextInteractable
 {
     public ItemData itemData;
     public ItemState itemState;
@@ -14,16 +15,18 @@ public abstract class Item : MonoBehaviour, Iinteractable, IContextInteractable
 
     public bool CanInteract(PlayerItem playerItem)
     {
-        if (playerItem == null)
+        if (playerItem == null) 
             return false;
 
         if (itemState != ItemState.NotHeld)
             return false;
 
-        if(TryGetComponent<IContextInteractable> (out _))
+        if (TryGetComponent<ITableInteractable>(out _))
+        {
             return true;
+        }
 
-        if (playerItem.currentHeldItemObj != null)
+        if (playerItem.currentHeldItemObj != null) 
             return false;
 
         return true;

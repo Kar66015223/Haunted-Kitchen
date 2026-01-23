@@ -8,6 +8,18 @@ public class Table : MonoBehaviour, Iinteractable, IContextInteractable
 
     public bool CanInteract(PlayerItem playerItem)
     {
+        if (playerItem == null)
+            return false;
+
+        // if table has MakingFood items & player is holding the right ingredient
+        if (currentItem != null &&
+            playerItem.currentHeldItemObj != null &&
+            //currentItem.gameObject.TryGetComponent<ITableInteractable>(out _) &&
+            currentItem.gameObject.TryGetComponent<IStationContextInteractable>(out var context))
+        {
+            return context.CanStationInteract(playerItem);
+        }
+
         // if table has nothing & player has something (put item on table)
         if (currentItem == null && playerItem.currentHeldItemObj != null)
             return true;
@@ -15,15 +27,6 @@ public class Table : MonoBehaviour, Iinteractable, IContextInteractable
         // if table has something & player has nothing (player take the object)
         if (currentItem != null && playerItem.currentHeldItemObj == null)
             return true;
- 
-        // if table has MakingFood items & player is holding the right ingredient
-        if (currentItem != null && playerItem.currentHeldItemObj != null)
-        {
-            if (currentItem.TryGetComponent(out IContextInteractable context))
-            {
-                return context.CanInteract(playerItem);
-            }
-        }
 
         return false;
     }
@@ -32,6 +35,11 @@ public class Table : MonoBehaviour, Iinteractable, IContextInteractable
     {
         PlayerItem playerItem = interactor.GetComponent<PlayerItem>();
         if (playerItem == null) return;
+
+        if (!CanInteract(playerItem))
+        {
+            return;
+        }
 
         if ((currentItem == null && playerItem.currentHeldItemObj != null))
         {
