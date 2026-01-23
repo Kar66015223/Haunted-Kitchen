@@ -14,7 +14,6 @@ public class Table : MonoBehaviour, Iinteractable, IContextInteractable
         // if table has MakingFood items & player is holding the right ingredient
         if (currentItem != null &&
             playerItem.currentHeldItemObj != null &&
-            //currentItem.gameObject.TryGetComponent<ITableInteractable>(out _) &&
             currentItem.gameObject.TryGetComponent<IStationContextInteractable>(out var context))
         {
             return context.CanStationInteract(playerItem);
