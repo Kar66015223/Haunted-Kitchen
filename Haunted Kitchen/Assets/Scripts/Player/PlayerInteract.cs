@@ -25,8 +25,6 @@ public class PlayerInteract : MonoBehaviour
                 ClearInteractable();
             }
         }
-
-        Debug.Log(currentInteractable);
     }
 
     public void TryInteract()
