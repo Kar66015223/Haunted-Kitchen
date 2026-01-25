@@ -1,14 +1,15 @@
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public abstract class Kitchenware : MonoBehaviour, Iinteractable
+public abstract class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
 {
     public Transform cookPoint;
 
     private Item currentItem;
     protected float cookTimer = 0f;
-    private bool isCooking;
+    [SerializeField] private bool isCooking;
 
     public KitchenwareStatus kitchenwareStatus;
 
@@ -16,6 +17,28 @@ public abstract class Kitchenware : MonoBehaviour, Iinteractable
     {
         Usable,
         Destroyed
+    }
+
+    public bool CanInteract(PlayerItem playerItem)
+    {
+        if (playerItem == null) return false;
+
+        if (playerItem.currentHeldItemObj == null && currentItem != null && !isCooking)
+            return true;
+
+        if (playerItem.currentHeldItemObj != null)
+        {
+            Item heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
+            IngredientData ingredient = heldItem.itemData as IngredientData;
+
+            if (ingredient == null || heldItem == null)
+                return false;
+
+            if (ingredient.isCookable)
+                return true;
+        }
+
+        return false;
     }
 
     public void Interact(GameObject interactor)
