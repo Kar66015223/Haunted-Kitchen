@@ -21,11 +21,11 @@ public class Item : MonoBehaviour, Iinteractable, IContextInteractable
         if (itemState != ItemState.NotHeld)
             return false;
 
-        if (TryGetComponent<ITableInteractable>(out _))
+        if (TryGetComponent<ITableInteractable>(out _) && transform.parent != null)
         {
             return true;
         }
-
+        
         if (playerItem.currentHeldItemObj != null) 
             return false;
 
