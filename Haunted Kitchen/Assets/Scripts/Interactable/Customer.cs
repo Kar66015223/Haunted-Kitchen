@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
 {
-    public List<ItemData> allOrder = new();
+    public List<ItemData> possibleOrders = new();
     public ItemData orderedItem;
 
     private CustomerState state = CustomerState.Idle;
@@ -13,6 +13,11 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
         Idle,
         Ordered,
         Served
+    }
+
+    private void Start()
+    {
+        //orderedItem = possibleOrders[Random.Range(0, possibleOrders.Count)];
     }
 
     public bool CanInteract(PlayerItem playerItem)
