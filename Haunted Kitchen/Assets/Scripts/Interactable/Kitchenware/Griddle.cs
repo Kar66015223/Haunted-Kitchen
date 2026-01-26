@@ -4,6 +4,6 @@ public class Griddle : Kitchenware
 {
     //private void Start()
     //{
-    //    cookTimer = 3f;
+    //    protected override float CookTime => 3f; <= use this if each Kitchenware has its own cookTimer
     //}
 }

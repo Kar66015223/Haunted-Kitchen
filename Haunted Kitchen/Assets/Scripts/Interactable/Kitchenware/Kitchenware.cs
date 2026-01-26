@@ -6,6 +6,7 @@ public abstract class Kitchenware : MonoBehaviour, Iinteractable, IContextIntera
 
     private Item currentItem;
     protected float cookTimer = 0f;
+    //protected abstract float CookTime { get; } <= uncomment if child class have their own cookTimer
     [SerializeField] private bool isCooking;
 
     public KitchenwareStatus kitchenwareStatus;
@@ -100,7 +101,7 @@ public abstract class Kitchenware : MonoBehaviour, Iinteractable, IContextIntera
             return;
         }
 
-        cookTimer = ingredient.cookTime;
+        cookTimer = ingredient.cookTime; //cookTimer = CookTime; <= use this instead if child class have their own cookTimer
         isCooking = true;
     }
 
