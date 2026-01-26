@@ -16,5 +16,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   price: 30
   isCookable: 1
+  cookTime: 3
   cookedResult: {fileID: 11400000, guid: b1ff11d0d1a3680469583cf3dc5741c1, type: 2}
   cookedMaterial: {fileID: 2100000, guid: d80c314d3b9dd6a49b7cad9435074771, type: 2}

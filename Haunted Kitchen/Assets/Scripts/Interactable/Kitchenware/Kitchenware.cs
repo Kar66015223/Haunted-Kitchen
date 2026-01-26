@@ -100,6 +100,7 @@ public abstract class Kitchenware : MonoBehaviour, Iinteractable, IContextIntera
             return;
         }
 
+        cookTimer = ingredient.cookTime;
         isCooking = true;
     }
 
@@ -126,5 +127,6 @@ public abstract class Kitchenware : MonoBehaviour, Iinteractable, IContextIntera
         Debug.Log($"Cooked {ingredient.cookedResult.itemName}");
 
         isCooking = false;
+        cookTimer = 0f;
     }
 }
