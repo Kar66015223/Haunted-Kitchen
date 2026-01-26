@@ -1,7 +1,4 @@
-using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public abstract class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
 {
