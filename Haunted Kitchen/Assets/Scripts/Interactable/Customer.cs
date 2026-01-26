@@ -17,7 +17,7 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
 
     private void Start()
     {
-        //orderedItem = possibleOrders[Random.Range(0, possibleOrders.Count)];
+        orderedItem = possibleOrders[Random.Range(0, possibleOrders.Count)];
     }
 
     public bool CanInteract(PlayerItem playerItem)

@@ -1875,7 +1875,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9335fa1c3afe43945971e598c8f40d9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Customer
-  possibleOrders: []
+  possibleOrders:
+  - {fileID: 11400000, guid: 0b775496f96d9074da5470f0dadd738e, type: 2}
+  - {fileID: 11400000, guid: 5687a7abda0b1d748ac2cdc93e0927d5, type: 2}
   orderedItem: {fileID: 11400000, guid: 0b775496f96d9074da5470f0dadd738e, type: 2}
 --- !u!1 &1604145583
 GameObject:
