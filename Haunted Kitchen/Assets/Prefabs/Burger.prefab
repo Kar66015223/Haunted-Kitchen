@@ -358,7 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3171d36acf36644eaad712cd0b7b259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemData: {fileID: 11400000, guid: 0b775496f96d9074da5470f0dadd738e, type: 2}
+  itemData: {fileID: 11400000, guid: 4f4dde56622e18743b12020043e21ab9, type: 2}
   itemState: 0
 --- !u!65 &4076412777206856608
 BoxCollider:
