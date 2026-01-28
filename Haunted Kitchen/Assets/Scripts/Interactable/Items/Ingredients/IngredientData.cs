@@ -7,8 +7,6 @@ using UnityEngine;
 
 public class IngredientData : ItemData
 {
-    public int price;
-
     public bool isCookable;
     public float cookTime;
 

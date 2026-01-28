@@ -7,5 +7,5 @@ using UnityEngine;
 
 public class FoodData : ItemData
 {
-    public int price;
+    
 }
