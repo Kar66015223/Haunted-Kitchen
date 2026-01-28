@@ -11,14 +11,10 @@ public class ShopItemButton : MonoBehaviour
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private Button buyButton;
 
-    private ShopUI shopUI;
-
     public Transform spawner;
 
     private void Start()
     {
-        shopUI = GetComponentInParent<ShopUI>();
-
         nameText.text = itemData.itemName;
 
         priceText.text = $"{itemData.price} $";
@@ -33,6 +29,6 @@ public class ShopItemButton : MonoBehaviour
 
     void SpawnItem()
     {
-        GameObject obj = Instantiate(itemPrefab, spawner);
+        GameObject obj = Instantiate(itemPrefab, spawner.position, spawner.rotation);
     }
 }
