@@ -83,7 +83,8 @@ public class PlayerItem : MonoBehaviour
         currentHeldItemObj = null;
     }
 
-    private void OnDrawGizmos()
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
     {
         if (currentHeldItemObj == null) return;
 
@@ -105,5 +106,6 @@ public class PlayerItem : MonoBehaviour
             Gizmos.matrix = Matrix4x4.TRS(dropPosition, itemTransform.rotation, Vector3.one);
             Gizmos.DrawWireCube(Vector3.zero, halfExtents * 2f);
         }
-    }
+    } 
+#endif
 }
