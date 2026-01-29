@@ -1355,6 +1355,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerItem
   currentHeldItemData: {fileID: 0}
   currentHeldItemObj: {fileID: 0}
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  dropBlockLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  dropRayDistance: 10
+  dropHeightOffset: 0.5
 --- !u!54 &480308447
 Rigidbody:
   m_ObjectHideFlags: 0
