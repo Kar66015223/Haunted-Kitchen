@@ -27,6 +27,30 @@ public class MakingBurger : MonoBehaviour, Iinteractable, ITableInteractable, IS
         return IsCorrectIngredient(ingredient);
     }
 
+    public bool CanContainerInteract(ContainerItem container)
+    {
+        if (isCompleted) return false;
+        if (container == null) return false;
+
+        IngredientData ingredient = container.ContainerContentAsIngredient();
+
+        if(ingredient == null) return false;
+
+        return IsCorrectIngredient(ingredient);
+    }
+
+    public void HandleContainer(ContainerItem container, Table table)
+    {
+        if (!CanContainerInteract(container)) return;
+
+        GameObject content = container.SpawnContent(table);
+
+        Item spawnedItem = content.GetComponent<Item>();
+        if (spawnedItem == null) return;
+
+        AddIngredient(null, spawnedItem);
+    }
+
     public bool HandleTableInteraction(GameObject interactor)
     {
         PlayerItem playerItem = interactor.GetComponent<PlayerItem>();
@@ -74,7 +98,10 @@ public class MakingBurger : MonoBehaviour, Iinteractable, ITableInteractable, IS
     void AddIngredient(PlayerItem playerItem, Item item)
     {
         // parent item to stackRoot
-        playerItem.DropItem();
+        if (playerItem != null)
+        {
+            playerItem.DropItem(); 
+        }
 
         Transform itemTransform = item.transform;
         itemTransform.SetParent(stackRoot);

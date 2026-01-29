@@ -7,8 +7,16 @@ public class PlayerInteract : MonoBehaviour
 {
     public TMP_Text interactPrompt;
 
-    private Iinteractable currentInteractable;
+    [SerializeField] private Iinteractable currentInteractable;
     private PlayerItem playerItem;
+
+    public Iinteractable CurrentInteractable
+    {
+        get
+        {
+            return currentInteractable;
+        }
+    }
 
     private void Start()
     {

@@ -11,19 +11,28 @@ public class Table : MonoBehaviour, Iinteractable, IContextInteractable
         if (playerItem == null)
             return false;
 
-        // if table has MakingFood items & player is holding the right ingredient
+        // Station + Container
+        if (currentItem != null &&
+            currentItem.TryGetComponent(out IStationContextInteractable station) &&
+            playerItem.currentHeldItemObj != null &&
+            playerItem.currentHeldItemObj.TryGetComponent(out ContainerItem container))
+        {
+            return station.CanContainerInteract(container);
+        }
+
+        // Station + Ingredient item
         if (currentItem != null &&
             playerItem.currentHeldItemObj != null &&
-            currentItem.gameObject.TryGetComponent<IStationContextInteractable>(out var context))
+            currentItem.TryGetComponent(out IStationContextInteractable context))
         {
             return context.CanStationInteract(playerItem);
         }
 
-        // if table has nothing & player has something (put item on table)
+        // put item on table
         if (currentItem == null && playerItem.currentHeldItemObj != null)
             return true;
 
-        // if table has something & player has nothing (player take the object)
+        // take item from table
         if (currentItem != null && playerItem.currentHeldItemObj == null)
             return true;
 
@@ -40,7 +49,20 @@ public class Table : MonoBehaviour, Iinteractable, IContextInteractable
             return;
         }
 
-        if ((currentItem == null && playerItem.currentHeldItemObj != null))
+        //if currentItem is a MakingFood item & player is holding Container item
+        if (currentItem != null &&
+            currentItem.TryGetComponent(out IStationContextInteractable station) &&
+            playerItem.currentHeldItemObj != null &&
+            playerItem.currentHeldItemObj.TryGetComponent(out ContainerItem container))
+        {
+            if (station.CanContainerInteract(container))
+            {
+                station.HandleContainer(container, this);
+                return;
+            }
+        }
+
+        if (currentItem == null && playerItem.currentHeldItemObj != null)
         {
             PlaceItem(playerItem);
             return;
