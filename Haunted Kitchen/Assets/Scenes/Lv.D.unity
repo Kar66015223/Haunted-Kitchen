@@ -707,8 +707,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -844,7 +844,7 @@ MonoBehaviour:
   nameText: {fileID: 570193870}
   priceText: {fileID: 128032615}
   buyButton: {fileID: 212283533}
-  spawner: {fileID: 0}
+  spawner: {fileID: 76361459}
 --- !u!114 &212283533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4156,7 +4156,7 @@ MonoBehaviour:
   nameText: {fileID: 2091908869}
   priceText: {fileID: 1024042565}
   buyButton: {fileID: 1045120131}
-  spawner: {fileID: 0}
+  spawner: {fileID: 76361459}
 --- !u!114 &1045120131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4764,7 +4764,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 3, y: 3, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1210591995
 MeshRenderer:
@@ -5188,7 +5188,7 @@ MonoBehaviour:
   nameText: {fileID: 735538164}
   priceText: {fileID: 1317062326}
   buyButton: {fileID: 1339839823}
-  spawner: {fileID: 0}
+  spawner: {fileID: 76361459}
 --- !u!114 &1339839823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5330,7 +5330,7 @@ MonoBehaviour:
   nameText: {fileID: 1602053219}
   priceText: {fileID: 1049234412}
   buyButton: {fileID: 1395794583}
-  spawner: {fileID: 0}
+  spawner: {fileID: 76361459}
 --- !u!114 &1395794583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6554,7 +6554,7 @@ MonoBehaviour:
   nameText: {fileID: 1410642586}
   priceText: {fileID: 133618894}
   buyButton: {fileID: 1627581427}
-  spawner: {fileID: 0}
+  spawner: {fileID: 76361459}
 --- !u!114 &1627581427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6808,8 +6808,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Buy Items
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
