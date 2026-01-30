@@ -1,9 +1,16 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
 {
+    public NavMeshAgent agent;
+
+    public Table targetTable;
+    public Transform standPoint;
+    [SerializeField] private bool isArrived = false;
+
     public List<ItemData> possibleOrders = new();
     public ItemData orderedItem;
 
@@ -19,14 +26,44 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
         Served
     }
 
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+    }
+
     private void Start()
     {
+        if (possibleOrders.Count == 0)
+        {
+            Debug.LogError("Customer has no possible orders!");
+            return;
+        }
+
         orderedItem = possibleOrders[Random.Range(0, possibleOrders.Count)];
         UpdateUI();
     }
 
+    private void Update()
+    {
+        if (!isArrived && agent != null && !agent.pathPending)
+        {
+            if (agent.remainingDistance <= agent.stoppingDistance)
+            {
+                isArrived = true;
+                agent.isStopped = true;
+
+                transform.position = standPoint.position;
+                transform.rotation = standPoint.rotation;
+
+                UpdateUI();
+            }
+        }
+    }
+
     public bool CanInteract(PlayerItem playerItem)
     {
+        if (!isArrived) return false;
+
         switch (state)
         {
             case CustomerState.Idle:
@@ -85,8 +122,10 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
             // penalty / reaction
         }
 
-        Destroy(playerItem.currentHeldItemObj);
+        GameObject servedObj = playerItem.currentHeldItemObj;
+
         playerItem.DropItem();
+        Destroy(servedObj);
 
         state = CustomerState.Served;
 
@@ -95,7 +134,7 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
 
     public void UpdateUI()
     {
-        idleUI.gameObject.SetActive(state == CustomerState.Idle);
+        idleUI.gameObject.SetActive(state == CustomerState.Idle && isArrived);
 
         orderUI.gameObject.SetActive(state == CustomerState.Ordered);
 

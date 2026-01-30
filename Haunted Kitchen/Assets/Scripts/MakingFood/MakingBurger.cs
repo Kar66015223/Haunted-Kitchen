@@ -141,6 +141,7 @@ public class MakingBurger : MonoBehaviour, Iinteractable, ITableInteractable, IS
         }
 
         GameObject resultObj = Instantiate(resultPrefab, position, rotation, parent);
+        resultObj.transform.localScale = Vector3.one;
 
         Table table = parent.GetComponent<Table>();
         if (table != null)
