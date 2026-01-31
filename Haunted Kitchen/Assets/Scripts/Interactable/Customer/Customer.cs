@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
 {
@@ -10,6 +11,8 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
     public Table targetTable;
     public Transform standPoint;
     [SerializeField] private bool isArrived = false;
+    [SerializeField] private bool exitDestinationSet = false;
+    [SerializeField] private Transform exitPoint;
 
     public List<ItemData> possibleOrders = new();
     public ItemData orderedItem;
@@ -23,7 +26,8 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
     {
         Idle,
         Ordered,
-        Served
+        Served,
+        Leaving
     }
 
     private void Awake()
@@ -45,18 +49,52 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
 
     private void Update()
     {
-        if (!isArrived && agent != null && !agent.pathPending)
+        switch (state)
         {
-            if (agent.remainingDistance <= agent.stoppingDistance)
-            {
-                isArrived = true;
-                agent.isStopped = true;
+            case CustomerState.Idle:
+                HandleTableArrival();
+                break;
 
-                transform.position = standPoint.position;
-                transform.rotation = standPoint.rotation;
+            case CustomerState.Leaving:
+                HandleLeaving(); 
+                break;
+        }
+    }
 
-                UpdateUI();
-            }
+    public void SetExitPoint(Transform exit)
+    {
+        exitPoint = exit;
+    }
+
+    void HandleTableArrival()
+    {
+        if (isArrived || agent.pathPending) return;
+
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            isArrived = true;
+            agent.isStopped = true;
+
+            transform.position = standPoint.position;
+            transform.rotation = standPoint.rotation;
+
+            UpdateUI();
+        }
+    }
+
+    void HandleLeaving()
+    {
+        if (!exitDestinationSet)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(exitPoint.position);
+            exitDestinationSet = true;
+        }
+
+        //arrived at exitPoint
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -123,11 +161,13 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
         }
 
         GameObject servedObj = playerItem.currentHeldItemObj;
-
         playerItem.DropItem();
         Destroy(servedObj);
 
-        state = CustomerState.Served;
+        //state = CustomerState.Served; <= uncomment if customer have something else to do after served
+        state = CustomerState.Leaving;
+        isArrived = false;
+        exitDestinationSet = false;
 
         UpdateUI();
     }

@@ -133,6 +133,14 @@ MonoBehaviour:
   targetTable: {fileID: 0}
   standPoint: {fileID: 0}
   isArrived: 0
+  exitPoint: {fileID: 0}
+  tables:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   possibleOrders:
   - {fileID: 11400000, guid: 4f4dde56622e18743b12020043e21ab9, type: 2}
   - {fileID: 11400000, guid: 5687a7abda0b1d748ac2cdc93e0927d5, type: 2}

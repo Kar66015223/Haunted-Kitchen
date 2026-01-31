@@ -37,6 +37,7 @@ public class CustomerSpawner : MonoBehaviour
 
         customer.targetTable = targetTable;
         customer.standPoint = targetTable.customerStandPoint;
+        customer.SetExitPoint(spawnPoint);
 
         NavMeshAgent agent = customer.agent;
         agent.SetDestination(customer.standPoint.position);
