@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: Mustard Bottle
   price: 0
   icon: {fileID: 0}
+  oneHand: 1
   content: {fileID: 7525037403272881461, guid: 82157e44d3632414b9db7104d00ddd99, type: 3}

@@ -1212,7 +1212,7 @@ MonoBehaviour:
   target: {fileID: 0}
   offset: {x: 0, y: 10, z: -10}
   followSpeed: 10
-  lookAtTarget: 1
+  lookAtTarget: 0
 --- !u!1 &338321826
 GameObject:
   m_ObjectHideFlags: 0
@@ -7702,13 +7702,17 @@ PrefabInstance:
       propertyPath: anim
       value: 
       objectReference: {fileID: 381572474}
+    - target: {fileID: 5901167716583286201, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
+      propertyPath: runAnimMultiplier
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6869248694757179893, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
       propertyPath: m_Center.y
-      value: 0.8
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 7735033026005802010, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
       propertyPath: m_Center.y
-      value: 0.8
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 7759574162057141734, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
       propertyPath: interactPrompt
@@ -7720,7 +7724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9213273061512255536, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
       propertyPath: m_Center.y
-      value: -0.1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

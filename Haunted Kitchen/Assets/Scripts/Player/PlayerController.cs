@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     private PlayerItem playerItem;
 
     public Animator anim;
+    public float runAnimMultiplier = 1.5f;
+    public bool IsRunning => isRunning && stamina != null && stamina.CanRun();
 
     void Awake()
     {
@@ -59,7 +61,18 @@ public class PlayerController : MonoBehaviour
         }
 
         bool isMoving = moveInput.sqrMagnitude > 0.001f;
+        bool isRunningNow = IsRunning;
+
         anim.SetInteger("State", isMoving ? 1 : 0);
+
+        if (isMoving)
+        {
+            anim.speed = isRunningNow ? runAnimMultiplier : 1f;
+        }
+        else
+        {
+            anim.speed = 1f;
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -86,5 +99,10 @@ public class PlayerController : MonoBehaviour
         {
             playerItem.DropItem();
         }
+    }
+
+    private void OnDisable()
+    {
+        anim.speed = 1f;
     }
 }

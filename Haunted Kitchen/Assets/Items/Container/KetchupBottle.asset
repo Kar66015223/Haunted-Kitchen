@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: KetchupBottle
   price: 0
   icon: {fileID: 0}
+  oneHand: 1
   content: {fileID: 7710763293156017538, guid: a5e9a8148e673904b9a991b13f3cd4a5, type: 3}

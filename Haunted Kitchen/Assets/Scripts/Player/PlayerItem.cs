@@ -29,11 +29,21 @@ public class PlayerItem : MonoBehaviour
         {
             anim.SetBool("IdleOneHand", false);
             anim.SetBool("WalkingOneHand", false);
+
+            anim.SetBool("IdleTwoHand", false);
+            anim.SetBool("WalkingTwoHand", false);
+
             return;
         }
 
-        anim.SetBool("IdleOneHand", !isMoving);
-        anim.SetBool("WalkingOneHand", isMoving);
+        if (currentHeldItemData.oneHand)
+        {
+            anim.SetBool("IdleOneHand", !isMoving);
+            anim.SetBool("WalkingOneHand", isMoving); 
+        }
+
+        anim.SetBool("IdleTwoHand", !isMoving);
+        anim.SetBool("WalkingTwoHand", isMoving);
     }
 
     public void PickUp(ItemData data, GameObject itemObj)
