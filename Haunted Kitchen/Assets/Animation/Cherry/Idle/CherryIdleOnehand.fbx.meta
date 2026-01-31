@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: ffa50771dbc8ee84da15e2983a530f8e
+guid: cba37f035d5575f4ea1bae38fc4a2801
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Cherry_Mat
-    second: {fileID: 2100000, guid: da282c1d4a943044aa9289c8560998a2, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

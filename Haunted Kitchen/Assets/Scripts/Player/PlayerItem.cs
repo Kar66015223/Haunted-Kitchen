@@ -12,6 +12,30 @@ public class PlayerItem : MonoBehaviour
     public float dropRayDistance = 10f;
     public float dropHeightOffset = 0.5f;
 
+    private PlayerController controller;
+    public Animator anim;
+
+    private void Start()
+    {
+        controller = GetComponent<PlayerController>();
+    }
+
+    private void Update()
+    {
+        bool isHolding = currentHeldItemData != null;
+        bool isMoving = controller.MoveInput.sqrMagnitude > 0.001f;
+
+        if (!isHolding)
+        {
+            anim.SetBool("IdleOneHand", false);
+            anim.SetBool("WalkingOneHand", false);
+            return;
+        }
+
+        anim.SetBool("IdleOneHand", !isMoving);
+        anim.SetBool("WalkingOneHand", isMoving);
+    }
+
     public void PickUp(ItemData data, GameObject itemObj)
     {
         currentHeldItemData = data;
@@ -81,6 +105,9 @@ public class PlayerItem : MonoBehaviour
 
         currentHeldItemData = null;
         currentHeldItemObj = null;
+
+        anim.SetBool("IdleOneHand", false);
+        anim.SetBool("WalkingOneHand", false);
     }
 
 #if UNITY_EDITOR

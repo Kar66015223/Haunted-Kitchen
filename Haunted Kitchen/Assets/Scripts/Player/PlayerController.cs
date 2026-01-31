@@ -9,11 +9,21 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController controller;
     private Vector2 moveInput;
+    public Vector2 MoveInput
+    {
+        get
+        {
+            return moveInput;
+        }
+    }
+
     private bool isRunning;
 
     private PlayerStamina stamina;
     private PlayerInteract playerInteract;
     private PlayerItem playerItem;
+
+    public Animator anim;
 
     void Awake()
     {
@@ -21,6 +31,11 @@ public class PlayerController : MonoBehaviour
         stamina = GetComponent<PlayerStamina>();
         playerInteract = GetComponent<PlayerInteract>();
         playerItem = GetComponent<PlayerItem>();
+    }
+
+    private void Start()
+    {
+        anim.SetInteger("State", 0);
     }
 
     void Update()
@@ -42,6 +57,9 @@ public class PlayerController : MonoBehaviour
         {
             stamina.Drain(stamina.drainRate * Time.deltaTime);
         }
+
+        bool isMoving = moveInput.sqrMagnitude > 0.001f;
+        anim.SetInteger("State", isMoving ? 1 : 0);
     }
 
     public void OnMove(InputAction.CallbackContext context)
