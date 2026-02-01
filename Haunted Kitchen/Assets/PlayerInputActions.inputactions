@@ -365,7 +365,7 @@
                 {
                     "name": "",
                     "id": "8cbb2f4b-a784-49cc-8d5e-c010b8c7f4e6",
-                    "path": "<Gamepad>/leftStickPress",
+                    "path": "<DualShockGamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -490,6 +490,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
+                    "action": "Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "02f0af33-ebff-44af-8a40-9e07409191cf",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "Drop",
                     "isComposite": false,
                     "isPartOfComposite": false
