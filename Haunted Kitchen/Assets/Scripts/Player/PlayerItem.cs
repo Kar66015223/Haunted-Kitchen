@@ -120,6 +120,19 @@ public class PlayerItem : MonoBehaviour
         anim.SetBool("WalkingOneHand", false);
     }
 
+    public void DropItemNoRaycast()
+    {
+        if (currentHeldItemData == null) return;
+        if (currentHeldItemObj == null) return; 
+
+        currentHeldItemObj.transform.SetParent(null, true); 
+        currentHeldItemData = null; 
+        currentHeldItemObj = null;
+
+        anim.SetBool("IdleOneHand", false);
+        anim.SetBool("WalkingOneHand", false);
+    }
+
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {

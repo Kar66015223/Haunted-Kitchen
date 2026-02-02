@@ -100,7 +100,7 @@ public class MakingBurger : MonoBehaviour, Iinteractable, ITableInteractable, IS
         // parent item to stackRoot
         if (playerItem != null)
         {
-            playerItem.DropItem(); 
+            playerItem.DropItemNoRaycast(); 
         }
 
         Transform itemTransform = item.transform;

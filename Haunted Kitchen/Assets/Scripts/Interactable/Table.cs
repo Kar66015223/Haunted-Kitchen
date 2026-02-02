@@ -93,7 +93,7 @@ public class Table : MonoBehaviour, Iinteractable, IContextInteractable
         currentItem = itemObj.GetComponent<Item>();
         if (currentItem == null) return;
 
-        playerItem.DropItem();
+        playerItem.DropItemNoRaycast();
 
         itemObj.transform.position = placePoint.position;
         itemObj.transform.rotation = placePoint.rotation;

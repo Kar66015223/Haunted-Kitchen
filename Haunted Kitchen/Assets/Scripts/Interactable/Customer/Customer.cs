@@ -161,7 +161,7 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
         }
 
         GameObject servedObj = playerItem.currentHeldItemObj;
-        playerItem.DropItem();
+        playerItem.DropItemNoRaycast();
         Destroy(servedObj);
 
         //state = CustomerState.Served; <= uncomment if customer have something else to do after served

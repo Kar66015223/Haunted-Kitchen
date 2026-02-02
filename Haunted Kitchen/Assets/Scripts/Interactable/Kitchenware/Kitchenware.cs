@@ -77,7 +77,7 @@ public abstract class Kitchenware : MonoBehaviour, Iinteractable, IContextIntera
         currentItem = itemObj.GetComponent<Item>();
         if (currentItem == null) return;
 
-        playerItem.DropItem();
+        playerItem.DropItemNoRaycast();
 
         itemObj.transform.position = cookPoint.position;
         itemObj.transform.rotation = cookPoint.rotation;
