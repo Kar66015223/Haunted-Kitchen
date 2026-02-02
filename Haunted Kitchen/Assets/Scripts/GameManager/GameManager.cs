@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public GameObject player;
+    public PlayerMoney playerMoney;
 
     [Header("Money")]
     public int money;
@@ -28,6 +28,20 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        player = FindAnyObjectByType<PlayerController>().gameObject;
+        playerMoney = FindAnyObjectByType<PlayerMoney>();
+    }
+
+    private void Update()
+    {
+        if (playerMoney != null)
+        {
+            money = playerMoney.currentMoney;
+            UpdateMoneyUI();
+        }
+    }
+
+    public void UpdateMoneyUI()
+    {
+        moneyUI.text = $"Money: {money} $";
     }
 }
