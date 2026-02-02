@@ -24,7 +24,7 @@ public abstract class Kitchenware : MonoBehaviour, Iinteractable, IContextIntera
         if (playerItem.currentHeldItemObj == null && currentItem != null && !isCooking)
             return true;
 
-        if (playerItem.currentHeldItemObj != null)
+        if (playerItem.currentHeldItemObj != null && currentItem == null)
         {
             Item heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
             IngredientData ingredient = heldItem.itemData as IngredientData;
