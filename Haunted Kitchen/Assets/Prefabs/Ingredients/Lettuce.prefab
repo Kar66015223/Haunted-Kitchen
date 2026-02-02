@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1486956882525793137}
   - component: {fileID: 775945958671886818}
   - component: {fileID: 9147150046163703308}
-  - component: {fileID: 8617403687874284374}
+  - component: {fileID: 7521721674632581098}
   m_Layer: 0
   m_Name: Lettuce
   m_TagString: Item
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemData: {fileID: 11400000, guid: 823be3039465a8c4da9f96fdf96f1abb, type: 2}
   itemState: 0
---- !u!54 &8617403687874284374
+--- !u!54 &7521721674632581098
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

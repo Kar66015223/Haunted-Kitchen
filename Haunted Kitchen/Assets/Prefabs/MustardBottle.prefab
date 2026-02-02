@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8765174878797625498}
   - component: {fileID: 7767645756260241035}
   - component: {fileID: 4812765809818828266}
-  - component: {fileID: 5469072126445912574}
+  - component: {fileID: 5185972398666313550}
   m_Layer: 0
   m_Name: MustardBottle
   m_TagString: Item
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ContainerItem
   item: {fileID: 0}
   containerData: {fileID: 0}
---- !u!54 &5469072126445912574
+--- !u!54 &5185972398666313550
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

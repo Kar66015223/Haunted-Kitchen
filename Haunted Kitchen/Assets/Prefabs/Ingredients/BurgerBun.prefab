@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 79479588270598055}
   - component: {fileID: 6019776033725527358}
   - component: {fileID: 5090485437507674276}
-  - component: {fileID: 7723583856161898886}
+  - component: {fileID: -5759371099359122689}
   m_Layer: 0
   m_Name: BurgerBun
   m_TagString: Item
@@ -178,7 +178,7 @@ MonoBehaviour:
   stackHeight: 1
   currentStepIndex: 0
   resultPrefab: {fileID: 8439268545345854669, guid: c4c5a366670e2a4458b6906af212f331, type: 3}
---- !u!54 &7723583856161898886
+--- !u!54 &-5759371099359122689
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

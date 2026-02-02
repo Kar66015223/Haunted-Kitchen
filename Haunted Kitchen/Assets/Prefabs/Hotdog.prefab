@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 373301767644804047}
   - component: {fileID: 1025890661472724497}
   - component: {fileID: 8358114588343408980}
-  - component: {fileID: 4467559590379639814}
+  - component: {fileID: 4489363356416217703}
   m_Layer: 0
   m_Name: Hotdog
   m_TagString: Item
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemData: {fileID: 11400000, guid: 5687a7abda0b1d748ac2cdc93e0927d5, type: 2}
   itemState: 0
---- !u!54 &4467559590379639814
+--- !u!54 &4489363356416217703
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

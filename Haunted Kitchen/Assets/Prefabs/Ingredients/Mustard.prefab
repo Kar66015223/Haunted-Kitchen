@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7310948255902551942}
   - component: {fileID: 3757364772357441568}
   - component: {fileID: 3131762049035604842}
-  - component: {fileID: 3989519176047112142}
+  - component: {fileID: -3203814861457094184}
   m_Layer: 0
   m_Name: Mustard
   m_TagString: Item
@@ -128,7 +128,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3989519176047112142
+--- !u!54 &-3203814861457094184
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

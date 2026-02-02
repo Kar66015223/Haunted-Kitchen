@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 8621645976379769138}
   - component: {fileID: 3580771978661857152}
   - component: {fileID: 4076412777206856608}
-  - component: {fileID: 357818477993761543}
+  - component: {fileID: -8763581508860721805}
   m_Layer: 0
   m_Name: Burger
   m_TagString: Item
@@ -381,7 +381,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &357818477993761543
+--- !u!54 &-8763581508860721805
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

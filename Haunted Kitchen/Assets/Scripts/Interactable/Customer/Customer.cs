@@ -17,6 +17,8 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
     public int moneyReward = 300;
     public int moneyPenalty = 300;
 
+    public System.Action OnCustomerLeft;
+
     public List<ItemData> possibleOrders = new();
     public ItemData orderedItem;
 
@@ -187,5 +189,10 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
         {
             orderUI.sprite = orderedItem.icon;
         }
+    }
+
+    private void OnDestroy()
+    {
+        OnCustomerLeft?.Invoke();
     }
 }

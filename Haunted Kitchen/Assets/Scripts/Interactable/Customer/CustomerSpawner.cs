@@ -15,6 +15,11 @@ public class CustomerSpawner : MonoBehaviour
         SpawnCustomer();
     }
 
+    void HandleCustomerLeft()
+    {
+        SpawnCustomer();
+    }
+
     public void SpawnCustomer()
     {
         if (tables.Count == 0)
@@ -27,6 +32,9 @@ public class CustomerSpawner : MonoBehaviour
         Table targetTable = tables[Random.Range(0, tables.Count)];
 
         GameObject customerObj = Instantiate(customerPrefab, spawnPoint.position, spawnPoint.rotation);
+
+        Customer customerComponent = customerObj.GetComponent<Customer>();
+        customerComponent.OnCustomerLeft += HandleCustomerLeft;
 
         Customer customer = customerObj.GetComponent<Customer>();
         if (customer == null)

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3326041527995706294}
   - component: {fileID: 4507463016513513201}
   - component: {fileID: 933118868615478425}
-  - component: {fileID: 1916567937629381102}
+  - component: {fileID: -1558327922692691595}
   m_Layer: 0
   m_Name: Sausage
   m_TagString: Item
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemData: {fileID: 11400000, guid: 7e20abe79b0c27540af4de55475ac5da, type: 2}
   itemState: 0
---- !u!54 &1916567937629381102
+--- !u!54 &-1558327922692691595
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

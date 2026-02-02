@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 580963774348860487}
   - component: {fileID: 7211973588730007401}
   - component: {fileID: 6504211195689642932}
-  - component: {fileID: 8354059273893521078}
+  - component: {fileID: 8031571876775949301}
   m_Layer: 0
   m_Name: KetchupBottle
   m_TagString: Item
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ContainerItem
   item: {fileID: 0}
   containerData: {fileID: 0}
---- !u!54 &8354059273893521078
+--- !u!54 &8031571876775949301
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

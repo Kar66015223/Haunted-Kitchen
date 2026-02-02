@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 730774687558270192}
   - component: {fileID: 3213009125568841931}
   - component: {fileID: 7984022698105480450}
-  - component: {fileID: 2594289942279080046}
+  - component: {fileID: -7932363707381185918}
   m_Layer: 0
   m_Name: HotdogBun
   m_TagString: Item
@@ -178,7 +178,7 @@ MonoBehaviour:
   stackHeight: 0.5
   currentStepIndex: 0
   resultPrefab: {fileID: 3610214169877240148, guid: e03d2995106e9f2439324a7e19b3628d, type: 3}
---- !u!54 &2594289942279080046
+--- !u!54 &-7932363707381185918
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

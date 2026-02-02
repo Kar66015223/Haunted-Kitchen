@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,11 @@ public class PlayerController : MonoBehaviour
             return moveInput;
         }
     }
+
+    public float gravity = -20f;
+    public float groundedForce = -2f;
+
+    private float verticalVelocity;
 
     private bool isRunning;
 
@@ -53,7 +59,20 @@ public class PlayerController : MonoBehaviour
         bool canRun = isRunning && stamina != null && stamina.CanRun(); // if player is running, CanRun = true
         float currentSpeed = canRun ? runSpeed : moveSpeed;
 
-        controller.Move(move * currentSpeed * Time.deltaTime);
+        //Moving
+        bool isGrounded = controller.isGrounded;
+
+        if (isGrounded && verticalVelocity < 0f)
+        {
+            verticalVelocity = groundedForce;
+        }
+
+        verticalVelocity += gravity * Time.deltaTime;
+
+        Vector3 velocity = move * currentSpeed;
+        velocity.y = verticalVelocity;
+
+        controller.Move(velocity * Time.deltaTime);
 
         if (canRun && move.sqrMagnitude > 0.001f) // if player is moving and running, drain stamina
         {
