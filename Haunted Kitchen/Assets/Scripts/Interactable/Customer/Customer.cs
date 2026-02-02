@@ -14,6 +14,9 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
     [SerializeField] private bool exitDestinationSet = false;
     [SerializeField] private Transform exitPoint;
 
+    public int moneyReward = 300;
+    public int moneyPenalty = 300;
+
     public List<ItemData> possibleOrders = new();
     public ItemData orderedItem;
 
@@ -152,12 +155,14 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
         if (correct)
         {
             Debug.Log("Correct order served!");
-            // reward player
+
+            GameManager.instance.playerMoney.AddMoney(moneyReward);
         }
         else
         {
             Debug.Log($"Wrong order! Expected {orderedItem.itemName}, got {servedItem.itemName}");
-            // penalty / reaction
+
+            GameManager.instance.playerMoney.SubtractMoney(moneyPenalty);
         }
 
         GameObject servedObj = playerItem.currentHeldItemObj;

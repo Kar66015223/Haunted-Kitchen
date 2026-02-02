@@ -25,8 +25,10 @@ public class ShopUI : MonoBehaviour
         if (input != null)
             input.SwitchCurrentActionMap("UI");
 
-        if (EventSystem.current != null && firstItemButton != null)
+        if (IsUsingGamepad() && EventSystem.current != null && firstItemButton != null)
+        {
             EventSystem.current.SetSelectedGameObject(firstItemButton.gameObject);
+        }
     }
 
     public void Close()
@@ -42,5 +44,12 @@ public class ShopUI : MonoBehaviour
         if (!context.performed) return;
 
         Close();
+    }
+
+    bool IsUsingGamepad()
+    {
+        if (input == null) return false;
+
+        return input.currentControlScheme == "Gamepad";
     }
 }
