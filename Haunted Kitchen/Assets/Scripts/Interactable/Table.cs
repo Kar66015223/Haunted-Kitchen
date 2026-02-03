@@ -11,6 +11,9 @@ public class Table : MonoBehaviour, Iinteractable, IContextInteractable
         if (playerItem == null)
             return false;
 
+        if (customerStandPoint != null)
+            return false;
+
         // Station + Container
         if (currentItem != null &&
             currentItem.TryGetComponent(out IStationContextInteractable station) &&
