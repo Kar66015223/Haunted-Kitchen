@@ -22,7 +22,7 @@ public class GhostPourOilState : IGhostState
             20f,
             out Vector3 spawnPos))
         {
-            Debug.Log($"NavMesh point found: {spawnPos}");
+            //Debug.Log($"NavMesh point found: {spawnPos}");
             controller.TeleportTo(spawnPos);
 
             if (NavMeshUtility.TryGetRandomPoint(
@@ -46,7 +46,7 @@ public class GhostPourOilState : IGhostState
 
         timer = pourDuration;
 
-        Debug.Log("Ghost enters PourOil state");
+        //Debug.Log("Ghost enters PourOil state");
     }
 
     public void Update()
@@ -58,7 +58,7 @@ public class GhostPourOilState : IGhostState
             controller.Disappear();
         }
 
-        Debug.Log("Ghost is in PourOil state");
+        //Debug.Log("Ghost is in PourOil state");
     }
 
     public void Exit()
