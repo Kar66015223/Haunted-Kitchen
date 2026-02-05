@@ -120,6 +120,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (!context.performed || GameManager.instance == null) return;
+
+        if(GameManager.instance.isPaused)
+            GameManager.instance.UnPause();
+
+        else
+            GameManager.instance.Pause();
+    }
+
     private void OnDisable()
     {
         anim.speed = 1f;

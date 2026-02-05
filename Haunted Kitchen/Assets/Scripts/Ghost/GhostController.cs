@@ -31,7 +31,7 @@ public class GhostController : MonoBehaviour
             //GhostSpawner.GhostStartBehavior.TurnOffLight =>
             //    new GhostTurnOffLightState(this),
 
-            _ => //default:
+            _ => //same as "default:"
                 new GhostIdleState(this)
         };
 

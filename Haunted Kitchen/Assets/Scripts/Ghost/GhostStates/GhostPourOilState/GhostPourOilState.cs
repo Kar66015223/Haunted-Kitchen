@@ -24,7 +24,17 @@ public class GhostPourOilState : IGhostState
         {
             Debug.Log($"NavMesh point found: {spawnPos}");
             controller.TeleportTo(spawnPos);
-            controller.transform.rotation = Quaternion.LookRotation(Random.insideUnitSphere.WithY(0));
+
+            if (NavMeshUtility.TryGetRandomPoint(
+            controller.transform.position,
+            5f,
+            out Vector3 lookTarget))
+            {
+                Vector3 dir = (lookTarget - controller.transform.position).WithY(0);
+
+                if (dir.sqrMagnitude > 0.01f)
+                    controller.transform.rotation = Quaternion.LookRotation(dir);
+            }
         }
 
         else
