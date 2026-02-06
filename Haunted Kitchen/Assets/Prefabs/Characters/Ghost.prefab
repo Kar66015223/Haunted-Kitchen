@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8099154160449049202}
   - component: {fileID: 5518437774670553038}
   - component: {fileID: 1456551054265551268}
+  - component: {fileID: -3478111561942085673}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -110,14 +111,14 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.53715026
   m_Height: 2.1907148
   m_Direction: 1
-  m_Center: {x: 0, y: 1.0588248, z: -0.037150264}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8099154160449049202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GhostMovement
   speed: 0
+  agent: {fileID: 0}
 --- !u!114 &1456551054265551268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +161,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GhostOilSpawner
   oilPrefab: {fileID: 7567718490747502546, guid: 39e39543d3b262944b13f8484c57addd, type: 3}
   forwardOffset: 1
+--- !u!195 &-3478111561942085673
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7071765119298536047}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &8903517759101145462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -173,7 +197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fd24fbc118ae707428eb0b50c87512f6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.997
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fd24fbc118ae707428eb0b50c87512f6, type: 3}
       propertyPath: m_LocalPosition.z

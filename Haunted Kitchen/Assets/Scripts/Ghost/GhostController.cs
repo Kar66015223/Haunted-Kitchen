@@ -25,8 +25,8 @@ public class GhostController : MonoBehaviour
     {
         IGhostState state = behavior switch
         {
-            GhostSpawner.GhostStartBehavior.PourOil =>
-                new GhostPourOilState(this),
+            //GhostSpawner.GhostStartBehavior.PourOil =>
+            //    new GhostPourOilState(this),
 
             //GhostSpawner.GhostStartBehavior.TurnOffLight =>
             //    new GhostTurnOffLightState(this),

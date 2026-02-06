@@ -31,13 +31,13 @@ public class GhostSpawner : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (canSpawn)
-        {
-            TrySpawn();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (canSpawn)
+    //    {
+    //        TrySpawn();
+    //    }
+    //}
 
     public void TrySpawn()
     {

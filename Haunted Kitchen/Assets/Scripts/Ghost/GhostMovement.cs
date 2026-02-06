@@ -1,23 +1,29 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GhostMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private NavMeshAgent agent;
+
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+    }
 
     public void SetSpeed(float value)
     {
-        speed = value;
+        agent.speed = value;
     }
 
     public void MoveToward(Vector3 target)
     {
-        Vector3 direction = (target-transform.position).normalized;
-        transform.position += direction * speed * Time.deltaTime;
+        agent.SetDestination(target);
     }
 
     public void Stop()
     {
-        speed = 0f;
+        agent.ResetPath();
     }
 }
