@@ -38,7 +38,7 @@ public class GhostIdleState : IGhostState
 
         PickNewDestination();
 
-        //Debug.Log("Ghost enters Idle state");
+        Debug.Log("Ghost enters Idle state");
     }
 
     public void Update()
@@ -54,13 +54,18 @@ public class GhostIdleState : IGhostState
         }
 
         //Pick new destination when current destination reached
-        if (!controller.GetComponent<NavMeshAgent>().pathPending &&
-            controller.GetComponent<NavMeshAgent>().remainingDistance < 0.5f)
+        if (!controller.agent.pathPending &&
+            controller.agent.remainingDistance < 0.5f)
         {
             PickNewDestination();
         }
 
-        //After idleDuration finished, change state (move this to GhostController)
+        //After idle duration, randomly switch state
+        if (timer >= idleDuration)
+        {
+            controller.EnterRandomState();
+            return;
+        }
 
         //Debug.Log("Ghost is in idle state");
     }
@@ -69,7 +74,7 @@ public class GhostIdleState : IGhostState
     {
         controller.movement.Stop();
 
-        //Debug.Log("Ghost is exiting Idle state");
+        Debug.Log("Ghost is exiting Idle state");
     }
 
     private void PickNewDestination()

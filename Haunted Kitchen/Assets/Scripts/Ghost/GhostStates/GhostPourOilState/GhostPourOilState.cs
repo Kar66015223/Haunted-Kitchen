@@ -46,7 +46,7 @@ public class GhostPourOilState : IGhostState
 
         timer = pourDuration;
 
-        //Debug.Log("Ghost enters PourOil state");
+        Debug.Log("Ghost enters PourOil state");
     }
 
     public void Update()
@@ -63,6 +63,6 @@ public class GhostPourOilState : IGhostState
 
     public void Exit()
     {
-
+        Debug.Log("Ghost is exiting PourOil state");
     }
 }

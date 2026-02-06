@@ -10,6 +10,8 @@ public class GhostController : MonoBehaviour
 
     public NavMeshAgent agent { get; private set; }
 
+    public System.Action OnGhostDestroyed;
+
     private void Awake()
     {
         stateMachine = new GhostStateMachine();
@@ -32,11 +34,38 @@ public class GhostController : MonoBehaviour
         {
             //GhostSpawner.GhostStartBehavior.PourOil =>
             //    new GhostPourOilState(this),
-
+                
             //GhostSpawner.GhostStartBehavior.TurnOffLight =>
             //    new GhostTurnOffLightState(this),
 
             _ => //same as "default:"
+                new GhostIdleState(this)
+        };
+
+        ChangeState(state);
+    }
+
+    public void EnterRandomState()
+    {
+        GhostSpawner.GhostStartBehavior next;
+
+        //Prevent ghost from entering Idle again
+        do
+        {
+            int count = System.Enum.GetValues(typeof(GhostSpawner.GhostStartBehavior)).Length;
+            next = (GhostSpawner.GhostStartBehavior)Random.Range(0, count);
+        }
+        while (next == GhostSpawner.GhostStartBehavior.Idle);
+
+        IGhostState state = next switch
+        {
+            GhostSpawner.GhostStartBehavior.PourOil =>
+                new GhostPourOilState(this),
+
+            //GhostSpawner.GhostStartBehavior.TurnOffLight =>
+            //    new GhostTurnOffLightState(this),
+
+            _ =>
                 new GhostIdleState(this)
         };
 
@@ -55,6 +84,7 @@ public class GhostController : MonoBehaviour
 
     public void Disappear()
     {
+        OnGhostDestroyed?.Invoke();
         Destroy(gameObject);
     }
 }
