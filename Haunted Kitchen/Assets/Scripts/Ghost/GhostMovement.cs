@@ -5,25 +5,25 @@ using UnityEngine.AI;
 public class GhostMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private GhostController controller;
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        controller = GetComponent<GhostController>();
     }
 
     public void SetSpeed(float value)
     {
-        agent.speed = value;
+        controller.agent.speed = value;
     }
 
     public void MoveToward(Vector3 target)
     {
-        agent.SetDestination(target);
+        controller.agent.SetDestination(target);
     }
 
     public void Stop()
     {
-        agent.ResetPath();
+        controller.agent.ResetPath();
     }
 }

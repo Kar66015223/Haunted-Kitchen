@@ -9,11 +9,11 @@ public class GhostIdleState : IGhostState
     private float timer;
     private float changeDirTimer;
 
-    [SerializeField] private float idleDuration = 5f;
-    [SerializeField] private float directionChangeInterval = 1.5f;
-    [SerializeField] private float wanderSpeed = 2f;
-    [SerializeField] private float spawnRadius = 20f;
-    [SerializeField] private float wanderRadius = 6f;
+    private float idleDuration = 5f;
+    private float directionChangeInterval = 1.5f;
+    private float wanderSpeed = 2f;
+    private float spawnRadius = 20f;
+    private float wanderRadius = 6f;
 
     public GhostIdleState(GhostController controller)
     {
@@ -38,7 +38,7 @@ public class GhostIdleState : IGhostState
 
         PickNewDestination();
 
-        Debug.Log("Ghost enters Idle state");
+        //Debug.Log("Ghost enters Idle state");
     }
 
     public void Update()
@@ -62,14 +62,14 @@ public class GhostIdleState : IGhostState
 
         //After idleDuration finished, change state (move this to GhostController)
 
-        Debug.Log("Ghost is in idle state");
+        //Debug.Log("Ghost is in idle state");
     }
 
     public void Exit()
     {
         controller.movement.Stop();
 
-        Debug.Log("Ghost is exiting Idle state");
+        //Debug.Log("Ghost is exiting Idle state");
     }
 
     private void PickNewDestination()

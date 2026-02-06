@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GhostController : MonoBehaviour
 {
@@ -7,10 +8,14 @@ public class GhostController : MonoBehaviour
 
     private GhostStateMachine stateMachine;
 
+    public NavMeshAgent agent { get; private set; }
+
     private void Awake()
     {
         stateMachine = new GhostStateMachine();
+
         movement = GetComponent<GhostMovement>();
+        agent = GetComponent<NavMeshAgent>();
 
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player")?.transform;
