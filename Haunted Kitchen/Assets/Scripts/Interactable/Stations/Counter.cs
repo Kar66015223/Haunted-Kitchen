@@ -72,7 +72,7 @@ public class Counter : MonoBehaviour, Iinteractable, IContextInteractable
 
         itemObj.transform.position = placePoint.position;
         itemObj.transform.rotation = placePoint.rotation;
-        itemObj.transform.SetParent(transform);
+        itemObj.transform.SetParent(transform, true);
 
         if (itemObj.TryGetComponent(out Rigidbody rb))
         {
@@ -85,9 +85,10 @@ public class Counter : MonoBehaviour, Iinteractable, IContextInteractable
         GameObject itemObj = Instantiate(
             prefab,
             placePoint.position,
-            placePoint.rotation,
-            transform
+            placePoint.rotation
         );
+
+        itemObj.transform.SetParent(transform, true);   
 
         Item item = itemObj.GetComponent<Item>();
         if (item == null)

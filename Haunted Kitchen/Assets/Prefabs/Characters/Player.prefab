@@ -168,7 +168,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -885,12 +885,36 @@ PrefabInstance:
       value: FootStep
       objectReference: {fileID: 0}
     - target: {fileID: 6937730245715495579, guid: e92ef448004607d45abc88f1f51c235c, type: 3}
+      propertyPath: lengthInSec
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6937730245715495579, guid: e92ef448004607d45abc88f1f51c235c, type: 3}
       propertyPath: ShapeModule.radius.value
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6937730245715495579, guid: e92ef448004607d45abc88f1f51c235c, type: 3}
       propertyPath: ShapeModule.radiusThickness
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6937730245715495579, guid: e92ef448004607d45abc88f1f51c235c, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6937730245715495579, guid: e92ef448004607d45abc88f1f51c235c, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6937730245715495579, guid: e92ef448004607d45abc88f1f51c235c, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6937730245715495579, guid: e92ef448004607d45abc88f1f51c235c, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6937730245715495579, guid: e92ef448004607d45abc88f1f51c235c, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -100,7 +100,7 @@ public class Table : MonoBehaviour, Iinteractable, IContextInteractable
 
         itemObj.transform.position = placePoint.position;
         itemObj.transform.rotation = placePoint.rotation;
-        itemObj.transform.SetParent(transform);
+        itemObj.transform.SetParent(transform, true);
 
         if (itemObj.TryGetComponent(out Rigidbody rb))
         {

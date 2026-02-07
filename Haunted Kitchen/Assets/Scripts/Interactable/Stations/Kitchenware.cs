@@ -81,7 +81,7 @@ public abstract class Kitchenware : MonoBehaviour, Iinteractable, IContextIntera
 
         itemObj.transform.position = cookPoint.position;
         itemObj.transform.rotation = cookPoint.rotation;
-        itemObj.transform.SetParent(transform);
+        itemObj.transform.SetParent(transform, true);
 
         if (itemObj.TryGetComponent(out Rigidbody rb))
         {
