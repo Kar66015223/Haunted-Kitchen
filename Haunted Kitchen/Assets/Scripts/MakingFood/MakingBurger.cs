@@ -140,8 +140,11 @@ public class MakingBurger : MonoBehaviour, Iinteractable, ITableInteractable, IS
             Destroy(item);
         }
 
-        GameObject resultObj = Instantiate(resultPrefab, position, rotation, parent);
-        resultObj.transform.localScale = Vector3.one;
+        GameObject resultObj = Instantiate(resultPrefab, position, rotation);
+        resultObj.transform.SetParent(parent, true);
+        
+        if(resultObj.TryGetComponent(out Rigidbody rb))
+            rb.isKinematic= true;
 
         Table table = parent.GetComponent<Table>();
         if (table != null)
