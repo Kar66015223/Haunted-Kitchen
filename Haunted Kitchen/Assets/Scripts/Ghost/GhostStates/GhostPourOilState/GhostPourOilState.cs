@@ -46,6 +46,8 @@ public class GhostPourOilState : IGhostState
 
         timer = pourDuration;
 
+        controller.anim.SetTrigger("PourOil");
+
         Debug.Log("Ghost enters PourOil state");
     }
 

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c045aa3b6a3f7074e97494cc68d4d22d, type: 3}
+  m_Name: RawChicken
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientData
+  itemName: Raw Chicken
+  price: 40
+  icon: {fileID: 21300000, guid: 592af5eb30d88fa4cb719a726bb3279d, type: 3}
+  oneHand: 0
+  isCookable: 1
+  cookTime: 3
+  method: 1
+  cookedResult: {fileID: 11400000, guid: d26f5a6da39f2a349999f8365e8cadc3, type: 2}
+  cookedMaterial: {fileID: 2100000, guid: f33e6a92f1c401d4e8f364b5687d385d, type: 2}

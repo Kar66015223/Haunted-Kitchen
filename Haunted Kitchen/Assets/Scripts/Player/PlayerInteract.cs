@@ -1,7 +1,8 @@
-using System.Transactions;
 using TMPro;
-using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class PlayerInteract : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerInteract : MonoBehaviour
 
     [SerializeField] private Iinteractable currentInteractable;
     private PlayerItem playerItem;
+
+    private Outline currentOutline;
 
     public Iinteractable CurrentInteractable
     {
@@ -71,8 +74,15 @@ public class PlayerInteract : MonoBehaviour
                 return;
         }
 
-        currentInteractable = interactable;
-        interactPrompt.enabled = true;
+        if (currentInteractable != interactable)
+        {
+            ClearOutline();
+
+            currentInteractable = interactable;
+            interactPrompt.enabled = true;
+
+            SetOutline(interactable);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -91,5 +101,32 @@ public class PlayerInteract : MonoBehaviour
     {
         currentInteractable = null;
         interactPrompt.enabled = false;
+
+        ClearOutline();
+    }
+
+    private void SetOutline(Iinteractable interactable)
+    {
+        Outline outline = ((MonoBehaviour)interactable).gameObject.GetComponentInChildren<Outline>();
+
+        if (outline == null)
+        {
+            Debug.LogError("No outline object found");
+            return;
+        }
+
+        currentOutline = outline;
+
+        currentOutline.enabled = true;
+        currentOutline.OutlineColor = Color.white;
+    }
+
+    private void ClearOutline()
+    {
+        if (currentOutline != null)
+        {
+            currentOutline.enabled = false;
+            currentOutline = null;
+        }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
+public class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
 {
     public Transform cookPoint;
 
@@ -11,13 +11,15 @@ public abstract class Kitchenware : MonoBehaviour, Iinteractable, IContextIntera
 
     public KitchenwareStatus kitchenwareStatus;
 
+    [SerializeField] private CookingMethod supportedMethod;
+
     public enum KitchenwareStatus
     {
         Usable,
         Destroyed
     }
 
-    public bool CanInteract(PlayerItem playerItem)
+    public virtual bool CanInteract(PlayerItem playerItem)
     {
         if (playerItem == null) return false;
 
@@ -32,7 +34,7 @@ public abstract class Kitchenware : MonoBehaviour, Iinteractable, IContextIntera
             if (ingredient == null || heldItem == null)
                 return false;
 
-            if (ingredient.isCookable)
+            if (ingredient.isCookable && ingredient.method == supportedMethod)
                 return true;
         }
 
@@ -53,6 +55,12 @@ public abstract class Kitchenware : MonoBehaviour, Iinteractable, IContextIntera
             if (ingredient == null || !ingredient.isCookable)
             {
                 Debug.Log("This ingredient cannot be cooked");
+                return;
+            }
+
+            if (ingredient.method != supportedMethod)
+            {
+                Debug.Log("This kitchenware cannot cook this ingredient");
                 return;
             }
 

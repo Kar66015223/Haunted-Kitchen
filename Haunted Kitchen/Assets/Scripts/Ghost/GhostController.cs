@@ -12,6 +12,8 @@ public class GhostController : MonoBehaviour
 
     public System.Action OnGhostDestroyed;
 
+    public Animator anim;
+
     private void Awake()
     {
         stateMachine = new GhostStateMachine();

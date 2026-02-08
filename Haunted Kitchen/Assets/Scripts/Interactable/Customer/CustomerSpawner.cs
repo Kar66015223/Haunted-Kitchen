@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine.AI;
 
 public class CustomerSpawner : MonoBehaviour

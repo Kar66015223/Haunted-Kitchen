@@ -10,6 +10,8 @@ public class IngredientData : ItemData
     public bool isCookable;
     public float cookTime;
 
-    public IngredientData cookedResult;
+    public CookingMethod method;
+
+    public ItemData cookedResult;
     public Material cookedMaterial;
 }
