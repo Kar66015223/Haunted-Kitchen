@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MakingBurger : MonoBehaviour, Iinteractable, ITableInteractable, IStationContextInteractable
+public class MakingFood : MonoBehaviour, Iinteractable, ITableInteractable, IStationContextInteractable
 {
     public RecipeData recipe;
     public Transform stackRoot;
@@ -152,7 +152,7 @@ public class MakingBurger : MonoBehaviour, Iinteractable, ITableInteractable, IS
             table.SetItem(resultObj.GetComponent<Item>());
         }
 
-        Debug.Log("burger completed");
+        Debug.Log("Food completed");
 
         Destroy(gameObject);
     }

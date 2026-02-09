@@ -104,8 +104,10 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
         //arrived at exitPoint
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
-            Destroy(gameObject);
+            targetTable.isOccupied = false;
             OnCustomerLeft?.Invoke();
+
+            Destroy(gameObject);
         }
 
         anim.SetBool("Sit", false);

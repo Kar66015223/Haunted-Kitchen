@@ -28,7 +28,15 @@ public class CustomerSpawner : MonoBehaviour
         }
 
         //pick random free table
-        Table targetTable = tables[Random.Range(0, tables.Count)];
+        List<Table> freeTables = tables.FindAll(tables => !tables.isOccupied);
+
+        if (freeTables.Count == 0)
+        {
+            Debug.Log("No free tables");
+            return;
+        }
+
+        Table targetTable = freeTables[Random.Range(0, tables.Count)];
 
         GameObject customerObj = Instantiate(customerPrefab, spawnPoint.position, spawnPoint.rotation);
 

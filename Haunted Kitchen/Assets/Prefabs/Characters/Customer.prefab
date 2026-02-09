@@ -142,6 +142,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4f4dde56622e18743b12020043e21ab9, type: 2}
   - {fileID: 11400000, guid: 5687a7abda0b1d748ac2cdc93e0927d5, type: 2}
   - {fileID: 11400000, guid: d26f5a6da39f2a349999f8365e8cadc3, type: 2}
+  - {fileID: 11400000, guid: 8c57a6e6e2345d4428b0efa1612c8e3c, type: 2}
   orderedItem: {fileID: 11400000, guid: 0b775496f96d9074da5470f0dadd738e, type: 2}
   idleUI: {fileID: 1852054904978085437}
   orderUI: {fileID: 2580852682886925308}
@@ -495,6 +496,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Customer_Graphic
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1eafd50fa9667d042ae73041f8399abc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1675400666420441122, guid: 1eafd50fa9667d042ae73041f8399abc, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -510,7 +515,33 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1eafd50fa9667d042ae73041f8399abc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8870489617205410788}
+    - targetCorrespondingSourceObject: {fileID: -1318936059134215807, guid: 1eafd50fa9667d042ae73041f8399abc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2693539007274905108}
   m_SourcePrefab: {fileID: 100100000, guid: 1eafd50fa9667d042ae73041f8399abc, type: 3}
+--- !u!1 &3065399479149189613 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1318936059134215807, guid: 1eafd50fa9667d042ae73041f8399abc, type: 3}
+  m_PrefabInstance: {fileID: 5131937750441992300}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2693539007274905108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3065399479149189613}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!4 &4662060473800083335 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1eafd50fa9667d042ae73041f8399abc, type: 3}

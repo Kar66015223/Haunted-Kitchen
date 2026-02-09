@@ -6,6 +6,9 @@ public class Table : MonoBehaviour, Iinteractable, IContextInteractable
     [SerializeField] private Item currentItem;
     public Transform placePoint;
     public Transform customerStandPoint;
+
+    public bool isOccupied;
+
     public bool CanInteract(PlayerItem playerItem)
     {
         if (playerItem == null)
