@@ -104,10 +104,10 @@ MonoBehaviour:
   categories: []
   uiBounds:
     serializedVersion: 2
-    x: 0
-    y: -433
-    width: 1129
-    height: 1558
+    x: 210
+    y: -492
+    width: 944
+    height: 1617
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -774,9 +774,11 @@ MonoBehaviour:
       data:
         shaderGraph: {fileID: 4333940904281232215, guid: b2a416259ec5c8a4f9f9ab69b764e2b2, type: 3}
         materialSettings:
-          m_PropertyNames: []
-          m_PropertyValues: []
-          renderQueue: 2000
+          m_PropertyNames:
+          - _QueueControl
+          m_PropertyValues:
+          - 0
+          renderQueue: 2450
 --- !u!114 &8926484042661614935
 MonoBehaviour:
   m_ObjectHideFlags: 0
