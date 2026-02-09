@@ -26,6 +26,8 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
     public Image orderUI;
 
     [SerializeField] private CustomerState state = CustomerState.Idle;
+
+    public Animator anim;
     
     public enum CustomerState
     {
@@ -38,6 +40,7 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        //anim = GetComponentInParent<Animator>();
     }
 
     private void Start()
@@ -84,6 +87,8 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
             transform.rotation = standPoint.rotation;
 
             UpdateUI();
+
+            anim.SetBool("Sit", true);
         }
     }
 
@@ -100,7 +105,10 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             Destroy(gameObject);
+            OnCustomerLeft?.Invoke();
         }
+
+        anim.SetBool("Sit", false);
     }
 
     public bool CanInteract(PlayerItem playerItem)
@@ -189,10 +197,5 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
         {
             orderUI.sprite = orderedItem.icon;
         }
-    }
-
-    private void OnDestroy()
-    {
-        OnCustomerLeft?.Invoke();
     }
 }
