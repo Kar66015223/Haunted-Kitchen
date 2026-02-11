@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 389583837032924517}
   - component: {fileID: 9168709721518261084}
   - component: {fileID: 3047522595753410150}
-  - component: {fileID: 1517836841825537997}
+  - component: {fileID: 8063688267729187180}
   - component: {fileID: 2700280348059169004}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Griddle
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -29,9 +29,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 911719315272734727}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -7.7990036, y: 0.4049, z: -17.977001}
-  m_LocalScale: {x: 1.5681576, y: 0.8097156, z: 1.7330626}
+  m_LocalScale: {x: 1.5681577, y: 0.8097156, z: 1.7330627}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5022779199677561051}
@@ -116,7 +116,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1517836841825537997
+--- !u!114 &8063688267729187180
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,12 +125,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 911719315272734727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f84230aad52b1254db1b3d354e9246d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 08798bcf4749fd04f8fe21c1d80f1826, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Griddle
+  m_EditorClassIdentifier: Assembly-CSharp::Kitchenware
   cookPoint: {fileID: 5022779199677561051}
   isCooking: 0
   kitchenwareStatus: 0
+  supportedMethod: 0
 --- !u!114 &2700280348059169004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5022779199677561051}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CookPoint
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -242,17 +243,55 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7845498102397501492, guid: 19aeb7d9b28c63645af847bae0214311, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 85793e05503df49458b382492af5b2a0, type: 2}
     - target: {fileID: 919132149155446097, guid: 19aeb7d9b28c63645af847bae0214311, type: 3}
       propertyPath: m_Name
       value: GriddleMesh
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 19aeb7d9b28c63645af847bae0214311, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2777802723280922506, guid: 19aeb7d9b28c63645af847bae0214311, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2777802723280922506, guid: 19aeb7d9b28c63645af847bae0214311, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3683325290175016152}
   m_SourcePrefab: {fileID: 100100000, guid: 19aeb7d9b28c63645af847bae0214311, type: 3}
 --- !u!4 &1434007869024041105 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 19aeb7d9b28c63645af847bae0214311, type: 3}
   m_PrefabInstance: {fileID: 1471595100071501690}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3666100720055236848 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2777802723280922506, guid: 19aeb7d9b28c63645af847bae0214311, type: 3}
+  m_PrefabInstance: {fileID: 1471595100071501690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3683325290175016152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3666100720055236848}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

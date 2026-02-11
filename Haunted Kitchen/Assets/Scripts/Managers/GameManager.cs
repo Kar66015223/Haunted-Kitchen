@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -28,11 +29,13 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        PlayerMoney.OnMoneyChanged += HandleMoneyChanged;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        PlayerMoney.OnMoneyChanged -= HandleMoneyChanged;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -42,13 +45,20 @@ public class GameManager : MonoBehaviour
 
         moneyUI = GameObject.FindWithTag("MoneyUI")?.GetComponent<TMP_Text>();
         pauseUI = GameObject.FindWithTag("PauseUI");
+
         playerMoney = FindAnyObjectByType<PlayerMoney>();
-        playerInput = playerMoney.GetComponent<PlayerInput>();
+        playerInput = FindAnyObjectByType<PlayerInput>();
         money = 0;
 
         isPaused = false;
         Time.timeScale = 1f;
         pauseUI?.SetActive(false);
+    }
+
+    void HandleMoneyChanged(int newMoney)
+    {
+        money = newMoney;
+        UpdateMoneyUI();
     }
 
     private void Awake()
@@ -68,17 +78,6 @@ public class GameManager : MonoBehaviour
     {
         playerMoney = FindAnyObjectByType<PlayerMoney>();
         pauseUI?.SetActive(false);
-    }
-
-    private void Update()
-    {
-        if (playerMoney != null && money != playerMoney.currentMoney)
-        {
-            money = playerMoney.currentMoney;
-            UpdateMoneyUI();
-        }
-
-        //Debug.Log(EventSystem.current);
     }
 
     public void UpdateMoneyUI()

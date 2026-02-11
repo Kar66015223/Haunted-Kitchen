@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2507987509568165912}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CookPoint
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -43,7 +43,8 @@ GameObject:
   - component: {fileID: 4436280232438544064}
   - component: {fileID: 4830458687642483385}
   - component: {fileID: 6350130162868366415}
-  m_Layer: 0
+  - component: {fileID: 6792210024444309155}
+  m_Layer: 7
   m_Name: Oven
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +59,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6693045008781880722}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.1243, y: 0.402, z: -15.721}
   m_LocalScale: {x: 1.6648567, y: 0.80416965, z: 1.6359}
   m_ConstrainProportionsScale: 0
@@ -145,6 +146,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6792210024444309155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6693045008781880722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1001 &3745281827692112144
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -205,21 +226,55 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -190457832940787446, guid: 91e0f7674e1adae4ead4633c99a81a5e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 91e0f7674e1adae4ead4633c99a81a5e, type: 3}
       propertyPath: m_Name
       value: PizzaOven
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91e0f7674e1adae4ead4633c99a81a5e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7746479993926310867, guid: 91e0f7674e1adae4ead4633c99a81a5e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 300c98f99ce100b4dba2133007be1181, type: 2}
+      objectReference: {fileID: 2100000, guid: 85793e05503df49458b382492af5b2a0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -190457832940787446, guid: 91e0f7674e1adae4ead4633c99a81a5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7528795015781025569}
   m_SourcePrefab: {fileID: 100100000, guid: 91e0f7674e1adae4ead4633c99a81a5e, type: 3}
 --- !u!4 &3779453056902303483 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 91e0f7674e1adae4ead4633c99a81a5e, type: 3}
   m_PrefabInstance: {fileID: 3745281827692112144}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5666287435320901658 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -190457832940787446, guid: 91e0f7674e1adae4ead4633c99a81a5e, type: 3}
+  m_PrefabInstance: {fileID: 3745281827692112144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7528795015781025569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5666287435320901658}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

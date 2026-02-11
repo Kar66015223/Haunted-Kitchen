@@ -40,7 +40,7 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        //anim = GetComponentInParent<Animator>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void Start()
@@ -168,13 +168,13 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
         {
             Debug.Log("Correct order served!");
 
-            GameManager.instance.playerMoney.AddMoney(moneyReward);
+            GameManager.instance.playerMoney.ChangeMoneyAmount(moneyReward);
         }
         else
         {
             Debug.Log($"Wrong order! Expected {orderedItem.itemName}, got {servedItem.itemName}");
 
-            GameManager.instance.playerMoney.SubtractMoney(moneyPenalty);
+            GameManager.instance.playerMoney.ChangeMoneyAmount(-moneyPenalty);
         }
 
         GameObject servedObj = playerItem.currentHeldItemObj;

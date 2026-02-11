@@ -27,7 +27,7 @@ public class ShopItemButton : MonoBehaviour
         if (GameManager.instance.playerMoney.currentMoney < itemData.price)
             return;
 
-        GameManager.instance.playerMoney.AddMoney(-itemData.price);
+        GameManager.instance.playerMoney.ChangeMoneyAmount(-itemData.price);
         SpawnItem();
     }
 
