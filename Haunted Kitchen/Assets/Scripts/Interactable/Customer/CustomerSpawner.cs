@@ -36,7 +36,7 @@ public class CustomerSpawner : MonoBehaviour
             return;
         }
 
-        Table targetTable = freeTables[Random.Range(0, tables.Count)];
+        Table targetTable = freeTables[Random.Range(0, freeTables.Count)];
 
         GameObject customerObj = Instantiate(customerPrefab, spawnPoint.position, spawnPoint.rotation);
 
@@ -52,6 +52,8 @@ public class CustomerSpawner : MonoBehaviour
 
         customer.targetTable = targetTable;
         customer.standPoint = targetTable.customerStandPoint;
+        customer.targetTable.isOccupied = true;
+
         customer.SetExitPoint(spawnPoint);
 
         NavMeshAgent agent = customer.agent;

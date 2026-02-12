@@ -106,6 +106,7 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
         {
             targetTable.isOccupied = false;
             OnCustomerLeft?.Invoke();
+            OnCustomerLeft = null;
 
             Destroy(gameObject);
         }

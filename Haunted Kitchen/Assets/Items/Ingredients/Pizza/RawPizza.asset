@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c045aa3b6a3f7074e97494cc68d4d22d, type: 3}
-  m_Name: PizzaDough
+  m_Name: RawPizza
   m_EditorClassIdentifier: Assembly-CSharp::IngredientData
-  itemName: Pizza Dough
-  price: 40
+  itemName: RawPizza
+  price: 0
   icon: {fileID: 0}
   oneHand: 0
   isCookable: 1
-  cookTime: 5
+  cookTime: 3
   method: 2
-  cookedResult: {fileID: 11400000, guid: d449c6e0d4ddf71499e6d74c818ada8d, type: 2}
-  cookedMaterial: {fileID: 2100000, guid: 41b349581fdcbb84897307152dfe8690, type: 2}
+  cookedResult: {fileID: 11400000, guid: 47f6e6e8d985e2641975e65893658998, type: 2}
+  cookedMaterial: {fileID: 2100000, guid: b0834f57a00a50646bae0e68d4c978a3, type: 2}

@@ -115,4 +115,9 @@ public class Table : MonoBehaviour, Iinteractable, IContextInteractable
     {
         currentItem = item;
     }
+
+    public void ClearTableOccupy()
+    {
+        isOccupied = false;
+    }
 }

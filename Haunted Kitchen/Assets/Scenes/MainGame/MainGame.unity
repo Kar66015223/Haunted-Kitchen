@@ -3847,6 +3847,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 565801103}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &568861595 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6693045008781880722, guid: 3c2225b5d6c9f41418e6075f110217fc, type: 3}
+  m_PrefabInstance: {fileID: 4139397580487892476}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &568861600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568861595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08798bcf4749fd04f8fe21c1d80f1826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Kitchenware
+  cookPoint: {fileID: 943457728}
+  isCooking: 0
+  kitchenwareStatus: 0
+  supportedMethod: 2
 --- !u!1 &583849014
 GameObject:
   m_ObjectHideFlags: 0
@@ -7477,6 +7498,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 940578120}
   m_CullTransparentMesh: 1
+--- !u!4 &943457728 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2507987509568165912, guid: 3c2225b5d6c9f41418e6075f110217fc, type: 3}
+  m_PrefabInstance: {fileID: 4139397580487892476}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &999333669
 GameObject:
   m_ObjectHideFlags: 0
@@ -10200,6 +10226,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1340088928 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4555531947394028609, guid: 3c2225b5d6c9f41418e6075f110217fc, type: 3}
+  m_PrefabInstance: {fileID: 4139397580487892476}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1340088930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340088928}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &1349049948
 GameObject:
   m_ObjectHideFlags: 0
@@ -15808,10 +15857,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Oven
       objectReference: {fileID: 0}
+    - target: {fileID: 6693045008781880722, guid: 3c2225b5d6c9f41418e6075f110217fc, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6693045008781880722, guid: 3c2225b5d6c9f41418e6075f110217fc, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 568861600}
+    - targetCorrespondingSourceObject: {fileID: 4555531947394028609, guid: 3c2225b5d6c9f41418e6075f110217fc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1340088930}
   m_SourcePrefab: {fileID: 100100000, guid: 3c2225b5d6c9f41418e6075f110217fc, type: 3}
 --- !u!1001 &6170015119174607742
 PrefabInstance:

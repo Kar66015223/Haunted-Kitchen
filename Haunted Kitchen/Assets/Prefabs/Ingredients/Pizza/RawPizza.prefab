@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1309689302951739506
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8335654362785408996}
-  m_Layer: 0
-  m_Name: stackRoot
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8335654362785408996
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1309689302951739506}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8544146742799475244}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4184576177717675054
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,9 +14,8 @@ GameObject:
   - component: {fileID: 7614323070513570838}
   - component: {fileID: 2108888351660228940}
   - component: {fileID: 8802033332055598248}
-  - component: {fileID: 8662477046410609674}
   m_Layer: 0
-  m_Name: PizzaDough
+  m_Name: RawPizza
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,8 +33,7 @@ Transform:
   m_LocalPosition: {x: 4.21, y: 0.5, z: -17.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8335654362785408996}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4011885529936477069
@@ -102,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 75cc2da3e74bb094181111fdb70896f7, type: 2}
+  - {fileID: 2100000, guid: 41b349581fdcbb84897307152dfe8690, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -159,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3171d36acf36644eaad712cd0b7b259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemData: {fileID: 11400000, guid: be0277dbb24b170439643a46e5cf261d, type: 2}
+  itemData: {fileID: 11400000, guid: d449c6e0d4ddf71499e6d74c818ada8d, type: 2}
   itemState: 0
 --- !u!54 &8802033332055598248
 Rigidbody:
@@ -188,20 +155,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8662477046410609674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4184576177717675054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5a5030b074a50645ad8365c49ebf1cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MakingFood
-  recipe: {fileID: 11400000, guid: 197594d6e0e230b4b9ea9e253b380c30, type: 2}
-  stackRoot: {fileID: 8335654362785408996}
-  stackHeight: 0.5
-  currentStepIndex: 0
-  resultPrefab: {fileID: 4184576177717675054, guid: 806aa87cd31213f49a739c3dc66777ed, type: 3}
