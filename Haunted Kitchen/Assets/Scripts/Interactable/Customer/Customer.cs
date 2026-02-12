@@ -8,6 +8,7 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
 {
     public NavMeshAgent agent;
 
+    [Header("Tables")]
     public Table targetTable;
     public Transform standPoint;
     [SerializeField] private bool isArrived = false;
@@ -19,11 +20,19 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
 
     public System.Action OnCustomerLeft;
 
+    [Header("Order")]
     public List<ItemData> possibleOrders = new();
     public ItemData orderedItem;
 
     public Image idleUI;
     public Image orderUI;
+
+    [Header("Patience")]
+    [SerializeField] private Image patienceImg;
+    [SerializeField] private float patienceDuration = 60f;
+
+    private float patienceTimer;
+    private bool isCountingPatience = false;
 
     [SerializeField] private CustomerState state = CustomerState.Idle;
 
@@ -67,6 +76,11 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
                 HandleLeaving(); 
                 break;
         }
+
+        if (isArrived && state != CustomerState.Leaving)
+        {
+            HandlePatience();
+        }
     }
 
     public void SetExitPoint(Transform exit)
@@ -86,9 +100,44 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
             transform.position = standPoint.position;
             transform.rotation = standPoint.rotation;
 
+            StartPatienceTimer();
+
             UpdateUI();
 
             anim.SetBool("Sit", true);
+        }
+    }
+
+    void StartPatienceTimer()
+    {
+        patienceTimer = patienceDuration;
+        isCountingPatience = true;
+
+        patienceImg.fillAmount = 1f;
+    }
+
+    void HandlePatience()
+    {
+        if (!isCountingPatience) return;
+
+        patienceTimer -= Time.deltaTime;
+
+        float normalized = patienceTimer / patienceDuration;
+        patienceImg.fillAmount = normalized;
+
+        if (patienceTimer <= 0f)
+        {
+            isCountingPatience = false;
+
+            GameManager.instance.playerMoney.ChangeMoneyAmount(-moneyPenalty);
+
+            state = CustomerState.Leaving;
+            isArrived = false;
+            exitDestinationSet = false;
+
+            UpdateUI();
+
+            Debug.Log("Customer lost patience.");
         }
     }
 
@@ -155,6 +204,8 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
     private void TakeOrder()
     {
         state = CustomerState.Ordered;
+
+        StartPatienceTimer();
         UpdateUI();
 
         Debug.Log($"Customer ordered: {orderedItem}");
@@ -164,6 +215,8 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
     {
         ItemData servedItem = playerItem.currentHeldItemData;
         bool correct = servedItem == orderedItem;
+
+        isCountingPatience = false;
 
         if (correct)
         {
@@ -195,6 +248,8 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
         idleUI.gameObject.SetActive(state == CustomerState.Idle && isArrived);
 
         orderUI.gameObject.SetActive(state == CustomerState.Ordered);
+
+        patienceImg.gameObject.SetActive(isArrived && state != CustomerState.Leaving);
 
         if (state == CustomerState.Ordered && orderedItem != null)
         {
