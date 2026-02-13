@@ -9,15 +9,9 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
     //protected abstract float CookTime { get; } <= uncomment if child class have their own cookTimer
     [SerializeField] private bool isCooking;
 
-    public KitchenwareStatus kitchenwareStatus;
+    [SerializeField] private StationStatus status;
 
     [SerializeField] private CookingMethod supportedMethod;
-
-    public enum KitchenwareStatus
-    {
-        Usable,
-        Destroyed
-    }
 
     public virtual bool CanInteract(PlayerItem playerItem)
     {
@@ -47,7 +41,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
 
         if (playerItem == null) return;
 
-        if (kitchenwareStatus == KitchenwareStatus.Usable && !isCooking && currentItem == null && playerItem.currentHeldItemObj != null)
+        if (status == StationStatus.Usable && !isCooking && currentItem == null && playerItem.currentHeldItemObj != null)
         {
             Item heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
             IngredientData ingredient = heldItem.itemData as IngredientData;
