@@ -32,6 +32,6 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IContextInteracta
         Item itemPrefab = prefab.GetComponent<Item>();
         playerItem.PickUp(itemPrefab.itemData, prefab);
 
-        beverageAmount--;
+        beverageAmount--;   
     }
 }

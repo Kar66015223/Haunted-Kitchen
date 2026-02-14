@@ -1,8 +1,5 @@
 using TMPro;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
 
 public class PlayerInteract : MonoBehaviour
 {

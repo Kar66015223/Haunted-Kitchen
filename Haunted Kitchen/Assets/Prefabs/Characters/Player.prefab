@@ -205,7 +205,7 @@ MonoBehaviour:
   maxStamina: 100
   currentStamina: 100
   drainRate: 30
-  regenRate: 15
+  regenRate: 30
   regenDelay: 1
   staminaBar: {fileID: 1259849652127718377}
 --- !u!114 &7759574162057141734
@@ -366,8 +366,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShopUI, Assembly-CSharp
-        m_MethodName: Close
-        m_Mode: 1
+        m_MethodName: OnCancel
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

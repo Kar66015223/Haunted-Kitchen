@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using NUnit.Framework.Internal.Execution;
 using UnityEngine;
 
 public class Item : MonoBehaviour, Iinteractable, IContextInteractable

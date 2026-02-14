@@ -5,7 +5,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
     public Transform cookPoint;
 
     private Item currentItem;
-    protected float cookTimer = 0f;
+    private float cookTimer = 0f;
     //protected abstract float CookTime { get; } <= uncomment if child class have their own cookTimer
     [SerializeField] private bool isCooking;
 
@@ -13,7 +13,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
 
     [SerializeField] private CookingMethod supportedMethod;
 
-    public virtual bool CanInteract(PlayerItem playerItem)
+    public bool CanInteract(PlayerItem playerItem)
     {
         if (playerItem == null) return false;
 

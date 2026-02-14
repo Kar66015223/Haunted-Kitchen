@@ -1,5 +1,3 @@
-using System.Transactions;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerItem : MonoBehaviour
