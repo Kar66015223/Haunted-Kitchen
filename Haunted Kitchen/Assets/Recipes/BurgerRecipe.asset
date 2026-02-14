@@ -18,4 +18,4 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: 226bbca7ed84eb148bfba08672fe6d84, type: 2}
   - ingredient: {fileID: 11400000, guid: bec80be18dab92c41826e10565b0b705, type: 2}
   - ingredient: {fileID: 11400000, guid: 823be3039465a8c4da9f96fdf96f1abb, type: 2}
-  result: {fileID: 11400000, guid: 0b775496f96d9074da5470f0dadd738e, type: 2}
+  result: {fileID: 11400000, guid: 4f4dde56622e18743b12020043e21ab9, type: 2}
