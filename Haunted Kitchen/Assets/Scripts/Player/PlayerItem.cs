@@ -60,7 +60,8 @@ public class PlayerItem : MonoBehaviour
         if (currentHeldItemData.oneHand)
         {
             itemObj.transform.SetParent(holdPointOneHand);
-            itemObj.transform.localPosition = holdPointOneHand.position; 
+            itemObj.transform.localPosition = Vector3.zero;
+            itemObj.transform.localRotation = Quaternion.identity;
         }
 
         if (!currentHeldItemData.oneHand)
@@ -68,8 +69,6 @@ public class PlayerItem : MonoBehaviour
             itemObj.transform.SetParent(holdPointTwoHand);
             itemObj.transform.localPosition = holdPointTwoHand.position;
         }
-
-        itemObj.transform.localRotation = Quaternion.identity;
 
         Item item = itemObj.GetComponent<Item>();
         item.itemState = Item.ItemState.Held;

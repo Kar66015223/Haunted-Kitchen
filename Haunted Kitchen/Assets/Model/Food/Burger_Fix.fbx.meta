@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: a4d5877d74b164b44a5c2b0e21072d79
+guid: 8f13dc4058dffc640a6e39d715a99d11
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Food_M
+    second: {fileID: 2100000, guid: 5950dbb36adf8dd45ba9a2c7eaa95b54, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -30,7 +35,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1

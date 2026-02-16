@@ -20,4 +20,4 @@ MonoBehaviour:
   cookTime: 3
   method: 1
   cookedResult: {fileID: 11400000, guid: d26f5a6da39f2a349999f8365e8cadc3, type: 2}
-  cookedMaterial: {fileID: 2100000, guid: f33e6a92f1c401d4e8f364b5687d385d, type: 2}
+  cookedMaterial: {fileID: 2100000, guid: 5950dbb36adf8dd45ba9a2c7eaa95b54, type: 2}
