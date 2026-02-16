@@ -124,8 +124,11 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
         IngredientData ingredient = (IngredientData)currentItem.itemData;
         currentItem.itemData = ingredient.cookedResult;
 
-        MeshRenderer itemMat = currentItem.GetComponent<MeshRenderer>();
-        itemMat.material = ingredient.cookedMaterial;
+        MeshRenderer[] itemMat = currentItem.GetComponentsInChildren<MeshRenderer>();
+        foreach (var r in itemMat)
+        {
+            r.material = ingredient.cookedMaterial;
+        }
 
         Debug.Log($"Cooked {ingredient.cookedResult.itemName}");
 

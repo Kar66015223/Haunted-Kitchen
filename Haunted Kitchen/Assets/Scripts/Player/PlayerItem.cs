@@ -13,6 +13,9 @@ public class PlayerItem : MonoBehaviour
     private PlayerController controller;
     public Animator anim;
 
+    [SerializeField] private Transform holdPointOneHand;
+    [SerializeField] private Transform holdPointTwoHand;
+
     private void Start()
     {
         controller = GetComponent<PlayerController>();
@@ -54,8 +57,18 @@ public class PlayerItem : MonoBehaviour
             rb.isKinematic = true;
         }
 
-        itemObj.transform.SetParent(transform);
-        itemObj.transform.localPosition = new Vector3(0, 0, 1);
+        if (currentHeldItemData.oneHand)
+        {
+            itemObj.transform.SetParent(holdPointOneHand);
+            itemObj.transform.localPosition = holdPointOneHand.position; 
+        }
+
+        if (!currentHeldItemData.oneHand)
+        {
+            itemObj.transform.SetParent(holdPointTwoHand);
+            itemObj.transform.localPosition = holdPointTwoHand.position;
+        }
+
         itemObj.transform.localRotation = Quaternion.identity;
 
         Item item = itemObj.GetComponent<Item>();

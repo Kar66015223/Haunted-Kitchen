@@ -11,6 +11,7 @@ public class MakingFood_New : MonoBehaviour, Iinteractable, ITableInteractable, 
     private Dictionary<IngredientData, GameObject> visualLookup;
 
     [SerializeField] private ItemData resultItem;
+
     private bool isCompleted = false;
 
     private void Awake()
