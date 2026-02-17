@@ -9,6 +9,7 @@ public enum CherryState
     Walk,
     WalkOneHand,
     WalkTwoHand,
+    Slip
 }
 
 public enum TuiState

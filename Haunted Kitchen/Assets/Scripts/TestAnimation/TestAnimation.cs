@@ -50,6 +50,11 @@ public class TestAnimation : MonoBehaviour
     {
         cherry.SetCherryState(CherryState.WalkTwoHand);
     }
+
+    public void SetCherrySlip()
+    {
+        cherry.SetCherryState(CherryState.Slip);
+    }
     #endregion
 
     #region Tui

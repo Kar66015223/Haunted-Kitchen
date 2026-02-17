@@ -47,6 +47,9 @@ public class CharAnimation : MonoBehaviour
                 case CherryState.WalkTwoHand:
                     c.Anim.SetBool("WalkingTwoHand", true);
                     break;
+                case CherryState.Slip:
+                    c.Anim.SetTrigger("Slip");
+                    break;
             } 
         }
         #endregion
