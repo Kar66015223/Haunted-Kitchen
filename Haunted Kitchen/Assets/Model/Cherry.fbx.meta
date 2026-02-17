@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Cherry_Mat
-    second: {fileID: 2100000, guid: da282c1d4a943044aa9289c8560998a2, type: 2}
+    second: {fileID: 2100000, guid: fa93f8b4530568d45a32ed07dd5151ed, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
