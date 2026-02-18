@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10 * Time.deltaTime);
         }
 
-        bool canRun = isRunning && stamina != null && stamina.CanRun(); // if player is running, CanRun = true
+        bool canRun = isRunning && stamina != null && stamina.CanRun();
         float currentSpeed = canRun ? runSpeed : moveSpeed;
 
         //Moving
