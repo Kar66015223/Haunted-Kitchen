@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 221163def28590a4f8c1fc7f8fc93417
+guid: 65e45620e4a028346b5488ede7c39bff
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Food_M5
+    second: {fileID: 2100000, guid: d00d10790cb0b7842afde34706d6bb4a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
