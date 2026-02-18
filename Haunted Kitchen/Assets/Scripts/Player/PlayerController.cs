@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+    [Header("Movement")]
     public float moveSpeed = 5f;
     public float runSpeed = 9f;
 
@@ -23,14 +24,19 @@ public class PlayerController : MonoBehaviour
     private float verticalVelocity;
 
     private bool isRunning;
+    public bool IsRunning => isRunning && stamina != null && stamina.CanRun();
 
     private PlayerStamina stamina;
     private PlayerInteract playerInteract;
     private PlayerItem playerItem;
 
+    [Header("Animation")]
     public Animator anim;
     public float runAnimMultiplier = 1.5f;
-    public bool IsRunning => isRunning && stamina != null && stamina.CanRun();
+
+    [Header("Slipping")]
+    [SerializeField] private bool isSlipping;
+    [SerializeField] private float slipTimer;
 
     void Awake()
     {
@@ -47,6 +53,19 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
+        if (isSlipping)
+        {
+            slipTimer -= Time.deltaTime;
+
+            if (slipTimer <= 0f)
+            {
+                isSlipping = false;
+            }
+
+            return;
+        }
+
         Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y);
 
         if (move.sqrMagnitude > 0.001f)
@@ -93,6 +112,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Slip(float duration)
+    {
+        if (isSlipping) return;
+
+        isSlipping = true;
+        slipTimer = duration;
+
+        if (playerItem != null)
+        {
+            playerItem.DropItem();
+        }
+
+        isRunning = false;
+
+        anim.speed = 1f;
+        anim.SetTrigger("Slip");
+    }
+
+    #region InputAction
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
@@ -123,12 +161,13 @@ public class PlayerController : MonoBehaviour
     {
         if (!context.performed || GameManager.instance == null) return;
 
-        if(GameManager.instance.isPaused)
+        if (GameManager.instance.isPaused)
             GameManager.instance.UnPause();
 
         else
             GameManager.instance.Pause();
-    }
+    } 
+    #endregion
 
     private void OnDisable()
     {

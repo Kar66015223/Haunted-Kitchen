@@ -192,6 +192,8 @@ MonoBehaviour:
   groundedForce: -2
   anim: {fileID: 6213004647493594845}
   runAnimMultiplier: 2
+  isSlipping: 0
+  slipTimer: 0
 --- !u!114 &7736782022698327679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,7 +248,7 @@ MonoBehaviour:
   dropRayDistance: 10
   dropHeightOffset: 0.5
   anim: {fileID: 6213004647493594845}
-  holdPointOneHand: {fileID: 7231125826156023066}
+  holdPointOneHand: {fileID: 8976603555510500407}
   holdPointTwoHand: {fileID: 8693094056488700502}
 --- !u!114 &2307041394496468283
 MonoBehaviour:
@@ -605,7 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffdc97e0fd1da7b469bc4bce27519622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FaceCamera
---- !u!1 &5443195052091248529
+--- !u!1 &6665775165458461193
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -613,7 +615,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7231125826156023066}
+  - component: {fileID: 8976603555510500407}
   m_Layer: 0
   m_Name: HoldPointOneHand
   m_TagString: Untagged
@@ -621,16 +623,16 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7231125826156023066
+--- !u!4 &8976603555510500407
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5443195052091248529}
+  m_GameObject: {fileID: 6665775165458461193}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 6.1, y: 29.5, z: -25.7}
+  m_LocalPosition: {x: 19.7, y: 14.8, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -736,7 +738,7 @@ Transform:
   m_GameObject: {fileID: 8777195453179577831}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.596, z: 0.881}
+  m_LocalPosition: {x: 0, y: 0.7, z: 0.881}
   m_LocalScale: {x: 0.010000001, y: 0.01, z: 0.010000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -875,7 +877,7 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -4272683974408108150, guid: 17a67ccfccd3a3d44afb85d4c49c503f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7231125826156023066}
+      addedObject: {fileID: 8976603555510500407}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 17a67ccfccd3a3d44afb85d4c49c503f, type: 3}
       insertIndex: -1

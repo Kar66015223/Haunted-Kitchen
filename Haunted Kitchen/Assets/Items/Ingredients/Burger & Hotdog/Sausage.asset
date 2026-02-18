@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Sausage
   m_EditorClassIdentifier: Assembly-CSharp::IngredientData
   itemName: Sausage
-  icon: {fileID: 0}
   price: 30
+  icon: {fileID: 0}
+  oneHand: 0
   isCookable: 1
   cookTime: 3
+  method: 0
   cookedResult: {fileID: 11400000, guid: b1ff11d0d1a3680469583cf3dc5741c1, type: 2}
-  cookedMaterial: {fileID: 2100000, guid: d80c314d3b9dd6a49b7cad9435074771, type: 2}
+  cookedMaterial: {fileID: 2100000, guid: 5950dbb36adf8dd45ba9a2c7eaa95b54, type: 2}
