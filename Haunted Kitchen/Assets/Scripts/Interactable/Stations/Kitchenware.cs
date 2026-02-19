@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
@@ -83,7 +84,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
 
         itemObj.transform.position = cookPoint.position;
         itemObj.transform.rotation = cookPoint.rotation;
-        itemObj.transform.SetParent(transform, true);
+        itemObj.transform.SetParent(cookPoint, true);
 
         if (itemObj.TryGetComponent(out Rigidbody rb))
         {
@@ -124,10 +125,25 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
         IngredientData ingredient = (IngredientData)currentItem.itemData;
         currentItem.itemData = ingredient.cookedResult;
 
-        MeshRenderer[] itemMat = currentItem.GetComponentsInChildren<MeshRenderer>();
-        foreach (var r in itemMat)
+        if (ingredient.cookedModel != null)
         {
-            r.material = ingredient.cookedMaterial;
+            GameObject cookedObj = Instantiate(ingredient.cookedModel,
+            currentItem.transform.position,
+            currentItem.transform.rotation);
+
+            cookedObj.transform.SetParent(currentItem.transform.parent, true);
+
+            Destroy(currentItem.gameObject);
+            currentItem = cookedObj.GetComponent<Item>();
+        }
+
+        else
+        {
+            MeshRenderer[] itemMat = currentItem.GetComponentsInChildren<MeshRenderer>();
+            foreach (var r in itemMat)
+            {
+                r.material = ingredient.cookedMaterial;
+            }
         }
 
         Debug.Log($"Cooked {ingredient.cookedResult.itemName}");

@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.AI;
-using UnityEngine.Rendering;
 
 public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
 {

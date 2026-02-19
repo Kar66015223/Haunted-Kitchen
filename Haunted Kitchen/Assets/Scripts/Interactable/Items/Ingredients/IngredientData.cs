@@ -14,4 +14,6 @@ public class IngredientData : ItemData
 
     public ItemData cookedResult;
     public Material cookedMaterial;
+
+    public GameObject cookedModel;
 }

@@ -5,6 +5,8 @@ public class GhostOilSpawner : MonoBehaviour
     public GameObject oilPrefab;
     public float forwardOffset = 1f;
 
+    public GameObject oilCup;
+
     public void PourOil()
     {
         if (oilPrefab == null)
@@ -13,7 +15,14 @@ public class GhostOilSpawner : MonoBehaviour
             return;
         }
 
+        oilCup.SetActive(true);
+
         Vector3 spawnPos = transform.position + transform.forward * forwardOffset;
         Instantiate(oilPrefab, spawnPos, Quaternion.identity);
+    }
+
+    private void OnDisable()
+    {
+        oilCup.SetActive(false);
     }
 }
