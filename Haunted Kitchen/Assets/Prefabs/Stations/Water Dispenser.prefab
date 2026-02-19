@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1154623110902262531}
   - component: {fileID: 6513200765047543475}
-  - component: {fileID: 2139852883366930233}
+  - component: {fileID: 4491330545309616647}
   m_Layer: 0
   m_Name: Water Dispenser
   m_TagString: Interactable
@@ -55,7 +55,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 3, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2139852883366930233
+--- !u!114 &4491330545309616647
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -67,8 +67,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4936ab52706a66e4db93daf3b358778b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeverageDispenser
+  refillItem: {fileID: 11400000, guid: 9a2cde6631d5e0445b2446a22b238953, type: 2}
   beveragePrefab: {fileID: 3610214169877240148, guid: 1368d8926d288dc46bc7ab693c25889e, type: 3}
-  beverageAmount: 10
+  beverageAmount: 0
+  maxAmount: 10
   status: 0
 --- !u!1001 &7953742773115698294
 PrefabInstance:

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5779249402008376155}
   - component: {fileID: 1025890661472724497}
   - component: {fileID: 8358114588343408980}
+  - component: {fileID: 2456349709247780213}
   - component: {fileID: 4489363356416217703}
   m_Layer: 0
   m_Name: WaterRefill
@@ -70,6 +71,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemData: {fileID: 11400000, guid: 9a2cde6631d5e0445b2446a22b238953, type: 2}
   itemState: 0
+--- !u!33 &2456349709247780213
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3610214169877240148}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &4489363356416217703
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -111,7 +120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6dc643f07fd141a41bc574653b7eb33d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.081
+      value: -1.668
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6dc643f07fd141a41bc574653b7eb33d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -147,15 +156,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4989598809462551583, guid: 6dc643f07fd141a41bc574653b7eb33d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4989598809462551583, guid: 6dc643f07fd141a41bc574653b7eb33d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4989598809462551583, guid: 6dc643f07fd141a41bc574653b7eb33d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6dc643f07fd141a41bc574653b7eb33d, type: 3}
       propertyPath: m_Name
