@@ -8,7 +8,7 @@ TagManager:
   - Interactable
   - MoneyUI
   - PauseUI
-  - AnimPanel
+  - MoneyChangedText
   layers:
   - Default
   - TransparentFX

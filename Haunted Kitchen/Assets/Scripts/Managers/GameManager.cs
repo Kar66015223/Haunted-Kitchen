@@ -1,5 +1,8 @@
+using System.Collections;
+using System.Net.NetworkInformation;
 using JetBrains.Annotations;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -18,6 +21,10 @@ public class GameManager : MonoBehaviour
 
     [Header("Money UI")]
     public TMP_Text moneyUI;
+    public TMP_Text moneyChangedText;
+
+    [SerializeField] private float fadeDuration = 2f;
+    private Coroutine fadeCo;
 
     [Header("Pause UI")]
     public GameObject pauseUI;
@@ -44,6 +51,8 @@ public class GameManager : MonoBehaviour
             return;
 
         moneyUI = GameObject.FindWithTag("MoneyUI")?.GetComponent<TMP_Text>();
+        moneyChangedText = GameObject.FindWithTag("MoneyChangedText")?.GetComponent<TMP_Text>();
+
         pauseUI = GameObject.FindWithTag("PauseUI");
 
         playerMoney = FindAnyObjectByType<PlayerMoney>();
@@ -55,10 +64,19 @@ public class GameManager : MonoBehaviour
         pauseUI?.SetActive(false);
     }
 
-    void HandleMoneyChanged(int newMoney)
+    void HandleMoneyChanged(int newMoney, int amountChanged)
     {
         money = newMoney;
         UpdateMoneyUI();
+
+        ShowMoneyChangedText(amountChanged);
+
+        if (fadeCo != null)
+        {
+            StopCoroutine(fadeCo);
+        }
+        SetAlphaToFull();
+        fadeCo = StartCoroutine(FadeOutText());
     }
 
     private void Awake()
@@ -85,6 +103,20 @@ public class GameManager : MonoBehaviour
         moneyUI.text = $"Money: {money} $";
     }
 
+    public void ShowMoneyChangedText(int amountChanged)
+    {
+        if (amountChanged > 0)
+        {
+            moneyChangedText.text = $"+{amountChanged}$";
+            moneyChangedText.color = Color.green;
+        }
+        else
+        {
+            moneyChangedText.text = $"{amountChanged}$";
+            moneyChangedText.color = Color.red;
+        }
+    }
+
     public void Pause()
     {
         Debug.Log("PAUSE CALLED");
@@ -109,5 +141,30 @@ public class GameManager : MonoBehaviour
     public void ChangeSceneToStartScene()
     {
         SceneLoader.ChangeScene("StartScene");
+    }
+
+    IEnumerator FadeOutText()
+    {
+        float fadeElapsed = 0f;
+
+        Color c = moneyChangedText.color;
+
+        while (fadeElapsed < fadeDuration)
+        {
+            fadeElapsed += Time.deltaTime;
+            c.a = Mathf.Lerp(1f, 0f, fadeElapsed / fadeDuration);
+            moneyChangedText.color = c;
+            yield return null;
+        }
+
+        c.a = 0f;
+        moneyChangedText.color = c;
+    }
+
+    public void SetAlphaToFull()
+    {
+        Color c = moneyChangedText.color;
+        c.a = 1f;
+        moneyChangedText.color = c;
     }
 }

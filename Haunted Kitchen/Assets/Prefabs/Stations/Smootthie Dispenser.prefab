@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4936ab52706a66e4db93daf3b358778b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeverageDispenser
-  refillItem: {fileID: 0}
+  refillItem: {fileID: 11400000, guid: 584c87348cf62434db4552397a5d182a, type: 2}
   beveragePrefab: {fileID: 3610214169877240148, guid: a879fd789c2882e49b3af104378b427f, type: 3}
   beverageAmount: 0
   maxAmount: 10
