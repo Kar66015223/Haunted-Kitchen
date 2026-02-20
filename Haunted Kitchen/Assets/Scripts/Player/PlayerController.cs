@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Slipping")]
     [SerializeField] private bool isSlipping;
+    public bool IsSlipping { get { return isSlipping; } }
     [SerializeField] private float slipTimer;
 
     void Awake()
@@ -143,7 +145,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.performed && playerInteract != null)
+        if (context.performed && playerInteract != null && !isSlipping)
         {
             playerInteract.TryInteract();
         }

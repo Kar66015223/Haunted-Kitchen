@@ -7,6 +7,7 @@ public class PlayerInteract : MonoBehaviour
 
     [SerializeField] private Iinteractable currentInteractable;
     private PlayerItem playerItem;
+    private PlayerController controller;
 
     private Outline currentOutline;
 
@@ -22,13 +23,14 @@ public class PlayerInteract : MonoBehaviour
     {
         interactPrompt.enabled = false;
         playerItem = GetComponent<PlayerItem>();
+        controller = GetComponent<PlayerController>();
     }
 
     private void Update()
     {
         if (currentInteractable is IContextInteractable context)
         {
-            if (!context.CanInteract(playerItem))
+            if (!context.CanInteract(playerItem) || controller.IsSlipping)
             {
                 ClearInteractable();
             }

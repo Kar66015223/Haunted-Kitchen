@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BeverageDispenser : MonoBehaviour, Iinteractable, IContextInteractable
 {
@@ -7,11 +8,16 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IContextInteracta
     public int beverageAmount = 0;
     [SerializeField] private int maxAmount;
 
+    [Header("UI")]
+    [SerializeField] private Image amountImg;
+
     [SerializeField] private StationStatus status;
 
     private void Start()
     {
         beverageAmount = maxAmount;
+
+        UpdateUI();
     }
 
     public bool CanInteract(PlayerItem playerItem)
@@ -51,7 +57,9 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IContextInteracta
         Item itemPrefab = prefab.GetComponent<Item>();
         playerItem.PickUp(itemPrefab.itemData, prefab);
 
-        beverageAmount--;   
+        beverageAmount--;
+
+        UpdateUI();
     }
 
     bool IsCorrectRefillItem(PlayerItem playerItem)
@@ -68,5 +76,13 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IContextInteracta
 
         Destroy(playerItem.currentHeldItemObj);
         playerItem.DropItemNoRaycast();
+
+        UpdateUI();
+    }
+
+    void UpdateUI()
+    {
+        float normalized = beverageAmount / (float)maxAmount;
+        amountImg.fillAmount = normalized;
     }
 }
