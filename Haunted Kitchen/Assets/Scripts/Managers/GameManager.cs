@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Net.NetworkInformation;
-using JetBrains.Annotations;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -50,10 +47,16 @@ public class GameManager : MonoBehaviour
         if (scene.name != "MainGame") 
             return;
 
-        moneyUI = GameObject.FindWithTag("MoneyUI")?.GetComponent<TMP_Text>();
-        moneyChangedText = GameObject.FindWithTag("MoneyChangedText")?.GetComponent<TMP_Text>();
+        //moneyUI = GameObject.FindWithTag("MoneyUI")?.GetComponent<TMP_Text>();
+        //moneyChangedText = GameObject.FindWithTag("MoneyChangedText")?.GetComponent<TMP_Text>();
 
-        pauseUI = GameObject.FindWithTag("PauseUI");
+        //pauseUI = GameObject.FindWithTag("PauseUI");
+
+        UIManager ui = FindAnyObjectByType<UIManager>();
+        if (ui != null)
+        {
+            RegisterUI(ui);
+        }
 
         playerMoney = FindAnyObjectByType<PlayerMoney>();
         playerInput = FindAnyObjectByType<PlayerInput>();
@@ -62,6 +65,13 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f;
         pauseUI?.SetActive(false);
+    }
+
+    public void RegisterUI(UIManager ui)
+    {
+        moneyUI = ui.MoneyUI;
+        moneyChangedText = ui.MoneyChangedText;
+        pauseUI = ui.PauseUI;
     }
 
     void HandleMoneyChanged(int newMoney, int amountChanged)

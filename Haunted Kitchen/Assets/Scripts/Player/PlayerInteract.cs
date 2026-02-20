@@ -47,22 +47,19 @@ public class PlayerInteract : MonoBehaviour
         if (playerItem.currentHeldItemData == null) // If player's hands is free
         {
             GameObject obj = ((MonoBehaviour)currentInteractable).gameObject; // Iinteractable with Monobehaviour
+            Item item = obj.GetComponent<Item>();
 
-            if (obj.CompareTag("Item"))
+            if (/*obj.CompareTag("Item")*/item != null)
             {
-                Item item = obj.GetComponent<Item>();
-                if (item != null)
-                {
-                    playerItem.PickUp(item.itemData, item.gameObject);
-                }
+                playerItem.PickUp(item.itemData, item.gameObject);
             }
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (!other.CompareTag("Interactable") && !other.CompareTag("Item"))
-            return;
+        //if (!other.CompareTag("Interactable") && !other.CompareTag("Item"))
+        //    return;
 
         Iinteractable interactable = other.GetComponentInParent<Iinteractable>();
         if (interactable == null) return;
