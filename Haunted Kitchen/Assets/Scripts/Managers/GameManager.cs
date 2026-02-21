@@ -128,8 +128,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ShowEventText()
+    public void ShowEventText(string text, Color color)
     {
+        eventText.text = text;
+        eventText.color = color;
+
         if (eventTextFadeCo != null)
         {
             StopCoroutine(eventTextFadeCo);

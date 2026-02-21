@@ -26,18 +26,13 @@ public class ShopItemButton : MonoBehaviour
     {
         if (GameManager.instance.playerMoney.currentMoney < itemData.price)
         {
-            GameManager.instance.eventText.text = $"You don't have enough money.";
-            GameManager.instance.eventText.color = Color.red;
-            GameManager.instance.ShowEventText();
+            GameManager.instance.ShowEventText($"You don't have enough money.", Color.red);
 
             return;
         }
 
         GameManager.instance.playerMoney.ChangeMoneyAmount(-itemData.price);
-
-        GameManager.instance.eventText.text = $"Bought {itemData.itemName}";
-        GameManager.instance.eventText.color = Color.green;
-        GameManager.instance.ShowEventText();
+        GameManager.instance.ShowEventText($"Bought {itemData.itemName}", Color.green);
 
         SpawnItem();
     }

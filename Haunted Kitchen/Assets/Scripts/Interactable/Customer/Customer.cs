@@ -131,10 +131,7 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
 
             stealAmount = Random.Range(300, 1000);
             GameManager.instance.playerMoney.ChangeMoneyAmount(-stealAmount);
-
-            GameManager.instance.eventText.text = "Your money was stolen by an angry customer...";
-            GameManager.instance.eventText.color = Color.red;
-            GameManager.instance.ShowEventText();
+            GameManager.instance.ShowEventText("Your money was stolen by an angry customer...", Color.red);
 
             state = CustomerState.Leaving;
             isArrived = false;
@@ -234,10 +231,7 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
             stealAmount = Random.Range(300, 1000);
 
             GameManager.instance.playerMoney.ChangeMoneyAmount(-stealAmount);
-
-            GameManager.instance.eventText.text = "Your money was stolen by an angry customer...";
-            GameManager.instance.eventText.color = Color.red;
-            GameManager.instance.ShowEventText();
+            GameManager.instance.ShowEventText("Your money was stolen by an angry customer...", Color.red);
         }
 
         GameObject servedObj = playerItem.currentHeldItemObj;
