@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     [Header("Pause UI")]
     public GameObject pauseUI;
     public Button resumeButton;
-    public Button MainMenuButton;
+    public Button mainMenuButton;
 
     public bool isPaused = false;
 
