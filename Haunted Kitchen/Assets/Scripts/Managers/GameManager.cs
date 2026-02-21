@@ -14,15 +14,20 @@ public class GameManager : MonoBehaviour
     public PlayerInput playerInput;
 
     [Header("Money")]
-    public int money;
+    private int money;
 
     [Header("Money UI")]
     public TMP_Text moneyUI;
     public TMP_Text moneyChangedText;
 
-    [SerializeField] private float fadeDuration = 2f;
-    private Coroutine fadeCo;
+    [Header("Event Text")]
+    public TMP_Text eventText;
 
+    [Header("Text Fading")]
+    [SerializeField] private float fadeDuration = 2f;
+    private Coroutine moneyChangedFadeCo;
+    private Coroutine eventTextFadeCo;
+    
     [Header("Pause UI")]
     public GameObject pauseUI;
     public Button resumeButton;
@@ -47,11 +52,6 @@ public class GameManager : MonoBehaviour
         if (scene.name != "MainGame") 
             return;
 
-        //moneyUI = GameObject.FindWithTag("MoneyUI")?.GetComponent<TMP_Text>();
-        //moneyChangedText = GameObject.FindWithTag("MoneyChangedText")?.GetComponent<TMP_Text>();
-
-        //pauseUI = GameObject.FindWithTag("PauseUI");
-
         UIManager ui = FindAnyObjectByType<UIManager>();
         if (ui != null)
         {
@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
     {
         moneyUI = ui.MoneyUI;
         moneyChangedText = ui.MoneyChangedText;
+        eventText = ui.EventText;
         pauseUI = ui.PauseUI;
     }
 
@@ -81,12 +82,12 @@ public class GameManager : MonoBehaviour
 
         ShowMoneyChangedText(amountChanged);
 
-        if (fadeCo != null)
+        if (moneyChangedFadeCo != null)
         {
-            StopCoroutine(fadeCo);
+            StopCoroutine(moneyChangedFadeCo);
         }
-        SetAlphaToFull();
-        fadeCo = StartCoroutine(FadeOutText());
+        SetAlphaToFull(moneyChangedText);
+        moneyChangedFadeCo = StartCoroutine(FadeOutText(moneyChangedText));
     }
 
     private void Awake()
@@ -127,6 +128,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ShowEventText()
+    {
+        if (eventTextFadeCo != null)
+        {
+            StopCoroutine(eventTextFadeCo);
+        }
+        SetAlphaToFull(eventText);
+        eventTextFadeCo = StartCoroutine(FadeOutText(eventText));
+    }
+
     public void Pause()
     {
         Debug.Log("PAUSE CALLED");
@@ -153,28 +164,28 @@ public class GameManager : MonoBehaviour
         SceneLoader.ChangeScene("StartScene");
     }
 
-    IEnumerator FadeOutText()
+    IEnumerator FadeOutText(TMP_Text text)
     {
         float fadeElapsed = 0f;
 
-        Color c = moneyChangedText.color;
+        Color c = text.color;
 
         while (fadeElapsed < fadeDuration)
         {
             fadeElapsed += Time.deltaTime;
             c.a = Mathf.Lerp(1f, 0f, fadeElapsed / fadeDuration);
-            moneyChangedText.color = c;
+            text.color = c;
             yield return null;
         }
 
         c.a = 0f;
-        moneyChangedText.color = c;
+        text.color = c;
     }
 
-    public void SetAlphaToFull()
+    public void SetAlphaToFull(TMP_Text text)
     {
-        Color c = moneyChangedText.color;
+        Color c = text.color;
         c.a = 1f;
-        moneyChangedText.color = c;
+        text.color = c;
     }
 }

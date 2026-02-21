@@ -14,7 +14,7 @@ public class PlayerMoney : MonoBehaviour
 
     public void ChangeMoneyAmount(int amount)
     {
-        currentMoney += amount;
+        currentMoney = Mathf.Max(0, currentMoney + amount);
         OnMoneyChanged?.Invoke(currentMoney, amount);
     }
 }

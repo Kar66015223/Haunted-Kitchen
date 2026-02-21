@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text moneyUI;
     [SerializeField] private TMP_Text moneyChangedText;
+    [SerializeField] private TMP_Text eventText;
     [SerializeField] private GameObject pauseUI;
 
     private void Awake()
@@ -15,5 +16,6 @@ public class UIManager : MonoBehaviour
 
     public TMP_Text MoneyUI => moneyUI;
     public TMP_Text MoneyChangedText => moneyChangedText;
+    public TMP_Text EventText => eventText;
     public GameObject PauseUI => pauseUI;
 }

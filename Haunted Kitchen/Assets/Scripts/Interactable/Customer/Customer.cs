@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.AI;
+using System.Security.Cryptography;
 
 public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
 {
@@ -14,9 +15,6 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
     [SerializeField] private bool exitDestinationSet = false;
     [SerializeField] private Transform exitPoint;
 
-    public int moneyReward = 300;
-    public int moneyPenalty = 300;
-
     public System.Action OnCustomerLeft;
 
     [Header("Order")]
@@ -25,6 +23,9 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
 
     public Image idleUI;
     public Image orderUI;
+
+    [Header("Money Steal")]
+    private int stealAmount;
 
     [Header("Patience")]
     [SerializeField] private Image patienceImg;
@@ -128,7 +129,12 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
         {
             isCountingPatience = false;
 
-            GameManager.instance.playerMoney.ChangeMoneyAmount(-moneyPenalty);
+            stealAmount = Random.Range(300, 1000);
+            GameManager.instance.playerMoney.ChangeMoneyAmount(-stealAmount);
+
+            GameManager.instance.eventText.text = "Your money was stolen by an angry customer...";
+            GameManager.instance.eventText.color = Color.red;
+            GameManager.instance.ShowEventText();
 
             state = CustomerState.Leaving;
             isArrived = false;
@@ -221,13 +227,17 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
         {
             Debug.Log("Correct order served!");
 
-            GameManager.instance.playerMoney.ChangeMoneyAmount(moneyReward);
+            GameManager.instance.playerMoney.ChangeMoneyAmount(servedItem.price);
         }
         else
         {
-            Debug.Log($"Wrong order! Expected {orderedItem.itemName}, got {servedItem.itemName}");
+            stealAmount = Random.Range(300, 1000);
 
-            GameManager.instance.playerMoney.ChangeMoneyAmount(-moneyPenalty);
+            GameManager.instance.playerMoney.ChangeMoneyAmount(-stealAmount);
+
+            GameManager.instance.eventText.text = "Your money was stolen by an angry customer...";
+            GameManager.instance.eventText.color = Color.red;
+            GameManager.instance.ShowEventText();
         }
 
         GameObject servedObj = playerItem.currentHeldItemObj;

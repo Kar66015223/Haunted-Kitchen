@@ -25,9 +25,20 @@ public class ShopItemButton : MonoBehaviour
     void Buy()
     {
         if (GameManager.instance.playerMoney.currentMoney < itemData.price)
+        {
+            GameManager.instance.eventText.text = $"You don't have enough money.";
+            GameManager.instance.eventText.color = Color.red;
+            GameManager.instance.ShowEventText();
+
             return;
+        }
 
         GameManager.instance.playerMoney.ChangeMoneyAmount(-itemData.price);
+
+        GameManager.instance.eventText.text = $"Bought {itemData.itemName}";
+        GameManager.instance.eventText.color = Color.green;
+        GameManager.instance.ShowEventText();
+
         SpawnItem();
     }
 
