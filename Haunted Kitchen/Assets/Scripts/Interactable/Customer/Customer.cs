@@ -37,14 +37,6 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
     [SerializeField] private CustomerState state = CustomerState.Idle;
 
     public Animator anim;
-    
-    public enum CustomerState
-    {
-        Idle,
-        Ordered,
-        Served,
-        Leaving
-    }
 
     private void Awake()
     {
@@ -238,7 +230,6 @@ public class Customer : MonoBehaviour, Iinteractable, IContextInteractable
         playerItem.DropItemNoRaycast();
         Destroy(servedObj);
 
-        //state = CustomerState.Served; <= uncomment if customer have something else to do after served
         state = CustomerState.Leaving;
         isArrived = false;
         exitDestinationSet = false;
