@@ -13,6 +13,8 @@ public class CustomerOrder : MonoBehaviour
     public int servedPrice;
 
     public event Action<bool, int> OnOrderServed;
+    public event Action<List<ItemData>> OnOrderGenerated;
+    public event Action<ItemData> OnItemServed;
 
     public void GenerateOrder()
     {
@@ -36,6 +38,8 @@ public class CustomerOrder : MonoBehaviour
         {
             Debug.Log($"{gameObject.name} ordered {item.itemName}");
         }
+
+        OnOrderGenerated?.Invoke(orderedItems);
     }
 
     public void ServeOrder(PlayerItem playerItem)
@@ -54,15 +58,26 @@ public class CustomerOrder : MonoBehaviour
             CheckOrder();
         }
 
-        Debug.Log($"Served: {served.itemName}");
+        OnItemServed?.Invoke(served);
 
-        //Update order UI
+        Debug.Log($"Served: {served.itemName}");
     }
 
     private void CheckOrder()
     {
-        bool correct = orderedItems.Count == servedItems.Count &&
-                   !orderedItems.Except(servedItems).Any();
+        // Group identical items together
+        var orderedGrouped = orderedItems.GroupBy(i => i)
+                                     .ToDictionary(g => g.Key, g => g.Count());
+
+        // Group identical items together
+        var servedGrouped = servedItems.GroupBy(i => i)
+                                        .ToDictionary(g => g.Key, g => g.Count());
+
+        // Return true when orderedGrouped == servedGrouped.Count
+        bool correct = orderedGrouped.Count == servedGrouped.Count &&
+                       orderedGrouped.All(kvp =>
+                           servedGrouped.ContainsKey(kvp.Key) &&
+                           servedGrouped[kvp.Key] == kvp.Value);
 
         OnOrderServed?.Invoke(correct, servedPrice);
     }

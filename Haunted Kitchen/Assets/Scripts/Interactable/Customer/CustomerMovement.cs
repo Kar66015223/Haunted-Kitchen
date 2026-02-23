@@ -53,6 +53,11 @@ public class CustomerMovement : MonoBehaviour
         agent.SetDestination(standPoint.position);
     }
 
+    private void Update()
+    {
+        HandleTableArrival();
+    }
+
     public void HandleTableArrival()
     {
         if (isArrived || agent.pathPending) return;

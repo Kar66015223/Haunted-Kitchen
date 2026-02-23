@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class Customer_New : MonoBehaviour, Iinteractable, IContextInteractable
 {
@@ -8,6 +9,8 @@ public class Customer_New : MonoBehaviour, Iinteractable, IContextInteractable
     public CustomerUI ui;
     public CustomerBehavior behavior;
     [SerializeField] private CustomerState state = CustomerState.Idle;
+
+    public event Action<CustomerState> OnStateChanged;
 
     private void OnEnable()
     {
@@ -75,6 +78,7 @@ public class Customer_New : MonoBehaviour, Iinteractable, IContextInteractable
             case CustomerState.Idle:
                 orderSystem.GenerateOrder();
                 state = CustomerState.Ordered;
+                OnStateChanged?.Invoke(state);
                 break;
 
             case CustomerState.Ordered:
@@ -92,6 +96,8 @@ public class Customer_New : MonoBehaviour, Iinteractable, IContextInteractable
     {
         state = CustomerState.Leaving;
         behavior.OnPatienceExpired(this);
+
+        OnStateChanged?.Invoke(state);
     }
 
     void HandleOrder(bool b, int totalPrice)
@@ -99,6 +105,8 @@ public class Customer_New : MonoBehaviour, Iinteractable, IContextInteractable
         if (b)
         {
             state = CustomerState.Leaving;
+            OnStateChanged?.Invoke(state);
+
             behavior.OnCorrectServe(this, totalPrice);
 
             Debug.Log("All order served correctly");
@@ -106,6 +114,8 @@ public class Customer_New : MonoBehaviour, Iinteractable, IContextInteractable
         else
         {
             state = CustomerState.Leaving;
+            OnStateChanged?.Invoke(state);
+
             behavior.OnWrongServe(this);
 
             Debug.Log("Served at least one order wrong");
