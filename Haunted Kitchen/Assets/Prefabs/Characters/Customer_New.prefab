@@ -456,9 +456,12 @@ PrefabInstance:
       addedObject: {fileID: 4392590439239864082}
     - targetCorrespondingSourceObject: {fileID: 3639085649114654099, guid: e7a5d8bb06951c84883a83ccbfb465c3, type: 3}
       insertIndex: 6
-      addedObject: {fileID: 4648757953643653299}
+      addedObject: {fileID: 7480603745977077545}
     - targetCorrespondingSourceObject: {fileID: 3639085649114654099, guid: e7a5d8bb06951c84883a83ccbfb465c3, type: 3}
       insertIndex: 7
+      addedObject: {fileID: 4648757953643653299}
+    - targetCorrespondingSourceObject: {fileID: 3639085649114654099, guid: e7a5d8bb06951c84883a83ccbfb465c3, type: 3}
+      insertIndex: 8
       addedObject: {fileID: 1854326890764237697}
   m_SourcePrefab: {fileID: 100100000, guid: e7a5d8bb06951c84883a83ccbfb465c3, type: 3}
 --- !u!114 &1307929730027520605 stripped
@@ -550,14 +553,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3268087da52d3be4ea31f52600cb721e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CustomerOrder
-  orderAmount: 2
   possibleOrders:
   - {fileID: 11400000, guid: 62c746f054049a041a7eb5ce622989f1, type: 2}
   - {fileID: 11400000, guid: e5154cacba9c265419796b040d760035, type: 2}
   - {fileID: 11400000, guid: e81a5e9a8393a4a439928ad8bacb5ad6, type: 2}
+  orderHabit: {fileID: 0}
   orderedItems: []
   servedItems: []
   servedPrice: 0
+--- !u!114 &7480603745977077545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4113405123449385459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22f84c808164f644a8c074943a491910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NormalOrderHabit
+  orderAmount: 1
 --- !u!114 &4648757953643653299
 MonoBehaviour:
   m_ObjectHideFlags: 0

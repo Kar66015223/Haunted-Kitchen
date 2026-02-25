@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class CustomerOrder : MonoBehaviour
 {
-    [SerializeField] private int orderAmount = 1;
     [SerializeField] private List<ItemData> possibleOrders = new();
+    [SerializeField] private CustomerOrderHabit orderHabit;
 
-    public List<ItemData> orderedItems = new();
+    [SerializeField] private List<ItemData> orderedItems = new();
     [SerializeField] private List<ItemData> servedItems = new();
     public int servedPrice;
 
@@ -16,28 +16,20 @@ public class CustomerOrder : MonoBehaviour
     public event Action<List<ItemData>> OnOrderGenerated;
     public event Action<ItemData> OnItemServed;
 
+    private void Awake()
+    {
+        orderHabit = GetComponent<CustomerOrderHabit>();
+
+        if (orderHabit == null)
+            Debug.LogError("No CustomerOrderHabit attached!");
+    }
+
     public void GenerateOrder()
     {
-        if (possibleOrders.Count == 0)
-        {
-            Debug.LogError("Customer has no possible orders!");
-            return;
-        }
+        orderedItems = orderHabit.GenerateOrder(possibleOrders);
 
-        orderedItems.Clear();
         servedItems.Clear();
         servedPrice = 0;
-
-        for (int i = 0; i < orderAmount; i++)
-        {
-            ItemData item = possibleOrders[UnityEngine.Random.Range(0, possibleOrders.Count)];
-            orderedItems.Add(item);
-        }
-
-        foreach (ItemData item in orderedItems)
-        {
-            Debug.Log($"{gameObject.name} ordered {item.itemName}");
-        }
 
         OnOrderGenerated?.Invoke(orderedItems);
     }
@@ -53,32 +45,19 @@ public class CustomerOrder : MonoBehaviour
         playerItem.DropItemNoRaycast();
         Destroy(servedObj);
 
-        if (servedItems.Count >= orderedItems.Count)
+        OnItemServed?.Invoke(served);
+
+        if (orderHabit.ShouldCheckOrder(servedItems, orderedItems))
         {
             CheckOrder();
         }
-
-        OnItemServed?.Invoke(served);
 
         Debug.Log($"Served: {served.itemName}");
     }
 
     private void CheckOrder()
     {
-        // Group identical items together
-        var orderedGrouped = orderedItems.GroupBy(i => i)
-                                     .ToDictionary(g => g.Key, g => g.Count());
-
-        // Group identical items together
-        var servedGrouped = servedItems.GroupBy(i => i)
-                                        .ToDictionary(g => g.Key, g => g.Count());
-
-        // Return true when orderedGrouped == servedGrouped.Count
-        bool correct = orderedGrouped.Count == servedGrouped.Count &&
-                       orderedGrouped.All(kvp =>
-                           servedGrouped.ContainsKey(kvp.Key) &&
-                           servedGrouped[kvp.Key] == kvp.Value);
-
+        bool correct = orderHabit.ValidateOrder(servedItems, orderedItems);
         OnOrderServed?.Invoke(correct, servedPrice);
     }
 }

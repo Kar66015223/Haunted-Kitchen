@@ -56,6 +56,11 @@ public class CustomerUI : MonoBehaviour
     {
         currentState = state;
         UpdateUI();
+
+        if (state == CustomerState.Leaving)
+        {
+            ClearOrderUI();
+        }
     }
 
     private void UpdateUI()
@@ -74,6 +79,18 @@ public class CustomerUI : MonoBehaviour
 
     private void DisplayOrder(List<ItemData> items)
     {
+        if (orderIconPrefab == null)
+        {
+            Debug.LogError("OrderIconPrefab is NULL");
+            return;
+        }
+
+        if (orderContainer == null)
+        {
+            Debug.LogError("OrderContainer is NULL");
+            return;
+        }
+
         ClearOrderUI();
 
         foreach (ItemData item in items)

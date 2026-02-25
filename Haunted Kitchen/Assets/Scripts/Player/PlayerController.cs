@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isSlipping;
     public bool IsSlipping { get { return isSlipping; } }
     [SerializeField] private float slipTimer;
+    [SerializeField] private GameObject slipVFX;
 
     void Awake()
     {
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour
             if (slipTimer <= 0f)
             {
                 isSlipping = false;
+                slipVFX.SetActive(false);
             }
 
             return;
@@ -127,6 +129,8 @@ public class PlayerController : MonoBehaviour
         }
 
         isRunning = false;
+
+        slipVFX?.SetActive(true);
 
         anim.speed = 1f;
         anim.SetTrigger("Slip");
