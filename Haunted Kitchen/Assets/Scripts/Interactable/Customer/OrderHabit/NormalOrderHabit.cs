@@ -10,7 +10,7 @@ public class NormalOrderHabit : CustomerOrderHabit
     {
         List<ItemData> result = new();
 
-        for (int i = 0; i < allOrders.Count; i++)
+        for (int i = 0; i < orderAmount; i++)
         {
             var item = allOrders[Random.Range(0, allOrders.Count)];
             result.Add(item);

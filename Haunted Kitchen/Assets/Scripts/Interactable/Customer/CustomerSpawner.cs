@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class CustomerSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject customerPrefab;
+    [SerializeField] private List<GameObject> customerPrefabs;
     [SerializeField] private Transform spawnPoint;
 
     [SerializeField] private List<Table> tables = new();
@@ -23,40 +23,22 @@ public class CustomerSpawner : MonoBehaviour
     {
         if (tables.Count == 0)
         {
-            Debug.LogError("No tables assigned in inspector");
+            Debug.LogError("No tables assigned");
             return;
         }
 
-        //pick random free table
-        List<Table> freeTables = tables.FindAll(tables => !tables.isOccupied);
-
-        if (freeTables.Count == 0)
+        if (customerPrefabs.Count == 0)
         {
-            Debug.Log("No free tables");
+            Debug.LogError("No customer prefabs assigned");
             return;
         }
 
-        Table targetTable = freeTables[Random.Range(0, freeTables.Count)];
+        GameObject randomPrefab = customerPrefabs[Random.Range(0, customerPrefabs.Count)];
+        GameObject customerObj = Instantiate(randomPrefab, spawnPoint.position, spawnPoint.rotation);
 
-        GameObject customerObj = Instantiate(customerPrefab, spawnPoint.position, spawnPoint.rotation);
+        CustomerMovement movement = customerObj.GetComponentInParent<CustomerMovement>();
+        movement.Initialize(tables);
 
-        Customer customerComponent = customerObj.GetComponent<Customer>();
-        customerComponent.OnCustomerLeft += HandleCustomerLeft;
-
-        Customer customer = customerObj.GetComponent<Customer>();
-        if (customer == null)
-        {
-            Debug.LogError("Customer Prefab is missing Customer script");
-            return;
-        }
-
-        customer.targetTable = targetTable;
-        customer.standPoint = targetTable.customerStandPoint;
-        customer.targetTable.isOccupied = true;
-
-        customer.SetExitPoint(spawnPoint);
-
-        NavMeshAgent agent = customer.agent;
-        agent.SetDestination(customer.standPoint.position);
+        movement.OnLeft += HandleCustomerLeft;
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -56,6 +57,11 @@ public class CustomerMovement : MonoBehaviour
     private void Update()
     {
         HandleTableArrival();
+    }
+
+    public void Initialize(List<Table> availableTables)
+    {
+        tables = availableTables;
     }
 
     public void HandleTableArrival()
