@@ -246,8 +246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d3af9e9c656e24fa6802f1a9fdd1d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  moveSpeed: 5
-  runSpeed: 10
+  moveSpeed: 7
+  runSpeed: 14
   gravity: -20
   groundedForce: -2
   anim: {fileID: 6213004647493594845}

@@ -79,6 +79,8 @@ public class Customer_New : MonoBehaviour, Iinteractable, IContextInteractable
                 orderSystem.GenerateOrder();
                 state = CustomerState.Ordered;
                 OnStateChanged?.Invoke(state);
+
+                HandleArrival();
                 break;
 
             case CustomerState.Ordered:

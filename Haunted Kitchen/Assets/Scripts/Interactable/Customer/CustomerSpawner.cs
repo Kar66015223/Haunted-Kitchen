@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.AI;
 
 public class CustomerSpawner : MonoBehaviour
 {
@@ -37,7 +36,7 @@ public class CustomerSpawner : MonoBehaviour
         GameObject customerObj = Instantiate(randomPrefab, spawnPoint.position, spawnPoint.rotation);
 
         CustomerMovement movement = customerObj.GetComponentInParent<CustomerMovement>();
-        movement.Initialize(tables);
+        movement.Initialize(tables, spawnPoint);
 
         movement.OnLeft += HandleCustomerLeft;
     }

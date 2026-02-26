@@ -59,9 +59,10 @@ public class CustomerMovement : MonoBehaviour
         HandleTableArrival();
     }
 
-    public void Initialize(List<Table> availableTables)
+    public void Initialize(List<Table> availableTables, Transform exit)
     {
         tables = availableTables;
+        exitPoint = exit;
     }
 
     public void HandleTableArrival()
