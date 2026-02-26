@@ -52,7 +52,7 @@ public class CustomerOrder : MonoBehaviour
             CheckOrder();
         }
 
-        Debug.Log($"Served: {served.itemName}");
+        //Debug.Log($"Served: {served.itemName}");
     }
 
     private void CheckOrder()

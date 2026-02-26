@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     [Header("Slipping")]
     [SerializeField] private bool isSlipping;
     public bool IsSlipping { get { return isSlipping; } }
+
     [SerializeField] private float slipTimer;
     [SerializeField] private GameObject slipVFX;
 

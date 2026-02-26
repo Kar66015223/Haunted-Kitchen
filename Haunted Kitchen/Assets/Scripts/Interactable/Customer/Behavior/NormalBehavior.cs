@@ -5,7 +5,6 @@
     {
         public override void OnCorrectServe(Customer_New customer, int totalPrice)
         {
-            totalPrice = customer.orderSystem.servedPrice;
             GameManager.instance.playerMoney.ChangeMoneyAmount(totalPrice);
         }
 
@@ -21,5 +20,10 @@
             int steal = Random.Range(300, 1000);
             GameManager.instance.playerMoney.ChangeMoneyAmount(-steal);
             GameManager.instance.ShowEventText("Your money was stolen by an angry customer...", Color.red);
+        }
+
+        public override void HandleLeaving(Customer_New customer)
+        {
+            customer.movement.HandleLeaving();
         }
     }

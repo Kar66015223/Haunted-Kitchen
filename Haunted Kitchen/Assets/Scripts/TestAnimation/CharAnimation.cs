@@ -88,6 +88,9 @@ public class CharAnimation : MonoBehaviour
                 case CustomerAnimTestState.Sit:
                     c.Anim.SetBool("Sit", true);
                     break;
+                case CustomerAnimTestState.Attack:
+                    c.Anim.SetTrigger("Attack");
+                    break;
             }
         }
         #endregion

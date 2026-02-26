@@ -5,4 +5,6 @@ public abstract class CustomerBehavior : MonoBehaviour
     public abstract void OnPatienceExpired(Customer_New customer);
     public abstract void OnCorrectServe(Customer_New customer, int totalPrice);
     public abstract void OnWrongServe(Customer_New customer);
+
+    public abstract void HandleLeaving(Customer_New customer);
 }

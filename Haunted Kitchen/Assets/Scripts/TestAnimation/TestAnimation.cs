@@ -89,5 +89,10 @@ public class TestAnimation : MonoBehaviour
     {
         customer.SetCustomerAnimTestState(CustomerAnimTestState.Sit);
     }
+
+    public void SetCustomerAttack()
+    {
+        customer.SetCustomerAnimTestState(CustomerAnimTestState.Attack);
+    }
     #endregion
 }

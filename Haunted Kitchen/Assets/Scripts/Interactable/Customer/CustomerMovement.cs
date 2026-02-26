@@ -24,6 +24,9 @@ public class CustomerMovement : MonoBehaviour
     [SerializeField] private Transform exitPoint;
     public Action OnLeft;
 
+    [Header("Animation")]
+    [SerializeField] private float attackAnimDelay = 1f;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -79,8 +82,6 @@ public class CustomerMovement : MonoBehaviour
 
             OnArrived?.Invoke();
 
-            //UpdateUI();
-
             anim.SetBool("Sit", true);
         }
     }
@@ -105,5 +106,23 @@ public class CustomerMovement : MonoBehaviour
         }
 
         anim.SetBool("Sit", false);
+    }
+
+    public void PlayAttack()
+    {
+        if (anim != null)
+            anim.SetTrigger("Attack");
+    }
+
+    public void PlayIdle()
+    {
+        if (anim != null)
+            anim.SetBool("Sit", false);
+    }
+
+    public void PlaySit()
+    {
+        if (anim != null)
+            anim.SetBool("Sit", true);
     }
 }

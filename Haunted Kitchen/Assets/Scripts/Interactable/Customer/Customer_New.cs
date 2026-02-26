@@ -24,6 +24,7 @@ public class Customer_New : MonoBehaviour, Iinteractable, IContextInteractable
         patience.OnPatienceExpired -= HandlePatienceExpired;
         orderSystem.OnOrderServed -= HandleOrder;
     }
+
     private void Awake()
     {
         movement = GetComponent<CustomerMovement>();
@@ -42,7 +43,7 @@ public class Customer_New : MonoBehaviour, Iinteractable, IContextInteractable
                 break;
 
             case CustomerState.Leaving:
-                movement.HandleLeaving();
+                behavior.HandleLeaving(this);
                 break;
         }
     }
@@ -93,7 +94,7 @@ public class Customer_New : MonoBehaviour, Iinteractable, IContextInteractable
     {
         patience.StartPatienceTimer();
     }
-
+        
     void HandlePatienceExpired()
     {
         state = CustomerState.Leaving;

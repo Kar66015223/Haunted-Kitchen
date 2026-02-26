@@ -23,7 +23,8 @@ public enum TuiState
 public enum CustomerAnimTestState
 {
     Walk,
-    Sit
+    Sit,
+    Attack
 }
 
 public abstract class Character : MonoBehaviour
