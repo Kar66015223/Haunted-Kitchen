@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -43,6 +41,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float slipTimer;
     [SerializeField] private GameObject slipVFX;
 
+    [Header("Speed Buff")]
+    private float speedBuffTimer;
+    private bool hasSpeedBuff;
+
+    private void OnEnable()
+    {
+        GameEvents.OnSpeedBuff += ApplySpeedBuff;
+    }
+    private void OnDisable()
+    {
+        GameEvents.OnSpeedBuff -= ApplySpeedBuff;
+
+        anim.speed = 1f;
+    }
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -70,6 +83,11 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        if (hasSpeedBuff && Time.time >= speedBuffTimer)
+        {
+            hasSpeedBuff = false;
+        }
+
         Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y);
 
         if (move.sqrMagnitude > 0.001f)
@@ -79,7 +97,8 @@ public class PlayerController : MonoBehaviour
         }
 
         bool canRun = isRunning && stamina != null && stamina.CanRun();
-        float currentSpeed = canRun ? runSpeed : moveSpeed;
+        float buffMultiplier = hasSpeedBuff ? 2f : 1f;
+        float currentSpeed = (canRun ? runSpeed : moveSpeed) * buffMultiplier;
 
         //Moving
         bool isGrounded = controller.isGrounded;
@@ -101,6 +120,7 @@ public class PlayerController : MonoBehaviour
             stamina.Drain(stamina.drainRate * Time.deltaTime);
         }
 
+        #region Animation
         bool isMoving = moveInput.sqrMagnitude > 0.001f;
         bool isRunningNow = IsRunning;
 
@@ -113,7 +133,8 @@ public class PlayerController : MonoBehaviour
         else
         {
             anim.speed = 1f;
-        }
+        } 
+        #endregion
     }
 
     public void Slip(float duration)
@@ -136,6 +157,12 @@ public class PlayerController : MonoBehaviour
         anim.SetTrigger("Slip");
 
         Debug.Log("Slip called with duration: " + duration);
+    }
+
+    private void ApplySpeedBuff(float duration)
+    {
+        hasSpeedBuff = true;
+        speedBuffTimer = Time.time + duration;
     }
 
     #region InputAction
@@ -176,9 +203,4 @@ public class PlayerController : MonoBehaviour
             GameManager.instance.Pause();
     } 
     #endregion
-
-    private void OnDisable()
-    {
-        anim.speed = 1f;
-    }
 }
