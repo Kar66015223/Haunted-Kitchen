@@ -135,6 +135,8 @@ GameObject:
   - component: {fileID: 7759574162057141734}
   - component: {fileID: 4471083283667106279}
   - component: {fileID: 2307041394496468283}
+  - component: {fileID: 5535279416587122376}
+  - component: {fileID: 2085592455395610552}
   - component: {fileID: 1946135234381043350}
   - component: {fileID: 6002992429841487469}
   - component: {fileID: 6622375173308098662}
@@ -324,6 +326,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMoney
   currentMoney: 0
+--- !u!114 &5535279416587122376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536483965337830122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6bc27dc4789d3b499fe2685685084d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 3
+  uiPanel: {fileID: 0}
+  healthUI: []
+--- !u!114 &2085592455395610552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536483965337830122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5779664f0cb1fce45ae5b2d09b54720f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerUI
+  uiPanel: {fileID: 0}
+  healthUI: []
 --- !u!114 &1946135234381043350
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,9 +24,6 @@ public class CustomerMovement : MonoBehaviour
     [SerializeField] private Transform exitPoint;
     public Action OnLeft;
 
-    [Header("Animation")]
-    [SerializeField] private float attackAnimDelay = 1f;
-
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();

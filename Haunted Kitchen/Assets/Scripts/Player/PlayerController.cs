@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -60,9 +61,7 @@ public class PlayerController : MonoBehaviour
 
         if (isSlipping)
         {
-            slipTimer -= Time.deltaTime;
-
-            if (slipTimer <= 0f)
+            if (Time.time >= slipTimer)
             {
                 isSlipping = false;
                 slipVFX.SetActive(false);
@@ -122,7 +121,7 @@ public class PlayerController : MonoBehaviour
         if (isSlipping) return;
 
         isSlipping = true;
-        slipTimer = duration;
+        slipTimer = Time.time + duration;
 
         if (playerItem != null)
         {
@@ -135,6 +134,8 @@ public class PlayerController : MonoBehaviour
 
         anim.speed = 1f;
         anim.SetTrigger("Slip");
+
+        Debug.Log("Slip called with duration: " + duration);
     }
 
     #region InputAction

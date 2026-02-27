@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AngryBehavior
   disappearDelay: 1
+  stunDuration: 2
 --- !u!4 &4346230252450467051 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2572437827003394627, guid: e7a5d8bb06951c84883a83ccbfb465c3, type: 3}
