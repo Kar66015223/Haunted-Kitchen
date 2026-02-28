@@ -68,6 +68,7 @@ public class AngryBehavior : CustomerBehavior
         health.TakeDamage(1);
 
         yield return new WaitForSeconds(disappearDelay);
+        customer.movement.OnLeft?.Invoke();
         Destroy(customer.gameObject);
     }
 }
