@@ -133,7 +133,9 @@ public class PlayerItem : MonoBehaviour
     public void DropItemNoRaycast()
     {
         if (currentHeldItemData == null) return;
-        if (currentHeldItemObj == null) return; 
+        if (currentHeldItemObj == null) return;
+
+        currentHeldItemObj.GetComponent<Item>().itemState = ItemState.NotHeld;
 
         currentHeldItemObj.transform.SetParent(null, true); 
         currentHeldItemData = null; 

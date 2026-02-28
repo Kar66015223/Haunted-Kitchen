@@ -57,17 +57,29 @@ public class PlayerInteract : MonoBehaviour
     {
         if (currentInteractable == null) return;
 
-        currentHoldInteractable?.HoldInteract(gameObject);
+        if (currentInteractable is IHoldForwarder forwarder)
+        {
+            if (forwarder.HasHoldable())
+        {
+            forwarder.ForwardHold(gameObject);
+            return;
+        }
+        }
+
+        if (currentInteractable is IHoldInteractable hold)
+        {
+            hold.HoldInteract(gameObject); 
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        //if (!other.CompareTag("Interactable") && !other.CompareTag("Item"))
-        //    return;
-
         Iinteractable interactable = other.GetComponentInParent<Iinteractable>();
-        currentHoldInteractable = interactable as IHoldInteractable;
+
         if (interactable == null) return;
+
+        GameObject holdInteractObj = ((MonoBehaviour)interactable).gameObject;
+        currentHoldInteractable = holdInteractObj.GetComponentInChildren<IHoldInteractable>();
 
         if (interactable is IContextInteractable context)
         {

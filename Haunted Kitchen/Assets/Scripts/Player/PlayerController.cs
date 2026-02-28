@@ -93,8 +93,8 @@ public class PlayerController : MonoBehaviour
         }
 
         if (isHoldingInteract && 
-            !holdTriggered && 
-            playerInteract.CurrentHoldInteractable != null)
+            !holdTriggered /*&&*/ 
+            /*playerInteract.CurrentHoldInteractable != null*/)
         {
             float heldTime = Time.time - interactStartTime;
             float progress = Mathf.Clamp01(heldTime / holdThreshold);
@@ -226,11 +226,6 @@ public class PlayerController : MonoBehaviour
 
             isHoldingInteract = false;
         }
-
-        //if (context.performed && playerInteract != null)
-        //{
-        //    playerInteract.TryInteract();
-        //}
     }
 
     public void OnDrop(InputAction.CallbackContext context)

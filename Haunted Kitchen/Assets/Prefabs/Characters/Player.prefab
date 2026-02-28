@@ -257,6 +257,7 @@ MonoBehaviour:
   isSlipping: 0
   slipTimer: 0
   slipVFX: {fileID: 219041751803806038}
+  holdThreshold: 0.4
 --- !u!114 &7736782022698327679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,8 +354,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5779664f0cb1fce45ae5b2d09b54720f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerUI
+  playerHealth: {fileID: 0}
+  controller: {fileID: 0}
   uiPanel: {fileID: 0}
   healthUI: []
+  interactHoldProgress: {fileID: 0}
 --- !u!114 &1946135234381043350
 MonoBehaviour:
   m_ObjectHideFlags: 0

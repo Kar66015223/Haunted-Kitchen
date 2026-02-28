@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Counter : MonoBehaviour, Iinteractable, IContextInteractable
+public class Counter : MonoBehaviour, Iinteractable, IContextInteractable, IHoldForwarder
 {
     [SerializeField] private Item currentItem;
     public Transform placePoint;
@@ -26,6 +26,12 @@ public class Counter : MonoBehaviour, Iinteractable, IContextInteractable
         if (playerItem == null)
             return false;
 
+        // Support hold interaction
+        if (HasHoldable())
+        {
+            return true;
+        }
+
         // put item on table
         if (currentItem == null && playerItem.currentHeldItemObj != null)
             return true;
@@ -39,6 +45,13 @@ public class Counter : MonoBehaviour, Iinteractable, IContextInteractable
 
     public void Interact(GameObject interactor)
     {
+        // If item supports hold, do not treat it like normal item
+        if (currentItem != null && currentItem is IHoldInteractable)
+        {
+            currentItem.Interact(interactor);
+            return;
+        }
+
         PlayerItem playerItem = interactor.GetComponent<PlayerItem>();
         if (playerItem == null) return;
 
@@ -60,6 +73,20 @@ public class Counter : MonoBehaviour, Iinteractable, IContextInteractable
         }
     }
 
+    public void ForwardHold(GameObject interactor)
+    {
+        if (currentItem != null &&
+            currentItem is IHoldInteractable hold)
+        {
+            hold.HoldInteract(interactor);
+        }
+    }
+
+    public bool HasHoldable()
+    {
+        return currentItem != null && currentItem is IHoldInteractable;
+    }
+
     void PlaceItem(PlayerItem playerItem)
     {
         GameObject itemObj = playerItem.currentHeldItemObj;
@@ -69,6 +96,7 @@ public class Counter : MonoBehaviour, Iinteractable, IContextInteractable
         if (currentItem == null) return;
 
         playerItem.DropItemNoRaycast();
+        currentItem.itemState = ItemState.NotHeld;
 
         itemObj.transform.position = placePoint.position;
         itemObj.transform.rotation = placePoint.rotation;
