@@ -93,8 +93,8 @@ public class PlayerController : MonoBehaviour
         }
 
         if (isHoldingInteract && 
-            !holdTriggered /*&&*/ 
-            /*playerInteract.CurrentHoldInteractable != null*/)
+            !holdTriggered && 
+            playerInteract.CurrentHoldInteractable != null)
         {
             float heldTime = Time.time - interactStartTime;
             float progress = Mathf.Clamp01(heldTime / holdThreshold);
