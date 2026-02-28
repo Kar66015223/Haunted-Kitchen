@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -36,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Slipping")]
     [SerializeField] private bool isSlipping;
-    public bool IsSlipping { get { return isSlipping; } }
+    public bool IsSlipping => isSlipping;
 
     [SerializeField] private float slipTimer;
     [SerializeField] private GameObject slipVFX;
@@ -44,6 +45,14 @@ public class PlayerController : MonoBehaviour
     [Header("Speed Buff")]
     private float speedBuffTimer;
     private bool hasSpeedBuff;
+
+    [Header("Hold Interact")]
+    private float interactStartTime;
+    private bool isHoldingInteract;
+    private bool holdTriggered;
+    [SerializeField] private float holdThreshold = 0.4f;
+
+    public event Action<float> OnHoldProgressChanged;
 
     private void OnEnable()
     {
@@ -81,6 +90,27 @@ public class PlayerController : MonoBehaviour
             }
 
             return;
+        }
+
+        if (isHoldingInteract && 
+            !holdTriggered && 
+            playerInteract.CurrentHoldInteractable != null)
+        {
+            float heldTime = Time.time - interactStartTime;
+            float progress = Mathf.Clamp01(heldTime / holdThreshold);
+
+            OnHoldProgressChanged?.Invoke(progress);
+
+            if (heldTime >= holdThreshold)
+            {
+                holdTriggered = true;
+                OnHoldProgressChanged?.Invoke(0f);
+                playerInteract?.TryHoldInteract();
+            }
+        }
+        if (!isHoldingInteract)
+        {
+            OnHoldProgressChanged?.Invoke(0f);
         }
 
         if (hasSpeedBuff && Time.time >= speedBuffTimer)
@@ -178,10 +208,29 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.performed && playerInteract != null && !isSlipping)
+        if (isSlipping) return;
+
+        if (context.started)
         {
-            playerInteract.TryInteract();
+            interactStartTime = Time.time;
+            isHoldingInteract = true;
+            holdTriggered = false;
         }
+
+        if(context.canceled)
+        {
+            if (!holdTriggered)
+            {
+                playerInteract?.TryInteract();
+            }
+
+            isHoldingInteract = false;
+        }
+
+        //if (context.performed && playerInteract != null)
+        //{
+        //    playerInteract.TryInteract();
+        //}
     }
 
     public void OnDrop(InputAction.CallbackContext context)

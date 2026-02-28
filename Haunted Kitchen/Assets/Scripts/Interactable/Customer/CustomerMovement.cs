@@ -30,8 +30,16 @@ public class CustomerMovement : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
     }
 
-    private void Start()
+    private void Update()
     {
+        HandleTableArrival();
+    }
+
+    public void Initialize(List<Table> availableTables, Transform exit)
+    {
+        tables = availableTables;
+        exitPoint = exit;
+
         if (tables.Count == 0)
         {
             Debug.LogError("No tables assigned in inspector");
@@ -54,19 +62,10 @@ public class CustomerMovement : MonoBehaviour
         agent.SetDestination(standPoint.position);
     }
 
-    private void Update()
-    {
-        HandleTableArrival();
-    }
-
-    public void Initialize(List<Table> availableTables, Transform exit)
-    {
-        tables = availableTables;
-        exitPoint = exit;
-    }
-
     public void HandleTableArrival()
     {
+        if (standPoint == null) return;
+
         if (isArrived || agent.pathPending) return;
 
         if (agent.remainingDistance <= agent.stoppingDistance)
@@ -105,7 +104,7 @@ public class CustomerMovement : MonoBehaviour
         anim.SetBool("Sit", false);
     }
 
-    public void PlayAttack()
+    public void PlayAttack()    
     {
         if (anim != null)
             anim.SetTrigger("Attack");

@@ -5,13 +5,7 @@ public class Item : MonoBehaviour, Iinteractable, IContextInteractable
     public ItemData itemData;
     public ItemState itemState;
 
-    public enum ItemState
-    {
-        NotHeld,
-        Held
-    }
-
-    public bool CanInteract(PlayerItem playerItem)
+    public virtual bool CanInteract(PlayerItem playerItem)
     {
         if (playerItem == null) 
             return false;
@@ -25,7 +19,7 @@ public class Item : MonoBehaviour, Iinteractable, IContextInteractable
         return true;
     }
 
-    public void Interact(GameObject interactor)
+    public virtual void Interact(GameObject interactor)
     {
         Debug.Log($"Picking up {gameObject.name}");
     }

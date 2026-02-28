@@ -71,7 +71,7 @@ public class PlayerItem : MonoBehaviour
         }
 
         Item item = itemObj.GetComponent<Item>();
-        item.itemState = Item.ItemState.Held;
+        item.itemState = ItemState.Held;
     }
 
     public void DropItem()
@@ -121,7 +121,7 @@ public class PlayerItem : MonoBehaviour
         if (currentHeldItemObj.TryGetComponent(out Rigidbody rb))
             rb.isKinematic = false;
 
-        currentHeldItemObj.GetComponent<Item>().itemState = Item.ItemState.NotHeld;
+        currentHeldItemObj.GetComponent<Item>().itemState = ItemState.NotHeld;
 
         currentHeldItemData = null;
         currentHeldItemObj = null;

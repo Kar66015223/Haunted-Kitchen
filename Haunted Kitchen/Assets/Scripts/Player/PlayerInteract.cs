@@ -6,18 +6,15 @@ public class PlayerInteract : MonoBehaviour
     public TMP_Text interactPrompt;
 
     [SerializeField] private Iinteractable currentInteractable;
+    public Iinteractable CurrentInteractable => currentInteractable;
+
+    [SerializeField] private IHoldInteractable currentHoldInteractable;
+    public IHoldInteractable CurrentHoldInteractable => currentHoldInteractable;
+
     private PlayerItem playerItem;
     private PlayerController controller;
 
     private Outline currentOutline;
-
-    public Iinteractable CurrentInteractable
-    {
-        get
-        {
-            return currentInteractable;
-        }
-    }
 
     private void Start()
     {
@@ -56,12 +53,20 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
+    public void TryHoldInteract()
+    {
+        if (currentInteractable == null) return;
+
+        currentHoldInteractable?.HoldInteract(gameObject);
+    }
+
     private void OnTriggerStay(Collider other)
     {
         //if (!other.CompareTag("Interactable") && !other.CompareTag("Item"))
         //    return;
 
         Iinteractable interactable = other.GetComponentInParent<Iinteractable>();
+        currentHoldInteractable = interactable as IHoldInteractable;
         if (interactable == null) return;
 
         if (interactable is IContextInteractable context)
@@ -96,6 +101,7 @@ public class PlayerInteract : MonoBehaviour
     public void ClearInteractable()
     {
         currentInteractable = null;
+        currentHoldInteractable = null;
         interactPrompt.enabled = false;
 
         ClearOutline();

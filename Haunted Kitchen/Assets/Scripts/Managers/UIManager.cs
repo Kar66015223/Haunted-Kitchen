@@ -17,6 +17,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject healthUIPanel;
     [SerializeField] private List<Image> healthUI = new();
 
+    [SerializeField] private Image interactHoldProgress;
+
     private void Awake()
     {
         GameManager.instance.RegisterUI(this);
@@ -32,4 +34,6 @@ public class UIManager : MonoBehaviour
 
     public GameObject HealthUIPanel => healthUIPanel;
     public List<Image> HealthUI => healthUI;
+
+    public Image InteractHoldProgress => interactHoldProgress;
 }
