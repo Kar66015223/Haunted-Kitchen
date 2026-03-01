@@ -49,12 +49,31 @@ public class PlayerItem : MonoBehaviour
 
     public void PickUp(ItemData data, GameObject itemObj)
     {
+        if (data == null || itemObj == null)
+        {
+            Debug.LogWarning("PickUp called with null data or itemObj");
+            return;
+        }
+
+        // If we're already holding something, refuse (caller should check)
+        if (currentHeldItemData != null)
+        {
+            Debug.LogWarning("PickUp called while already holding an item");
+            return;
+        }
+
         currentHeldItemData = data;
         currentHeldItemObj = itemObj;
 
         if (itemObj.TryGetComponent(out Rigidbody rb))
         {
             rb.isKinematic = true;
+        }
+
+        var colliders = itemObj.GetComponentsInChildren<Collider>();
+        foreach (var c in colliders)
+        {
+            c.enabled = false;
         }
 
         if (currentHeldItemData.oneHand)
@@ -70,8 +89,10 @@ public class PlayerItem : MonoBehaviour
             itemObj.transform.localPosition = holdPointTwoHand.position;
         }
 
-        Item item = itemObj.GetComponent<Item>();
-        item.itemState = ItemState.Held;
+        if (itemObj.TryGetComponent(out Item item))
+        {
+            item.itemState = ItemState.Held;
+        }
     }
 
     public void DropItem()
@@ -80,9 +101,9 @@ public class PlayerItem : MonoBehaviour
 
         Transform itemTransform = currentHeldItemObj.transform;
 
+        #region Raycast
         Vector3 rayOrigin = itemTransform.position + Vector3.up * dropHeightOffset;
 
-        //Raycast down 
         if (!Physics.Raycast(
             rayOrigin,
             Vector3.down,
@@ -95,7 +116,8 @@ public class PlayerItem : MonoBehaviour
         }
 
         Collider col = currentHeldItemObj.GetComponent<Collider>();
-        if(col ==  null) return;
+        if (col == null) return;
+
         Vector3 halfExtents = col.bounds.extents;
         Vector3 dropPosition = hit.point + Vector3.up * halfExtents.y;
 
@@ -111,17 +133,26 @@ public class PlayerItem : MonoBehaviour
             Debug.Log("Can't drop here");
             return;
         }
+        #endregion
 
-        // Perform drop
+        var colliders = currentHeldItemObj.GetComponentsInChildren<Collider>();
+        foreach (var c in colliders)
+        {
+            c.enabled = true;
+        }
+
         currentHeldItemObj.transform.SetParent(null);
-
         itemTransform.position = dropPosition;
         itemTransform.rotation = Quaternion.identity;
 
         if (currentHeldItemObj.TryGetComponent(out Rigidbody rb))
             rb.isKinematic = false;
 
-        currentHeldItemObj.GetComponent<Item>().itemState = ItemState.NotHeld;
+        var itemComp = currentHeldItemObj.GetComponent<Item>();
+        if (itemComp != null)
+        {
+            itemComp.itemState = ItemState.NotHeld;
+        }
 
         currentHeldItemData = null;
         currentHeldItemObj = null;
@@ -135,7 +166,17 @@ public class PlayerItem : MonoBehaviour
         if (currentHeldItemData == null) return;
         if (currentHeldItemObj == null) return;
 
-        currentHeldItemObj.GetComponent<Item>().itemState = ItemState.NotHeld;
+        var colliders = currentHeldItemObj.GetComponentsInChildren<Collider>();
+        foreach (var c in colliders)
+        {
+            c.enabled = true;
+        }
+
+        if (currentHeldItemObj.TryGetComponent(out Rigidbody rb))
+            rb.isKinematic = false;
+
+        if (currentHeldItemObj.TryGetComponent(out Item itm))
+            itm.itemState = ItemState.NotHeld;
 
         currentHeldItemObj.transform.SetParent(null, true); 
         currentHeldItemData = null; 

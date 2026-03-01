@@ -1804,6 +1804,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Counter
   currentItem: {fileID: 0}
   placePoint: {fileID: 1363485256}
+  customerStandPoint: {fileID: 0}
+  tableRole: 0
+  isOccupied: 0
   KetchupBottlePrefab: {fileID: 7134544720252256368, guid: 2d6e242e4fbfff04d9d501a6e7cb7cfb, type: 3}
   MustardBottlePrefab: {fileID: 0}
 --- !u!65 &184001722
@@ -11467,6 +11470,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Counter
   currentItem: {fileID: 0}
   placePoint: {fileID: 1072674399}
+  customerStandPoint: {fileID: 0}
+  tableRole: 0
+  isOccupied: 0
   KetchupBottlePrefab: {fileID: 0}
   MustardBottlePrefab: {fileID: 0}
 --- !u!1 &1323295196
@@ -15467,6 +15473,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Counter
   currentItem: {fileID: 0}
   placePoint: {fileID: 1766276093}
+  customerStandPoint: {fileID: 0}
+  tableRole: 0
+  isOccupied: 0
   KetchupBottlePrefab: {fileID: 0}
   MustardBottlePrefab: {fileID: 6493328201991226892, guid: 1e702c80411cdad4ba1bedc67e950abb, type: 3}
 --- !u!65 &1763267229
@@ -19288,6 +19297,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CuttingBoard
       objectReference: {fileID: 0}
+    - target: {fileID: 144265656392322135, guid: cd739359417c23947bcb690bb2809612, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348247306382135127, guid: cd739359417c23947bcb690bb2809612, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6408492185068822855, guid: cd739359417c23947bcb690bb2809612, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.017029
@@ -19327,6 +19344,14 @@ PrefabInstance:
     - target: {fileID: 6408492185068822855, guid: cd739359417c23947bcb690bb2809612, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7741869958139076835, guid: cd739359417c23947bcb690bb2809612, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967327235465790661, guid: cd739359417c23947bcb690bb2809612, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

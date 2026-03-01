@@ -95,7 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be8f07ec9cdd1b4e92c73f270baeb3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoxItem
-  data: {fileID: 11400000, guid: a553c6ba9b8061d4295d63126ec6c9d5, type: 2}
+  itemData: {fileID: 11400000, guid: a553c6ba9b8061d4295d63126ec6c9d5, type: 2}
+  itemState: 0
+  data: {fileID: 0}
   currentAmount: 0
 --- !u!1001 &3958893285221413334
 PrefabInstance:

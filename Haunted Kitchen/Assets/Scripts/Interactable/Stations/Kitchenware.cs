@@ -1,61 +1,78 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
+public class Kitchenware : MonoBehaviour, Iinteractable
 {
     public Transform cookPoint;
 
     private Item currentItem;
     private float cookTimer = 0f;
-    //protected abstract float CookTime { get; } <= uncomment if child class have their own cookTimer
     [SerializeField] private bool isCooking;
 
     [SerializeField] private StationStatus status;
-
     [SerializeField] private CookingMethod supportedMethod;
 
-    public bool CanInteract(PlayerItem playerItem)
+    public bool CanInteract(Interactor interactor)
     {
-        if (playerItem == null) return false;
+        if(interactor == null) 
+            return false;
 
-        if (playerItem.currentHeldItemObj == null && currentItem != null && !isCooking)
+        if (interactor.interactionType == InteractionType.Hold)
+            return false;
+
+        var playerItem = interactor.playerItem;
+
+        if(playerItem == null) 
+            return false;
+
+        //If currentItem is not cooking, allow pickup
+        if (playerItem.currentHeldItemObj == null &&
+            currentItem != null &&
+            !isCooking)
             return true;
 
-        if (playerItem.currentHeldItemObj != null && currentItem == null)
+        //If currentItem == null & player has something that is ingredient and matched CookingMethod, allow placing
+        if (playerItem.currentHeldItemObj != null &&
+            currentItem == null)
         {
-            Item heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
-            IngredientData ingredient = heldItem.itemData as IngredientData;
+            var heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
+            var ingredient = heldItem?.itemData as IngredientData;
 
-            if (ingredient == null || heldItem == null)
+            if(ingredient == null)
+                return false;
+            if(!ingredient.isCookable)
+                return false;
+            if(ingredient.method != supportedMethod)
                 return false;
 
-            if (ingredient.isCookable && ingredient.method == supportedMethod)
-                return true;
+            return true;
         }
 
         return false;
     }
 
-    public void Interact(GameObject interactor)
+    public void Interact(Interactor interactor)
     {
-        PlayerItem playerItem = interactor.GetComponent<PlayerItem>();
+        var playerItem = interactor.playerItem;
+        if(playerItem == null) return;
 
-        if (playerItem == null) return;
-
-        if (status == StationStatus.Usable && !isCooking && currentItem == null && playerItem.currentHeldItemObj != null)
+        //If usable & not cooking & empty & player has something, place
+        if (status == StationStatus.Usable &&
+            !isCooking &&
+            currentItem == null &&
+            playerItem.currentHeldItemObj != null)
         {
-            Item heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
-            IngredientData ingredient = heldItem.itemData as IngredientData;
+            var heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
+            var ingredient = heldItem?.itemData as IngredientData;
 
-            if (ingredient == null || !ingredient.isCookable)
+            if (ingredient == null)
             {
-                Debug.Log("This ingredient cannot be cooked");
+                Debug.Log("This ingredient can't be cooked");
                 return;
             }
-
             if (ingredient.method != supportedMethod)
             {
-                Debug.Log("This kitchenware cannot cook this ingredient");
+                Debug.Log("This kitchemware can't cook this ingredient");
                 return;
             }
 
@@ -63,13 +80,15 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
             return;
         }
 
-        if (currentItem != null && !isCooking)
+        //If not empty and not cooking, pickup
+        if (currentItem != null && 
+            !isCooking)
         {
             playerItem.PickUp(currentItem.itemData, currentItem.gameObject);
             currentItem = null;
         }
 
-        Debug.Log($"{gameObject.name} interacted with by {interactor.name}");
+        Debug.Log($"{gameObject.name} interacted with by {interactor.source.name}");
     }
 
     void PlaceItem(PlayerItem playerItem)
@@ -96,7 +115,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
 
     void StartCooking()
     {
-        IngredientData ingredient = currentItem.itemData as IngredientData;
+        var ingredient = currentItem.itemData as IngredientData;
 
         if (ingredient == null)
         {
@@ -104,7 +123,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
             return;
         }
 
-        cookTimer = ingredient.cookTime; //cookTimer = CookTime; <= use this instead if child class have their own cookTimer
+        cookTimer = ingredient.cookTime;
         isCooking = true;
     }
 
@@ -122,7 +141,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IContextInteractable
 
     void FinishCooking()
     {
-        IngredientData ingredient = (IngredientData)currentItem.itemData;
+        var ingredient = (IngredientData)currentItem.itemData;
         currentItem.itemData = ingredient.cookedResult;
 
         if (ingredient.cookedModel != null)

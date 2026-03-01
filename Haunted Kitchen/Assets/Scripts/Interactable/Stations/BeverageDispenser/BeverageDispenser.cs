@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BeverageDispenser : MonoBehaviour, Iinteractable, IContextInteractable
+public class BeverageDispenser : MonoBehaviour, Iinteractable
 {
     [SerializeField] private ItemData refillItem;
     public GameObject beveragePrefab;
@@ -20,8 +20,16 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IContextInteracta
         UpdateUI();
     }
 
-    public bool CanInteract(PlayerItem playerItem)
+    public bool CanInteract(Interactor interactor)
     {
+        if (interactor == null)
+            return false;
+
+        if (interactor.interactionType == InteractionType.Hold)
+            return false;
+
+        var playerItem = interactor.playerItem;
+
         if (playerItem == null) return false;
 
         if (playerItem.currentHeldItemObj == null && 
@@ -37,9 +45,11 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IContextInteracta
         return false;
     }
 
-    public void Interact(GameObject interactor)
+    public void Interact(Interactor interactor)
     {
-        PlayerItem playerItem = interactor.GetComponent<PlayerItem>();
+        var playerItem = interactor.playerItem;
+        if (playerItem == null) return;
+
         if (playerItem.currentHeldItemObj == null)
         {
             GiveItem(playerItem); 

@@ -1,121 +1,122 @@
-using Unity.VisualScripting;
+using System.Linq;
 using UnityEngine;
 
-public class Table : MonoBehaviour, Iinteractable, IContextInteractable, IHoldForwarder
+public class Table : MonoBehaviour, Iinteractable
 {
-    [SerializeField] private Item currentItem;
+    [SerializeField] protected Item currentItem;
     public Transform placePoint;
     public Transform customerStandPoint;
 
+    public TableRole tableRole = TableRole.Default;
+
     public bool isOccupied;
 
-    public bool CanInteract(PlayerItem playerItem)
-    {
-        if (playerItem == null)
-            return false;
+    public virtual bool AllowsStationInteraction => tableRole != TableRole.Counter;
 
+    public bool CanInteract(Interactor interactor)
+    {
         if (customerStandPoint != null)
             return false;
 
-        // Support hold interaction
-        if (HasHoldable())
+        if (interactor == null)
+            return false;
+
+        var playerItem = interactor.playerItem;
+
+        // If there's an item on the table, first ask the item whether it accepts the forwarded interaction.
+        if (currentItem != null)
         {
-            return true;
+            // Collect all Iinteractable implementations on the item (including Item itself)
+            var interactables = currentItem
+                .GetComponents<MonoBehaviour>()
+                .OfType<Iinteractable>()
+                .ToArray();
+
+            // Prefer any interactable that is NOT the Item component (e.g. MakingFood_New)
+            var preferred = interactables.FirstOrDefault(i => !(i is Item));
+            var chosen = preferred ?? interactables.FirstOrDefault(i => i is Item);
+
+            if (chosen != null)
+            {
+                var forwarded = new Interactor(interactor.source, interactor.interactionType, this);
+                if (chosen.CanInteract(forwarded))
+                    return true; // the item/behavior explicitly accepts this interaction (press/hold)
+            }
+
+            // If the item did NOT accept the forwarded interaction, allow the table's default pickup
+            // only for Press (not for Hold).
+            if (interactor.interactionType == InteractionType.Press &&
+                playerItem != null &&
+                playerItem.currentHeldItemObj == null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
-        // Station + Container
-        if (currentItem != null &&
-            currentItem.TryGetComponent(out IStationContextInteractable station) &&
+        // Table is empty: allow placing only on Press (not Hold)
+        if (currentItem == null &&
+            playerItem != null &&
             playerItem.currentHeldItemObj != null &&
-            playerItem.currentHeldItemObj.TryGetComponent(out ContainerItem container))
+            interactor.interactionType == InteractionType.Press)
         {
-            return station.CanContainerInteract(container);
-        }
-
-        // Station + Ingredient item
-        if (currentItem != null &&
-            playerItem.currentHeldItemObj != null &&
-            currentItem.TryGetComponent(out IStationContextInteractable context))
-        {
-            return context.CanStationInteract(playerItem);
-        }
-
-        // put item on table
-        if (currentItem == null && playerItem.currentHeldItemObj != null)
             return true;
-
-        // take item from table
-        if (currentItem != null && playerItem.currentHeldItemObj == null)
-            return true;
+        }
 
         return false;
     }
 
-    public void Interact(GameObject interactor)
+    public void Interact(Interactor interactor)
     {
-        // If item supports hold, do not treat it like normal item
-        if (currentItem != null && currentItem is IHoldInteractable)
-        {
-            currentItem.Interact(interactor);
-            return;
-        }
+        var playerItem = interactor.playerItem;
 
-        PlayerItem playerItem = interactor.GetComponent<PlayerItem>();
-        if (playerItem == null) return;
-
-        if (!CanInteract(playerItem))
+        // If there's an item on the table, try forwarding to the item first.
+        if (currentItem != null)
         {
-            return;
-        }
+            var interactables = currentItem
+                .GetComponents<MonoBehaviour>()
+                .OfType<Iinteractable>()
+                .ToArray();
 
-        //if currentItem is a MakingFood item & player is holding Container item
-        if (currentItem != null &&
-            currentItem.TryGetComponent(out IStationContextInteractable station) &&
-            playerItem.currentHeldItemObj != null &&
-            playerItem.currentHeldItemObj.TryGetComponent(out ContainerItem container))
-        {
-            if (station.CanContainerInteract(container))
+            var preferred = interactables.FirstOrDefault(i => !(i is Item));
+            var chosen = preferred ?? interactables.FirstOrDefault(i => i is Item);
+
+            if (chosen != null)
             {
-                station.HandleContainer(container, this);
+                var forwarded = new Interactor(interactor.source, interactor.interactionType, this);
+                if (chosen.CanInteract(forwarded))
+                {
+                    chosen.Interact(forwarded);
+                    return;
+                }
+            }
+
+            // If item didn't accept forwarded interaction, fall back to default pickup — only on Press
+            if (interactor.interactionType == InteractionType.Press &&
+                playerItem != null &&
+                playerItem.currentHeldItemObj == null)
+            {
+                playerItem.PickUp(currentItem.itemData, currentItem.gameObject);
+                currentItem = null;
                 return;
             }
+
+            Debug.Log($"{gameObject.name} interaction not handled (item refused forwarded interaction or wrong interaction type).");
+            return;
         }
 
-        if (currentItem == null && playerItem.currentHeldItemObj != null)
+        // Table empty -> placing only allowed on Press
+        if (currentItem == null &&
+            playerItem != null &&
+            playerItem.currentHeldItemObj != null &&
+            interactor.interactionType == InteractionType.Press)
         {
             PlaceItem(playerItem);
             return;
         }
 
-        if (currentItem == null) return;
-
-        if (currentItem.TryGetComponent(out ITableInteractable tableInteractable))
-        {
-            if (tableInteractable.HandleTableInteraction(interactor))
-                return;
-        }
-
-        if (playerItem.currentHeldItemObj == null)
-        {
-            playerItem.PickUp(currentItem.itemData, currentItem.gameObject);
-            currentItem = null;
-        }
-
-        Debug.Log($"{gameObject.name} interacted with by {interactor.name}");
-    }
-
-    public void ForwardHold(GameObject interactor)
-    {
-        if (currentItem != null &&
-            currentItem is IHoldInteractable hold)
-        {
-            hold.HoldInteract(interactor);
-        }
-    }
-
-    public bool HasHoldable()
-    {
-        return currentItem != null && currentItem is IHoldInteractable;
+        Debug.Log($"{gameObject.name} interacted by {interactor.source.name} (no action matched).");
     }
 
     void PlaceItem(PlayerItem playerItem)
@@ -144,8 +145,28 @@ public class Table : MonoBehaviour, Iinteractable, IContextInteractable, IHoldFo
         currentItem = item;
     }
 
-    public void ClearTableOccupy()
+    protected void SpawnItem(GameObject prefab)
     {
-        isOccupied = false;
+        GameObject itemObj = Instantiate(
+            prefab,
+            placePoint.position,
+            placePoint.rotation
+        );
+
+        itemObj.transform.SetParent(transform, true);
+
+        Item item = itemObj.GetComponent<Item>();
+        if (item == null)
+        {
+            Debug.LogError($"{prefab.name} does not have an Item component");
+            return;
+        }
+
+        currentItem = item;
+
+        if (itemObj.TryGetComponent(out Rigidbody rb))
+        {
+            rb.isKinematic = true;
+        }
     }
 }

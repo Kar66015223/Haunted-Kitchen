@@ -93,19 +93,26 @@ public class PlayerController : MonoBehaviour
         }
 
         if (isHoldingInteract && 
-            !holdTriggered && 
-            playerInteract.CurrentHoldInteractable != null)
+            !holdTriggered)
         {
-            float heldTime = Time.time - interactStartTime;
-            float progress = Mathf.Clamp01(heldTime / holdThreshold);
-
-            OnHoldProgressChanged?.Invoke(progress);
-
-            if (heldTime >= holdThreshold)
+            if (playerInteract != null && 
+                playerInteract.CanHoldCurrentInteractable())
             {
-                holdTriggered = true;
+                float heldTime = Time.time - interactStartTime;
+                float progress = Mathf.Clamp01(heldTime / holdThreshold);
+
+                OnHoldProgressChanged?.Invoke(progress);
+
+                if (heldTime >= holdThreshold)
+                {
+                    holdTriggered = true;
+                    OnHoldProgressChanged?.Invoke(0f);
+                    playerInteract?.TryHoldInteract();
+                } 
+            }
+            else
+            {
                 OnHoldProgressChanged?.Invoke(0f);
-                playerInteract?.TryHoldInteract();
             }
         }
         if (!isHoldingInteract)

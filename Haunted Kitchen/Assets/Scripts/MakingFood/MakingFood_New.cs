@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MakingFood_New : MonoBehaviour, Iinteractable, ITableInteractable, IStationContextInteractable
+public class MakingFood_New : MonoBehaviour, Iinteractable
 {
     public RecipeData recipe;
 
@@ -30,79 +30,124 @@ public class MakingFood_New : MonoBehaviour, Iinteractable, ITableInteractable, 
         resultItem = recipe.result;
     }
 
-    public bool CanStationInteract(PlayerItem playerItem)
+    public bool CanInteract(Interactor interactor)
     {
-        if (isCompleted) return false;
-        if (playerItem?.currentHeldItemObj == null) return false;
+        if (interactor.interactionType == InteractionType.Hold)
+            return false;
 
-        Item heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
-        if (heldItem == null) return false;
+        if (interactor?.currentTable != null && !interactor.currentTable.AllowsStationInteraction)
+            return false;
 
-        IngredientData ingredient = heldItem.itemData as IngredientData;
-        if (ingredient == null) return false;
+        if (isCompleted) 
+            return false;
 
-        return IsCorrectIngredient(ingredient);
-    }
+        if(interactor == null) 
+            return false;
 
-    public bool CanContainerInteract(ContainerItem container)
-    {
-        if (isCompleted) return false;
-        if (container == null) return false;
+        var playerItem = interactor.playerItem;
 
-        IngredientData ingredient = container.ContainerContentAsIngredient();
-
-        if (ingredient == null) return false;
-
-        return IsCorrectIngredient(ingredient);
-    }
-
-    public void HandleContainer(ContainerItem container, Table table)
-    {
-        if (!CanContainerInteract(container)) return;
-
-        GameObject content = container.SpawnContent(table);
-
-        Item spawnedItem = content.GetComponent<Item>();
-        if (spawnedItem == null) return;
-
-        AddIngredient(null, spawnedItem);
-    }
-
-    public bool HandleTableInteraction(GameObject interactor)
-    {
-        PlayerItem playerItem = interactor.GetComponent<PlayerItem>();
-        if (playerItem == null) return false;
-
-        if (playerItem.currentHeldItemObj != null)
+        //If player has nothing, allow pickup
+        if (playerItem?.currentHeldItemObj == null)
         {
-            Interact(interactor);
+            if (interactor.currentTable == null)
+                return false;
+
             return true;
+        }
+
+        //If player has something, check for correct ingredient and containers
+        var heldObj = playerItem.currentHeldItemObj;
+        if (heldObj == null)
+            return false;
+
+        //Ingredient case
+        Item heldItem = heldObj.GetComponent<Item>();
+        IngredientData ingredient = heldItem?.itemData as IngredientData;
+        if (ingredient != null)
+        {
+            return IsCorrectIngredient(ingredient);
+        }
+
+        //Container case: If container content is the correct ingredient
+        var container = heldObj.GetComponent<ContainerItem>();
+        if (container != null)
+        {
+            var containerIngredient = container.ContainerContentAsIngredient();
+            if (containerIngredient != null)
+            {
+                return IsCorrectIngredient(containerIngredient);
+            }
         }
 
         return false;
     }
 
-    public void Interact(GameObject interactor)
+    public void Interact(Interactor interactor)
     {
-        PlayerItem playerItem = interactor.GetComponent<PlayerItem>();
-        if (playerItem == null || playerItem.currentHeldItemObj == null) return;
+        var playerItem = interactor.playerItem;
 
-        Item heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
-        IngredientData ingredient = heldItem.itemData as IngredientData;
-
-        if (ingredient == null)
+        if (playerItem != null &&
+            playerItem.currentHeldItemObj != null)
         {
-            Debug.Log("not an ingredient");
-            return;
+            #region Add ingredient: If player has something, check if it's the correct ingredient
+            Item heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
+            var ingredient = heldItem?.itemData as IngredientData;
+
+            if (ingredient != null)
+            {
+                if (!IsCorrectIngredient(ingredient))
+                {
+                    Debug.Log("wrong ingredient order");
+                    return;
+                }
+
+                AddIngredient(playerItem, heldItem);
+                return;
+            } 
+            #endregion
+
+            #region Container: If player is holding container, release content
+            var container = playerItem.currentHeldItemObj.GetComponent<ContainerItem>();
+            if (container != null)
+            {
+                var containerIngredient = container.ContainerContentAsIngredient();
+                if (containerIngredient == null)
+                {
+                    Debug.Log("container has no ingredient content");
+                    return;
+                }
+
+                if (!IsCorrectIngredient(containerIngredient))
+                {
+                    Debug.Log("wrong ingredient order (container)");
+                    return;
+                }
+
+                Table table = interactor.currentTable ?? transform.parent?.GetComponent<Table>();
+
+                var spawnedContent = container.ReleaseToTable(table);
+                AddIngredient(null, spawnedContent.GetComponent<Item>());
+
+                return;
+            } 
+            #endregion
         }
 
-        if (!IsCorrectIngredient(ingredient))
+        //Pickup: If player has nothing, pickup
+        if (playerItem != null &&
+            playerItem.currentHeldItemObj == null)
         {
-            Debug.Log("wrong ingredient order");
-            return;
-        }
+            Item item = GetComponent<Item>();
 
-        AddIngredient(playerItem, heldItem);
+            playerItem.PickUp(item.itemData, item.gameObject);
+
+            if (interactor.currentTable != null)
+            {
+                interactor.currentTable.SetItem(null);
+            }
+
+            Debug.Log($"Picked up {item.itemData.itemName} from table");
+        }
     }
 
     bool IsCorrectIngredient(IngredientData ingredient)
@@ -121,7 +166,6 @@ public class MakingFood_New : MonoBehaviour, Iinteractable, ITableInteractable, 
         }
 
         IngredientData ingredient = item.itemData as IngredientData;
-
         Destroy(item.gameObject);
 
         //enable the correct visual

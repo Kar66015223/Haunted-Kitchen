@@ -5,11 +5,9 @@ public class PlayerInteract : MonoBehaviour
 {
     public TMP_Text interactPrompt;
 
+    [SerializeField] private MonoBehaviour currentInteractableMB;
     [SerializeField] private Iinteractable currentInteractable;
     public Iinteractable CurrentInteractable => currentInteractable;
-
-    [SerializeField] private IHoldInteractable currentHoldInteractable;
-    public IHoldInteractable CurrentHoldInteractable => currentHoldInteractable;
 
     private PlayerItem playerItem;
     private PlayerController controller;
@@ -25,30 +23,59 @@ public class PlayerInteract : MonoBehaviour
 
     private void Update()
     {
-        if (currentInteractable is IContextInteractable context)
+        if (currentInteractable != null && 
+            controller != null &&
+            playerItem != null)
         {
-            if (!context.CanInteract(playerItem) || controller.IsSlipping)
+            if (!currentInteractable.CanInteract(new Interactor(gameObject, InteractionType.Press)))
+            {
+                ClearInteractable();
+            }
+
+            if (controller.IsSlipping)
             {
                 ClearInteractable();
             }
         }
     }
 
+    public bool CanHoldCurrentInteractable()
+    {
+        if (currentInteractable == null)
+            return false;
+
+        var interactor = new Interactor(gameObject, InteractionType.Hold);
+
+        if (currentInteractableMB != null)
+        {
+            var table = currentInteractableMB.GetComponent<Table>();
+            if(table != null)
+                interactor.currentTable = table;
+        }
+
+        return currentInteractable.CanInteract(interactor);
+    }
+
     public void TryInteract()
     {
         if (currentInteractable == null) return;
 
-        currentInteractable.Interact(gameObject);
+        var interactor = new Interactor(gameObject, InteractionType.Press);
+        if (!currentInteractable.CanInteract(interactor)) return;
 
-        // PickUp
-        if (playerItem.currentHeldItemData == null) // If player's hands is free
+        currentInteractable.Interact(interactor);
+
+        if (playerItem.currentHeldItemData == null && currentInteractableMB != null)
         {
-            GameObject obj = ((MonoBehaviour)currentInteractable).gameObject; // Iinteractable with Monobehaviour
-            Item item = obj.GetComponent<Item>();
+            var mbItem = currentInteractableMB.GetComponent<Item>();
+            var mbTable = currentInteractableMB.GetComponent<Table>();
 
-            if (/*obj.CompareTag("Item")*/item != null)
+            if (mbItem != null && mbTable == null)
             {
-                playerItem.PickUp(item.itemData, item.gameObject);
+                if (mbItem.itemState != ItemState.Held && playerItem != null)
+                {
+                    playerItem.PickUp(mbItem.itemData, mbItem.gameObject);
+                }
             }
         }
     }
@@ -57,51 +84,43 @@ public class PlayerInteract : MonoBehaviour
     {
         if (currentInteractable == null) return;
 
-        if (currentInteractable is IHoldForwarder forwarder)
+        var interactor = new Interactor(gameObject, InteractionType.Hold);
+
+        if (currentInteractable != null)
         {
-            if (forwarder.HasHoldable())
-        {
-            forwarder.ForwardHold(gameObject);
-            return;
-        }
+            var table = currentInteractableMB.GetComponent<Table>();
+            if(table != null) interactor.currentTable = table;
         }
 
-        if (currentInteractable is IHoldInteractable hold)
-        {
-            hold.HoldInteract(gameObject); 
-        }
+        if (!currentInteractable.CanInteract(interactor)) return;
+        currentInteractable.Interact(interactor);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        Iinteractable interactable = other.GetComponentInParent<Iinteractable>();
-
+        var interactable = other.GetComponentInParent<Iinteractable>();
         if (interactable == null) return;
 
-        GameObject holdInteractObj = ((MonoBehaviour)interactable).gameObject;
-        currentHoldInteractable = holdInteractObj.GetComponentInChildren<IHoldInteractable>();
+        var mb = other.GetComponentInParent<MonoBehaviour>();
 
-        if (interactable is IContextInteractable context)
-        {
-            if (!context.CanInteract(playerItem))
-                return;
-        }
+        var interactor = new Interactor(gameObject, InteractionType.Press);
+        if (!interactable.CanInteract(interactor)) return;
 
         if (currentInteractable != interactable)
         {
             ClearOutline();
 
             currentInteractable = interactable;
+            currentInteractableMB = mb;
             interactPrompt.enabled = true;
 
-            SetOutline(interactable);
+            SetOutline(mb);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Iinteractable interactable = other.GetComponentInParent<Iinteractable>();
-
+        var interactable = other.GetComponentInParent<Iinteractable>();
         if(interactable == null) return;
 
         if (interactable == currentInteractable)
@@ -113,26 +132,27 @@ public class PlayerInteract : MonoBehaviour
     public void ClearInteractable()
     {
         currentInteractable = null;
-        currentHoldInteractable = null;
+        currentInteractableMB = null;
+
         interactPrompt.enabled = false;
 
         ClearOutline();
     }
 
-    private void SetOutline(Iinteractable interactable)
+    private void SetOutline(MonoBehaviour interactableMB)
     {
-        Outline outline = ((MonoBehaviour)interactable).gameObject.GetComponentInChildren<Outline>();
+        if(interactableMB == null) return;
+        var outline = interactableMB.gameObject.GetComponentInChildren<Outline>();
 
         if (outline == null)
         {
-            Debug.LogError("No outline object found");
+            Debug.LogWarning($"No outline object found in {interactableMB.gameObject.name}");
             return;
         }
-
+            
         currentOutline = outline;
-
         currentOutline.enabled = true;
-        currentOutline.OutlineColor = Color.white;
+        //currentOutline.OutlineColor = Color.white;
     }
 
     private void ClearOutline()

@@ -2,5 +2,6 @@ using UnityEngine;
 
 public interface Iinteractable
 {
-    void Interact(GameObject interactor);
+    bool CanInteract(Interactor interactor);
+    void Interact(Interactor interactor);
 }

@@ -1,26 +1,41 @@
 using UnityEngine;
 
-public class Item : MonoBehaviour, Iinteractable, IContextInteractable
+public class Item : MonoBehaviour, Iinteractable
 {
     public ItemData itemData;
     public ItemState itemState;
 
-    public virtual bool CanInteract(PlayerItem playerItem)
+    public virtual bool CanInteract(Interactor interactor)
     {
-        if (playerItem == null) 
+        if (interactor == null) 
             return false;
 
-        if (itemState == ItemState.Held)
+        if (interactor.interactionType == InteractionType.Hold)
             return false;
-        
+
+        var playerItem = interactor.playerItem;
+        if(playerItem == null) 
+            return false;
+
+        if(itemState == ItemState.Held) 
+            return false;
+
         if (playerItem.currentHeldItemObj != null) 
             return false;
 
         return true;
     }
 
-    public virtual void Interact(GameObject interactor)
+    public virtual void Interact(Interactor interactor)
     {
-        Debug.Log($"Picking up {gameObject.name}");
+        var playerItem = interactor.playerItem;
+        var currentTable = interactor.currentTable;
+
+        if (playerItem == null) return;
+
+        playerItem.PickUp(itemData, gameObject);
+        currentTable?.SetItem(null);
+
+        Debug.Log($"Interacted with item {itemData.itemName} by {interactor.source.name}");
     }
 }

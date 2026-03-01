@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class Customer_New : MonoBehaviour, Iinteractable, IContextInteractable
+public class Customer_New : MonoBehaviour, Iinteractable
 {
     public CustomerMovement movement;
     public CustomerPatience patience;
@@ -48,8 +48,16 @@ public class Customer_New : MonoBehaviour, Iinteractable, IContextInteractable
         }
     }
 
-    public bool CanInteract(PlayerItem playerItem)
+    public bool CanInteract(Interactor interactor)
     {
+        if(interactor == null) 
+            return false;
+
+        if (interactor.interactionType == InteractionType.Hold)
+            return false;
+
+        var playerItem = interactor.playerItem;
+
         if (!movement.IsArrived) return false;
 
         switch (state)
@@ -70,9 +78,11 @@ public class Customer_New : MonoBehaviour, Iinteractable, IContextInteractable
         return false;
     }
 
-    public void Interact(GameObject interactor)
+    public void Interact(Interactor interactor)
     {
-        PlayerItem playerItem = interactor.GetComponent<PlayerItem>();
+        var playerItem = interactor.playerItem;
+        if(playerItem == null) 
+            return;
 
         switch (state)
         {

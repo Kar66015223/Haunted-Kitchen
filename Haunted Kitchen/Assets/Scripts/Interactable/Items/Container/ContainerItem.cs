@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ContainerItem : MonoBehaviour, IContainerInteractable
+public class ContainerItem : MonoBehaviour, Iinteractable
 {
     [SerializeField] private Item item;
     [SerializeField] private ContainerData containerData;
@@ -8,21 +8,57 @@ public class ContainerItem : MonoBehaviour, IContainerInteractable
     private void Awake()
     {
         item = GetComponent<Item>();
-        containerData = item.itemData as ContainerData;
+        containerData = item?.itemData as ContainerData;
     }
 
-    public bool HandleContainerInteraction(GameObject interactor, Table table)
+    public bool CanInteract(Interactor interactor)
     {
-        if (containerData == null || containerData.content == null)
+        if(interactor == null)
             return false;
 
-        SpawnContent(table);
+        if (interactor.interactionType == InteractionType.Hold)
+            return false;
 
-        return true;
+        var playerItem = interactor.playerItem;
+
+        //If has currentTable & has content, allow interact
+        if (interactor.currentTable != null && 
+            containerData != null &&
+            containerData.content != null)
+            return true;
+
+        //Allow interact as a normal item
+        if(playerItem != null && playerItem.currentHeldItemObj == null)
+            return true;
+
+        return false;
+    }
+
+    public void Interact(Interactor interactor)
+    {
+        var playerItem = interactor.playerItem;
+        if (playerItem == null) 
+            return;
+
+        if (playerItem != null &&
+            playerItem.currentHeldItemObj == null)
+        {
+            Item item = GetComponent<Item>();
+
+            playerItem.PickUp(item.itemData, item.gameObject);
+
+            if (interactor.currentTable != null)
+            {
+                interactor.currentTable.SetItem(null);
+            }
+        }
     }
 
     public GameObject SpawnContent(Table table)
     {
+        if (containerData == null || containerData.content == null)
+            return null;
+
         GameObject contentObj = Instantiate(
             containerData.content,
             table.placePoint.position,
@@ -39,9 +75,16 @@ public class ContainerItem : MonoBehaviour, IContainerInteractable
         return contentObj;
     }
 
+    public GameObject ReleaseToTable(Table table)
+    {
+        if (table == null) return null;
+        return SpawnContent(table);
+    }
+
     public IngredientData ContainerContentAsIngredient()
     {
-        return containerData.content
+        return containerData
+            ?.content
             ?.GetComponent<Item>()
             ?.itemData as IngredientData;
     }

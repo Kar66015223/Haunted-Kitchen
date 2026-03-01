@@ -1,135 +1,21 @@
 using UnityEngine;
 
-public class Counter : MonoBehaviour, Iinteractable, IContextInteractable, IHoldForwarder
+public class Counter : Table
 {
-    [SerializeField] private Item currentItem;
-    public Transform placePoint;
-
     public GameObject KetchupBottlePrefab;
     public GameObject MustardBottlePrefab;
+
+    private void Awake()
+    {
+        tableRole = TableRole.Counter;
+    }
 
     private void Start()
     {
         if (KetchupBottlePrefab != null)
-        {
             SpawnItem(KetchupBottlePrefab);
-        }
 
         if (MustardBottlePrefab != null)
-        {
             SpawnItem(MustardBottlePrefab);
-        }
-    }
-
-    public bool CanInteract(PlayerItem playerItem)
-    {
-        if (playerItem == null)
-            return false;
-
-        // Support hold interaction
-        if (HasHoldable())
-        {
-            return true;
-        }
-
-        // put item on table
-        if (currentItem == null && playerItem.currentHeldItemObj != null)
-            return true;
-
-        // take item from table
-        if (currentItem != null && playerItem.currentHeldItemObj == null)
-            return true;
-
-        return false;
-    }
-
-    public void Interact(GameObject interactor)
-    {
-        // If item supports hold, do not treat it like normal item
-        if (currentItem != null && currentItem is IHoldInteractable)
-        {
-            currentItem.Interact(interactor);
-            return;
-        }
-
-        PlayerItem playerItem = interactor.GetComponent<PlayerItem>();
-        if (playerItem == null) return;
-
-        if (!CanInteract(playerItem))
-        {
-            return;
-        }
-
-        if (currentItem == null && playerItem.currentHeldItemObj != null)
-        {
-            PlaceItem(playerItem);
-            return;
-        }
-
-        if (playerItem.currentHeldItemObj == null)
-        {
-            playerItem.PickUp(currentItem.itemData, currentItem.gameObject);
-            currentItem = null;
-        }
-    }
-
-    public void ForwardHold(GameObject interactor)
-    {
-        if (currentItem != null &&
-            currentItem is IHoldInteractable hold)
-        {
-            hold.HoldInteract(interactor);
-        }
-    }
-
-    public bool HasHoldable()
-    {
-        return currentItem != null && currentItem is IHoldInteractable;
-    }
-
-    void PlaceItem(PlayerItem playerItem)
-    {
-        GameObject itemObj = playerItem.currentHeldItemObj;
-        if (itemObj == null) return;
-
-        currentItem = itemObj.GetComponent<Item>();
-        if (currentItem == null) return;
-
-        playerItem.DropItemNoRaycast();
-        currentItem.itemState = ItemState.NotHeld;
-
-        itemObj.transform.position = placePoint.position;
-        itemObj.transform.rotation = placePoint.rotation;
-        itemObj.transform.SetParent(transform, true);
-
-        if (itemObj.TryGetComponent(out Rigidbody rb))
-        {
-            rb.isKinematic = true;
-        }
-    }
-
-    void SpawnItem(GameObject prefab)
-    {
-        GameObject itemObj = Instantiate(
-            prefab,
-            placePoint.position,
-            placePoint.rotation
-        );
-
-        itemObj.transform.SetParent(transform, true);   
-
-        Item item = itemObj.GetComponent<Item>();
-        if (item == null)
-        {
-            Debug.LogError($"{prefab.name} does not have an Item component");
-            return;
-        }
-
-        currentItem = item;
-
-        if (itemObj.TryGetComponent(out Rigidbody rb))
-        {
-            rb.isKinematic = true;
-        }
     }
 }

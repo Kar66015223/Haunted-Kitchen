@@ -1,37 +1,82 @@
 using UnityEngine;
 
-public class BoxItem : Item, IHoldInteractable
+public class BoxItem : Item, Iinteractable
 {
     [SerializeField] private BoxData data;
     [SerializeField] private int currentAmount = 0;
 
     private void Start()
     {
+        data = itemData as BoxData;
         currentAmount = data.maxAmount;
     }
 
-    public override bool CanInteract(PlayerItem playerItem)
+    public override bool CanInteract(Interactor interactor)
     {
-        if (!base.CanInteract(playerItem))
+        if(interactor == null) 
             return false;
+        var playerItem = interactor.playerItem;
 
-        return currentAmount > 0;
-    }
-
-    public override void Interact(GameObject interactor)
-    {
-        PlayerItem playerItem = interactor.GetComponent<PlayerItem>();
-        if (playerItem == null) return;
-
-        TakeItem(playerItem);
-    }
-
-    public void HoldInteract(GameObject interactor)
-    {
-        PlayerItem playerItem = interactor.GetComponent<PlayerItem>();
-        if (playerItem.currentHeldItemObj == null)
+        //Allow hold interaction to pick up the box (if hands free)
+        if (interactor.interactionType == InteractionType.Hold)
         {
-            playerItem.PickUp(data, gameObject);
+            if(playerItem == null) 
+                return false;
+            if (playerItem.currentHeldItemData != null)
+                return false;
+            if(itemState == ItemState.Held)
+                return false;
+
+            return true;
+        }
+
+        //Allow normal interaction to take content (if hands free)
+        if (interactor.interactionType == InteractionType.Press)
+        {
+            if(playerItem == null)
+                return false;
+            if(playerItem.currentHeldItemData != null)
+                return false;
+            if(currentAmount <= 0)
+                return false;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public override void Interact(Interactor interactor)
+    {
+        var playerItem = interactor.playerItem;
+
+        if (interactor.interactionType == InteractionType.Hold)
+        {
+            if (playerItem != null)
+            {
+                playerItem.PickUp(itemData, gameObject);
+                interactor.currentTable?.SetItem(null);
+                Debug.Log($"Picked up {itemData.itemName}");
+            }
+
+            return;
+        }
+
+        if (interactor.interactionType == InteractionType.Press)
+        {
+            if (currentAmount <= 0)
+            {
+                Debug.Log($"{itemData.itemName} is empty");
+                return;
+            }
+
+            if (data.content == null)
+            {
+                Debug.LogError("Box content prefab is missing in BoxData");
+                return;
+            }
+
+            TakeItem(playerItem);
         }
     }
 
@@ -40,7 +85,14 @@ public class BoxItem : Item, IHoldInteractable
         GameObject prefab = Instantiate(data.content, transform.position, transform.rotation);
 
         Item itemPrefab = prefab.GetComponent<Item>();
-        playerItem.PickUp(itemPrefab.itemData, prefab);
+        if (itemPrefab != null && playerItem != null)
+        {
+            playerItem.PickUp(itemPrefab.itemData, prefab);
+        }
+        else
+        {
+            Debug.LogWarning("Spawned content does not have Item component or no player to pick it up");
+        }
 
         currentAmount--;
     }
