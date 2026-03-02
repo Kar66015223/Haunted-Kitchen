@@ -15,7 +15,7 @@ public class CustomerMovement : MonoBehaviour
 
     [Header("Arriving")]
     [SerializeField] private bool isArrived = false;
-    public bool IsArrived { get { return isArrived; } }
+    public bool IsArrived => isArrived;
     public event Action OnArrived;
 
     [Header("Leaving")]
