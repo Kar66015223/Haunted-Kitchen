@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -73,6 +72,8 @@ public class CustomerMovement : MonoBehaviour
             isArrived = true;
             agent.isStopped = true;
 
+            agent.enabled = false;
+
             transform.position = standPoint.position;
             transform.rotation = standPoint.rotation;
 
@@ -86,6 +87,8 @@ public class CustomerMovement : MonoBehaviour
     {
         if (!exitDestinationSet)
         {
+            agent.enabled = true;
+
             agent.isStopped = false;
             agent.SetDestination(exitPoint.position);
             exitDestinationSet = true;

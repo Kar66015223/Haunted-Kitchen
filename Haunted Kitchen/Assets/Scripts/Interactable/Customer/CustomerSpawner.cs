@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class CustomerSpawner : MonoBehaviour
 {
@@ -7,6 +8,13 @@ public class CustomerSpawner : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
 
     [SerializeField] private List<Table> tables = new();
+
+    private void Awake()
+    {
+        tables = FindObjectsByType<Table>(FindObjectsSortMode.None)
+        .Where(t => t.customerStandPoint != null)
+        .ToList();
+    }
 
     private void Start()
     {
