@@ -16,5 +16,6 @@ MonoBehaviour:
   price: 30
   icon: {fileID: 0}
   oneHand: 0
+  canDrop: 1
   maxAmount: 20
   content: {fileID: 4184576177717675054, guid: c1a2eaf005990844a83dfecafaef2a2c, type: 3}

@@ -99,6 +99,8 @@ public class PlayerItem : MonoBehaviour
     {
         if (currentHeldItemObj == null) return;
 
+        if(currentHeldItemData != null && !currentHeldItemData.canDrop) return;
+
         Transform itemTransform = currentHeldItemObj.transform;
 
         #region Raycast

@@ -16,3 +16,4 @@ MonoBehaviour:
   price: 150
   icon: {fileID: 0}
   oneHand: 0
+  canDrop: 1

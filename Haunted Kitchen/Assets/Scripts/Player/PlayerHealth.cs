@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,9 +26,18 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private int maxHealth = 3;
     public event Action<int> OnHealthChanged;
 
+    private PlayerController controller;
+    private Animator anim;
+
     [Header("UI")]
     [SerializeField] private GameObject uiPanel;
     [SerializeField] private List<Image> healthUI = new();
+
+    private void Awake()
+    {
+        controller = GetComponent<PlayerController>();
+        anim = controller.anim;
+    }
 
     private void Start()
     {
@@ -42,6 +52,19 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        anim.SetTrigger("Die");
+        StartCoroutine(DieSequence());
+
         Debug.Log("player has died");
+    }
+
+    private IEnumerator DieSequence()
+    {
+        float destroyDelay = 3f;
+
+        yield return new WaitForSeconds(destroyDelay);
+        Destroy(gameObject);
+
+        //Show GameOver UI
     }
 }

@@ -183,7 +183,7 @@ public class PlayerController : MonoBehaviour
 
         if (playerItem != null)
         {
-            playerItem.DropItem();
+            playerItem.DropItemNoRaycast();
         }
 
         isRunning = false;
@@ -201,7 +201,6 @@ public class PlayerController : MonoBehaviour
         hasSpeedBuff = true;
         speedBuffTimer = Time.time + duration;
     }
-
     #region InputAction
     public void OnMove(InputAction.CallbackContext context)
     {
