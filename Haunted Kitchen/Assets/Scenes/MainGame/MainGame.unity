@@ -1958,7 +1958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 4ecc724c6e9676448adbbc254a2b23a2, type: 2}
-  itemPrefab: {fileID: 7316643861147772960, guid: 8ffe0b0a81950bd4594076e8fb4adde5, type: 3}
+  itemPrefab: {fileID: 2325953389827629189, guid: 0d8bc2c0927010947989937934c45c5d, type: 3}
   nameText: {fileID: 1398982560}
   priceText: {fileID: 732950124}
   buyButton: {fileID: 194721269}
@@ -6343,7 +6343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: ed24d5114c5b0744a9f97776e3567567, type: 2}
-  itemPrefab: {fileID: 7828994569160127021, guid: ca20ee1aceec7ca499c9645c892f9dba, type: 3}
+  itemPrefab: {fileID: 2325953389827629189, guid: fab2959eb1cecd142b5f1b1122dac419, type: 3}
   nameText: {fileID: 721471905}
   priceText: {fileID: 316596549}
   buyButton: {fileID: 671345765}
@@ -8441,7 +8441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 3f07a5c00b438034b9a065b7d41b7090, type: 2}
-  itemPrefab: {fileID: 7934788600743746512, guid: e03fa1d0d9a74c84181931a1bcafa265, type: 3}
+  itemPrefab: {fileID: 2325953389827629189, guid: a2153d10d590509428c18b0837414623, type: 3}
   nameText: {fileID: 748193476}
   priceText: {fileID: 1349049950}
   buyButton: {fileID: 893535040}
@@ -8746,6 +8746,11 @@ CanvasRenderer:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2507987509568165912, guid: 3c2225b5d6c9f41418e6075f110217fc, type: 3}
   m_PrefabInstance: {fileID: 4139397580487892476}
+  m_PrefabAsset: {fileID: 0}
+--- !u!108 &959270639 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 2714018514014097663, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
+  m_PrefabInstance: {fileID: 6402646340785692476}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &973696472
 PrefabInstance:
@@ -9446,7 +9451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 7e20abe79b0c27540af4de55475ac5da, type: 2}
-  itemPrefab: {fileID: 7329225489617558969, guid: 0a194f3744bd95b4f8d7c33044da5db9, type: 3}
+  itemPrefab: {fileID: 2325953389827629189, guid: b946b60d0a14830449101eff438646b4, type: 3}
   nameText: {fileID: 147857072}
   priceText: {fileID: 21890256}
   buyButton: {fileID: 1028939737}
@@ -10577,7 +10582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 4f30d7f9a805a724889064cbc759dcca, type: 2}
-  itemPrefab: {fileID: 4184576177717675054, guid: a3163c2e28ffb474993f14bb23f8c09c, type: 3}
+  itemPrefab: {fileID: 2325953389827629189, guid: 9e70fe1cb414fa248940f2512e46d779, type: 3}
   nameText: {fileID: 2099670107}
   priceText: {fileID: 603066481}
   buyButton: {fileID: 1207486120}
@@ -11013,7 +11018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: df0776b2763ab5a438eb1cf274bd5a9e, type: 2}
-  itemPrefab: {fileID: 4184576177717675054, guid: fea0ad7a7d94fca44b2939911e77a9bc, type: 3}
+  itemPrefab: {fileID: 2325953389827629189, guid: 720173063da504543be2221d23f42020, type: 3}
   nameText: {fileID: 1212215342}
   priceText: {fileID: 1958401887}
   buyButton: {fileID: 1225575026}
@@ -11155,7 +11160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 855e286fcf1be9e46ab8dbff2a6bc95d, type: 2}
-  itemPrefab: {fileID: 7329931674483939168, guid: 9ba534676e480e741bae3e9826c50317, type: 3}
+  itemPrefab: {fileID: 2325953389827629189, guid: 7b2101a769125f24a97464097fc4a9bf, type: 3}
   nameText: {fileID: 861055672}
   priceText: {fileID: 320621936}
   buyButton: {fileID: 1228415251}
@@ -12608,6 +12613,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1404481660}
   - component: {fileID: 1404481659}
+  - component: {fileID: 1404481661}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -12652,6 +12658,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1404481661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404481658}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9a6e15ffdf22124eb4970ece081e223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PowerOutageSystem
+  mainSceneLight: {fileID: 410087040}
+  playerLight: {fileID: 959270639}
 --- !u!1 &1427886071
 GameObject:
   m_ObjectHideFlags: 0
@@ -12905,63 +12925,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445699938}
   m_CullTransparentMesh: 1
---- !u!1001 &1457421367
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2325953389827629189, guid: a2153d10d590509428c18b0837414623, type: 3}
-      propertyPath: m_Name
-      value: BurgerBun_Box
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949647187137498850, guid: a2153d10d590509428c18b0837414623, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.4665117
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949647187137498850, guid: a2153d10d590509428c18b0837414623, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.66
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949647187137498850, guid: a2153d10d590509428c18b0837414623, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -15.126517
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949647187137498850, guid: a2153d10d590509428c18b0837414623, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949647187137498850, guid: a2153d10d590509428c18b0837414623, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949647187137498850, guid: a2153d10d590509428c18b0837414623, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949647187137498850, guid: a2153d10d590509428c18b0837414623, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949647187137498850, guid: a2153d10d590509428c18b0837414623, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949647187137498850, guid: a2153d10d590509428c18b0837414623, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7949647187137498850, guid: a2153d10d590509428c18b0837414623, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a2153d10d590509428c18b0837414623, type: 3}
 --- !u!1 &1463851058
 GameObject:
   m_ObjectHideFlags: 0
@@ -13731,7 +13694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 678ad76f5896b324ba0fceb7f1e2d6e8, type: 2}
-  itemPrefab: {fileID: 4532870864915677916, guid: ebecc4787caee3448848175c6a5a7940, type: 3}
+  itemPrefab: {fileID: 2325953389827629189, guid: 5f44f4e55cd00f941ac9a106318ed038, type: 3}
   nameText: {fileID: 1353015517}
   priceText: {fileID: 1013143158}
   buyButton: {fileID: 1535697003}
@@ -14078,7 +14041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: be0277dbb24b170439643a46e5cf261d, type: 2}
-  itemPrefab: {fileID: 4184576177717675054, guid: 7edea57f78cd040409e89c81f8eb725b, type: 3}
+  itemPrefab: {fileID: 2325953389827629189, guid: f5265085325514e40a8d2a938357174b, type: 3}
   nameText: {fileID: 1924971789}
   priceText: {fileID: 1806629934}
   buyButton: {fileID: 1573674628}
@@ -17836,7 +17799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 823be3039465a8c4da9f96fdf96f1abb, type: 2}
-  itemPrefab: {fileID: 8158102488447075377, guid: b50a366ccdb7e7d4f88422849ab71ee5, type: 3}
+  itemPrefab: {fileID: 2325953389827629189, guid: f697293ccc681684e8afd9188f7dab45, type: 3}
   nameText: {fileID: 293743084}
   priceText: {fileID: 1996032511}
   buyButton: {fileID: 2077323359}
@@ -18466,7 +18429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 150eeedf89891e64cb8909ff992b6f5a, type: 2}
-  itemPrefab: {fileID: 4184576177717675054, guid: c1a2eaf005990844a83dfecafaef2a2c, type: 3}
+  itemPrefab: {fileID: 2325953389827629189, guid: 484e3f25520ee2a43bbe416f900908ad, type: 3}
   nameText: {fileID: 1682433041}
   priceText: {fileID: 151683492}
   buyButton: {fileID: 2124978572}
@@ -18671,6 +18634,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3704358958767813051, guid: d265119739d2a0b4c8d47f089f7a3a66, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664133477884458258, guid: d265119739d2a0b4c8d47f089f7a3a66, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8124900242839909620, guid: d265119739d2a0b4c8d47f089f7a3a66, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -19453,4 +19424,3 @@ SceneRoots:
   - {fileID: 1722607903}
   - {fileID: 1908186947}
   - {fileID: 380503943}
-  - {fileID: 1457421367}
