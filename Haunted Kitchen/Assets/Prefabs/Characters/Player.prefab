@@ -312,7 +312,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   dropRayDistance: 10
-  dropHeightOffset: 0.5
+  dropHeightOffset: 1
   anim: {fileID: 6213004647493594845}
   holdPointOneHand: {fileID: 8976603555510500407}
   holdPointTwoHand: {fileID: 8693094056488700502}
