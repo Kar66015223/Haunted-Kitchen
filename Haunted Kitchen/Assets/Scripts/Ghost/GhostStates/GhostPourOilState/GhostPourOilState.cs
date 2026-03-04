@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GhostPourOilState : IGhostState
@@ -57,7 +56,7 @@ public class GhostPourOilState : IGhostState
 
         if (timer <= 0f)
         {
-            controller.Disappear();
+            Exit();
         }
 
         //Debug.Log("Ghost is in PourOil state");
@@ -65,6 +64,7 @@ public class GhostPourOilState : IGhostState
 
     public void Exit()
     {
+        controller.Disappear();
         Debug.Log("Ghost is exiting PourOil state");
     }
 }

@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Kitchenware : MonoBehaviour, Iinteractable
+public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
 {
     public Transform cookPoint;
 
@@ -9,12 +9,14 @@ public class Kitchenware : MonoBehaviour, Iinteractable
     private float cookTimer = 0f;
     [SerializeField] private bool isCooking;
 
+    [SerializeField] private GameObject DestroyedVFX;
+
     [SerializeField] private StationStatus status;
     [SerializeField] private CookingMethod supportedMethod;
 
     public bool CanInteract(Interactor interactor)
     {
-        if(interactor == null) 
+        if(interactor == null || status == StationStatus.Destroyed) 
             return false;
 
         if (interactor.interactionType == InteractionType.Hold)
@@ -169,5 +171,11 @@ public class Kitchenware : MonoBehaviour, Iinteractable
 
         isCooking = false;
         cookTimer = 0f;
+    }
+
+    public void SetStationStatus(StationStatus newStatus)
+    {
+        status = newStatus;
+        DestroyedVFX?.SetActive(status == StationStatus.Destroyed);
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BeverageDispenser : MonoBehaviour, Iinteractable
+public class BeverageDispenser : MonoBehaviour, Iinteractable, IDestroyable
 {
     [SerializeField] private ItemData refillItem;
     public GameObject beveragePrefab;
@@ -10,6 +10,8 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable
 
     [Header("UI")]
     [SerializeField] private Image amountImg;
+
+    [SerializeField] private GameObject DestroyedVFX;
 
     [SerializeField] private StationStatus status;
 
@@ -22,7 +24,7 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable
 
     public bool CanInteract(Interactor interactor)
     {
-        if (interactor == null)
+        if (interactor == null || status == StationStatus.Destroyed)
             return false;
 
         if (interactor.interactionType == InteractionType.Hold)
@@ -94,5 +96,11 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable
     {
         float normalized = beverageAmount / (float)maxAmount;
         amountImg.fillAmount = normalized;
+    }
+
+    public void SetStationStatus(StationStatus newStatus)
+    {
+        status = newStatus;
+        DestroyedVFX?.SetActive(status == StationStatus.Destroyed);
     }
 }

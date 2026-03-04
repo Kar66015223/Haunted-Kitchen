@@ -21,7 +21,8 @@ public class GhostSpawner : MonoBehaviour
     {
         Idle,
         PourOil,
-        //TurnOffLight
+        TurnOffLight,
+        Destroy
     }
 
     private void Start()
@@ -70,7 +71,6 @@ public class GhostSpawner : MonoBehaviour
         // ----- Random ghost state after spawn -----
         //GhostStartBehavior startState = GetRandomStartState();
         //ghost.SetInitialState(startState);
-        // ------------------------------------------
     }
 
     //private GhostStartBehavior GetRandomStartState()
