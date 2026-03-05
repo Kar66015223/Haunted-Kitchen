@@ -18,8 +18,15 @@ public class GhosrDestroyController : MonoBehaviour
         if (allTargets == null || allTargets.Count == 0)
             return null;
 
-        int randomIndex = Random.Range(0, allTargets.Count);
-        return allTargets[randomIndex];
+        var validTargets = allTargets
+            .Where(t => t.Status == StationStatus.Usable)
+            .ToList();
+
+        if (validTargets.Count == 0)
+            return null;
+
+        int randomIndex = Random.Range(0, validTargets.Count);
+        return validTargets[randomIndex];
     }
 
     public void Attack(IDestroyable target)

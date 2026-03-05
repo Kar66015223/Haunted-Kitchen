@@ -14,6 +14,7 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IDestroyable
     [SerializeField] private GameObject DestroyedVFX;
 
     [SerializeField] private StationStatus status;
+    public StationStatus Status => status;
 
     private void Start()
     {

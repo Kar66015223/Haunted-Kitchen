@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GhostStateMachine
 {
-    [SerializeField] private IGhostState currentState;
+    private IGhostState currentState;
 
     public void ChangeState(IGhostState newState)
     {

@@ -12,6 +12,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
     [SerializeField] private GameObject DestroyedVFX;
 
     [SerializeField] private StationStatus status;
+    public StationStatus Status => status;
     [SerializeField] private CookingMethod supportedMethod;
 
     public bool CanInteract(Interactor interactor)
@@ -127,6 +128,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
 
         cookTimer = ingredient.cookTime;
         isCooking = true;
+        status = StationStatus.CantDestroy;
     }
 
     void Update()
@@ -171,6 +173,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
 
         isCooking = false;
         cookTimer = 0f;
+        status = StationStatus.Usable;
     }
 
     public void SetStationStatus(StationStatus newStatus)

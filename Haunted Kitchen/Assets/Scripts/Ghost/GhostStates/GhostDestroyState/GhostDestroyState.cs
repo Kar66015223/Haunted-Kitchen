@@ -17,6 +17,11 @@ public class GhostDestroyState : IGhostState
     public void Enter()
     {
         IDestroyable target = destroyController.PickRandomTarget();
+        if (target == null)
+        {
+            Exit();
+            return;
+        }
 
         MonoBehaviour mono = target as MonoBehaviour;
         if (mono != null)
@@ -49,5 +54,4 @@ public class GhostDestroyState : IGhostState
         Debug.Log("Ghost exits Destroy state");
         controller.Disappear();
     }
-
 }
