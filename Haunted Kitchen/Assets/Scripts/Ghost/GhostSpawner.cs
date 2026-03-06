@@ -17,14 +17,6 @@ public class GhostSpawner : MonoBehaviour
     [SerializeField] private bool canSpawn = true;
     private GhostController currentGhost;
 
-    public enum GhostStartBehavior
-    {
-        Idle,
-        PourOil,
-        TurnOffLight,
-        Destroy
-    }
-
     private void Start()
     {
         if (spawnOnStart)

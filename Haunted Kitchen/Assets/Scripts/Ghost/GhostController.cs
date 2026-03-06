@@ -30,7 +30,7 @@ public class GhostController : MonoBehaviour
         stateMachine?.Update();
     }
 
-    public void SetInitialState(GhostSpawner.GhostStartBehavior behavior)
+    public void SetInitialState(GhostStartBehavior behavior)
     {
         IGhostState state = behavior switch
         {
@@ -43,25 +43,25 @@ public class GhostController : MonoBehaviour
 
     public void EnterRandomState()
     {
-        GhostSpawner.GhostStartBehavior next;
+        GhostStartBehavior next;
 
         //Prevent ghost from entering Idle again
         do
         {
-            int count = System.Enum.GetValues(typeof(GhostSpawner.GhostStartBehavior)).Length;
-            next = (GhostSpawner.GhostStartBehavior)Random.Range(0, count);
+            int count = System.Enum.GetValues(typeof(GhostStartBehavior)).Length;
+            next = (GhostStartBehavior)Random.Range(0, count);
         }
-        while (next == GhostSpawner.GhostStartBehavior.Idle);
+        while (next == GhostStartBehavior.Idle);
 
         IGhostState state = next switch
         {
-            GhostSpawner.GhostStartBehavior.PourOil =>
+            GhostStartBehavior.PourOil =>
                 new GhostPourOilState(this),
 
-            GhostSpawner.GhostStartBehavior.TurnOffLight =>
+            GhostStartBehavior.TurnOffLight =>
                 new GhostTurnOffLightState(this),
 
-            GhostSpawner.GhostStartBehavior.Destroy =>
+            GhostStartBehavior.Destroy =>
                 new GhostDestroyState(this),
 
             _ =>
