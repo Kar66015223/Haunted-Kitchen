@@ -9,10 +9,9 @@ public class GhostPosessController : MonoBehaviour
         player = FindAnyObjectByType<PlayerController>();
     }
 
-    public void LookAtPlayer()
+    public Transform GetPlayer()
     {
-        if (player == null) return;
-
-        
+        if (player == null) return null;
+        return player.transform;
     }
 }

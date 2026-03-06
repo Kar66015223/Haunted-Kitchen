@@ -35,45 +35,31 @@ public class GhostSpawner : MonoBehaviour
 
     private void SpawnGhost()
     {
-        currentGhost = Instantiate(
-            ghostPrefab,
-            spawnPoint != null ? spawnPoint.position : transform.position,
-            spawnPoint != null ? spawnPoint.rotation : Quaternion.identity
-            );
+        Vector3 spawnPosition = spawnPoint != null ? spawnPoint.position : transform.position;
+        Quaternion spawnRotation = spawnPoint != null ? spawnPoint.rotation : Quaternion.identity;
 
+        currentGhost = Instantiate(ghostPrefab, spawnPosition, spawnRotation);
         currentGhost.SetInitialState(GhostStartBehavior.Idle);
 
-        currentGhost.OnGhostDestroyed += () =>
-        {
-            if (this == null) return; //Prevent calling while spawner is disabled
-
-            currentGhost = null;
-            
-            if (spawnCooldown > 0f)
-            {
-                canSpawn = false;
-                Invoke(nameof(ResetSpawn), spawnCooldown);
-            }
-            else
-            {
-                TrySpawn();
-            }
-        };
-
-        // ----- Random ghost state after spawn -----
-        //GhostStartBehavior startState = GetRandomStartState();
-        //ghost.SetInitialState(startState);
+        currentGhost.OnGhostDestroyed += HandleGhostDestroyed;
     }
 
-    //private GhostStartBehavior GetRandomStartState()
-    //{
-    //    if (possibleStartState == null || possibleStartState.Length == 0)
-    //        return GhostStartBehavior.Idle;
+    private void HandleGhostDestroyed()
+    {
+        currentGhost = null;
 
-    //    int index = Random.Range(0, possibleStartState.Length);
-    //    return possibleStartState[index];
-    //}
-
+        if (spawnCooldown > 0f)
+        {
+            canSpawn = false;
+            Invoke(nameof(ResetSpawn), spawnCooldown);
+        }
+        else
+        {
+            TrySpawn();
+        }
+    }
+    
+    
     private void ResetSpawn()
     {
         canSpawn = true;

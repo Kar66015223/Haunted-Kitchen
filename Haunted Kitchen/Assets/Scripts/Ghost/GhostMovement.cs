@@ -1,29 +1,37 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GhostMovement : MonoBehaviour
+public class GhostMovement : MonoBehaviour, IMovementController
 {
     [SerializeField] private float speed;
-    [SerializeField] private GhostController controller;
+    private NavMeshAgent agent;
 
     private void Awake()
     {
-        controller = GetComponent<GhostController>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     public void SetSpeed(float value)
     {
-        controller.agent.speed = value;
+        if(agent != null)
+            agent.speed = value;
     }
 
     public void MoveToward(Vector3 target)
     {
-        controller.agent.SetDestination(target);
+        if (agent != null && agent.isOnNavMesh)
+            agent.SetDestination(target);
+
+        // controller.anim.SetInteger(GhostConstants.ANIM_STATE, 1);
     }
 
     public void Stop()
     {
-        controller.agent.ResetPath();
+        if (agent != null && agent.isOnNavMesh)
+            agent.ResetPath();
+
+        // controller.anim.SetInteger(GhostConstants.ANIM_STATE, 0);
     }
+
+    public NavMeshAgent GetAgent() => agent;
 }

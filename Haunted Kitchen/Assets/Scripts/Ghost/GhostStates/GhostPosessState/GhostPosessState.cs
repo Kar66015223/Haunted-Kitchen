@@ -31,19 +31,16 @@ public class GhostPossessState : IGhostState
     public void Enter()
     {
         Debug.Log("Ghost enters Possess state");
+
+        GameManager.instance.ShowEventText("The ghost stares at you with malicious intent...", Color.red);
+
         stareTimer = 0f;
         dashTimer = 0f;
         hasDashed = false;
         currentPhase = PossessPhase.Staring;
         
         // Stop movement during stare phase
-        controller.movement.Stop();
-        
-        // Play stare animation if available
-        if (controller.anim != null)
-        {
-            controller.anim.SetBool("IsStaring", true);
-        }
+        controller.Movement.Stop();
     }
 
     public void Update()
@@ -67,7 +64,8 @@ public class GhostPossessState : IGhostState
     private void UpdateStaring()
     {
         // Look at player
-        possessController.LookAtPlayer();
+        Transform playerPos = possessController.GetPlayer();
+        controller.transform.LookAt(playerPos);
         
         stareTimer += Time.deltaTime;
 
@@ -84,13 +82,6 @@ public class GhostPossessState : IGhostState
     {
         // Calculate dash direction toward player
         dashDirection = (controller.player.position - controller.transform.position).normalized;
-        
-        // Set animation for dash
-        if (controller.anim != null)
-        {
-            controller.anim.SetBool("IsStaring", false);
-            controller.anim.SetTrigger("Dash");
-        }
         
         // Start dash timer
         dashTimer = 0f;
@@ -125,31 +116,23 @@ public class GhostPossessState : IGhostState
     private void OnReachedPlayer()
     {
         Debug.Log("Ghost reached player!");
-        // You could:
-        // - Trigger possession effect
-        // - Deal damage
-        // - Play VFX/SFX
-        // - Transition to another state
         
-        Exit();
+        //Start possessing
+        
+        Exit(); //Move this to possess method
     }
 
     private void OnDashComplete()
     {
         Debug.Log("Ghost dash complete");
         // Reset to idle or return to previous state
-        controller.ChangeState(new GhostIdleState(controller));
+
+        Exit();
     }
 
     public void Exit()
     {
         Debug.Log("Ghost exits Possess state");
-        
-        if (controller.anim != null)
-        {
-            controller.anim.SetBool("IsStaring", false);
-        }
-        
         controller.Disappear();
     }
 }

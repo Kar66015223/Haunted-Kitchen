@@ -31,7 +31,7 @@ public class GhostIdleState : IGhostState
             controller.TeleportTo(point);
         }
 
-        controller.movement.SetSpeed(wanderSpeed);
+        controller.Movement.SetSpeed(wanderSpeed);
 
         timer = 0f;
         changeDirTimer = 0f;
@@ -54,7 +54,8 @@ public class GhostIdleState : IGhostState
         }
 
         //Pick new destination when current destination reached
-        if (!controller.agent.pathPending &&
+        if (controller.agent != null &&
+            !controller.agent.pathPending &&
             controller.agent.remainingDistance < 0.5f)
         {
             PickNewDestination();
@@ -72,7 +73,7 @@ public class GhostIdleState : IGhostState
 
     public void Exit()
     {
-        controller.movement.Stop();
+        controller.Movement.Stop();
 
         Debug.Log("Ghost is exiting Idle state");
     }
@@ -84,7 +85,7 @@ public class GhostIdleState : IGhostState
             wanderRadius,
             out Vector3 point))
         {
-            controller.movement.MoveToward(point);
+            controller.Movement.MoveToward(point);
         }
     }
 }

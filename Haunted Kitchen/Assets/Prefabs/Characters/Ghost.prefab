@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 2539597912447120056}
   - component: {fileID: 8099154160449049202}
   - component: {fileID: 5518437774670553038}
+  - component: {fileID: 1843012750469616813}
   - component: {fileID: 1456551054265551268}
   - component: {fileID: -1688774073686847477}
   - component: {fileID: 405375115433199792}
@@ -194,9 +195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af7fc120d964467438129d72015750fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ghost
-  player: {fileID: 1403091200965308655, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-  movement: {fileID: 0}
-  anim: {fileID: 4134972091373460374}
 --- !u!114 &5518437774670553038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,7 +208,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GhostMovement
   speed: 0
-  controller: {fileID: 0}
+--- !u!114 &1843012750469616813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7071765119298536047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b8c0ae7846f44488b2dcd7da445366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GhostAnimation
 --- !u!114 &1456551054265551268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 360c2bd9531ad244c874eb20452a80b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GhostPosessController
+  player: {fileID: 0}
 --- !u!195 &-3478111561942085673
 NavMeshAgent:
   m_ObjectHideFlags: 0

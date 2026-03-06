@@ -33,7 +33,7 @@ public class GhostDestroyState : IGhostState
             controller.transform.LookAt(mono.transform.position);
 
             destroyController.Attack(target);
-            controller.anim.SetTrigger("Attack");
+            controller.Anim.SetTrigger(GhostConstants.ANIM_ATTACK);
         }
 
         timer = hitDuration;

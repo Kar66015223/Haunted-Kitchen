@@ -21,8 +21,12 @@ public class GhostTurnOffLightState : IGhostState
             Vector3 offset = lightFinder.lightSwitch.transform.forward * 1.5f;
             Vector3 teleportPosition = lightFinder.lightSwitch.transform.position + offset;
 
-            controller.TeleportTo(teleportPosition);
-            controller.transform.LookAt(lightFinder.lightSwitch.transform.position);
+            if (teleportPosition != null)
+            {
+                controller.TeleportTo(teleportPosition);
+                controller.transform.LookAt(lightFinder.lightSwitch.transform.position);
+                controller.Movement.Stop();
+            }
 
             lightFinder.TurnOffLight();
         }

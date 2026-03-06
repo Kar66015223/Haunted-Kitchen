@@ -1,28 +1,39 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class GhostController : MonoBehaviour
 {
-    public Transform player;
-    public GhostMovement movement;
-
+    private IMovementController movement;
+    private IAnimationController anim;
     private GhostStateMachine stateMachine;
+    private GhostStateFactory stateFactory;
 
+    public Transform player {get; private set;}
     public NavMeshAgent agent { get; private set; }
 
-    public System.Action OnGhostDestroyed;
+    public IMovementController Movement => movement;
+    public IAnimationController Anim => anim;
 
-    public Animator anim;
+    public event Action OnGhostDestroyed;
 
     private void Awake()
     {
         stateMachine = new GhostStateMachine();
+        stateFactory = new GhostStateFactory();
 
-        movement = GetComponent<GhostMovement>();
-        agent = GetComponent<NavMeshAgent>();
+        var movementComponent = GetComponent<GhostMovement>();
+        var animationComponent = GetComponent<GhostAnimation>();
+
+        movement = movementComponent ?? throw new System.NullReferenceException("GhostMovementController required");
+        anim = animationComponent ?? throw new System.NullReferenceException("GhostAnimationController required");
+        agent = movementComponent?.GetAgent();
+
+        var playerGO = GameObject.FindGameObjectWithTag(GhostConstants.PLAYER_TAG);
+        player = playerGO?.transform;
 
         if (player == null)
-            player = GameObject.FindGameObjectWithTag("Player")?.transform;
+            Debug.LogWarning($"Player with tag '{GhostConstants.PLAYER_TAG}' not found");
     }
 
     private void Update()
@@ -32,41 +43,24 @@ public class GhostController : MonoBehaviour
 
     public void SetInitialState(GhostStartBehavior behavior)
     {
-        IGhostState state = behavior switch
-        {
-            _ => //same as "default:"
-                new GhostIdleState(this)
-        };
+        var state = stateFactory.CreateState(behavior, this);
 
         ChangeState(state);
     }
 
     public void EnterRandomState()
     {
-        GhostStartBehavior next;
+        GhostStartBehavior randomBehavior;
 
         //Prevent ghost from entering Idle again
         do
         {
             int count = System.Enum.GetValues(typeof(GhostStartBehavior)).Length;
-            next = (GhostStartBehavior)Random.Range(0, count);
+            randomBehavior = (GhostStartBehavior)UnityEngine.Random.Range(0, count);
         }
-        while (next == GhostStartBehavior.Idle);
+        while (randomBehavior == GhostStartBehavior.Idle);
 
-        IGhostState state = next switch
-        {
-            GhostStartBehavior.PourOil =>
-                new GhostPourOilState(this),
-
-            GhostStartBehavior.TurnOffLight =>
-                new GhostTurnOffLightState(this),
-
-            GhostStartBehavior.Destroy =>
-                new GhostDestroyState(this),
-
-            _ =>
-                new GhostIdleState(this)
-        };
+        var state = stateFactory.CreateState(randomBehavior, this);
 
         ChangeState(state);
     }
