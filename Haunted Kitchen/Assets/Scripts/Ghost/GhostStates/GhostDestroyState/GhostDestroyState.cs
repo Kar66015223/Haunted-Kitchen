@@ -31,6 +31,7 @@ public class GhostDestroyState : IGhostState
 
             controller.TeleportTo(teleportPosition);
             controller.transform.LookAt(mono.transform.position);
+            controller.Movement.Stop();
 
             destroyController.Attack(target);
             controller.Anim.SetTrigger(GhostConstants.ANIM_ATTACK);

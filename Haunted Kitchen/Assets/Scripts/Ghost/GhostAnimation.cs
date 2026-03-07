@@ -6,18 +6,28 @@ public class GhostAnimation : MonoBehaviour, IAnimationController
 
     void Awake()
     {
-        anim = GetComponentInParent<Animator>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     public void SetBool(string parameter, bool value)
     {
-        if (anim != null)
-            anim.SetBool(parameter, value);
+        if (anim == null)
+        {
+            Debug.Log("anim is null");
+            return;
+        }
+
+        anim.SetBool(parameter, value);
     }
 
     public void SetTrigger(string parameter)
     {
-        if (anim != null)
-            anim.SetTrigger(parameter);
+        if (anim == null)
+        {
+            Debug.Log("anim is null");
+            return;
+        }
+
+        anim.SetTrigger(parameter);
     }
 }

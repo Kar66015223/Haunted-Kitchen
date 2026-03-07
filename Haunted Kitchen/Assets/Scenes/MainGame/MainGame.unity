@@ -8996,6 +8996,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb78633287051d04e9cf59841a0dd218, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightSwitch
+  isOff: 0
+  mainLight: {fileID: 410087040}
 --- !u!1 &1103902392
 GameObject:
   m_ObjectHideFlags: 0

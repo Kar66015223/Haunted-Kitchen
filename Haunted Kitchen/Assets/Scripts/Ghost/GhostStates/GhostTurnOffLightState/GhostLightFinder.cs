@@ -13,6 +13,7 @@ public class GhostLightFinder : MonoBehaviour
 
     public void TurnOffLight()
     {
-        powerOutageSystem.TogglePower();
+        LightSwitch Lswitch = lightSwitch.GetComponent<LightSwitch>();
+        Lswitch.SetSwitchOff();
     }
 }
