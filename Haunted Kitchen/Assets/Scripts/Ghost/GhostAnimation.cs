@@ -30,4 +30,15 @@ public class GhostAnimation : MonoBehaviour, IAnimationController
 
         anim.SetTrigger(parameter);
     }
+
+    public void SetInteger(string parameter, int value)
+    {
+        if (anim == null)
+        {
+            Debug.Log("anim is null");
+            return;
+        }
+
+        anim.SetInteger(parameter, value);
+    }
 }

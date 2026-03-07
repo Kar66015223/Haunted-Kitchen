@@ -1,9 +1,10 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class GhostPossessState : IGhostState
 {
     private GhostController controller;
-    private GhostPosessController possessController;
+    private PlayerPossession playerPossession;
     
     // Timing
     private float stareTimer = 0f;
@@ -25,7 +26,11 @@ public class GhostPossessState : IGhostState
         this.controller = controller;
         this.stareTime = stareTime;
         this.dashSpeed = dashSpeed;
-        possessController = controller.GetComponent<GhostPosessController>();
+
+        if(controller.player != null)
+        {
+            playerPossession = controller.player.GetComponent<PlayerPossession>();
+        }
     }
 
     public void Enter()
@@ -56,22 +61,25 @@ public class GhostPossessState : IGhostState
                 UpdateDashing();
                 break;
             case PossessPhase.Complete:
-                // State complete, can transition to another state or disappear
                 break;
         }
     }
 
     private void UpdateStaring()
     {
-        // Look at player
-        Transform playerPos = possessController.GetPlayer();
-        controller.transform.LookAt(playerPos);
-        
+        Vector3 directionToPlayer = (controller.player.position - controller.transform.position).normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+
+        controller.transform.rotation = Quaternion.Slerp(
+            controller.transform.rotation,
+            targetRotation,
+            Time.deltaTime * 5f
+        );
+
         stareTimer += Time.deltaTime;
 
         if (stareTimer >= stareTime && !hasDashed)
         {
-            // Start dash phase
             InitiateDash();
             currentPhase = PossessPhase.Dashing;
             hasDashed = true;
@@ -80,10 +88,7 @@ public class GhostPossessState : IGhostState
 
     private void InitiateDash()
     {
-        // Calculate dash direction toward player
         dashDirection = (controller.player.position - controller.transform.position).normalized;
-        
-        // Start dash timer
         dashTimer = 0f;
         
         Debug.Log($"Ghost dashing toward player: {dashDirection}");
@@ -94,41 +99,47 @@ public class GhostPossessState : IGhostState
         dashTimer += Time.deltaTime;
         float dashProgress = dashTimer / dashDuration;
 
-        // Manually move ghost during dash (NavMeshAgent might interfere)
+        dashDirection = (controller.player.position - controller.transform.position).normalized;
+
         Vector3 newPosition = controller.transform.position + (dashDirection * dashSpeed * Time.deltaTime);
+        controller.Movement.Stop();
         controller.transform.position = newPosition;
 
-        // Check if dash is complete
-        if (dashProgress >= 1f)
-        {
-            currentPhase = PossessPhase.Complete;
-            OnDashComplete();
-        }
+        // if (dashProgress >= 1f)
+        // {
+        //     currentPhase = PossessPhase.Complete;
+        //     OnDashComplete();
+        // }
         
-        // Check if ghost has reached/passed player
         float distanceToPlayer = Vector3.Distance(controller.transform.position, controller.player.position);
         if (distanceToPlayer < 1f)
         {
             OnReachedPlayer();
+            currentPhase = PossessPhase.Complete;
         }
     }
 
     private void OnReachedPlayer()
     {
         Debug.Log("Ghost reached player!");
+
+        if (playerPossession != null)
+        {
+            playerPossession.StartPossession(controller.gameObject);
+        }
+        else
+        {
+            Debug.LogWarning("PlayerPossessionController not found!");
+        }
         
-        //Start possessing
-        
-        Exit(); //Move this to possess method
+        Exit(); // Ghost will exit when possession ends or fails
     }
 
-    private void OnDashComplete()
-    {
-        Debug.Log("Ghost dash complete");
-        // Reset to idle or return to previous state
-
-        Exit();
-    }
+    // private void OnDashComplete()
+    // {
+    //     Debug.Log("Ghost dash complete");
+    //     Exit();
+    // }
 
     public void Exit()
     {

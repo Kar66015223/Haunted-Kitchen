@@ -11,13 +11,7 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController controller;
     private Vector2 moveInput;
-    public Vector2 MoveInput
-    {
-        get
-        {
-            return moveInput;
-        }
-    }
+    public Vector2 MoveInput => moveInput;
 
     public float gravity = -20f;
     public float groundedForce = -2f;
@@ -30,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private PlayerStamina stamina;
     private PlayerInteract playerInteract;
     private PlayerItem playerItem;
+    private PlayerPossession possession;
 
     [Header("Animation")]
     public Animator anim;
@@ -71,6 +66,7 @@ public class PlayerController : MonoBehaviour
         stamina = GetComponent<PlayerStamina>();
         playerInteract = GetComponent<PlayerInteract>();
         playerItem = GetComponent<PlayerItem>();
+        possession = GetComponent<PlayerPossession>();
     }
 
     private void Start()
@@ -252,5 +248,10 @@ public class PlayerController : MonoBehaviour
         else
             GameManager.instance.Pause();
     } 
+    
+    public void OnStruggle(InputAction.CallbackContext context)
+    {
+        possession.OnStruggleInput(context);
+    }
     #endregion
 }

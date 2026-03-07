@@ -27,6 +27,8 @@ public class CharAnimation : MonoBehaviour
             c.Anim.SetBool("WalkingOneHand", false);
             c.Anim.SetBool("WalkingTwoHand", false);
 
+            c.Anim.SetBool("IsPossessed", false);
+
             switch (c.CherryState)
             {
                 case CherryState.Idle:
@@ -49,6 +51,12 @@ public class CharAnimation : MonoBehaviour
                     break;
                 case CherryState.Slip:
                     c.Anim.SetTrigger("Slip");
+                    break;
+                case CherryState.Struggle:
+                    c.Anim.SetTrigger("Struggle");
+                    break;
+                case CherryState.Possessed:
+                    c.Anim.SetBool("IsPossessed", true);
                     break;
             } 
         }

@@ -55,6 +55,16 @@ public class TestAnimation : MonoBehaviour
     {
         cherry.SetCherryState(CherryState.Slip);
     }
+
+    public void SetCherryStruggle()
+    {
+        cherry.SetCherryState(CherryState.Struggle);
+    }
+
+    public void SetCherryPossessed()
+    {
+        cherry.SetCherryState(CherryState.Possessed);
+    }
     #endregion
 
     #region Tui

@@ -1053,6 +1053,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Possession",
+            "id": "05166ddb-e27b-4635-8d3f-f1d51679cf57",
+            "actions": [
+                {
+                    "name": "Struggle",
+                    "type": "Button",
+                    "id": "fe29e88b-c595-4643-bdbb-ae7bd2c50ead",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6eda6686-d341-4a4a-afb3-18f4aa35c9bd",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Struggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

@@ -72,6 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Kitchenware
   cookPoint: {fileID: 5022779199677561051}
   isCooking: 0
+  DestroyedVFX: {fileID: 0}
   status: 0
   supportedMethod: 0
 --- !u!114 &2700280348059169004

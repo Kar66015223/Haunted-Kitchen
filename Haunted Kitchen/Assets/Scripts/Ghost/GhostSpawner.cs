@@ -8,6 +8,7 @@ public class GhostSpawner : MonoBehaviour
 
     [Header("Spawn")]
     [SerializeField] private Transform spawnPoint;
+    public GhostStartBehavior initialState = GhostStartBehavior.Idle;
     //[SerializeField] private GhostStartBehavior[] possibleStartState; <= Uncomment if ghost state is random after spawn
 
     [Header("Rules")]
@@ -39,7 +40,7 @@ public class GhostSpawner : MonoBehaviour
         Quaternion spawnRotation = spawnPoint != null ? spawnPoint.rotation : Quaternion.identity;
 
         currentGhost = Instantiate(ghostPrefab, spawnPosition, spawnRotation);
-        currentGhost.SetInitialState(GhostStartBehavior.Idle);
+        currentGhost.SetInitialState(initialState);
 
         currentGhost.OnGhostDestroyed += HandleGhostDestroyed;
     }

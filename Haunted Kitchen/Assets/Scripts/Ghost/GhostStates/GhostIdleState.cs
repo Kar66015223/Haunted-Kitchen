@@ -67,13 +67,12 @@ public class GhostIdleState : IGhostState
             controller.EnterRandomState();
             return;
         }
-
-        //Debug.Log("Ghost is in idle state");
     }
 
     public void Exit()
     {
         controller.Movement.Stop();
+        controller.Anim.SetInteger(GhostConstants.ANIM_STATE, 0);
 
         Debug.Log("Ghost is exiting Idle state");
     }
@@ -86,6 +85,7 @@ public class GhostIdleState : IGhostState
             out Vector3 point))
         {
             controller.Movement.MoveToward(point);
+            controller.Anim.SetInteger(GhostConstants.ANIM_STATE, 1);
         }
     }
 }
