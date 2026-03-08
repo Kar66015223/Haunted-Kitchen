@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 7d5e543f34066c54ba8d7331374a3cf0
+guid: 9801a8d9e015abc49a648411dc1d93af
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Chair_table
-    second: {fileID: 2100000, guid: 67f0ed7ff8548e746b6b7f21dbff47a7, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -35,7 +30,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1

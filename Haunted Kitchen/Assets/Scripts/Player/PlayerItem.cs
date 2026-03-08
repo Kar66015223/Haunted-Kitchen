@@ -28,23 +28,23 @@ public class PlayerItem : MonoBehaviour
 
         if (!isHolding)
         {
-            anim.SetBool("IdleOneHand", false);
-            anim.SetBool("WalkingOneHand", false);
+            anim.SetBool(PlayerConstants.ANIM_IDLE_ONE_HAND, false);
+            anim.SetBool(PlayerConstants.ANIM_WALKING_ONE_HAND, false);
 
-            anim.SetBool("IdleTwoHand", false);
-            anim.SetBool("WalkingTwoHand", false);
+            anim.SetBool(PlayerConstants.ANIM_IDLE_TWO_HAND, false);
+            anim.SetBool(PlayerConstants.ANIM_WALKING_TWO_HAND, false);
 
             return;
         }
 
         if (currentHeldItemData.oneHand)
         {
-            anim.SetBool("IdleOneHand", !isMoving);
-            anim.SetBool("WalkingOneHand", isMoving); 
+            anim.SetBool(PlayerConstants.ANIM_IDLE_ONE_HAND, !isMoving);
+            anim.SetBool(PlayerConstants.ANIM_WALKING_ONE_HAND, isMoving); 
         }
 
-        anim.SetBool("IdleTwoHand", !isMoving);
-        anim.SetBool("WalkingTwoHand", isMoving);
+        anim.SetBool(PlayerConstants.ANIM_IDLE_TWO_HAND, !isMoving);
+        anim.SetBool(PlayerConstants.ANIM_WALKING_TWO_HAND, isMoving);
     }
 
     public void PickUp(ItemData data, GameObject itemObj)
@@ -159,8 +159,8 @@ public class PlayerItem : MonoBehaviour
         currentHeldItemData = null;
         currentHeldItemObj = null;
 
-        anim.SetBool("IdleOneHand", false);
-        anim.SetBool("WalkingOneHand", false);
+        anim.SetBool(PlayerConstants.ANIM_IDLE_ONE_HAND, false);
+        anim.SetBool(PlayerConstants.ANIM_IDLE_TWO_HAND, false);
     }
 
     public void DropItemNoRaycast()
@@ -184,8 +184,8 @@ public class PlayerItem : MonoBehaviour
         currentHeldItemData = null; 
         currentHeldItemObj = null;
 
-        anim.SetBool("IdleOneHand", false);
-        anim.SetBool("WalkingOneHand", false);
+        anim.SetBool(PlayerConstants.ANIM_IDLE_ONE_HAND, false);
+        anim.SetBool(PlayerConstants.ANIM_WALKING_ONE_HAND, false);
     }
 
 #if UNITY_EDITOR

@@ -11,6 +11,7 @@ public class PlayerInteract : MonoBehaviour
 
     private PlayerItem playerItem;
     private PlayerController controller;
+    private PlayerPossession possession;
 
     private Outline currentOutline;
 
@@ -19,6 +20,7 @@ public class PlayerInteract : MonoBehaviour
         interactPrompt.enabled = false;
         playerItem = GetComponent<PlayerItem>();
         controller = GetComponent<PlayerController>();
+        possession = GetComponent<PlayerPossession>();
     }
 
     private void Update()
@@ -32,7 +34,7 @@ public class PlayerInteract : MonoBehaviour
                 ClearInteractable();
             }
 
-            if (controller.IsSlipping)
+            if (controller.IsSlipping || possession.IsPossessed)
             {
                 ClearInteractable();
             }

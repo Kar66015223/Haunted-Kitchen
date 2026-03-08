@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 1456551054265551268}
   - component: {fileID: -1688774073686847477}
   - component: {fileID: 405375115433199792}
-  - component: {fileID: 4851977873701575462}
   - component: {fileID: -3478111561942085673}
   m_Layer: 0
   m_Name: Ghost
@@ -261,19 +260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d945bbc2072efcc4aaed89ee8a92e848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GhosrDestroyController
---- !u!114 &4851977873701575462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7071765119298536047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 360c2bd9531ad244c874eb20452a80b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GhostPosessController
-  player: {fileID: 0}
 --- !u!195 &-3478111561942085673
 NavMeshAgent:
   m_ObjectHideFlags: 0

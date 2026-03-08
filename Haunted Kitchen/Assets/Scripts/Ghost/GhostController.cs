@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class GhostController : MonoBehaviour
 {
-    private IMovementController movement;
+    private INPCMovementController movement;
     private IAnimationController anim;
     private GhostStateMachine stateMachine;
     private GhostStateFactory stateFactory;
@@ -12,7 +12,7 @@ public class GhostController : MonoBehaviour
     public Transform player {get; private set;}
     public NavMeshAgent agent { get; private set; }
 
-    public IMovementController Movement => movement;
+    public INPCMovementController Movement => movement;
     public IAnimationController Anim => anim;
 
     public event Action OnGhostDestroyed;

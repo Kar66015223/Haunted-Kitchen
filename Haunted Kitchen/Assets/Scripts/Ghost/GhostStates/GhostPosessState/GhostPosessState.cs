@@ -90,7 +90,13 @@ public class GhostPossessState : IGhostState
     {
         dashDirection = (controller.player.position - controller.transform.position).normalized;
         dashTimer = 0f;
-        
+
+        Collider col = controller.GetComponent<Collider>();
+        col.enabled = false;
+
+        GhostMovement movement = controller.Movement as GhostMovement;
+        movement.DisableAgent();
+
         Debug.Log($"Ghost dashing toward player: {dashDirection}");
     }
 

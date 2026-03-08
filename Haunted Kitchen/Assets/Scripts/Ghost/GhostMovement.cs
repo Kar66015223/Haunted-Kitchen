@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GhostMovement : MonoBehaviour, IMovementController
+public class GhostMovement : MonoBehaviour, INPCMovementController
 {
     [SerializeField] private float speed;
     private NavMeshAgent agent;
@@ -27,6 +27,12 @@ public class GhostMovement : MonoBehaviour, IMovementController
     {
         if (agent != null && agent.isOnNavMesh)
             agent.ResetPath();
+    }
+
+    public void DisableAgent()
+    {
+        if (agent != null)
+            agent.enabled = false;
     }
 
     public NavMeshAgent GetAgent() => agent;

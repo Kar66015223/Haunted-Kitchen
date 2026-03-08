@@ -260,6 +260,7 @@ MonoBehaviour:
   isSlipping: 0
   slipTimer: 0
   slipVFX: {fileID: 219041751803806038}
+  speedBuffVFX: {fileID: 1856415729798504042}
   holdThreshold: 0.4
 --- !u!114 &7736782022698327679
 MonoBehaviour:

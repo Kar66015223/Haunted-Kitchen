@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     [Header("Speed Buff")]
     private float speedBuffTimer;
     private bool hasSpeedBuff;
+    [SerializeField] private GameObject speedBuffVFX;
 
     [Header("Hold Interact")]
     private float interactStartTime;
@@ -71,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        anim.SetInteger("State", 0);
+        anim.SetInteger(PlayerConstants.ANIM_STATE, 0);
     }
 
     void Update()
@@ -119,6 +120,7 @@ public class PlayerController : MonoBehaviour
         if (hasSpeedBuff && Time.time >= speedBuffTimer)
         {
             hasSpeedBuff = false;
+            speedBuffVFX.SetActive(false);
         }
 
         Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y);
@@ -157,7 +159,7 @@ public class PlayerController : MonoBehaviour
         bool isMoving = moveInput.sqrMagnitude > 0.001f;
         bool isRunningNow = IsRunning;
 
-        anim.SetInteger("State", isMoving ? 1 : 0);
+        anim.SetInteger(PlayerConstants.ANIM_STATE, isMoving ? 1 : 0);
 
         if (isMoving)
         {
@@ -187,7 +189,7 @@ public class PlayerController : MonoBehaviour
         slipVFX?.SetActive(true);
 
         anim.speed = 1f;
-        anim.SetTrigger("Slip");
+        anim.SetTrigger(PlayerConstants.ANIM_SLIP);
 
         Debug.Log("Slip called with duration: " + duration);
     }
@@ -196,7 +198,10 @@ public class PlayerController : MonoBehaviour
     {
         hasSpeedBuff = true;
         speedBuffTimer = Time.time + duration;
+
+        speedBuffVFX.SetActive(true);
     }
+    
     #region InputAction
     public void OnMove(InputAction.CallbackContext context)
     {

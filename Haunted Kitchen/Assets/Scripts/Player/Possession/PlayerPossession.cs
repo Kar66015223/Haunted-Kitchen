@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using System.Xml.Serialization;
 
 public class PlayerPossession : MonoBehaviour
 {
@@ -58,6 +59,7 @@ public class PlayerPossession : MonoBehaviour
 
         DisablePlayerInput();
         PlayPossessionAnimation();
+        DropHeldItem();
 
         if (PossessionUIManager.instance != null)
         {
@@ -162,6 +164,19 @@ public class PlayerPossession : MonoBehaviour
         {
             input.SwitchCurrentActionMap(PlayerConstants.INPUTACTION_PLAYER);
         }
+    }
+
+    private void DropHeldItem()
+    {
+        PlayerItem playerItem = GetComponent<PlayerItem>();
+
+        if (playerItem == null)
+        {
+            Debug.LogError("No playerItem found in player");
+            return;
+        }
+
+        playerItem.DropItemNoRaycast();
     }
 
     private void PlayPossessionAnimation()

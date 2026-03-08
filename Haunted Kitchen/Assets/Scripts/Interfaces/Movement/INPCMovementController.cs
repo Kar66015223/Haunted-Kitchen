@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IMovementController
+public interface INPCMovementController
 {
     void SetSpeed(float speed);
     void MoveToward(Vector3 target);

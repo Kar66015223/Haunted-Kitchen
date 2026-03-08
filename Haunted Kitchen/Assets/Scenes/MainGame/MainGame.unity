@@ -6031,7 +6031,7 @@ Transform:
   m_GameObject: {fileID: 722561290}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.74, y: 0, z: 1.79}
+  m_LocalPosition: {x: 0.74, y: 0, z: 1.9037313}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6050,7 +6050,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
   m_SerializedVersion: 0
-  m_OverrideArea: 1
+  m_OverrideArea: 0
   m_Area: 1
   m_OverrideGenerateLinks: 0
   m_GenerateLinks: 0
@@ -13757,7 +13757,7 @@ Transform:
   m_GameObject: {fileID: 1722607902}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.92, y: 0, z: -8.43}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13777,7 +13777,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GhostSpawner
   ghostPrefab: {fileID: 8099154160449049202, guid: 11d40558f8b211c4cadd37873a12f2fa, type: 3}
   spawnPoint: {fileID: 1722607903}
-  initialState: 4
+  initialState: 0
   spawnOnStart: 1
   spawnCooldown: 3
   canSpawn: 1
@@ -16789,7 +16789,7 @@ Transform:
   m_GameObject: {fileID: 2096332621}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.7400005, y: 0, z: 1.8400003}
+  m_LocalPosition: {x: 0.7400005, y: 0, z: 1.9037324}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16808,7 +16808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
   m_SerializedVersion: 0
-  m_OverrideArea: 1
+  m_OverrideArea: 0
   m_Area: 1
   m_OverrideGenerateLinks: 0
   m_GenerateLinks: 0
@@ -17909,6 +17909,14 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 43383104}
+    - target: {fileID: 4149944531027921012, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149944531027921012, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -2139126759
+      objectReference: {fileID: 0}
     - target: {fileID: 7759574162057141734, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
       propertyPath: interactPrompt
       value: 

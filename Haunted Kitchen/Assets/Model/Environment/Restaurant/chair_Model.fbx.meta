@@ -3,7 +3,12 @@ guid: a91fec04ad32b274aa1cfd34db44ac4e
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chair_table
+    second: {fileID: 2100000, guid: 67f0ed7ff8548e746b6b7f21dbff47a7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

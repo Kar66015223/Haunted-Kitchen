@@ -25,7 +25,7 @@ public class PlayerStamina : MonoBehaviour
 
         if (currentStamina == maxStamina)
         {
-            staminaBar.gameObject.SetActive(false);
+            staminaBar?.gameObject.SetActive(false);
         }
     }
 
@@ -45,7 +45,10 @@ public class PlayerStamina : MonoBehaviour
 
     public void StaminaUIUpdate()
     {
-        staminaBar.gameObject.SetActive(true);
-        staminaBar.fillAmount = currentStamina / maxStamina;
+        if (staminaBar != null)
+        {
+            staminaBar.gameObject.SetActive(true);
+            staminaBar.fillAmount = currentStamina / maxStamina;
+        }
     }
 }
