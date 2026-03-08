@@ -13777,7 +13777,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GhostSpawner
   ghostPrefab: {fileID: 8099154160449049202, guid: 11d40558f8b211c4cadd37873a12f2fa, type: 3}
   spawnPoint: {fileID: 1722607903}
-  initialState: 0
+  initialState: 4
   spawnOnStart: 1
   spawnCooldown: 3
   canSpawn: 1
