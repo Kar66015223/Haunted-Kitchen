@@ -92,7 +92,7 @@ public class Table : MonoBehaviour, Iinteractable
                 }
             }
 
-            // If item didn't accept forwarded interaction, fall back to default pickup — only on Press
+            // If item didn't accept forwarded interaction, fall back to default pickup ï¿½ only on Press
             if (interactor.interactionType == InteractionType.Press &&
                 playerItem != null &&
                 playerItem.currentHeldItemObj == null)
@@ -169,4 +169,6 @@ public class Table : MonoBehaviour, Iinteractable
             rb.isKinematic = true;
         }
     }
+
+    public Item GetCurrentItem() => currentItem;
 }

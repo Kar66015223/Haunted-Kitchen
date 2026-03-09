@@ -128,7 +128,9 @@ public class PlayerController : MonoBehaviour
         if (move.sqrMagnitude > 0.001f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(move);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10 * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation,
+            targetRotation,
+            PlayerConstants.ROTATION_SPEED * Time.deltaTime);
         }
 
         bool canRun = isRunning && stamina != null && stamina.CanRun();

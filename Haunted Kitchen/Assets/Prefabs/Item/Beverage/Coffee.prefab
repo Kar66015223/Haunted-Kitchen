@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemData: {fileID: 11400000, guid: 045b37fe3850c874d80b692447f2e78a, type: 2}
-  itemState: 1
+  itemState: 0
 --- !u!54 &4489363356416217703
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -11,40 +11,35 @@ public class PlayerItem : MonoBehaviour
     public float dropHeightOffset = 0.5f;
 
     private PlayerController controller;
-    public Animator anim;
+    private PlayerAnimation anim;
 
     [SerializeField] private Transform holdPointOneHand;
     [SerializeField] private Transform holdPointTwoHand;
 
-    private void Start()
+
+    void Awake()
     {
-        controller = GetComponent<PlayerController>();
+        anim = GetComponent<PlayerAnimation>();
     }
 
     private void Update()
     {
         bool isHolding = currentHeldItemData != null;
-        bool isMoving = controller.MoveInput.sqrMagnitude > 0.001f;
 
         if (!isHolding)
         {
-            anim.SetBool(PlayerConstants.ANIM_IDLE_ONE_HAND, false);
-            anim.SetBool(PlayerConstants.ANIM_WALKING_ONE_HAND, false);
-
-            anim.SetBool(PlayerConstants.ANIM_IDLE_TWO_HAND, false);
-            anim.SetBool(PlayerConstants.ANIM_WALKING_TWO_HAND, false);
-
+            anim.SetHoldOneHand(false);
+            anim.SetHoldTwoHand(false);
             return;
         }
 
         if (currentHeldItemData.oneHand)
         {
-            anim.SetBool(PlayerConstants.ANIM_IDLE_ONE_HAND, !isMoving);
-            anim.SetBool(PlayerConstants.ANIM_WALKING_ONE_HAND, isMoving); 
+            anim.SetHoldOneHand(true);
+            return;
         }
 
-        anim.SetBool(PlayerConstants.ANIM_IDLE_TWO_HAND, !isMoving);
-        anim.SetBool(PlayerConstants.ANIM_WALKING_TWO_HAND, isMoving);
+        anim.SetHoldTwoHand(true);
     }
 
     public void PickUp(ItemData data, GameObject itemObj)
@@ -159,8 +154,8 @@ public class PlayerItem : MonoBehaviour
         currentHeldItemData = null;
         currentHeldItemObj = null;
 
-        anim.SetBool(PlayerConstants.ANIM_IDLE_ONE_HAND, false);
-        anim.SetBool(PlayerConstants.ANIM_IDLE_TWO_HAND, false);
+        anim.SetHoldOneHand(false);
+        anim.SetHoldTwoHand(false);
     }
 
     public void DropItemNoRaycast()
@@ -184,8 +179,8 @@ public class PlayerItem : MonoBehaviour
         currentHeldItemData = null; 
         currentHeldItemObj = null;
 
-        anim.SetBool(PlayerConstants.ANIM_IDLE_ONE_HAND, false);
-        anim.SetBool(PlayerConstants.ANIM_WALKING_ONE_HAND, false);
+        anim.SetHoldOneHand(false);
+        anim.SetHoldTwoHand(false);
     }
 
 #if UNITY_EDITOR

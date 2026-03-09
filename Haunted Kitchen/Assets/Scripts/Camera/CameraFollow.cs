@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
-        target = FindAnyObjectByType<PlayerController>().gameObject.transform;
+        target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void LateUpdate()

@@ -17,14 +17,11 @@ public static class PlayerConstants
     public const float GROUNDED_FORCE = -2f;
 
     // Animations
-    public const float RUN_ANIM_MULTIPLIER = 1.5f;
+    public const float RUN_ANIM_MULTIPLIER = 2f;
     public const string ANIM_STATE = "State";
 
     public const string ANIM_IDLE_ONE_HAND = "IdleOneHand";
     public const string ANIM_IDLE_TWO_HAND = "IdleTwoHand";
-
-    public const string ANIM_WALKING_ONE_HAND = "WalkingOneHand";
-    public const string ANIM_WALKING_TWO_HAND = "WalkingTwoHand";
 
     public const string ANIM_SLIP = "Slip";
     public const string ANIM_ISPOSSESSED = "IsPossessed";
