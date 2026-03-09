@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class PlayerInteractionHandler : MonoBehaviour
@@ -87,11 +85,23 @@ public class PlayerInteractionHandler : MonoBehaviour
         var table = mb.GetComponent<Table>();
 
         // Pickup if it's an item
-        if(item != null && table == null)
+        if (item != null && table == null)
         {
-            if(item.itemState != ItemState.Held)
+            if (item.itemState != ItemState.Held)
             {
                 playerItem.PickUp(item.itemData, item.gameObject);
+            }
+        }
+
+        // Pickup item on the table if there is one
+        if(table != null)
+        {
+            Item tableItem = table.GetCurrentItem();
+            
+            if(tableItem != null)
+            {
+                playerItem.PickUp(tableItem.itemData, tableItem.gameObject);
+                table.SetItem(null);
             }
         }
     }
