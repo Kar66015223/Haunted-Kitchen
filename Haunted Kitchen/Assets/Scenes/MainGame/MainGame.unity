@@ -1456,6 +1456,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_New
       objectReference: {fileID: 0}
+    - target: {fileID: 20759905820972412, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 460415012881524601, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.6021363
@@ -1496,6 +1500,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1015982484844396800, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
+      propertyPath: m_UIInputModule
+      value: 
+      objectReference: {fileID: 1331297216}
     - target: {fileID: 7706468399859242572, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
       propertyPath: interactPrompt
       value: 

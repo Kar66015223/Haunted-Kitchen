@@ -129,10 +129,7 @@ public class PlayerInteractableDetector : MonoBehaviour
         currentInteractable = null;
         currentInteractableMB = null;
 
-        foreach (var interactable in detectedInteractables)
-        {
-            detectedInteractables.Remove(interactable.Key);
-        }
+        detectedInteractables.Clear();
     }
     
     public Iinteractable GetCurrentInteractable() => currentInteractable;

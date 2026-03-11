@@ -108,7 +108,7 @@ public class PlayerController_New : MonoBehaviour
         movement.Move(moveDirection, speed);
 
         // Anim
-        anim?.SetState(1);
+        anim.SetState(1);
         anim.SetRun(isRunning, runAnimMultiplier);
     }
 
@@ -127,16 +127,16 @@ public class PlayerController_New : MonoBehaviour
 
     private void HandleInteract()
     {
-        playerInteract?.TryInteract();
+        playerInteract.TryInteract();
     }
 
     private void HandleHoldInteract()
     {
-        playerInteract?.TryHoldInteract();
+        playerInteract.TryHoldInteract();
     }
     
     private void HandleDrop()
     {
-        playerItem?.DropItem();
+        playerItem.DropItem();
     }
 }
