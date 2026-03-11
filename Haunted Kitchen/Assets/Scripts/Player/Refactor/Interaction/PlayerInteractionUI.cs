@@ -2,32 +2,39 @@ using UnityEngine;
 using TMPro;
 using System;
 using UnityEngine.Analytics;
+using System.Runtime.InteropServices;
+using UnityEngine.PlayerLoop;
 
 public class PlayerInteractionUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text interactPrompt;
     [SerializeField] private PlayerInteractableDetector detector;
 
+    [SerializeField] private PlayerInteractionHandler handler;
+
     private Outline currentOutline;
 
     void Awake()
     {
         detector = GetComponent<PlayerInteractableDetector>();
+        handler = GetComponent<PlayerInteractionHandler>();
 
         if (detector == null)
             Debug.Log("PlayerInteractableDetector not found!");
+        if (handler == null)
+            Debug.Log("InteractionHandler not found!");
     }
 
     void OnEnable()
     {
-        detector.OnInteractableDetected += ShowPrompt;
-        detector.OnInteractableLost += HidePrompt;
+        detector.OnInteractableDetected += OnInteractableDetected;
+        detector.OnInteractableLost += OnInteractablelost;
     }
 
     void OnDisable()
     {
-        detector.OnInteractableDetected -= ShowPrompt;
-        detector.OnInteractableLost -= HidePrompt;
+        detector.OnInteractableDetected -= OnInteractableDetected;
+        detector.OnInteractableLost -= OnInteractablelost;
     }
 
     void Start()
@@ -38,7 +45,38 @@ public class PlayerInteractionUI : MonoBehaviour
         }
     }
 
-    private void ShowPrompt(Iinteractable interactable)
+    void Update()
+    {
+        if (detector.GetCurrentInteractable() != null)
+        {
+            bool canInteract = handler.CanInteractWithCurrent();
+
+            if (canInteract && !interactPrompt.enabled)
+            {
+                ShowPrompt();
+            }
+
+            else if (!canInteract && interactPrompt.enabled)
+            {
+                HidePrompt();
+            }
+        }
+    }
+
+    private void OnInteractableDetected(Iinteractable interactable)
+    {
+        if (handler.CanInteractWithCurrent())
+        {
+            ShowPrompt();
+        }
+    }
+    
+    private void OnInteractablelost()
+    {
+        HidePrompt();
+    }
+
+    private void ShowPrompt()
     {
         if (interactPrompt != null)
         {
@@ -58,6 +96,7 @@ public class PlayerInteractionUI : MonoBehaviour
         {
             interactPrompt.enabled = false;
         }
+        
         ClearOutline();
     }
 

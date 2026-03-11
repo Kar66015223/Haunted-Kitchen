@@ -49,9 +49,6 @@ public class PlayerInteractionHandler : MonoBehaviour
         if (!interactable.CanInteract(interactor)) return;
 
         interactable.Interact(interactor);
-
-        // Pick up if it's an item
-        TryPickupItem(interactable);
     }
 
     public void TryHoldInteract()
@@ -73,37 +70,4 @@ public class PlayerInteractionHandler : MonoBehaviour
 
         interactable.Interact(interactor);
     }
-    
-    private void TryPickupItem(Iinteractable interactable)
-    {
-        if (playerItem.currentHeldItemData != null) return;
-
-        var mb = detector.GetCurrentInteractableMB();
-        if (mb == null) return;
-
-        var item = mb.GetComponent<Item>();
-        var table = mb.GetComponent<Table>();
-
-        // Pickup if it's an item
-        if (item != null && table == null)
-        {
-            if (item.itemState != ItemState.Held)
-            {
-                playerItem.PickUp(item.itemData, item.gameObject);
-            }
-        }
-
-        // Pickup item on the table if there is one
-        if(table != null)
-        {
-            Item tableItem = table.GetCurrentItem();
-            
-            if(tableItem != null)
-            {
-                playerItem.PickUp(tableItem.itemData, tableItem.gameObject);
-                table.SetItem(null);
-            }
-        }
-    }
-    
 }

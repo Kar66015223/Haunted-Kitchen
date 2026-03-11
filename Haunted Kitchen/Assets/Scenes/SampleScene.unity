@@ -361,89 +361,6 @@ MonoBehaviour:
   offset: {x: 0, y: 8, z: -6}
   followSpeed: 10
   lookAtTarget: 0
---- !u!1 &362643032 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 20759905820972412, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
-  m_PrefabInstance: {fileID: 1115965465}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &362643038 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8684967616396342515, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
-  m_PrefabInstance: {fileID: 1115965465}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362643032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ab0512d747eee4083aee408b7ff1ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
---- !u!114 &362643045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362643032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc1b8fe0b37c99647acc09ef242d5a94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractionUI
-  interactPrompt: {fileID: 0}
-  detector: {fileID: 0}
---- !u!114 &362643046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362643032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed2a6b818279b74189586feba773141, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract_New
-  detector: {fileID: 0}
-  handler: {fileID: 0}
-  ui: {fileID: 0}
---- !u!114 &362643047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362643032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf1d56ac908b1924aa66de4e40ac730d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractionHandler
-  detector: {fileID: 0}
-  playerItem: {fileID: 0}
---- !u!114 &362643048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362643032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d821dcbacb6f242b34b8ac94c1787d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerItem
-  currentHeldItemData: {fileID: 0}
-  currentHeldItemObj: {fileID: 0}
-  floorLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  dropBlockLayers:
-    serializedVersion: 2
-    m_Bits: 128
-  dropRayDistance: 10
-  dropHeightOffset: 0.5
-  holdPointOneHand: {fileID: 849326787}
-  holdPointTwoHand: {fileID: 1968347456}
 --- !u!1 &398707090
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,11 +707,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &849326787 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7604394349647506337, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
-  m_PrefabInstance: {fileID: 1115965465}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1115965465
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -847,46 +759,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1015982484844396800, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 362643038}
-    - target: {fileID: 1015982484844396800, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
-      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 362643038}
-    - target: {fileID: 1015982484844396800, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnInteract
-      objectReference: {fileID: 0}
-    - target: {fileID: 1015982484844396800, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
-      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnDrop
-      objectReference: {fileID: 0}
-    - target: {fileID: 1015982484844396800, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerInputHandler, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1015982484844396800, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
-      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerInputHandler, Assembly-CSharp
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 20759905820972412, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
-      insertIndex: 10
-      addedObject: {fileID: 362643045}
-    - targetCorrespondingSourceObject: {fileID: 20759905820972412, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
-      insertIndex: 11
-      addedObject: {fileID: 362643047}
-    - targetCorrespondingSourceObject: {fileID: 20759905820972412, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
-      insertIndex: 12
-      addedObject: {fileID: 362643046}
-    - targetCorrespondingSourceObject: {fileID: 20759905820972412, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
-      insertIndex: 13
-      addedObject: {fileID: 362643048}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
 --- !u!1 &1210591992
 GameObject:
@@ -1295,11 +1171,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2018370068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1968347456 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7908149405291486656, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
-  m_PrefabInstance: {fileID: 1115965465}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2015771670
 GameObject:
   m_ObjectHideFlags: 0
