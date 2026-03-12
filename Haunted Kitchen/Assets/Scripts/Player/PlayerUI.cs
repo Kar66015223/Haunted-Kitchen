@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
     [SerializeField] private PlayerHealth playerHealth;
-    [SerializeField] private PlayerController controller;
+    [SerializeField] private PlayerInputHandler inputHandler;
 
     [Header("Health")]
     [SerializeField] private GameObject uiPanel;
@@ -13,29 +14,36 @@ public class PlayerUI : MonoBehaviour
 
     [Header("Hold Interact")]
     [SerializeField] private Image interactHoldProgress;
+    private bool canInteractNow = false;
 
     private void OnEnable()
     {
         playerHealth.OnHealthChanged += UpdateHealthUI;
-        controller.OnHoldProgressChanged += UpdateHoldProgress;
+        inputHandler.OnHoldProgressChanged += UpdateHoldProgress;
+        PlayerInteractionHandler.OnHoldInteractValidityCheck += SetCanInteract;
     }
     private void OnDisable()
     {
         playerHealth.OnHealthChanged -= UpdateHealthUI;
-        controller.OnHoldProgressChanged -= UpdateHoldProgress;
+        inputHandler.OnHoldProgressChanged -= UpdateHoldProgress;
+        PlayerInteractionHandler.OnHoldInteractValidityCheck -= SetCanInteract;
     }
 
     private void Awake()
     {
         playerHealth = GetComponent<PlayerHealth>();
-        controller = GetComponent<PlayerController>();
+        inputHandler = GetComponent<PlayerInputHandler>();
     }
 
-    public void RegisterUI(UIManager ui)
+    void Start()
     {
-        uiPanel = ui.HealthUIPanel;
-        healthUI = ui.HealthUI;
-        interactHoldProgress = ui.InteractHoldProgress;
+        healthUI = uiPanel.GetComponentsInChildren<Image>().ToList();
+    }
+
+    public void SetUI(GameObject panel, Image holdProgress)
+    {
+        uiPanel = panel;
+        interactHoldProgress = holdProgress;
     }
 
     private void UpdateHealthUI(int currentHealth)
@@ -46,9 +54,19 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
+    private void SetCanInteract(bool canInteract)
+    {
+        canInteractNow = canInteract;
+
+        if(!canInteract)
+        {
+            interactHoldProgress.fillAmount = 0f;
+        }
+    }
+
     private void UpdateHoldProgress(float progress)
     {
-        if (interactHoldProgress != null)
+        if (interactHoldProgress != null && canInteractNow)
             interactHoldProgress.fillAmount = progress;
     }
 }

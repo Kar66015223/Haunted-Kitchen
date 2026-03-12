@@ -402,7 +402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopUI
   root: {fileID: 1924541107}
   firstItemButton: {fileID: 893535040}
-  input: {fileID: 821090465}
+  input: {fileID: 324538632}
 --- !u!224 &43383105
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1456,13 +1456,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_New
       objectReference: {fileID: 0}
-    - target: {fileID: 20759905820972412, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 460415012881524601, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.6021363
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 460415012881524601, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1470,7 +1466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 460415012881524601, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.67
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 460415012881524601, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1702,10 +1698,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 4ecc724c6e9676448adbbc254a2b23a2, type: 2}
   itemPrefab: {fileID: 2325953389827629189, guid: 0d8bc2c0927010947989937934c45c5d, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 1398982560}
   priceText: {fileID: 732950124}
   buyButton: {fileID: 194721269}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!114 &194721269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2822,6 +2820,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323500696}
   m_CullTransparentMesh: 1
+--- !u!114 &324538632 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1015982484844396800, guid: e99f434409216d14e84d0d7f8f657de1, type: 3}
+  m_PrefabInstance: {fileID: 155540285}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3364,7 +3373,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!224 &338321830
 RectTransform:
@@ -3600,10 +3609,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 9a2cde6631d5e0445b2446a22b238953, type: 2}
   itemPrefab: {fileID: 3610214169877240148, guid: 3da7bedf9ae734646b55154d7bd74d96, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 330620102}
   priceText: {fileID: 1464021113}
   buyButton: {fileID: 376284404}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!114 &376284404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3739,6 +3750,8 @@ GameObject:
   - component: {fileID: 397304602}
   - component: {fileID: 397304604}
   - component: {fileID: 397304603}
+  - component: {fileID: 397304605}
+  - component: {fileID: 397304606}
   m_Layer: 5
   m_Name: EventText
   m_TagString: Untagged
@@ -3762,7 +3775,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0055237, y: -249}
+  m_AnchoredPosition: {x: 0, y: -249}
   m_SizeDelta: {x: 1500.3, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &397304603
@@ -3865,6 +3878,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 397304601}
   m_CullTransparentMesh: 1
+--- !u!114 &397304605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397304601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a1f7224a9276db479511156f745d19f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FadeOutText
+  text: {fileID: 0}
+  fadeDuration: 2
+--- !u!114 &397304606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397304601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db0561c908867d64b8a257a174e7684b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EventTextUI
+  eventText: {fileID: 0}
+  textFadeOut: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -4429,6 +4470,7 @@ GameObject:
   - component: {fileID: 517680739}
   - component: {fileID: 517680741}
   - component: {fileID: 517680740}
+  - component: {fileID: 517680742}
   m_Layer: 5
   m_Name: MoneuChangedText
   m_TagString: MoneyChangedText
@@ -4555,6 +4597,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 517680738}
   m_CullTransparentMesh: 1
+--- !u!114 &517680742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517680738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a1f7224a9276db479511156f745d19f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FadeOutText
+  text: {fileID: 0}
+  fadeDuration: 2
 --- !u!1 &539633043
 GameObject:
   m_ObjectHideFlags: 0
@@ -4611,10 +4667,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: f9b6212c5eb6f414b989e93c4fca1f95, type: 2}
   itemPrefab: {fileID: 3610214169877240148, guid: 2edc0c8c5880f2b49b107d0b5c84d1d6, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 290411564}
   priceText: {fileID: 1888985377}
   buyButton: {fileID: 539633046}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!114 &539633046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5811,10 +5869,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: ed24d5114c5b0744a9f97776e3567567, type: 2}
   itemPrefab: {fileID: 2325953389827629189, guid: fab2959eb1cecd142b5f1b1122dac419, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 721471905}
   priceText: {fileID: 316596549}
   buyButton: {fileID: 671345765}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!222 &671345769
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6744,17 +6804,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807285637}
   m_CullTransparentMesh: 1
---- !u!114 &821090465 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1946135234381043350, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-  m_PrefabInstance: {fileID: 6402646340785692476}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
 --- !u!1 &824651851 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2664948265678073187, guid: 498e0dd397c269a46b38c5af3104c827, type: 3}
@@ -6847,7 +6896,6 @@ GameObject:
   - component: {fileID: 829199170}
   - component: {fileID: 829199169}
   - component: {fileID: 829199168}
-  - component: {fileID: 829199172}
   m_Layer: 5
   m_Name: Canva_Pause
   m_TagString: PauseUI
@@ -6938,20 +6986,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &829199172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 829199167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28166d32d2f7e374f8a24a2e568eacad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PauseUIBinder
-  resumeButton: {fileID: 1445699940}
-  mainMenuButton: {fileID: 1210931238}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -7406,10 +7440,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 3f07a5c00b438034b9a065b7d41b7090, type: 2}
   itemPrefab: {fileID: 2325953389827629189, guid: a2153d10d590509428c18b0837414623, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 748193476}
   priceText: {fileID: 1349049950}
   buyButton: {fileID: 893535040}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!222 &893535044
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7663,11 +7699,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 941613358}
   m_CullTransparentMesh: 1
---- !u!108 &959270639 stripped
-Light:
-  m_CorrespondingSourceObject: {fileID: 2714018514014097663, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-  m_PrefabInstance: {fileID: 6402646340785692476}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &973696472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8362,10 +8393,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 7e20abe79b0c27540af4de55475ac5da, type: 2}
   itemPrefab: {fileID: 2325953389827629189, guid: b946b60d0a14830449101eff438646b4, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 147857072}
   priceText: {fileID: 21890256}
   buyButton: {fileID: 1028939737}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!222 &1028939740
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9468,10 +9501,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 4f30d7f9a805a724889064cbc759dcca, type: 2}
   itemPrefab: {fileID: 2325953389827629189, guid: 9e70fe1cb414fa248940f2512e46d779, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 2099670107}
   priceText: {fileID: 603066481}
   buyButton: {fileID: 1207486120}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!114 &1207486120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9909,10 +9944,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: df0776b2763ab5a438eb1cf274bd5a9e, type: 2}
   itemPrefab: {fileID: 2325953389827629189, guid: 720173063da504543be2221d23f42020, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 1212215342}
   priceText: {fileID: 1958401887}
   buyButton: {fileID: 1225575026}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!114 &1225575026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10051,10 +10088,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 855e286fcf1be9e46ab8dbff2a6bc95d, type: 2}
   itemPrefab: {fileID: 2325953389827629189, guid: 7b2101a769125f24a97464097fc4a9bf, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 861055672}
   priceText: {fileID: 320621936}
   buyButton: {fileID: 1228415251}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!114 &1228415251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10993,14 +11032,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.29803923}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 4a6f954ba6003f8479c65afdb4058769, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11699,8 +11738,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1404481660}
-  - component: {fileID: 1404481659}
   - component: {fileID: 1404481661}
+  - component: {fileID: 1404481662}
+  - component: {fileID: 1404481663}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -11708,28 +11748,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1404481659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1404481658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105244e2700da0f49afe23d7c426e822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  playerMoney: {fileID: 0}
-  playerInput: {fileID: 0}
-  moneyUI: {fileID: 940578122}
-  moneyChangedText: {fileID: 0}
-  eventText: {fileID: 0}
-  fadeDuration: 2
-  pauseUI: {fileID: 0}
-  resumeButton: {fileID: 1445699940}
-  mainMenuButton: {fileID: 0}
-  isPaused: 0
 --- !u!4 &1404481660
 Transform:
   m_ObjectHideFlags: 0
@@ -11758,7 +11776,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerOutageSystem
   mainSceneLight: {fileID: 410087040}
-  playerLight: {fileID: 959270639}
+  playerLight: {fileID: 0}
+--- !u!114 &1404481662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404481658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36e9d0fdd5611b4380ac75e889f03cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyUIManager
+  moneyUI: {fileID: 940578122}
+  moneyChangedText: {fileID: 517680740}
+  moneyChangedFadeOut: {fileID: 0}
+--- !u!114 &1404481663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404481658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 928613a538bac244586280b0bd19463e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseManager
+  pauseUI: {fileID: 829199167}
+  resumeButton: {fileID: 1445699940}
+  mainMenuButton: {fileID: 1210931238}
 --- !u!1 &1445699938
 GameObject:
   m_ObjectHideFlags: 0
@@ -12516,10 +12564,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 678ad76f5896b324ba0fceb7f1e2d6e8, type: 2}
   itemPrefab: {fileID: 2325953389827629189, guid: 5f44f4e55cd00f941ac9a106318ed038, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 1353015517}
   priceText: {fileID: 1013143158}
   buyButton: {fileID: 1535697003}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!222 &1535697007
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12813,10 +12863,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 66f922621909f704d916a32cea871c2a, type: 2}
   itemPrefab: {fileID: 3610214169877240148, guid: 571553c45ae34364c88dd0c7d5f63a49, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 1556909538}
   priceText: {fileID: 457628209}
   buyButton: {fileID: 1571655466}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!114 &1571655466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12955,10 +13007,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: be0277dbb24b170439643a46e5cf261d, type: 2}
   itemPrefab: {fileID: 2325953389827629189, guid: f5265085325514e40a8d2a938357174b, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 1924971789}
   priceText: {fileID: 1806629934}
   buyButton: {fileID: 1573674628}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!114 &1573674628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13209,10 +13263,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 584c87348cf62434db4552397a5d182a, type: 2}
   itemPrefab: {fileID: 3610214169877240148, guid: 64f96d7fe73351a4692144b983efda5c, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 757850039}
   priceText: {fileID: 73519857}
   buyButton: {fileID: 1609979319}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!114 &1609979319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16276,14 +16332,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   moneyUI: {fileID: 940578122}
   moneyChangedText: {fileID: 517680740}
+  moneyUIManager: {fileID: 0}
   eventText: {fileID: 397304603}
+  eventTextUI: {fileID: 0}
   pauseUI: {fileID: 829199167}
+  pauseManager: {fileID: 0}
   playerUI: {fileID: 0}
   healthUIPanel: {fileID: 807285637}
-  healthUI:
-  - {fileID: 1842390669}
-  - {fileID: 205693716}
-  - {fileID: 1323295198}
+  healthUI: []
   interactHoldProgress: {fileID: 1335862976}
 --- !u!4 &1989329989
 Transform:
@@ -16741,10 +16797,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 823be3039465a8c4da9f96fdf96f1abb, type: 2}
   itemPrefab: {fileID: 2325953389827629189, guid: f697293ccc681684e8afd9188f7dab45, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 293743084}
   priceText: {fileID: 1996032511}
   buyButton: {fileID: 2077323359}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!222 &2077323363
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17156,10 +17214,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 83adc10d0755c3c429f4970c220b6b10, type: 2}
   itemPrefab: {fileID: 3610214169877240148, guid: 37becf41d897c3745a4654b5a62d3dfd, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 207135938}
   priceText: {fileID: 1836640210}
   buyButton: {fileID: 2100235880}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!114 &2100235880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17373,10 +17433,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemButton
   itemData: {fileID: 11400000, guid: 150eeedf89891e64cb8909ff992b6f5a, type: 2}
   itemPrefab: {fileID: 2325953389827629189, guid: 484e3f25520ee2a43bbe416f900908ad, type: 3}
+  spawner: {fileID: 76361459}
   nameText: {fileID: 1682433041}
   priceText: {fileID: 151683492}
   buyButton: {fileID: 2124978572}
-  spawner: {fileID: 76361459}
+  playerMoney: {fileID: 0}
+  eventText: {fileID: 0}
 --- !u!114 &2124978572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17918,87 +17980,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 824651853}
   m_SourcePrefab: {fileID: 100100000, guid: 498e0dd397c269a46b38c5af3104c827, type: 3}
---- !u!1001 &6402646340785692476
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1403091200965308655, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1403091200965308655, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1403091200965308655, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -10.52
-      objectReference: {fileID: 0}
-    - target: {fileID: 1403091200965308655, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1403091200965308655, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1403091200965308655, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1403091200965308655, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1403091200965308655, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1403091200965308655, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1403091200965308655, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1536483965337830122, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1536483965337830122, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1946135234381043350, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_UIInputModule
-      value: 
-      objectReference: {fileID: 1331297216}
-    - target: {fileID: 1946135234381043350, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 43383104}
-    - target: {fileID: 4149944531027921012, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149944531027921012, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -2139126759
-      objectReference: {fileID: 0}
-    - target: {fileID: 7759574162057141734, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: interactPrompt
-      value: 
-      objectReference: {fileID: 1016654145}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
 --- !u!1001 &6527458307302131624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18410,7 +18391,6 @@ SceneRoots:
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
-  - {fileID: 6402646340785692476}
   - {fileID: 155540285}
   - {fileID: 1331297218}
   - {fileID: 1404481660}

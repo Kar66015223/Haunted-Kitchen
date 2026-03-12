@@ -28,4 +28,9 @@ public class PlayerAnimation : MonoBehaviour
     {
         anim.SetBool(PlayerConstants.ANIM_IDLE_TWO_HAND, value);
     }
+
+    public void SetDie()
+    {
+        anim.SetTrigger(PlayerConstants.ANIM_DIE);
+    }
 }

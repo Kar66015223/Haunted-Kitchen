@@ -1,9 +1,5 @@
 using UnityEngine;
 using TMPro;
-using System;
-using UnityEngine.Analytics;
-using System.Runtime.InteropServices;
-using UnityEngine.PlayerLoop;
 
 public class PlayerInteractionUI : MonoBehaviour
 {

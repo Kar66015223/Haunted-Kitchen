@@ -81,7 +81,7 @@ public class PlayerInputHandler : MonoBehaviour
         if(heldTime >= holdThreshold)
         {
             holdTriggered = true;
-            OnHoldProgressChanged?.Invoke(1f);
+            OnHoldProgressChanged?.Invoke(0f);
             OnHoldInteractInput?.Invoke();
         }
     }
@@ -101,5 +101,4 @@ public class PlayerInputHandler : MonoBehaviour
             OnPauseInput?.Invoke();
         }
     }
-
 }

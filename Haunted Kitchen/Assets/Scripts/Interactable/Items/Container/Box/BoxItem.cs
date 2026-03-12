@@ -24,7 +24,7 @@ public class BoxItem : Item, Iinteractable
                 return false;
             if (playerItem.currentHeldItemData != null)
                 return false;
-            if(itemState == ItemState.Held)
+            if (itemState == ItemState.Held)
                 return false;
 
             return true;

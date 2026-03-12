@@ -7,4 +7,9 @@ public static class SceneLoader
     {
         SceneManager.LoadScene($"{_sceneName}");
     }
+
+    public static void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }

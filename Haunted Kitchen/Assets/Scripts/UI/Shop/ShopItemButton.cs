@@ -6,17 +6,24 @@ public class ShopItemButton : MonoBehaviour
 {
     public ItemData itemData;
     public GameObject itemPrefab;
+    public Transform spawner;
 
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private Button buyButton;
 
-    public Transform spawner;
+    [SerializeField] private PlayerMoney playerMoney;
+    [SerializeField] private EventTextUI eventText;
 
     private void Start()
     {
-        nameText.text = itemData.itemName;
+        if (playerMoney == null)
+            playerMoney = FindAnyObjectByType<PlayerMoney>();
 
+        if (eventText == null)
+            eventText = FindAnyObjectByType<EventTextUI>();
+
+        nameText.text = itemData.itemName;
         priceText.text = $"{itemData.price} $";
 
         buyButton.onClick.AddListener(Buy);
@@ -24,21 +31,20 @@ public class ShopItemButton : MonoBehaviour
 
     void Buy()
     {
-        if (GameManager.instance.playerMoney.currentMoney < itemData.price)
+        if (playerMoney.currentMoney < itemData.price)
         {
-            GameManager.instance.ShowEventText($"You don't have enough money.", Color.red);
-
+            eventText.ShowEvent($"You don't have enough money.", Color.red);
             return;
         }
 
-        GameManager.instance.playerMoney.ChangeMoneyAmount(-itemData.price);
-        GameManager.instance.ShowEventText($"Bought {itemData.itemName}", Color.green);
+        playerMoney.ChangeMoneyAmount(-itemData.price);
+        eventText.ShowEvent($"Bought {itemData.itemName}", Color.green);
 
         SpawnItem();
     }
 
     void SpawnItem()
     {
-        GameObject obj = Instantiate(itemPrefab, spawner.position, spawner.rotation);
+        Instantiate(itemPrefab, spawner.position, spawner.rotation);
     }
 }

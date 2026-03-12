@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -26,17 +24,11 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private int maxHealth = 3;
     public event Action<int> OnHealthChanged;
 
-    private PlayerController controller;
-    private Animator anim;
-
-    [Header("UI")]
-    [SerializeField] private GameObject uiPanel;
-    [SerializeField] private List<Image> healthUI = new();
+    private PlayerAnimation anim;
 
     private void Awake()
     {
-        controller = GetComponent<PlayerController>();
-        anim = controller.anim;
+        anim = GetComponent<PlayerAnimation>();
     }
 
     private void Start()
@@ -52,7 +44,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        anim.SetTrigger("Die");
+        anim.SetDie();
         StartCoroutine(DieSequence());
 
         Debug.Log("player has died");

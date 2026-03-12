@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PlayerController_New : MonoBehaviour
 {
@@ -13,6 +12,7 @@ public class PlayerController_New : MonoBehaviour
     private PlayerAnimation anim;
     private PlayerInteract_New playerInteract;
     private PlayerItem playerItem;
+    private PauseManager pauseManager;
 
     private Vector3 currentFacingDirection = Vector3.forward;
 
@@ -50,7 +50,7 @@ public class PlayerController_New : MonoBehaviour
         inputHandler.OnInteractInput += HandleInteract;
         inputHandler.OnHoldInteractInput += HandleHoldInteract;
         inputHandler.OnDropInput += HandleDrop;
-        // inputHandler.OnPauseInput += HandlePause;
+        inputHandler.OnPauseInput += HandlePause;
     }
 
     void OnDisable()
@@ -58,7 +58,12 @@ public class PlayerController_New : MonoBehaviour
         inputHandler.OnInteractInput -= HandleInteract;
         inputHandler.OnHoldInteractInput -= HandleHoldInteract;
         inputHandler.OnDropInput -= HandleDrop;
-        // inputHandler.OnPauseInput -= HandlePause;
+        inputHandler.OnPauseInput -= HandlePause;
+    }
+
+    void Start()
+    {
+        pauseManager = FindAnyObjectByType<PauseManager>();
     }
 
     void Update()
@@ -134,9 +139,14 @@ public class PlayerController_New : MonoBehaviour
     {
         playerInteract.TryHoldInteract();
     }
-    
+
     private void HandleDrop()
     {
         playerItem.DropItem();
+    }
+    
+    private void HandlePause()
+    {
+        pauseManager.Pause();
     }
 }

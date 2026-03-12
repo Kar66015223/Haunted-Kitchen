@@ -15,6 +15,11 @@ public class ShopUI : MonoBehaviour
         root.SetActive(false);
     }
 
+    void Start()
+    {
+        input = GameObject.FindWithTag("Player").GetComponent<PlayerInput>();
+    }
+    
     public void Open()
     {
         root.SetActive(true);

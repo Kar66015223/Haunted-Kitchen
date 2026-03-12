@@ -1,14 +1,16 @@
+using System;
 using UnityEngine;
 
 public class PlayerInteractionHandler : MonoBehaviour
 {
     [SerializeField] private PlayerInteractableDetector detector;
-    [SerializeField] private PlayerItem playerItem;
+
+    public static event Action<bool> OnHoldInteractValidityCheck;
+    private bool validityState = false;
 
     void Awake()
     {
         detector = GetComponent<PlayerInteractableDetector>();
-        playerItem = GetComponent<PlayerItem>();
     }
 
     public bool CanInteractWithCurrent()
@@ -38,6 +40,16 @@ public class PlayerInteractionHandler : MonoBehaviour
         }
 
         return interactable.CanInteract(interactor);
+    }
+
+    void Update()
+    {
+        bool currentValidity = CanHoldInteractWithCurrent();
+        if(currentValidity != validityState)
+        {
+            validityState = currentValidity;
+            OnHoldInteractValidityCheck?.Invoke(currentValidity);
+        }
     }
 
     public void TryInteract()

@@ -6,6 +6,7 @@ public static class PlayerConstants
     // Input Actions
     public const string INPUTACTION_POSSESSION = "Possession";
     public const string INPUTACTION_PLAYER = "Player";
+    public const string INPUTACTION_UI = "UI";
 
     // Movement
     public const float MOVE_SPEED = 7f;
@@ -26,6 +27,8 @@ public static class PlayerConstants
     public const string ANIM_SLIP = "Slip";
     public const string ANIM_ISPOSSESSED = "IsPossessed";
     public const string ANIM_STRUGGLE = "Struggle";
+
+    public const string ANIM_DIE = "Die";
 
     // Interaction
     public const float HOLD_THRESHOLD = 0.4f;

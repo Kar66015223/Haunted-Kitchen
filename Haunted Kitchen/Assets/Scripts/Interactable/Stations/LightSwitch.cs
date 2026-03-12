@@ -10,7 +10,7 @@ public class LightSwitch : MonoBehaviour, Iinteractable
 
     void Start()
     {
-        outageSystem = GameManager.instance.GetComponent<PowerOutageSystem>();
+        outageSystem = FindAnyObjectByType<PowerOutageSystem>();
     }
 
     public bool CanInteract(Interactor interactor)
