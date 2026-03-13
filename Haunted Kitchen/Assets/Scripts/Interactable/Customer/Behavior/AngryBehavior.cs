@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,6 +8,15 @@ public class AngryBehavior : CustomerBehavior
 
     private bool hasAttacked;
 
+    private EventTextUI eventText;
+    private PlayerMoney playerMoney;
+
+    void Start()
+    {
+        eventText = FindAnyObjectByType<EventTextUI>();
+        playerMoney = FindAnyObjectByType<PlayerMoney>();
+    }
+
     public override void HandleLeaving(Customer_New customer)
     {
         AttackPlayer(customer);
@@ -17,21 +25,33 @@ public class AngryBehavior : CustomerBehavior
     public override void OnCorrectServe(Customer_New customer, int totalPrice)
     {
         int bonus = totalPrice * 2;
-        GameManager.instance.playerMoney.ChangeMoneyAmount(bonus);
+
+        if(playerMoney != null)
+            playerMoney.ChangeMoneyAmount(bonus);
     }
 
     public override void OnPatienceExpired(Customer_New customer)
     {
-        int steal = UnityEngine.Random.Range(300, 1000);
-        GameManager.instance.playerMoney.ChangeMoneyAmount(-steal);
-        GameManager.instance.ShowEventText("Your money was stolen by an angry customer...", Color.red);
+        if(playerMoney != null)
+        {
+            int steal = Random.Range(300, 1000);
+            playerMoney.ChangeMoneyAmount(-steal);
+        }
+
+        if(eventText != null)
+            eventText.ShowEvent("Your money was stolen by an angry customer...", Color.red);
     }
 
     public override void OnWrongServe(Customer_New customer)
     {
-        int steal = UnityEngine.Random.Range(300, 1000);
-        GameManager.instance.playerMoney.ChangeMoneyAmount(-steal);
-        GameManager.instance.ShowEventText("Your money was stolen by an angry customer...", Color.red);
+        if(playerMoney != null)
+        {
+            int steal = Random.Range(300, 1000);
+            playerMoney.ChangeMoneyAmount(-steal);
+        }
+
+        if(eventText != null)
+            eventText.ShowEvent("Your money was stolen by an angry customer...", Color.red);
     }
 
     void AttackPlayer(Customer_New customer)
@@ -39,7 +59,7 @@ public class AngryBehavior : CustomerBehavior
         if (hasAttacked) return;
         hasAttacked = true;
 
-        PlayerController player = FindAnyObjectByType<PlayerController>();
+        PlayerController_New player = FindAnyObjectByType<PlayerController_New>();
 
         if (player == null)
         {
@@ -57,7 +77,7 @@ public class AngryBehavior : CustomerBehavior
         customer.StartCoroutine(AttackSequence(customer, player));
     }
 
-    private IEnumerator AttackSequence(Customer_New customer, PlayerController controller)
+    private IEnumerator AttackSequence(Customer_New customer, PlayerController_New controller)
     {
         float impactDelay = 0.35f;
 

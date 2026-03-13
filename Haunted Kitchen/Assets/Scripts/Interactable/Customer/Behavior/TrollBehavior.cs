@@ -4,6 +4,15 @@ public class TrollBehavior : CustomerBehavior
 {
     [SerializeField] private int moneyReward = 2000;
 
+    private EventTextUI eventText;
+    private PlayerMoney playerMoney;
+
+    void Start()
+    {
+        eventText = FindAnyObjectByType<EventTextUI>();
+        playerMoney = FindAnyObjectByType<PlayerMoney>();
+    }
+    
     public override void HandleLeaving(Customer_New customer)
     {
         customer.movement.HandleLeaving();
@@ -11,8 +20,13 @@ public class TrollBehavior : CustomerBehavior
 
     public override void OnCorrectServe(Customer_New customer, int totalPrice)
     {
-        GameManager.instance.playerMoney.ChangeMoneyAmount(moneyReward);
-        GameManager.instance.ShowEventText("The troll customer rewards you after being served the right order.", Color.green);
+        if(playerMoney != null)
+        {
+            playerMoney.ChangeMoneyAmount(moneyReward);
+        }
+        
+        if (eventText != null)
+            eventText.ShowEvent("The troll customer rewards you after being served the right order.", Color.green);
 
         GameEvents.OnSpeedBuff?.Invoke(10f);
 

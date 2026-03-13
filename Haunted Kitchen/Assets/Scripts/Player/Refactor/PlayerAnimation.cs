@@ -33,4 +33,19 @@ public class PlayerAnimation : MonoBehaviour
     {
         anim.SetTrigger(PlayerConstants.ANIM_DIE);
     }
+
+    public void SetSlip()
+    {
+        anim.SetTrigger(PlayerConstants.ANIM_SLIP);
+    }
+
+    public void SetPossessed(bool value)
+    {
+        anim.SetBool(PlayerConstants.ANIM_ISPOSSESSED, value);
+    }
+
+    public void SetStruggle()
+    {
+        anim.SetTrigger(PlayerConstants.ANIM_STRUGGLE);
+    }
 }

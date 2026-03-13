@@ -75,7 +75,7 @@ PrefabInstance:
     - target: {fileID: 1946135234381043350, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
       propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8906344397287132845}
     - target: {fileID: 1946135234381043350, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnMove
@@ -83,6 +83,10 @@ PrefabInstance:
     - target: {fileID: 1946135234381043350, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
       propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnRun
+      objectReference: {fileID: 0}
+    - target: {fileID: 1946135234381043350, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnStruggleInput
       objectReference: {fileID: 0}
     - target: {fileID: 1946135234381043350, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -104,8 +108,19 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PlayerInputHandler, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 1946135234381043350, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerPossession, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149944531027921012, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149944531027921012, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -2139126759
+      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 7963138241377016123, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
     - {fileID: 6622375173308098662, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
     - {fileID: 2085592455395610552, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
     - {fileID: 5535279416587122376, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
@@ -177,6 +192,9 @@ MonoBehaviour:
   moveSpeed: 7
   runSpeed: 14
   runAnimMultiplier: 2
+  isSlipping: 0
+  slipVFX: {fileID: 1590122858702624448}
+  speedBuffVFX: {fileID: 925526307471247868}
 --- !u!114 &8684967616396342515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,7 +293,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractionHandler
   detector: {fileID: 0}
-  playerItem: {fileID: 0}
 --- !u!114 &2543362901475681606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,8 +358,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 3
-  uiPanel: {fileID: 0}
-  healthUI: []
 --- !u!114 &9138985745016721724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,6 +386,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!1 &925526307471247868 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1856415729798504042, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
+  m_PrefabInstance: {fileID: 1520933546683537302}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1590122858702624448 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 219041751803806038, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
+  m_PrefabInstance: {fileID: 1520933546683537302}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7604394349647506337 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8976603555510500407, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
@@ -381,3 +406,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8693094056488700502, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
   m_PrefabInstance: {fileID: 1520933546683537302}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8906344397287132845 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7963138241377016123, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
+  m_PrefabInstance: {fileID: 1520933546683537302}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20759905820972412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ad7dc6e45bd894fba2658ad9f354ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPossession

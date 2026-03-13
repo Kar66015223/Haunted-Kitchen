@@ -1,10 +1,28 @@
 using UnityEngine;
 
+[RequireComponent(typeof(IPlayerMovementController))]
+[RequireComponent(typeof(PlayerInputHandler))]
+[RequireComponent(typeof(PlayerStamina))]
+[RequireComponent(typeof(PlayerInteract_New))]
+[RequireComponent(typeof(PlayerItem))]
+[RequireComponent(typeof(PlayerAnimation))]
 public class PlayerController_New : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = PlayerConstants.MOVE_SPEED;
     [SerializeField] private float runSpeed = PlayerConstants.RUN_SPEED;
     [SerializeField] private float runAnimMultiplier = PlayerConstants.RUN_ANIM_MULTIPLIER;
+
+    // Slipping
+    [SerializeField] private bool isSlipping;
+    public bool IsSlipping => isSlipping;
+
+    private float slipTimer;
+    [SerializeField] private GameObject slipVFX;
+
+    // Speed Buff
+    private float speedBuffTimer;
+    private bool hasSpeedBuff;
+    [SerializeField] private GameObject speedBuffVFX;
 
     private PlayerInputHandler inputHandler;
     private IPlayerMovementController movement;
@@ -51,6 +69,8 @@ public class PlayerController_New : MonoBehaviour
         inputHandler.OnHoldInteractInput += HandleHoldInteract;
         inputHandler.OnDropInput += HandleDrop;
         inputHandler.OnPauseInput += HandlePause;
+
+        GameEvents.OnSpeedBuff += ApplySpeedBuff;
     }
 
     void OnDisable()
@@ -59,6 +79,8 @@ public class PlayerController_New : MonoBehaviour
         inputHandler.OnHoldInteractInput -= HandleHoldInteract;
         inputHandler.OnDropInput -= HandleDrop;
         inputHandler.OnPauseInput -= HandlePause;
+
+        GameEvents.OnSpeedBuff -= ApplySpeedBuff;
     }
 
     void Start()
@@ -68,6 +90,24 @@ public class PlayerController_New : MonoBehaviour
 
     void Update()
     {
+        if (isSlipping)
+        {
+            if (Time.time >= slipTimer)
+            {
+                isSlipping = false;
+                slipVFX.SetActive(false);
+                SetCanMove(true);
+            }
+
+            return;
+        }
+
+        if (hasSpeedBuff && Time.time >= speedBuffTimer)
+        {
+            hasSpeedBuff = false;
+            speedBuffVFX.SetActive(false);
+        }
+        
         HandleMoveInput();
     }
 
@@ -96,7 +136,8 @@ public class PlayerController_New : MonoBehaviour
             PlayerConstants.ROTATION_SPEED * Time.deltaTime
         );
 
-        float speed = isRunning ? runSpeed : moveSpeed;
+        float buffMultiplier = hasSpeedBuff ? 2f : 1f;
+        float speed = (isRunning ? runSpeed : moveSpeed) * buffMultiplier;
 
         // Stamina
         bool canRun = isRunning && stamina != null && stamina.CanRun();
@@ -115,6 +156,37 @@ public class PlayerController_New : MonoBehaviour
         // Anim
         anim.SetState(1);
         anim.SetRun(isRunning, runAnimMultiplier);
+    }
+
+    public void Slip(float duration)
+    {
+        if (isSlipping || hasSpeedBuff) return;
+
+        isSlipping = true;
+        slipTimer = Time.time + duration;
+        SetCanMove(false);
+
+        if (playerItem != null)
+        {
+            playerItem.DropItemNoRaycast();
+        }
+
+        // isRunning = false;
+
+        slipVFX?.SetActive(true);
+
+        anim.SetRun(false, 1f);
+        anim.SetSlip();
+
+        Debug.Log("Slip called with duration: " + duration);
+    }
+
+    private void ApplySpeedBuff(float duration)
+    {
+        hasSpeedBuff = true;
+        speedBuffTimer = Time.time + duration;
+
+        speedBuffVFX.SetActive(true);
     }
 
     public void SetCanMove(bool canMove)

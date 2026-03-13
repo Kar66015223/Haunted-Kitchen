@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
-using System.Xml.Serialization;
 
 public class PlayerPossession : MonoBehaviour
 {
@@ -22,9 +21,8 @@ public class PlayerPossession : MonoBehaviour
     private GameObject possessingGhost;
 
     // references
-    private PlayerController controller;
+    private PlayerAnimation playerAnim;
     private PlayerInput input;
-    private Animator anim;
 
     // Events
     public event Action<float> OnStruggleProgressChanged;
@@ -33,9 +31,8 @@ public class PlayerPossession : MonoBehaviour
 
     void Awake()
     {
-        controller = GetComponent<PlayerController>();
+        playerAnim = GetComponent<PlayerAnimation>();
         input = GetComponent<PlayerInput>();
-        anim = controller.anim;
     }
 
     void Update()
@@ -103,9 +100,9 @@ public class PlayerPossession : MonoBehaviour
         {
             AddStruggle(struggleValue);
 
-            if(anim != null)
+            if(playerAnim != null)
             {
-                anim.SetTrigger(PlayerConstants.ANIM_STRUGGLE);
+                playerAnim.SetStruggle();
             }
 
             Debug.Log($"Struggle progress: {struggleProgress} / {struggleThreshold}");
@@ -154,8 +151,6 @@ public class PlayerPossession : MonoBehaviour
         {
             input.SwitchCurrentActionMap(PlayerConstants.INPUTACTION_POSSESSION);
         }
-
-        // controller.Slip(0f); // Use slip with 0 duration to stop movement
     }
 
     private void EnablePlayerInput()
@@ -181,16 +176,16 @@ public class PlayerPossession : MonoBehaviour
 
     private void PlayPossessionAnimation()
     {
-        if (anim == null) return;
+        if (playerAnim == null) return;
 
-        anim.SetBool(PlayerConstants.ANIM_ISPOSSESSED, true);
+        playerAnim.SetPossessed(true);
     }
 
     private void StopPossessionAnimation()
     {
-        if (anim == null) return;
+        if (playerAnim == null) return;
 
-        anim.SetBool(PlayerConstants.ANIM_ISPOSSESSED, false);
+        playerAnim.SetPossessed(false);
     }
 
     public bool CanPerformAction()

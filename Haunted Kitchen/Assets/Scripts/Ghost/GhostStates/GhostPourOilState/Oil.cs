@@ -8,7 +8,7 @@ public class Oil : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerController controller = other.GetComponent<PlayerController>();
+            PlayerController_New controller = other.GetComponent<PlayerController_New>();
 
             if (controller != null)
             {
