@@ -1,10 +1,11 @@
-using UnityEditor.Experimental.GraphView;
+using System;
 using UnityEngine;
 
 public class GhostPossessState : IGhostState
 {
     private GhostController controller;
     private PlayerPossession playerPossession;
+    private EventTextUI eventText;
     
     // Timing
     private float stareTimer = 0f;
@@ -27,7 +28,7 @@ public class GhostPossessState : IGhostState
         this.stareTime = stareTime;
         this.dashSpeed = dashSpeed;
 
-        if(controller.player != null)
+        if (controller.player != null)
         {
             playerPossession = controller.player.GetComponent<PlayerPossession>();
         }
@@ -37,13 +38,14 @@ public class GhostPossessState : IGhostState
     {
         Debug.Log("Ghost enters Possess state");
 
-        GameManager.instance.ShowEventText("The ghost stares at you with malicious intent...", Color.red);
+        GameEvents.OnShowEventText?.Invoke(
+            GhostConstants.STATE_POSSESS_STARING_EVENT_TEXT, Color.red);
 
         stareTimer = 0f;
         dashTimer = 0f;
         hasDashed = false;
         currentPhase = PossessPhase.Staring;
-        
+
         // Stop movement during stare phase
         controller.Movement.Stop();
     }

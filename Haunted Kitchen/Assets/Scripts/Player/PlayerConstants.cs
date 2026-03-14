@@ -3,6 +3,8 @@ using UnityEngine;
 
 public static class PlayerConstants
 {
+    public const string PLAYER_TAG = "Player";
+
     // Input Actions
     public const string INPUTACTION_POSSESSION = "Possession";
     public const string INPUTACTION_PLAYER = "Player";

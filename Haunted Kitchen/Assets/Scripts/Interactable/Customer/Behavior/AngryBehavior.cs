@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,12 +9,10 @@ public class AngryBehavior : CustomerBehavior
 
     private bool hasAttacked;
 
-    private EventTextUI eventText;
     private PlayerMoney playerMoney;
 
     void Start()
     {
-        eventText = FindAnyObjectByType<EventTextUI>();
         playerMoney = FindAnyObjectByType<PlayerMoney>();
     }
 
@@ -34,24 +33,22 @@ public class AngryBehavior : CustomerBehavior
     {
         if(playerMoney != null)
         {
-            int steal = Random.Range(300, 1000);
+            int steal = UnityEngine.Random.Range(300, 1000);
             playerMoney.ChangeMoneyAmount(-steal);
         }
 
-        if(eventText != null)
-            eventText.ShowEvent("Your money was stolen by an angry customer...", Color.red);
+        GameEvents.OnShowEventText?.Invoke(CustomerConstants.STEAL_EVENT_TEXT, Color.red);
     }
 
     public override void OnWrongServe(Customer_New customer)
     {
         if(playerMoney != null)
         {
-            int steal = Random.Range(300, 1000);
+            int steal = UnityEngine.Random.Range(300, 1000);
             playerMoney.ChangeMoneyAmount(-steal);
         }
 
-        if(eventText != null)
-            eventText.ShowEvent("Your money was stolen by an angry customer...", Color.red);
+        GameEvents.OnShowEventText?.Invoke(CustomerConstants.STEAL_EVENT_TEXT, Color.red);
     }
 
     void AttackPlayer(Customer_New customer)

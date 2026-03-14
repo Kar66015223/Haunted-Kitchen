@@ -1,4 +1,6 @@
+using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EventTextUI : MonoBehaviour
@@ -15,6 +17,16 @@ public class EventTextUI : MonoBehaviour
 
         if (textFadeOut == null)
             Debug.LogError($"FadeOutText not found on {eventText.gameObject.name}");
+    }
+
+    void OnEnable()
+    {
+        GameEvents.OnShowEventText += ShowEvent;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnShowEventText += ShowEvent;
     }
 
     public void SetUI(TMP_Text eventText)

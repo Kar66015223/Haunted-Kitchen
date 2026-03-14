@@ -8,7 +8,7 @@ public class GhostLightFinder : MonoBehaviour
     private void Start()
     {
         lightSwitch = FindAnyObjectByType<LightSwitch>().gameObject;
-        powerOutageSystem = GameManager.instance.GetComponent<PowerOutageSystem>();
+        powerOutageSystem = FindAnyObjectByType<PowerOutageSystem>();
     }
 
     public void TurnOffLight()

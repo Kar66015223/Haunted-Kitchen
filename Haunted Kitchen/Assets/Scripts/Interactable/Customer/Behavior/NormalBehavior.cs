@@ -2,12 +2,10 @@ using UnityEngine;
 
 public class NormalBehavior : CustomerBehavior
 {
-    private EventTextUI eventText;
     private PlayerMoney playerMoney;
 
     void Start()
     {
-        eventText = FindAnyObjectByType<EventTextUI>();
         playerMoney = FindAnyObjectByType<PlayerMoney>();
     }
 
@@ -27,8 +25,7 @@ public class NormalBehavior : CustomerBehavior
             playerMoney.ChangeMoneyAmount(-steal);
         }
 
-        if (eventText != null)
-            eventText.ShowEvent("Your money was stolen by an angry customer...", Color.red);
+        GameEvents.OnShowEventText?.Invoke(CustomerConstants.STEAL_EVENT_TEXT, Color.red);
     }
 
     public override void OnWrongServe(Customer_New customer)
@@ -39,8 +36,7 @@ public class NormalBehavior : CustomerBehavior
             playerMoney.ChangeMoneyAmount(-steal);
         }
 
-        if (eventText != null)
-            eventText.ShowEvent("Your money was stolen by an angry customer...", Color.red);
+        GameEvents.OnShowEventText?.Invoke(CustomerConstants.STEAL_EVENT_TEXT, Color.red);
     }
 
     public override void HandleLeaving(Customer_New customer)

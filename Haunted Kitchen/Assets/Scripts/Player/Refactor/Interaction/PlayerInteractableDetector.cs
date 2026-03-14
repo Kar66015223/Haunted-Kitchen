@@ -14,8 +14,21 @@ public class PlayerInteractableDetector : MonoBehaviour
     public event Action<Iinteractable> OnInteractableDetected;
     public event Action OnInteractableLost;
 
+    [SerializeField] private PlayerPossession playerPossess;
+
+    void Awake()
+    {
+        playerPossess = GetComponent<PlayerPossession>();
+    }
+
     private void OnTriggerStay(Collider other)
     {
+        if (playerPossess.IsPossessed)
+        {
+            ClearInteractable();
+            return;
+        }
+
         var interactable = other.GetComponentInParent<Iinteractable>();
         if (interactable == null) return;
 
