@@ -24,6 +24,9 @@ public class PlayerController_New : MonoBehaviour
     private bool hasSpeedBuff;
     [SerializeField] private GameObject speedBuffVFX;
 
+    // Cross
+    private PlayerCross playerCross;
+
     private PlayerInputHandler inputHandler;
     private IPlayerMovementController movement;
     private PlayerStamina stamina;
@@ -41,6 +44,7 @@ public class PlayerController_New : MonoBehaviour
         stamina = GetComponent<PlayerStamina>();
         playerInteract = GetComponent<PlayerInteract_New>();
         playerItem = GetComponent<PlayerItem>();
+        playerCross = GetComponent<PlayerCross>();
 
         anim = GetComponent<PlayerAnimation>();
 
@@ -59,6 +63,9 @@ public class PlayerController_New : MonoBehaviour
         if (playerItem == null)
             Debug.LogError("PlayerItem not found!");
 
+        if (playerCross == null)
+            Debug.LogError("PlayerCross not found!");
+
         if (anim == null)
             Debug.LogError("PlayerAnimation not found!");
     }
@@ -68,7 +75,11 @@ public class PlayerController_New : MonoBehaviour
         inputHandler.OnInteractInput += HandleInteract;
         inputHandler.OnHoldInteractInput += HandleHoldInteract;
         inputHandler.OnDropInput += HandleDrop;
+
         inputHandler.OnPauseInput += HandlePause;
+
+        inputHandler.OnHoldCrossInput += HandleHoldCross;
+        inputHandler.OnHoldCrossInputCanceled += HandleHoldCrossCancel;
 
         GameEvents.OnSpeedBuff += ApplySpeedBuff;
     }
@@ -78,7 +89,11 @@ public class PlayerController_New : MonoBehaviour
         inputHandler.OnInteractInput -= HandleInteract;
         inputHandler.OnHoldInteractInput -= HandleHoldInteract;
         inputHandler.OnDropInput -= HandleDrop;
+
         inputHandler.OnPauseInput -= HandlePause;
+
+        inputHandler.OnHoldCrossInput -= HandleHoldCross;
+        inputHandler.OnHoldCrossInputCanceled -= HandleHoldCrossCancel;
 
         GameEvents.OnSpeedBuff -= ApplySpeedBuff;
     }
@@ -216,9 +231,25 @@ public class PlayerController_New : MonoBehaviour
     {
         playerItem.DropItem();
     }
-    
+
     private void HandlePause()
     {
         pauseManager.Pause();
+    }
+
+    private void HandleHoldCross()
+    {
+        if (playerItem.currentHeldItemObj != null)
+            return;
+            
+        playerCross.HoldCross();
+    }
+
+    private void HandleHoldCrossCancel()
+    {
+        if (playerItem.currentHeldItemObj != null)
+            return;
+            
+        playerCross.PutCrossAway();
     }
 }

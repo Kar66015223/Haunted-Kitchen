@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class GhostPossessState : IGhostState
 {
@@ -133,6 +134,14 @@ public class GhostPossessState : IGhostState
 
         if (playerPossession != null)
         {
+            if (controller.player.GetComponent<PlayerCross>().IsHoldingCross)
+            {
+                Debug.Log("Player is holding cross, can't possess");
+                Exit();
+
+                return;
+            }
+            
             playerPossession.StartPossession(controller.gameObject);
         }
         else

@@ -10,12 +10,11 @@ public class PlayerItem : MonoBehaviour
     public float dropRayDistance = 10f;
     public float dropHeightOffset = 0.5f;
 
-    private PlayerController controller;
     private PlayerAnimation anim;
 
     [SerializeField] private Transform holdPointOneHand;
-    [SerializeField] private Transform holdPointTwoHand;
 
+    [SerializeField] private Transform holdPointTwoHand;
 
     void Awake()
     {

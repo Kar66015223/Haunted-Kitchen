@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using NUnit.Framework;
 
 public class PlayerInputHandler : MonoBehaviour
 {
@@ -25,6 +26,13 @@ public class PlayerInputHandler : MonoBehaviour
 
     // UI
     public event Action OnPauseInput;
+
+    // Cross
+    private bool isHoldingCross = false;
+    public bool IsHoldingCross => isHoldingCross;
+
+    public event Action OnHoldCrossInput;
+    public event Action OnHoldCrossInputCanceled;
 
     void Update()
     {
@@ -99,6 +107,21 @@ public class PlayerInputHandler : MonoBehaviour
         if (context.performed)
         {
             OnPauseInput?.Invoke();
+        }
+    }
+
+    public void OnHoldCross(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            OnHoldCrossInput?.Invoke();
+            isHoldingCross = true;
+        }
+
+        if (context.canceled)
+        {
+            OnHoldCrossInputCanceled?.Invoke();
+            isHoldingCross = false;
         }
     }
 }

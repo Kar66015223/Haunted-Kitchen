@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    private Animator anim;
+    [SerializeField] private Animator anim;
 
     void Awake()
     {

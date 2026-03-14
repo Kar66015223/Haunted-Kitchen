@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GhostSpawner : MonoBehaviour
@@ -9,7 +8,6 @@ public class GhostSpawner : MonoBehaviour
     [Header("Spawn")]
     [SerializeField] private Transform spawnPoint;
     public GhostStartBehavior initialState = GhostStartBehavior.Idle;
-    //[SerializeField] private GhostStartBehavior[] possibleStartState; <= Uncomment if ghost state is random after spawn
 
     [Header("Rules")]
     [SerializeField] private bool spawnOnStart = true;

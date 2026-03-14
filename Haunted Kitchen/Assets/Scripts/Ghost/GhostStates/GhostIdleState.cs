@@ -12,7 +12,7 @@ public class GhostIdleState : IGhostState
     private float idleDuration = 5f;
     private float directionChangeInterval = 1.5f;
     private float wanderSpeed = 2f;
-    private float spawnRadius = 20f;
+    private float spawnRadius = 100f;
     private float wanderRadius = 6f;
 
     public GhostIdleState(GhostController controller)
