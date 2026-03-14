@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerItem : MonoBehaviour
@@ -11,6 +12,7 @@ public class PlayerItem : MonoBehaviour
     public float dropHeightOffset = 0.5f;
 
     private PlayerAnimation anim;
+    private PlayerCross playerCross;
 
     [SerializeField] private Transform holdPointOneHand;
 
@@ -19,6 +21,7 @@ public class PlayerItem : MonoBehaviour
     void Awake()
     {
         anim = GetComponent<PlayerAnimation>();
+        playerCross = GetComponent<PlayerCross>(); 
     }
 
     private void Update()
@@ -27,6 +30,9 @@ public class PlayerItem : MonoBehaviour
 
         if (!isHolding)
         {
+            if (playerCross != null && playerCross.IsHoldingCross)
+                return;
+
             anim.SetHoldOneHand(false);
             anim.SetHoldTwoHand(false);
             return;

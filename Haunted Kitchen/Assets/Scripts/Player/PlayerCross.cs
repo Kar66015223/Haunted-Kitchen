@@ -27,12 +27,14 @@ public class PlayerCross : MonoBehaviour
     }
 
     public void HoldCross()
-    {       
-        if(crossObj != null && playerAnim != null)
+    {
+        if (crossObj != null && playerAnim != null)
         {
             crossObj.SetActive(true);
             playerAnim.SetHoldOneHand(true);
         }
+        
+        isHoldingCross = true;  
 
         Debug.Log("Player is holding cross");
     }
@@ -44,6 +46,8 @@ public class PlayerCross : MonoBehaviour
             playerAnim.SetHoldOneHand(false);
             crossObj.SetActive(false);
         }
+
+        isHoldingCross = false;
         
         Debug.Log("Player stopped holding cross");
     }
