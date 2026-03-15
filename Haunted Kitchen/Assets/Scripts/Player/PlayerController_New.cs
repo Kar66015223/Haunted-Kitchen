@@ -27,6 +27,7 @@ public class PlayerController_New : MonoBehaviour
     // Cross
     private PlayerCross playerCross;
 
+    // Components
     private PlayerInputHandler inputHandler;
     private IPlayerMovementController movement;
     private PlayerStamina stamina;
@@ -122,6 +123,12 @@ public class PlayerController_New : MonoBehaviour
             hasSpeedBuff = false;
             speedBuffVFX.SetActive(false);
         }
+
+        if(playerCross != null && playerCross.IsHoldingCross)
+        {
+            SetCanMove(false);
+            return;
+        }
         
         HandleMoveInput();
     }
@@ -134,8 +141,7 @@ public class PlayerController_New : MonoBehaviour
 
         if (moveInput.sqrMagnitude < 0.001f)
         {
-            movement.Stop();
-            anim?.SetState(0);
+            StopMoving();
             return;
         }
 
@@ -169,8 +175,11 @@ public class PlayerController_New : MonoBehaviour
         movement.Move(moveDirection, speed);
 
         // Anim
-        anim.SetState(1);
-        anim.SetRun(isRunning, runAnimMultiplier);
+        if (moveInput.sqrMagnitude > 0.001f)
+        {
+            anim.SetState(1);
+            anim.SetRun(isRunning, runAnimMultiplier);
+        }
     }
 
     public void Slip(float duration)
@@ -209,7 +218,17 @@ public class PlayerController_New : MonoBehaviour
         if (movement != null)
         {
             movement.SetCanMove(canMove);
+            if (!canMove)
+            {
+                StopMoving();
+            }
         }
+    }
+
+    public void StopMoving()
+    {
+        movement.Stop();
+        anim?.SetState(0);
     }
 
     public Vector3 GetFacingDirection()

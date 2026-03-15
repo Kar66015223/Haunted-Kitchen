@@ -9,21 +9,29 @@ public class PlayerCross : MonoBehaviour
     private PlayerInputHandler inputHandler;
     [SerializeField] private PlayerAnimation playerAnim;
     private PlayerItem playerItem;
+    private PlayerController_New controller;
 
     void Awake()
     {
         inputHandler = GetComponent<PlayerInputHandler>();
         playerAnim = GetComponent<PlayerAnimation>();
         playerItem = GetComponent<PlayerItem>();
+        controller = GetComponent<PlayerController_New>();
     }
 
     void Update()
     {
         if (playerItem.currentHeldItemObj != null) 
             return;
-        
-        if(inputHandler != null)
+
+        if (inputHandler != null)
             isHoldingCross = inputHandler.IsHoldingCross;
+
+        if (isHoldingCross)
+            controller.SetCanMove(false);
+
+        if (!isHoldingCross)
+            controller.SetCanMove(true);
     }
 
     public void HoldCross()
@@ -33,8 +41,6 @@ public class PlayerCross : MonoBehaviour
             crossObj.SetActive(true);
             playerAnim.SetHoldOneHand(true);
         }
-        
-        isHoldingCross = true;  
 
         Debug.Log("Player is holding cross");
     }
@@ -46,8 +52,6 @@ public class PlayerCross : MonoBehaviour
             playerAnim.SetHoldOneHand(false);
             crossObj.SetActive(false);
         }
-
-        isHoldingCross = false;
         
         Debug.Log("Player stopped holding cross");
     }

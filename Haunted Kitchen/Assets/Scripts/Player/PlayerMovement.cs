@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovementController
         }
     }
 
-    public void AppleVelocity(Vector3 velocity) // Directly set velocity(for knockback or jump)
+    public void ApplyVelocity(Vector3 velocity) // Directly set velocity(for knockback or jump)
     {
         if(controller != null)
         {
