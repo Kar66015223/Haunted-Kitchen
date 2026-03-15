@@ -74,12 +74,11 @@ public class CustomerMovement : MonoBehaviour
 
             agent.enabled = false;
 
-            transform.position = standPoint.position;
-            transform.rotation = standPoint.rotation;
+            transform.SetPositionAndRotation(standPoint.position, standPoint.rotation);
 
             OnArrived?.Invoke();
 
-            anim.SetBool("Sit", true);
+            anim.SetBool(CustomerConstants.ANIM_SIT, true);
         }
     }
 
@@ -104,24 +103,24 @@ public class CustomerMovement : MonoBehaviour
             Destroy(gameObject);
         }
 
-        anim.SetBool("Sit", false);
+        anim.SetBool(CustomerConstants.ANIM_SIT, false);
     }
 
     public void PlayAttack()    
     {
         if (anim != null)
-            anim.SetTrigger("Attack");
+            anim.SetTrigger(CustomerConstants.ANIM_ATTACK);
     }
 
     public void PlayIdle()
     {
         if (anim != null)
-            anim.SetBool("Sit", false);
+            anim.SetBool(CustomerConstants.ANIM_SIT, false);
     }
 
     public void PlaySit()
     {
         if (anim != null)
-            anim.SetBool("Sit", true);
+            anim.SetBool(CustomerConstants.ANIM_SIT, true);
     }
 }

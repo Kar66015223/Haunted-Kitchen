@@ -8,6 +8,7 @@ public class AngryBehavior : CustomerBehavior
     [SerializeField] private float stunDuration = 1f;
 
     private bool hasAttacked;
+    private bool isCorrectServe;
 
     private PlayerMoney playerMoney;
 
@@ -18,12 +19,19 @@ public class AngryBehavior : CustomerBehavior
 
     public override void HandleLeaving(Customer_New customer)
     {
+        if (isCorrectServe)
+        {
+            customer.movement.HandleLeaving();
+            return;
+        }
+        
         AttackPlayer(customer);
     }
 
     public override void OnCorrectServe(Customer_New customer, int totalPrice)
     {
         int bonus = totalPrice * 2;
+        isCorrectServe = true;
 
         if(playerMoney != null)
             playerMoney.ChangeMoneyAmount(bonus);

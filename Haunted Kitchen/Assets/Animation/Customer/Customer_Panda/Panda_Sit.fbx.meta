@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 9801a8d9e015abc49a648411dc1d93af
+guid: b0251fb9994bb9a4bb1aa444dfe08345
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Panda_M
-    second: {fileID: 2100000, guid: 6959fdc20ec6cca41807ffc64b7360e8, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -35,7 +30,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1

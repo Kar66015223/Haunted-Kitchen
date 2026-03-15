@@ -13,18 +13,14 @@ public class ShopItemButton : MonoBehaviour
     [SerializeField] private Button buyButton;
 
     [SerializeField] private PlayerMoney playerMoney;
-    [SerializeField] private EventTextUI eventText;
 
     private void Start()
     {
         if (playerMoney == null)
             playerMoney = FindAnyObjectByType<PlayerMoney>();
 
-        if (eventText == null)
-            eventText = FindAnyObjectByType<EventTextUI>();
-
         nameText.text = itemData.itemName;
-        priceText.text = $"{itemData.price} $";
+        priceText.text = $"{itemData.price} <color=yellow>$</color>";
 
         buyButton.onClick.AddListener(Buy);
     }
@@ -33,12 +29,12 @@ public class ShopItemButton : MonoBehaviour
     {
         if (playerMoney.currentMoney < itemData.price)
         {
-            eventText.ShowEvent($"You don't have enough money.", Color.red);
+            GameEvents.OnShowEventText?.Invoke($"You don't have enough money.", Color.red);
             return;
         }
 
         playerMoney.ChangeMoneyAmount(-itemData.price);
-        eventText.ShowEvent($"Bought {itemData.itemName}", Color.green);
+        GameEvents.OnShowEventText?.Invoke($"Bought {itemData.itemName}", Color.green);
 
         SpawnItem();
     }
