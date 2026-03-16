@@ -26,7 +26,7 @@ public class Table : MonoBehaviour, Iinteractable
 
     public bool CanInteract(Interactor interactor)
     {
-        if (chairs != null)
+        if (chairs.Length != 0)
             return false;
 
         if (interactor == null)
