@@ -12,7 +12,7 @@ public class CustomerSpawner : MonoBehaviour
     private void Awake()
     {
         tables = FindObjectsByType<Table>(FindObjectsSortMode.None)
-        .Where(t => t.customerStandPoint != null)
+        .Where(t => t.Chairs.Length != 0)
         .ToList();
     }
 

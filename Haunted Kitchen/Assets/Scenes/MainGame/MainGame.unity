@@ -1545,7 +1545,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Counter
   currentItem: {fileID: 0}
   placePoint: {fileID: 1363485256}
-  customerStandPoint: {fileID: 0}
+  chairs: []
   tableRole: 0
   isOccupied: 0
   KetchupBottlePrefab: {fileID: 7134544720252256368, guid: 2d6e242e4fbfff04d9d501a6e7cb7cfb, type: 3}
@@ -10504,7 +10504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Counter
   currentItem: {fileID: 0}
   placePoint: {fileID: 1072674399}
-  customerStandPoint: {fileID: 0}
+  chairs: []
   tableRole: 0
   isOccupied: 0
   KetchupBottlePrefab: {fileID: 0}
@@ -14423,7 +14423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Counter
   currentItem: {fileID: 0}
   placePoint: {fileID: 1766276093}
-  customerStandPoint: {fileID: 0}
+  chairs: []
   tableRole: 0
   isOccupied: 0
   KetchupBottlePrefab: {fileID: 0}

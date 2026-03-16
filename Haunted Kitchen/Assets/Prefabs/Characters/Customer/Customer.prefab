@@ -317,6 +317,7 @@ MonoBehaviour:
   orderSystem: {fileID: 0}
   ui: {fileID: 0}
   behavior: {fileID: 0}
+  customerGraphic: {fileID: 0}
   state: 0
 --- !u!114 &4259009341775268992
 MonoBehaviour:
@@ -339,6 +340,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   targetTable: {fileID: 0}
+  targetChair: {fileID: 0}
   standPoint: {fileID: 0}
   isArrived: 0
   exitDestinationSet: 0
@@ -719,9 +721,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1eafd50fa9667d042ae73041f8399abc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8870489617205410788}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1eafd50fa9667d042ae73041f8399abc, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6148417158031334807}
   m_SourcePrefab: {fileID: 100100000, guid: 1eafd50fa9667d042ae73041f8399abc, type: 3}
 --- !u!4 &4662060473800083335 stripped
 Transform:
@@ -755,21 +754,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6148417158031334807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5474450666221870397}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 10
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []

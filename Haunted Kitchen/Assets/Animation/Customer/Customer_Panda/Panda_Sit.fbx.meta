@@ -3,7 +3,12 @@ guid: b0251fb9994bb9a4bb1aa444dfe08345
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Panda_M
+    second: {fileID: 2100000, guid: 6959fdc20ec6cca41807ffc64b7360e8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -30,7 +35,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1

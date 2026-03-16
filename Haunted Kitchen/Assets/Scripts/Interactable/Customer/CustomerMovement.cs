@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.VFX;
 
 public class CustomerMovement : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class CustomerMovement : MonoBehaviour
     [Header("Standpoint")]
     [SerializeField] private List<Table> tables = new();
     public Table targetTable;
+    public Chair targetChair;
     public Transform standPoint;
 
     [Header("Arriving")]
@@ -55,7 +57,9 @@ public class CustomerMovement : MonoBehaviour
         }
 
         targetTable = freeTables[UnityEngine.Random.Range(0, freeTables.Count)];
-        standPoint = targetTable.customerStandPoint;
+        targetChair = targetTable.GetFreeChair();
+
+        standPoint = targetChair.CustomerStandPoint;
         targetTable.isOccupied = true;
 
         agent.SetDestination(standPoint.position);
@@ -75,6 +79,13 @@ public class CustomerMovement : MonoBehaviour
             agent.enabled = false;
 
             transform.SetPositionAndRotation(standPoint.position, standPoint.rotation);
+            if(targetChair != null)
+            {
+                var customer = GetComponent<Customer_New>();
+                customer.customerGraphic.SetActive(false);
+                
+                targetChair.SetCurrentCustomer(customer);
+            }
 
             OnArrived?.Invoke();
 
@@ -86,6 +97,14 @@ public class CustomerMovement : MonoBehaviour
     {
         if (!exitDestinationSet)
         {
+            if(targetChair != null)
+            {
+                var customer = GetComponent<Customer_New>();
+                customer.customerGraphic.SetActive(true);
+                
+                targetChair.ClearCustomer();
+            }
+
             agent.enabled = true;
 
             agent.isStopped = false;

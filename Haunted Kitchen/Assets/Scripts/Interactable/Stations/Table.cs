@@ -5,7 +5,8 @@ public class Table : MonoBehaviour, Iinteractable
 {
     [SerializeField] protected Item currentItem;
     public Transform placePoint;
-    public Transform customerStandPoint;
+    [SerializeField] private Chair[] chairs;
+    public Chair[] Chairs => chairs;
 
     public TableRole tableRole = TableRole.Default;
 
@@ -13,9 +14,19 @@ public class Table : MonoBehaviour, Iinteractable
 
     public virtual bool AllowsStationInteraction => tableRole != TableRole.Counter;
 
+    void Awake()
+    {
+        chairs = GetComponentsInChildren<Chair>();
+    }
+
+    public Chair GetFreeChair()
+    {
+        return chairs.FirstOrDefault(chair => chair.CurrentCustomer == null);
+    }
+
     public bool CanInteract(Interactor interactor)
     {
-        if (customerStandPoint != null)
+        if (chairs != null)
             return false;
 
         if (interactor == null)

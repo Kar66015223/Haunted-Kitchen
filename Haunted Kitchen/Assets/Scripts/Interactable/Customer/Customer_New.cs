@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.VFX;
 
 public class Customer_New : MonoBehaviour, Iinteractable
 {
@@ -8,6 +9,8 @@ public class Customer_New : MonoBehaviour, Iinteractable
     public CustomerOrder orderSystem;
     public CustomerUI ui;
     public CustomerBehavior behavior;
+
+    public GameObject customerGraphic;
     [SerializeField] private CustomerState state = CustomerState.Idle;
 
     public event Action<CustomerState> OnStateChanged;
@@ -32,6 +35,7 @@ public class Customer_New : MonoBehaviour, Iinteractable
         orderSystem = GetComponent<CustomerOrder>();
         ui = GetComponent<CustomerUI>();
         behavior = GetComponent<CustomerBehavior>();
+        customerGraphic = GetComponentInChildren<Animator>().gameObject;
     }
 
     private void Update()

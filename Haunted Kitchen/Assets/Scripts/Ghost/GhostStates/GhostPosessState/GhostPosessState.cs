@@ -6,7 +6,6 @@ public class GhostPossessState : IGhostState
 {
     private GhostController controller;
     private PlayerPossession playerPossession;
-    private EventTextUI eventText;
     
     // Timing
     private float stareTimer = 0f;
