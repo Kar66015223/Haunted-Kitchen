@@ -79,31 +79,30 @@ public class CustomerMovement : MonoBehaviour
             agent.enabled = false;
 
             transform.SetPositionAndRotation(standPoint.position, standPoint.rotation);
-            if(targetChair != null)
-            {
-                var customer = GetComponent<Customer_New>();
-                customer.customerGraphic.SetActive(false);
-                
-                targetChair.SetCurrentCustomer(customer);
-            }
+            SitOnChair();
 
             OnArrived?.Invoke();
 
             anim.SetBool(CustomerConstants.ANIM_SIT, true);
         }
     }
+    
+    public void SitOnChair()
+    {
+        if (targetChair != null)
+            {
+                var customer = GetComponent<Customer_New>();
+                customer.customerGraphic.SetActive(false);
+
+                targetChair.SetCurrentCustomer(customer);
+            }
+    }
 
     public void HandleLeaving()
     {
         if (!exitDestinationSet)
         {
-            if(targetChair != null)
-            {
-                var customer = GetComponent<Customer_New>();
-                customer.customerGraphic.SetActive(true);
-                
-                targetChair.ClearCustomer();
-            }
+            LeaveChair();
 
             agent.enabled = true;
 
@@ -123,6 +122,17 @@ public class CustomerMovement : MonoBehaviour
         }
 
         anim.SetBool(CustomerConstants.ANIM_SIT, false);
+    }
+    
+    public void LeaveChair()
+    {
+        if (targetChair != null)
+            {
+                var customer = GetComponent<Customer_New>();
+                customer.customerGraphic.SetActive(true);
+
+                targetChair.ClearCustomer();
+            }
     }
 
     public void PlayAttack()    

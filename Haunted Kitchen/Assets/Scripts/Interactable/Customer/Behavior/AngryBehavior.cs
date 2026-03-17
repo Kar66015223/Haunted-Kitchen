@@ -64,6 +64,8 @@ public class AngryBehavior : CustomerBehavior
         if (hasAttacked) return;
         hasAttacked = true;
 
+        customer.movement.LeaveChair();
+
         PlayerController_New player = FindAnyObjectByType<PlayerController_New>();
 
         if (player == null)
@@ -83,7 +85,7 @@ public class AngryBehavior : CustomerBehavior
     }
 
     private IEnumerator AttackSequence(Customer_New customer, PlayerController_New controller)
-    {
+    {           
         float impactDelay = 0.35f;
 
         yield return new WaitForSeconds(impactDelay);
@@ -94,6 +96,7 @@ public class AngryBehavior : CustomerBehavior
 
         yield return new WaitForSeconds(disappearDelay);
         customer.movement.OnLeft?.Invoke();
+
         Destroy(customer.gameObject);
     }
 }
