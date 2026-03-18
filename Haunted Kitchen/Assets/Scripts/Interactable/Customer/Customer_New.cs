@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using UnityEngine.VFX;
 
 public class Customer_New : MonoBehaviour, Iinteractable
 {

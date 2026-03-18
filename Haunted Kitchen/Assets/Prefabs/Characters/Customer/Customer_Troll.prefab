@@ -186,11 +186,11 @@ Transform:
   m_GameObject: {fileID: 3464059480129640549}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.43000004, z: -0.051}
+  m_LocalPosition: {x: 0, y: 0.50899994, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2572437827003394627}
+  m_Father: {fileID: 3985599673107983102}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!2083052967 &8351179608533554994
 VisualEffect:
@@ -370,6 +370,7 @@ GameObject:
   - component: {fileID: 7658848098146908949}
   - component: {fileID: 5252519639554000639}
   - component: {fileID: 9090063455221732500}
+  - component: {fileID: 4011253208649616169}
   - component: {fileID: 399757464936486255}
   m_Layer: 0
   m_Name: Customer_Troll
@@ -393,7 +394,6 @@ Transform:
   m_Children:
   - {fileID: 8427075408182987438}
   - {fileID: 3985599673107983102}
-  - {fileID: 1850328460093555631}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &2661919413324188533
@@ -495,11 +495,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e81a5e9a8393a4a439928ad8bacb5ad6, type: 2}
   - {fileID: 11400000, guid: 045b37fe3850c874d80b692447f2e78a, type: 2}
   - {fileID: 11400000, guid: 13e38f0b7cddc7b49ba6cc9e053b520a, type: 2}
-  - {fileID: 11400000, guid: 4f4dde56622e18743b12020043e21ab9, type: 2}
-  - {fileID: 11400000, guid: 5687a7abda0b1d748ac2cdc93e0927d5, type: 2}
-  - {fileID: 11400000, guid: d26f5a6da39f2a349999f8365e8cadc3, type: 2}
-  - {fileID: 11400000, guid: 8c57a6e6e2345d4428b0efa1612c8e3c, type: 2}
-  - {fileID: 11400000, guid: 47f6e6e8d985e2641975e65893658998, type: 2}
   orderHabit: {fileID: 0}
   orderedItems: []
   servedItems: []
@@ -548,6 +543,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrollBehavior
   moneyReward: 2000
+--- !u!114 &4011253208649616169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3639085649114654099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25673e558df650743b65d382f6cb3763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RuneSpawner
+  runePrefab: {fileID: 7995221218178125459, guid: 4fa39c924e6e1414cb9050fa53bdad04, type: 3}
 --- !u!195 &399757464936486255
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -813,11 +821,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2cd8b99dcd4b49142a538498386e94a5, type: 3}
       propertyPath: m_Name
-      value: Panda_Walk
+      value: Customer_Graphic
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2cd8b99dcd4b49142a538498386e94a5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1850328460093555631}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2cd8b99dcd4b49142a538498386e94a5, type: 3}
       insertIndex: -1

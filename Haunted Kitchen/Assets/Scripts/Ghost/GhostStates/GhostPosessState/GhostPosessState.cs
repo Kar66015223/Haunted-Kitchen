@@ -54,6 +54,12 @@ public class GhostPossessState : IGhostState
     {
         if (controller.player == null) return;
 
+        if(controller.HitRuneStone)
+        {
+            Exit();
+            return;
+        }
+
         switch (currentPhase)
         {
             case PossessPhase.Staring:
@@ -94,7 +100,7 @@ public class GhostPossessState : IGhostState
         dashTimer = 0f;
 
         Collider col = controller.GetComponent<Collider>();
-        col.enabled = false;
+        col.isTrigger = true;
 
         GhostMovement movement = controller.Movement as GhostMovement;
         movement.DisableAgent();
@@ -103,7 +109,7 @@ public class GhostPossessState : IGhostState
     }
 
     private void UpdateDashing()
-    {
+    {   
         dashTimer += Time.deltaTime;
         float dashProgress = dashTimer / dashDuration;
 

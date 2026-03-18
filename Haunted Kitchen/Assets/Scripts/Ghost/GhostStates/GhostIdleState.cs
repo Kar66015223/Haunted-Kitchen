@@ -43,6 +43,13 @@ public class GhostIdleState : IGhostState
 
     public void Update()
     {
+        if (controller.HitRuneStone)
+        {
+            Debug.Log("Ghost hit rune stone");
+            controller.Disappear();
+            return;
+        }
+
         timer += Time.deltaTime;
         changeDirTimer += Time.deltaTime;
 

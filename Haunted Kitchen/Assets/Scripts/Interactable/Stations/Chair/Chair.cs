@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Chair : MonoBehaviour
+public class Chair : MonoBehaviour, Iinteractable
 {
     [SerializeField] private Transform customerStandPoint;
     public Transform CustomerStandPoint => customerStandPoint;
@@ -29,6 +29,28 @@ public class Chair : MonoBehaviour
                 pair.visual.SetActive(false);
             }
         }
+    }
+
+    public bool CanInteract(Interactor interactor)
+    {
+        Customer_New customer = currentCustomer?.GetComponent<Customer_New>();
+        if (customer == null) return false;
+
+        if(interactor == null) 
+            return false;
+
+        if (interactor.interactionType == InteractionType.Hold)
+            return false;
+
+        return customer.CanInteract(interactor);
+    }
+
+    public void Interact(Interactor interactor)
+    {
+        Customer_New customer = currentCustomer?.GetComponent<Customer_New>();
+        if (customer == null) return;
+
+        customer.Interact(interactor);
     }
 
     public void SetCurrentCustomer(Customer_New customer)

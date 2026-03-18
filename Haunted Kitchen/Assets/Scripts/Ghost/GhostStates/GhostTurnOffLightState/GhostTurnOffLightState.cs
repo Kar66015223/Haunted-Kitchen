@@ -15,7 +15,7 @@ public class GhostTurnOffLightState : IGhostState
     }
 
     public void Enter()
-    {
+    {        
         if (lightFinder != null)
         {
             Vector3 offset = lightFinder.lightSwitch.transform.forward * 1.5f;
@@ -37,6 +37,12 @@ public class GhostTurnOffLightState : IGhostState
     }
     public void Update()
     {
+        if(controller.HitRuneStone)
+        {
+            Exit();
+            return;
+        }
+
         timer -= Time.deltaTime;
         if (timer <= 0)
         {

@@ -27,7 +27,10 @@ public class TrollBehavior : CustomerBehavior
 
         GameEvents.OnSpeedBuff?.Invoke(10f);
 
-        //Spawn rune stone on the table
+        if(customer.TryGetComponent(out RuneSpawner runeSpawner))
+        {
+            runeSpawner.SpawnRune(customer.movement.GetCurrentTable());
+        }
 
         Debug.Log("Player get 2000$, rune stone and 10 sec speed buff");
     }

@@ -11,9 +11,9 @@ public class CustomerMovement : MonoBehaviour
 
     [Header("Standpoint")]
     [SerializeField] private List<Table> tables = new();
-    public Table targetTable;
-    public Chair targetChair;
-    public Transform standPoint;
+    [SerializeField] private Table targetTable;
+    [SerializeField] private Chair targetChair;
+    [SerializeField] private Transform standPoint;
 
     [Header("Arriving")]
     [SerializeField] private bool isArrived = false;
@@ -93,6 +93,11 @@ public class CustomerMovement : MonoBehaviour
             {
                 var customer = GetComponent<Customer_New>();
                 customer.customerGraphic.SetActive(false);
+                
+                if(customer.TryGetComponent(out Collider col))
+                {
+                    col.enabled = false;
+                }
 
                 targetChair.SetCurrentCustomer(customer);
             }
@@ -123,17 +128,24 @@ public class CustomerMovement : MonoBehaviour
 
         anim.SetBool(CustomerConstants.ANIM_SIT, false);
     }
-    
+
     public void LeaveChair()
     {
         if (targetChair != null)
-            {
-                var customer = GetComponent<Customer_New>();
-                customer.customerGraphic.SetActive(true);
+        {
+            var customer = GetComponent<Customer_New>();
+            customer.customerGraphic.SetActive(true);
 
-                targetChair.ClearCustomer();
+            if (customer.TryGetComponent(out Collider col))
+            {
+                col.enabled = true;
             }
+
+            targetChair.ClearCustomer();
+        }
     }
+
+    public Table GetCurrentTable() => targetTable;
 
     public void PlayAttack()    
     {

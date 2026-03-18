@@ -15,6 +15,9 @@ public class GhostController : MonoBehaviour
     public INPCMovementController Movement => movement;
     public IAnimationController Anim => anim;
 
+    private bool hitRuneStone = false;
+    public bool HitRuneStone => hitRuneStone;
+
     public event Action OnGhostDestroyed;
 
     private void Awake()
@@ -79,5 +82,10 @@ public class GhostController : MonoBehaviour
     {
         OnGhostDestroyed?.Invoke();
         Destroy(gameObject);
+    }
+
+    public void HitRune()
+    {
+        hitRuneStone = true;
     }
 }

@@ -43,7 +43,13 @@ public class GhostDestroyState : IGhostState
     }
     public void Update()
     {
-       timer -= Time.deltaTime;
+        if(controller.HitRuneStone)
+        {
+            Exit();
+            return;
+        }
+
+        timer -= Time.deltaTime;
         if (timer <= 0)
         {
             Exit();

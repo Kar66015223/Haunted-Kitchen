@@ -26,7 +26,7 @@ public class Table : MonoBehaviour, Iinteractable
 
     public bool CanInteract(Interactor interactor)
     {
-        if (chairs.Length != 0)
+        if (chairs.Length != 0 && currentItem == null)
             return false;
 
         if (interactor == null)
@@ -156,7 +156,7 @@ public class Table : MonoBehaviour, Iinteractable
         currentItem = item;
     }
 
-    protected void SpawnItem(GameObject prefab)
+    public void SpawnItem(GameObject prefab)
     {
         GameObject itemObj = Instantiate(
             prefab,
