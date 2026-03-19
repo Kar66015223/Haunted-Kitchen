@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Customer1_Shader
+  m_Name: Customer_Lion_Shader
   m_Shader: {fileID: -6465566751694194690, guid: 531b6b82bef6bd74e95e63ef81290ce3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -29,7 +29,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Base_Texture:
-        m_Texture: {fileID: 2800000, guid: 0f1b772b53e204b44a80e49da6c4fc7d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8b55d52ccf7234d499cf75f8e34c6a1c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -131,9 +131,9 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnetColor: {r: 1, g: 1, b: 1, a: 1}
     - _Light_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _RimColor: {r: 0.38180843, g: 0.4503585, b: 0.735849, a: 1}
-    - _Shadow_Color: {r: 0.4117647, g: 0.28627452, b: 0.47058824, a: 1}
-    - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Shadow_Color: {r: 0.3773585, g: 0.36133856, b: 0.36133856, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &6458674937360811415

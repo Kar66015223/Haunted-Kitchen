@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
+using Unity.VisualScripting;
 
 public class GhostController : MonoBehaviour
 {
@@ -9,7 +12,12 @@ public class GhostController : MonoBehaviour
     private GhostStateMachine stateMachine;
     private GhostStateFactory stateFactory;
 
-    public Transform player {get; private set;}
+    public Transform player { get; private set; }
+    private LightSwitch lightSwitch;
+    private List<IDestroyable> destroyTargets;
+    [SerializeField] private GameObject oilPrefab;
+    [SerializeField] private GameObject oilCup;
+
     public NavMeshAgent agent { get; private set; }
 
     public INPCMovementController Movement => movement;
@@ -37,6 +45,21 @@ public class GhostController : MonoBehaviour
 
         if (player == null)
             Debug.LogWarning($"Player with tag '{GhostConstants.PLAYER_TAG}' not found");
+
+        FindDependencies();
+    }
+    
+    private void FindDependencies()
+    {
+        lightSwitch = FindAnyObjectByType<LightSwitch>();
+        if (lightSwitch == null)
+            Debug.LogWarning("LightSwitch not found in scene");
+
+        destroyTargets = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
+            .OfType<IDestroyable>()
+            .ToList();
+        if (destroyTargets.Count == 0)
+            Debug.LogWarning("No IDestroyables found in scene");
     }
 
     private void Update()
@@ -46,8 +69,7 @@ public class GhostController : MonoBehaviour
 
     public void SetInitialState(GhostStartBehavior behavior)
     {
-        var state = stateFactory.CreateState(behavior, this);
-
+        var state = stateFactory.CreateState(behavior, this, lightSwitch, destroyTargets, oilPrefab, oilCup);
         ChangeState(state);
     }
 
@@ -63,7 +85,7 @@ public class GhostController : MonoBehaviour
         }
         while (randomBehavior == GhostStartBehavior.Idle);
 
-        var state = stateFactory.CreateState(randomBehavior, this);
+        var state = stateFactory.CreateState(randomBehavior, this, lightSwitch, destroyTargets, oilPrefab, oilCup);
 
         ChangeState(state);
     }
@@ -87,5 +109,10 @@ public class GhostController : MonoBehaviour
     public void HitRune()
     {
         hitRuneStone = true;
+        Debug.Log("Ghost hit rune stone");
     }
+
+    public LightSwitch GetLightSwitch() => lightSwitch;
+    public List<IDestroyable> GetDestroyTargets() => destroyTargets;
+    public GameObject GetOilPrefab() => oilPrefab;
 }

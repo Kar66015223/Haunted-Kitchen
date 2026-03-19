@@ -1,17 +1,25 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GhostPourOilState : IGhostState
 {
     private GhostController controller;
-    private GhostOilSpawner oilSpawner;
 
-    public float pourDuration = 1f;
+    private GameObject oilPrefab;
+    private GameObject oilCup;
+
+    private float pourDuration = 1f;
+    private float forwardOffset = 1.5f;
+
     private float timer;
 
-    public GhostPourOilState(GhostController controller)
+    private bool actionPerformed = false;
+
+    public GhostPourOilState(GhostController controller, GameObject oilPrefab, GameObject oilCup)
     {
         this.controller = controller;
-        oilSpawner = controller.GetComponent<GhostOilSpawner>();
+        this.oilPrefab = oilPrefab;
+        this.oilCup = oilCup;
     }
 
     public void Enter()
@@ -41,7 +49,7 @@ public class GhostPourOilState : IGhostState
             Debug.LogWarning("NavMesh random point FAILED");
         }
 
-        oilSpawner.PourOil();
+        actionPerformed = false;
 
         timer = pourDuration;
 
@@ -52,10 +60,15 @@ public class GhostPourOilState : IGhostState
 
     public void Update()
     {
-        if(controller.HitRuneStone)
+        if (controller.HitRuneStone)
         {
             Exit();
             return;
+        }
+        
+        if(!actionPerformed)
+        {
+            PourOil();
         }
 
         timer -= Time.deltaTime;
@@ -70,7 +83,32 @@ public class GhostPourOilState : IGhostState
 
     public void Exit()
     {
+        oilCup.SetActive(false);
         controller.Disappear();
         Debug.Log("Ghost is exiting PourOil state");
+    }
+
+    private void PourOil()
+    {
+        if (oilPrefab == null || actionPerformed)
+        {
+            Debug.LogError("no oil prefab or action performed");
+            return;
+        }
+
+        oilCup.SetActive(true);
+
+        Vector3 offsetPos = controller.transform.position + controller.transform.forward * forwardOffset;
+
+        // ✅ NEW: Snap to NavMesh ground
+        if (NavMesh.SamplePosition(offsetPos, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+        {
+            Object.Instantiate(oilPrefab, hit.position, Quaternion.identity);
+            actionPerformed = true;
+        }
+        else
+        {
+            Debug.LogWarning($"Could not find valid NavMesh position near {offsetPos}");
+        }
     }
 }

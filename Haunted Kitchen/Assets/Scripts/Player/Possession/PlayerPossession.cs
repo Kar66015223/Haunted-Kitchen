@@ -105,7 +105,7 @@ public class PlayerPossession : MonoBehaviour
                 playerAnim.SetStruggle();
             }
 
-            Debug.Log($"Struggle progress: {struggleProgress} / {struggleThreshold}");
+            // Debug.Log($"Struggle progress: {struggleProgress} / {struggleThreshold}");
         }
     }
 

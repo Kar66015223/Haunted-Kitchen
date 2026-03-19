@@ -7,6 +7,7 @@ public class RuneStone : MonoBehaviour
         if (other.gameObject.TryGetComponent(out GhostController ghost))
         {
             ghost.HitRune();
+            Destroy(gameObject);
         }
     }
 }

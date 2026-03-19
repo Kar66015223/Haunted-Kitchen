@@ -40,12 +40,16 @@ public class LightSwitch : MonoBehaviour, Iinteractable
 
     public void SetSwitchOff()
     {
+        if (isOff) return;
+
         isOff = true;
         outageSystem.TogglePower();
     }
 
     public void SetSwitchOn()
     {
+        if (!isOff) return;
+        
         isOff = false;
         outageSystem.TogglePower();
     }

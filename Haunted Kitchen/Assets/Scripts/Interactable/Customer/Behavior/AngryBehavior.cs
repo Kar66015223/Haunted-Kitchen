@@ -86,7 +86,7 @@ public class AngryBehavior : CustomerBehavior
 
     private IEnumerator AttackSequence(Customer_New customer, PlayerController_New controller)
     {           
-        float impactDelay = 0.35f;
+        float impactDelay = 1f;
 
         yield return new WaitForSeconds(impactDelay);
         controller.Slip(stunDuration + impactDelay);

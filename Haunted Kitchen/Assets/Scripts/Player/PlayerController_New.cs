@@ -178,7 +178,14 @@ public class PlayerController_New : MonoBehaviour
         if (moveInput.sqrMagnitude > 0.001f)
         {
             anim.SetState(1);
-            anim.SetRun(isRunning, runAnimMultiplier);
+            if (canRun)
+            {
+                anim.SetRun(isRunning, runAnimMultiplier);
+            }
+            else
+            {
+                anim.SetRun(false, 1f);
+            }
         }
     }
 

@@ -3,44 +3,40 @@ using UnityEngine;
 public class GhostTurnOffLightState : IGhostState
 {
     private GhostController controller;
-    private GhostLightFinder lightFinder;
+    private LightSwitch lightSwitch;
 
     public float turnOffDuration = 1f;
     private float timer;
 
-    public GhostTurnOffLightState(GhostController controller)
+    private bool actionPerformed = false;
+
+    public GhostTurnOffLightState(GhostController controller, LightSwitch lightSwitch)
     {
         this.controller = controller;
-        lightFinder = controller.GetComponent<GhostLightFinder>();
+        this.lightSwitch = lightSwitch;
     }
 
     public void Enter()
     {        
-        if (lightFinder != null)
-        {
-            Vector3 offset = lightFinder.lightSwitch.transform.forward * 1.5f;
-            Vector3 teleportPosition = lightFinder.lightSwitch.transform.position + offset;
+        controller.TeleportTo(lightSwitch.transform.position + lightSwitch.transform.forward * 1.5f);
+        controller.transform.LookAt(lightSwitch.transform.position);
+        controller.Movement.Stop();
 
-            if (teleportPosition != null)
-            {
-                controller.TeleportTo(teleportPosition);
-                controller.transform.LookAt(lightFinder.lightSwitch.transform.position);
-                controller.Movement.Stop();
-            }
-
-            lightFinder.TurnOffLight();
-        }
-
-        timer = turnOffDuration;
-
-        Debug.Log("Ghost enters TurnOffLight state");
+        timer = 1f;
+        actionPerformed = false;
     }
     public void Update()
     {
-        if(controller.HitRuneStone)
+        if (controller.HitRuneStone)
         {
             Exit();
             return;
+        }
+        
+        if (!actionPerformed)
+        {
+            lightSwitch.SetSwitchOff();
+            actionPerformed = true;
         }
 
         timer -= Time.deltaTime;
@@ -57,5 +53,4 @@ public class GhostTurnOffLightState : IGhostState
         controller.Disappear();
         Debug.Log("Ghost is exiting TurnOffLight state");
     }
-
 }
