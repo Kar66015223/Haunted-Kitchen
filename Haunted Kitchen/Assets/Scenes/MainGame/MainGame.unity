@@ -994,13 +994,7 @@ MonoBehaviour:
   customerPrefabs:
   - {fileID: 3639085649114654099, guid: b4aa25f86b5072745b3cdc0678e49d75, type: 3}
   spawnPoint: {fileID: 714884325}
-  tables:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  tables: []
 --- !u!65 &131972693
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4569,6 +4563,10 @@ PrefabInstance:
     - target: {fileID: 5681324889528926727, guid: cca7537ff08d107449bfc0bf9a09f883, type: 3}
       propertyPath: m_Name
       value: CustomerTable 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681324889528926727, guid: cca7537ff08d107449bfc0bf9a09f883, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9118,13 +9116,7 @@ MonoBehaviour:
   customerPrefabs:
   - {fileID: 3639085649114654099, guid: 7a3ea6171030e9845834213c58ae4681, type: 3}
   spawnPoint: {fileID: 291960054}
-  tables:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  tables: []
 --- !u!65 &1025473544
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17359,6 +17351,10 @@ PrefabInstance:
     - target: {fileID: 5681324889528926727, guid: cca7537ff08d107449bfc0bf9a09f883, type: 3}
       propertyPath: m_Name
       value: CustomerTable 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681324889528926727, guid: cca7537ff08d107449bfc0bf9a09f883, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

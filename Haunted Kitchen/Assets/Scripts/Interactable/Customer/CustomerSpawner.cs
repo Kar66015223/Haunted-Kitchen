@@ -11,6 +11,11 @@ public class CustomerSpawner : MonoBehaviour
 
     private void OnEnable()
     {
+        Invoke(nameof(FindTables), 0.1f);
+    }
+
+    private void FindTables()
+    {
         tables.Clear();
 
         tables = FindObjectsByType<Table>(FindObjectsSortMode.None)
@@ -22,7 +27,7 @@ public class CustomerSpawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnCustomer();
+        Invoke(nameof(SpawnCustomer), 0.2f);
     }
 
     void HandleCustomerLeft()

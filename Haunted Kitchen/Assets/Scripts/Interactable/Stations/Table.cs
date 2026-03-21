@@ -14,7 +14,7 @@ public class Table : MonoBehaviour, Iinteractable
 
     public virtual bool AllowsStationInteraction => tableRole != TableRole.Counter;
 
-    void Awake()
+    void OnEnable()
     {
         chairs = GetComponentsInChildren<Chair>();
     }
