@@ -1,11 +1,14 @@
+using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
     [SerializeField] private TMP_Text timerText;
-    [SerializeField] private float remainingTime;
+    [SerializeField] private float remainingTime = 181;
 
+    public event Action OnTimerRunOut;
     private void Update()
     {
         if (remainingTime > 0)
@@ -16,6 +19,7 @@ public class Timer : MonoBehaviour
         else
         {
             remainingTime = 0;
+            OnTimerRunOut?.Invoke();
         }
 
         int minutes = Mathf.FloorToInt(remainingTime / 60);

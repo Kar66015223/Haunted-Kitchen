@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         UIManager ui = FindAnyObjectByType<UIManager>();
         if (ui != null)
         {
-            RegisterUI(ui);
+            // RegisterUI(ui);
         }
 
         playerMoney = FindAnyObjectByType<PlayerMoney>();
@@ -67,13 +67,13 @@ public class GameManager : MonoBehaviour
         pauseUI?.SetActive(false);
     }
 
-    public void RegisterUI(UIManager ui)
-    {
-        moneyUI = ui.MoneyUI;
-        moneyChangedText = ui.MoneyChangedText;
-        eventText = ui.EventText;
-        pauseUI = ui.PauseUI;
-    }
+    // public void RegisterUI(UIManager ui)
+    // {
+    //     moneyUI = ui.MoneyUI;
+    //     moneyChangedText = ui.MoneyChangedText;
+    //     eventText = ui.EventText;
+    //     pauseUI = ui.PauseUI;
+    // }
 
     void HandleMoneyChanged(int newMoney, int amountChanged)
     {

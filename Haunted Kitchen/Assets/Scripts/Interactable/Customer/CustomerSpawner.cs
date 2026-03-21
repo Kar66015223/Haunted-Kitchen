@@ -9,11 +9,15 @@ public class CustomerSpawner : MonoBehaviour
 
     [SerializeField] private List<Table> tables = new();
 
-    private void Awake()
+    private void OnEnable()
     {
+        tables.Clear();
+
         tables = FindObjectsByType<Table>(FindObjectsSortMode.None)
         .Where(t => t.Chairs.Length != 0)
         .ToList();
+
+        Debug.Log($"CustomerSpawner found {tables.Count} tables");
     }
 
     private void Start()
