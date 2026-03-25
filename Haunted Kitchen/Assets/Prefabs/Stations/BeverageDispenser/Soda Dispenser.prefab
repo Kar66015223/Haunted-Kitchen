@@ -267,7 +267,7 @@ MonoBehaviour:
   beverageAmount: 0
   maxAmount: 10
   amountImg: {fileID: 1687344801959846090}
-  DestroyedVFX: {fileID: 35343051236342653}
+  destroyedVFX: {fileID: 35343051236342653}
   status: 0
 --- !u!1 &7164573983922450900
 GameObject:

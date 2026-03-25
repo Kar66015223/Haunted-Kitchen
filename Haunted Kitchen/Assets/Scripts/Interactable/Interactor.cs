@@ -4,7 +4,6 @@ public class Interactor
 {
     public GameObject source;
     public PlayerItem playerItem;
-    public PlayerController controller;
     public InteractionType interactionType;
     public Table currentTable;
 
@@ -12,7 +11,6 @@ public class Interactor
     {
         this.source = source;
         this.playerItem = source?.GetComponent<PlayerItem>();
-        this.controller = source?.GetComponent<PlayerController>();
         this.interactionType = type;
         this.currentTable = null;
     }

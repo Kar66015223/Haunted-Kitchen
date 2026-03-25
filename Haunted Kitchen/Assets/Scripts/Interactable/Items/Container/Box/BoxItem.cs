@@ -5,10 +5,26 @@ public class BoxItem : Item, Iinteractable
     [SerializeField] private BoxData data;
     [SerializeField] private int currentAmount = 0;
 
+    private ItemAmountText ui;
+
+    void Awake()
+    {
+        ui = GetComponentInChildren<ItemAmountText>();
+    }
+
     private void Start()
     {
         data = itemData as BoxData;
         currentAmount = data.maxAmount;
+        ui.UpdateAmountText(currentAmount);
+    }
+
+    void Update()
+    {
+        if(currentAmount <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public override bool CanInteract(Interactor interactor)
@@ -95,5 +111,6 @@ public class BoxItem : Item, Iinteractable
         }
 
         currentAmount--;
+        ui.UpdateAmountText(currentAmount);
     }
 }

@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
 {
@@ -9,7 +10,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
     private float cookTimer = 0f;
     [SerializeField] private bool isCooking;
 
-    [SerializeField] private GameObject DestroyedVFX;
+    [SerializeField] private GameObject destroyedVFX;
 
     [SerializeField] private StationStatus status;
     public StationStatus Status => status;
@@ -17,7 +18,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
 
     public bool CanInteract(Interactor interactor)
     {
-        if(interactor == null || status == StationStatus.Destroyed) 
+        if (interactor == null)
             return false;
 
         if (interactor.interactionType == InteractionType.Hold)
@@ -25,8 +26,22 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
 
         var playerItem = interactor.playerItem;
 
-        if(playerItem == null) 
+        if (playerItem == null)
             return false;
+
+        //If is broken and holding repair kit, allow fixing
+        if (status == StationStatus.Destroyed && playerItem.currentHeldItemData != null)
+        {
+            Item heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
+            RepairKit repairKit = heldItem.GetComponent<RepairKit>();
+
+            if (repairKit != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         //If currentItem is not cooking, allow pickup
         if (playerItem.currentHeldItemObj == null &&
@@ -41,11 +56,11 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
             var heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
             var ingredient = heldItem?.itemData as IngredientData;
 
-            if(ingredient == null)
+            if (ingredient == null)
                 return false;
-            if(!ingredient.isCookable)
+            if (!ingredient.isCookable)
                 return false;
-            if(ingredient.method != supportedMethod)
+            if (ingredient.method != supportedMethod)
                 return false;
 
             return true;
@@ -57,7 +72,19 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
     public void Interact(Interactor interactor)
     {
         var playerItem = interactor.playerItem;
-        if(playerItem == null) return;
+        if (playerItem == null) return;
+        
+        if(status == StationStatus.Destroyed && playerItem.currentHeldItemData != null)
+        {
+            Item heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
+            RepairKit repairKit = heldItem.GetComponent<RepairKit>();
+
+            if (repairKit != null)
+            {
+                repairKit.Repair(this);
+                return;
+            }
+        }
 
         //If usable & not cooking & empty & player has something, place
         if (status == StationStatus.Usable &&
@@ -133,6 +160,11 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
 
     void Update()
     {
+        if (destroyedVFX != null)
+        {
+            destroyedVFX.SetActive(status == StationStatus.Destroyed);
+        }
+        
         if (!isCooking) return;
 
         cookTimer -= Time.deltaTime;
@@ -179,6 +211,5 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
     public void SetStationStatus(StationStatus newStatus)
     {
         status = newStatus;
-        DestroyedVFX?.SetActive(status == StationStatus.Destroyed);
     }
 }

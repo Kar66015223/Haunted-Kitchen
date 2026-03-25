@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fbd147c76cacaef49976a37c9a9ce4b8
+guid: fa4a2be9ff06fa14da87697f9bcdc28b
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Smoothy Box.001
-    second: {fileID: 2100000, guid: 93f88469ed075e242a2c3125387dcd74, type: 2}
+      name: Wall_M
+    second: {fileID: 2100000, guid: ce3f8658863ba6640b41f9982bf5a2bd, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -35,7 +35,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1

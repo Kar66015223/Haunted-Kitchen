@@ -26,6 +26,11 @@ public class PlayerItem : MonoBehaviour
 
     private void Update()
     {
+        if(currentHeldItemData != null && currentHeldItemObj == null)
+        {
+            currentHeldItemData = null;
+        }
+
         bool isHolding = currentHeldItemData != null;
 
         if (!isHolding)

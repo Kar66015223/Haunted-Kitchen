@@ -11,7 +11,7 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IDestroyable
     [Header("UI")]
     [SerializeField] private Image amountImg;
 
-    [SerializeField] private GameObject DestroyedVFX;
+    [SerializeField] private GameObject destroyedVFX;
 
     [SerializeField] private StationStatus status;
     public StationStatus Status => status;
@@ -19,13 +19,12 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IDestroyable
     private void Start()
     {
         beverageAmount = maxAmount;
-
         UpdateUI();
     }
 
     public bool CanInteract(Interactor interactor)
     {
-        if (interactor == null || status == StationStatus.Destroyed)
+        if (interactor == null)
             return false;
 
         if (interactor.interactionType == InteractionType.Hold)
@@ -34,6 +33,19 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IDestroyable
         var playerItem = interactor.playerItem;
 
         if (playerItem == null) return false;
+
+        if (status == StationStatus.Destroyed && playerItem.currentHeldItemData != null)
+        {
+            Item heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
+            RepairKit repairKit = heldItem.GetComponent<RepairKit>();
+
+            if (repairKit != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         if (playerItem.currentHeldItemObj == null && 
             status == StationStatus.Usable &&
@@ -53,13 +65,33 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IDestroyable
         var playerItem = interactor.playerItem;
         if (playerItem == null) return;
 
+        if (status == StationStatus.Destroyed && playerItem.currentHeldItemData != null)
+        {
+            Item heldItem = playerItem.currentHeldItemObj.GetComponent<Item>();
+            RepairKit repairKit = heldItem.GetComponent<RepairKit>();
+
+            if (repairKit != null)
+            {
+                repairKit.Repair(this);
+                return;
+            }
+        }
+
         if (playerItem.currentHeldItemObj == null)
         {
-            GiveItem(playerItem); 
+            GiveItem(playerItem);
         }
         else if (beverageAmount == 0 && IsCorrectRefillItem(playerItem))
         {
             RefillDispenser(playerItem);
+        }
+    }
+
+    void Update()
+    {
+        if (destroyedVFX != null)
+        {
+            destroyedVFX.SetActive(status == StationStatus.Destroyed);
         }
     }
 
@@ -102,6 +134,5 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IDestroyable
     public void SetStationStatus(StationStatus newStatus)
     {
         status = newStatus;
-        DestroyedVFX?.SetActive(status == StationStatus.Destroyed);
     }
 }
