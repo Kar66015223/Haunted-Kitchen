@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6072071075741131923
 Transform:
   m_ObjectHideFlags: 0
@@ -130,7 +130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3178241248196393770
 Transform:
   m_ObjectHideFlags: 0
@@ -384,6 +384,7 @@ GameObject:
   - component: {fileID: 8938964770104028744}
   - component: {fileID: 498496204654098580}
   - component: {fileID: 4127454541334491194}
+  - component: {fileID: 7993694402412358000}
   - component: {fileID: 6663099338149370760}
   m_Layer: 7
   m_Name: DeepFryer
@@ -448,6 +449,21 @@ MonoBehaviour:
   destroyedVFX: {fileID: 5048721970946635104}
   status: 0
   supportedMethod: 1
+--- !u!114 &7993694402412358000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9003151097964237325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf286ba68d00e5418526f0f209bc56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeepfryerVisual
+  oilVisual:
+  - {fileID: 1218072546565125966}
+  - {fileID: 3021887943757296077}
 --- !u!114 &6663099338149370760
 MonoBehaviour:
   m_ObjectHideFlags: 0

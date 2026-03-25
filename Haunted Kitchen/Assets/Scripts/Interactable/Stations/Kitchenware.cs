@@ -7,8 +7,12 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
     public Transform cookPoint;
 
     private Item currentItem;
+    public Item CurrentItem => currentItem;
+    [SerializeField] private GameObject itemVisual;
+
     private float cookTimer = 0f;
     [SerializeField] private bool isCooking;
+    public bool IsCooking => isCooking;
 
     [SerializeField] private GameObject destroyedVFX;
 
@@ -211,5 +215,27 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
     public void SetStationStatus(StationStatus newStatus)
     {
         status = newStatus;
+    }
+
+    public void ToggleItemVisual(bool value)
+    {
+        if (currentItem != null)
+        {
+            if (itemVisual == null)
+            {
+                itemVisual = currentItem.GetComponentInChildren<Outline>().gameObject;
+            }
+
+            if (itemVisual != null)
+            {
+                itemVisual.SetActive(value);
+                Debug.Log($"Setting visual to {value}");
+            }
+        }
+    }
+
+    public void ClearItemVisual()
+    {
+        itemVisual = null;
     }
 }

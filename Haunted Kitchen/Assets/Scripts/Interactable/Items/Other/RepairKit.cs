@@ -21,7 +21,6 @@ public class RepairKit : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(amount);
         if (amount <= 0)
         {
             Destroy(gameObject);
