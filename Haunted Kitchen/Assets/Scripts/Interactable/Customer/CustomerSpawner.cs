@@ -22,7 +22,7 @@ public class CustomerSpawner : MonoBehaviour
         .Where(t => t.Chairs.Length != 0)
         .ToList();
 
-        Debug.Log($"CustomerSpawner found {tables.Count} tables");
+        // Debug.Log($"CustomerSpawner found {tables.Count} tables");
     }
 
     private void Start()

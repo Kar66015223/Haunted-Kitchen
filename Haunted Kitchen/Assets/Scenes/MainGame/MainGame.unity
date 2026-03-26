@@ -3101,7 +3101,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &328897614
 Transform:
   m_ObjectHideFlags: 0
@@ -3129,12 +3129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95417c8997aca48449db050cf26826b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayManager
-  dayText: {fileID: 0}
-  quotaText: {fileID: 0}
-  dayEndUI: {fileID: 0}
-  nextDayButton: {fileID: 0}
-  mainMenuButton: {fileID: 0}
   timer: {fileID: 338321831}
+  playerInput: {fileID: 324538632}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3695,12 +3691,12 @@ RectTransform:
   - {fileID: 397304602}
   - {fileID: 635418624}
   - {fileID: 1020112644}
-  - {fileID: 567536970}
   - {fileID: 940578121}
   - {fileID: 517680739}
   - {fileID: 1063998682}
   - {fileID: 807285638}
   - {fileID: 1296662138}
+  - {fileID: 894834051}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3721,7 +3717,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Timer
   timerText: {fileID: 635418625}
-  remainingTime: 3
+  remainingTime: 0
+  maxTime: 181
 --- !u!114 &338321832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5656,16 +5653,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 567536969}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.8286948, y: 2.8286948, z: 2.8286948}
+  m_LocalScale: {x: 4.15047, y: 4.15047, z: 4.15047}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 338321830}
+  m_Father: {fileID: 894834051}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 491}
+  m_AnchoredPosition: {x: -0.0025075478, y: 692.55286}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &567536971
@@ -5688,7 +5685,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Day 1
+  m_text: 'Day: 1'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1aaef759d7de66c46b276bd75b3742a1, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 54676017c9c6b1f47a9a300e7af0609c, type: 2}
@@ -6203,7 +6200,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 418}
+  m_AnchoredPosition: {x: 0, y: 399}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &635418625
@@ -8573,8 +8570,9 @@ GameObject:
   - component: {fileID: 894834051}
   - component: {fileID: 894834053}
   - component: {fileID: 894834052}
+  - component: {fileID: 894834054}
   m_Layer: 5
-  m_Name: UIPanel
+  m_Name: DayPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8587,13 +8585,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 894834050}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6815361, y: 0.6815361, z: 0.6815361}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 567536970}
   - {fileID: 1765483250}
-  m_Father: {fileID: 1437949066}
+  m_Father: {fileID: 338321830}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8613,7 +8612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8638,6 +8637,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 894834050}
   m_CullTransparentMesh: 1
+--- !u!114 &894834054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894834050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26dc9dde9a73d864ba8179a2307b0dc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DayUI
+  dayManager: {fileID: 0}
+  dayText: {fileID: 567536971}
+  dayEndedUI: {fileID: 1765483249}
+  nextDayButton: {fileID: 1680998816}
+  mainMenubutton: {fileID: 189859845}
 --- !u!1 &932123778 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6106374133019365237, guid: 8f3d2259e3b3ffa4db5536320359fdbc, type: 3}
@@ -13529,108 +13545,6 @@ MonoBehaviour:
   pauseUI: {fileID: 829199167}
   resumeButton: {fileID: 1445699940}
   mainMenuButton: {fileID: 1210931238}
---- !u!1 &1437949061
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1437949066}
-  - component: {fileID: 1437949065}
-  - component: {fileID: 1437949064}
-  - component: {fileID: 1437949063}
-  m_Layer: 5
-  m_Name: Canva_Day
-  m_TagString: PauseUI
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1437949063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1437949061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &1437949064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1437949061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
---- !u!223 &1437949065
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1437949061}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 20
-  m_TargetDisplay: 0
---- !u!224 &1437949066
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1437949061}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 894834051}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
 --- !u!1 &1445699938
 GameObject:
   m_ObjectHideFlags: 0
@@ -16406,12 +16320,12 @@ GameObject:
   - component: {fileID: 1765483252}
   - component: {fileID: 1765483251}
   m_Layer: 5
-  m_Name: BG
+  m_Name: DayEndedUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1765483250
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18362,12 +18276,6 @@ MonoBehaviour:
   eventTextUI: {fileID: 0}
   pauseUI: {fileID: 829199167}
   pauseManager: {fileID: 0}
-  dayManager: {fileID: 0}
-  dayText: {fileID: 567536971}
-  quotaText: {fileID: 1020112645}
-  dayEndUI: {fileID: 1437949061}
-  nextDayButton: {fileID: 1680998816}
-  mainMenuButton: {fileID: 189859845}
   playerUI: {fileID: 0}
   healthUIPanel: {fileID: 807285637}
   healthUI: []
@@ -20440,7 +20348,6 @@ SceneRoots:
   - {fileID: 338321830}
   - {fileID: 1924541108}
   - {fileID: 829199171}
-  - {fileID: 1437949066}
   - {fileID: 999333670}
   - {fileID: 1087769916}
   - {fileID: 131972696}
