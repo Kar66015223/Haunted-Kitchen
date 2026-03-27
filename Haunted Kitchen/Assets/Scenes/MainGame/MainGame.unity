@@ -8649,7 +8649,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26dc9dde9a73d864ba8179a2307b0dc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayUI
-  dayManager: {fileID: 0}
   dayText: {fileID: 567536971}
   dayEndedUI: {fileID: 1765483249}
   nextDayButton: {fileID: 1680998816}
@@ -9418,7 +9417,7 @@ GameObject:
   - component: {fileID: 1020112646}
   - component: {fileID: 1020112645}
   m_Layer: 5
-  m_Name: Quota
+  m_Name: QuotaText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9440,7 +9439,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 390, y: 489}
+  m_AnchoredPosition: {x: 400, y: 487}
   m_SizeDelta: {x: 268.8, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1020112645
@@ -9463,7 +9462,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Quota: 00000'
+  m_text: "Quota: \n00000/00000"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1aaef759d7de66c46b276bd75b3742a1, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 54676017c9c6b1f47a9a300e7af0609c, type: 2}
@@ -9529,7 +9528,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: -51.542774}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

@@ -4,7 +4,7 @@ using TMPro;
 
 public class DayUI : MonoBehaviour
 {
-    [SerializeField] private DayManager dayManager;
+    private DayManager dayManager;
 
     [SerializeField] private TMP_Text dayText;
     [SerializeField] private GameObject dayEndedUI;

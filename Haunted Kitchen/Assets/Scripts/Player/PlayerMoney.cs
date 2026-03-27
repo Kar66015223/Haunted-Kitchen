@@ -2,9 +2,8 @@ using UnityEngine;
 using System;
 
 public class PlayerMoney : MonoBehaviour
-{
+{   
     public int currentMoney;
-
     public static event Action<int, int> OnMoneyChanged; // int newMoney, int amountChanged
 
     private void Start()
