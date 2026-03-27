@@ -3,13 +3,8 @@ using System;
 
 public class PlayerMoney : MonoBehaviour
 {   
-    public int currentMoney;
+    public int currentMoney { get; private set; }
     public static event Action<int, int> OnMoneyChanged; // int newMoney, int amountChanged
-
-    private void Start()
-    {
-        ChangeMoneyAmount(5000);
-    }
 
     public void ChangeMoneyAmount(int amount)
     {

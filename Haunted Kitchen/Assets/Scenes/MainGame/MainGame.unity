@@ -3129,8 +3129,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95417c8997aca48449db050cf26826b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayManager
+  firstDayMoney: 5000
   timer: {fileID: 338321831}
   playerInput: {fileID: 324538632}
+  playerMoney: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3605,6 +3607,8 @@ GameObject:
   - component: {fileID: 338321827}
   - component: {fileID: 338321831}
   - component: {fileID: 338321832}
+  - component: {fileID: 338321834}
+  - component: {fileID: 338321833}
   m_Layer: 5
   m_Name: Canva_Game
   m_TagString: Untagged
@@ -3718,7 +3722,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Timer
   timerText: {fileID: 635418625}
   remainingTime: 0
-  maxTime: 181
+  maxTime: 3
 --- !u!114 &338321832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3734,6 +3738,36 @@ MonoBehaviour:
   possessionUIPanel: {fileID: 1296662137}
   struggleBar: {fileID: 941613360}
   instructionText: {fileID: 1840106188}
+--- !u!114 &338321833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338321826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f5e3ef99002414080a525d8af756b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuotaUI
+  quotaManager: {fileID: 0}
+  quotaText: {fileID: 1020112645}
+--- !u!114 &338321834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338321826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26dc9dde9a73d864ba8179a2307b0dc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DayUI
+  dayText: {fileID: 567536971}
+  dayEndedUI: {fileID: 1765483249}
+  nextDayButton: {fileID: 1680998816}
+  mainMenubutton: {fileID: 189859845}
 --- !u!1 &344119634
 GameObject:
   m_ObjectHideFlags: 0
@@ -8570,7 +8604,6 @@ GameObject:
   - component: {fileID: 894834051}
   - component: {fileID: 894834053}
   - component: {fileID: 894834052}
-  - component: {fileID: 894834054}
   m_Layer: 5
   m_Name: DayPanel
   m_TagString: Untagged
@@ -8637,22 +8670,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 894834050}
   m_CullTransparentMesh: 1
---- !u!114 &894834054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 894834050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26dc9dde9a73d864ba8179a2307b0dc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DayUI
-  dayText: {fileID: 567536971}
-  dayEndedUI: {fileID: 1765483249}
-  nextDayButton: {fileID: 1680998816}
-  mainMenubutton: {fileID: 189859845}
 --- !u!1 &932123778 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6106374133019365237, guid: 8f3d2259e3b3ffa4db5536320359fdbc, type: 3}
@@ -9462,7 +9479,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Quota: \n00000/00000"
+  m_text: 'Quota:
+
+    00000/00000'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1aaef759d7de66c46b276bd75b3742a1, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 54676017c9c6b1f47a9a300e7af0609c, type: 2}
@@ -17485,6 +17504,51 @@ Transform:
   - {fileID: 1280207049}
   m_Father: {fileID: 629399398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1915004978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1915004980}
+  - component: {fileID: 1915004979}
+  m_Layer: 0
+  m_Name: MoneyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1915004979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915004978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5fcb2eefda8016409e9b332fca3f7d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyManager
+  _currentMoney: 0
+--- !u!4 &1915004980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915004978}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1916729970
 GameObject:
   m_ObjectHideFlags: 0
@@ -18748,6 +18812,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077323358}
   m_CullTransparentMesh: 1
+--- !u!1 &2078823691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2078823693}
+  - component: {fileID: 2078823692}
+  m_Layer: 0
+  m_Name: Quotamanager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2078823692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078823691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 098d0c6caa3527f43af6cd5f74489a21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuotaManager
+  dayManager: {fileID: 0}
+  currentQuota: 5000
+--- !u!4 &2078823693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078823691}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2088295094
 GameObject:
   m_ObjectHideFlags: 0
@@ -20344,6 +20454,8 @@ SceneRoots:
   - {fileID: 1404481660}
   - {fileID: 1989329989}
   - {fileID: 328897614}
+  - {fileID: 2078823693}
+  - {fileID: 1915004980}
   - {fileID: 338321830}
   - {fileID: 1924541108}
   - {fileID: 829199171}

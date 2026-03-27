@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class QuotaUI : MonoBehaviour
 {
-    private QuotaManager quotaManager;
-
+    [SerializeField] private QuotaManager quotaManager;
     [SerializeField] private TMP_Text quotaText;
 
     void Awake()
@@ -14,7 +13,11 @@ public class QuotaUI : MonoBehaviour
 
     void OnEnable()
     {
-        Invoke(nameof(OnQuotaChangedSub), 0.1f);
+        if (quotaManager == null)
+        quotaManager = QuotaManager.Instance;
+
+        if (quotaManager != null)
+            quotaManager.OnQuotaChanged += UpdateQuotaText;
     }
 
     void OnDisable()
@@ -22,13 +25,14 @@ public class QuotaUI : MonoBehaviour
         quotaManager.OnQuotaChanged -= UpdateQuotaText;
     }
 
-    void OnQuotaChangedSub()
+    void Start()
     {
-        quotaManager.OnQuotaChanged += UpdateQuotaText;
+        if (quotaManager != null)
+            UpdateQuotaText(quotaManager.CurrentQuota);
     }
 
     void UpdateQuotaText(int currentQuota)
     {
-        quotaText.text = $"Quota:\nCurrentMoney/Quota";
+        quotaText.text = $"Quota:\n{quotaManager.playerMoney.currentMoney}/{currentQuota}";
     }
 }

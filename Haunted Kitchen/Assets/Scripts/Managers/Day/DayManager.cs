@@ -14,48 +14,16 @@ public class DayManager : MonoBehaviour
         set => _currentDay = Mathf.Clamp(value, 1, maxDays);
     }
     private int maxDays = 7;
+    public int MaxDays => maxDays;
+
+    [SerializeField] private int firstDayMoney = 5000;
 
     [SerializeField] private Timer timer;
     [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private PlayerMoney playerMoney;
 
     public event Action<int> OnDayEnded;
     public event Action<int> OnDayStarted;
-
-    void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        
-        if(timer != null)
-            timer.OnTimerRunOut += EndDay;
-    }
-
-    void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-        
-        if(timer != null)
-            timer.OnTimerRunOut -= EndDay;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if(scene.name != "MainGame")
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        timer = FindAnyObjectByType<Timer>();
-        playerInput = FindAnyObjectByType<PlayerInput>();
-
-        if (timer != null)
-        {
-            timer.OnTimerRunOut -= EndDay;
-            timer.OnTimerRunOut += EndDay;
-        }
-        
-        OnDayStarted?.Invoke(CurrentDay);
-    }
 
     void Awake()
     {
@@ -69,15 +37,49 @@ public class DayManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    void Start()
+    void OnEnable()
     {
-        OnDayStarted?.Invoke(CurrentDay);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        
+        if(timer != null)
+            timer.OnTimerRunOut += EndDay;
     }
 
-    void Update()
+    void OnDisable()
     {
-        Debug.Log($"TimeScale: {Time.timeScale}");
-        Debug.Log($"CurrentDay: {CurrentDay}");
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+
+        if (timer != null)
+            timer.OnTimerRunOut -= EndDay;
+    }
+
+    void Start()
+    {
+        if(playerMoney != null)
+        {
+            AddMoney(firstDayMoney);
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.name != "MainGame")
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        timer = FindAnyObjectByType<Timer>();
+        playerInput = FindAnyObjectByType<PlayerInput>();
+        playerMoney = FindAnyObjectByType<PlayerMoney>();
+
+        if (timer != null)
+        {
+            timer.OnTimerRunOut -= EndDay;
+            timer.OnTimerRunOut += EndDay;
+        }
+        
+        OnDayStarted?.Invoke(CurrentDay);
     }
 
     private void EndDay()
@@ -111,10 +113,15 @@ public class DayManager : MonoBehaviour
 
         SceneLoader.RestartScene();
     }
-    
+
     public void ReturnToMenu()
     {
         Time.timeScale = 1f;
         SceneLoader.ChangeScene("StartScene");
+    }
+    
+    private void AddMoney(int amount)
+    {
+        playerMoney.ChangeMoneyAmount(amount);
     }
 }
