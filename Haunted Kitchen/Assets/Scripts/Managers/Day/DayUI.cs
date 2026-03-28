@@ -33,10 +33,10 @@ public class DayUI : MonoBehaviour
         }
 
         if (nextDayButton != null)
-            nextDayButton.onClick.RemoveListener(dayManager.NextDay);
+            nextDayButton.onClick.RemoveAllListeners();
 
         if (mainMenubutton != null)
-            mainMenubutton.onClick.RemoveListener(dayManager.ReturnToMenu);
+            mainMenubutton.onClick.RemoveAllListeners();
     }
 
     void Start()
@@ -66,10 +66,12 @@ public class DayUI : MonoBehaviour
 
     void OnDayEndedSub()
     {
-        dayManager.OnDayEnded += OnDayEnded;
+        if(dayManager != null)
+            dayManager.OnDayEnded += OnDayEnded;
     }
     void OnDayStartedSub()
     {
-        dayManager.OnDayStarted += OnDayStarted;
+        if(dayManager != null)
+            dayManager.OnDayStarted += OnDayStarted;
     }
 }

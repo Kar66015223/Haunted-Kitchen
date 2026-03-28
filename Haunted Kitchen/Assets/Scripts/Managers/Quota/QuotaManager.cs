@@ -8,13 +8,11 @@ public class QuotaManager : MonoBehaviour
     public static QuotaManager Instance { get; private set; }
     [SerializeField] private DayManager dayManager;
 
-    [SerializeField] private int currentQuota = 5000;
+    [SerializeField] private int currentQuota;
     public int CurrentQuota => currentQuota;
 
     private int quotaIncrease = 3000;
     private int quotaIncreaseLastDay = 5000;
-
-    public PlayerMoney playerMoney { get; private set; }
 
     public event Action<int> OnQuotaChanged;
 
@@ -35,17 +33,19 @@ public class QuotaManager : MonoBehaviour
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        
+
         if (dayManager == null)
             dayManager = DayManager.Instance;
 
-        Invoke(nameof(OnDayStartedSub), 0.1f);
+        OnDayStartedSub();
     }
 
     void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-        dayManager.OnDayStarted -= IncreaseQuota;
+
+        if(dayManager != null)
+            dayManager.OnDayStarted -= IncreaseQuota;
     }
 
     void Start()
@@ -61,8 +61,6 @@ public class QuotaManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        playerMoney = FindAnyObjectByType<PlayerMoney>();
     }
 
     public void ChangeQuotaAmount(int amount)
@@ -71,9 +69,9 @@ public class QuotaManager : MonoBehaviour
         OnQuotaChanged?.Invoke(currentQuota);
     }
 
-    private void IncreaseQuota(int amount)
+    private void IncreaseQuota(int day)
     {
-        if (amount == dayManager.MaxDays)
+        if (day == 1 || day == dayManager.MaxDays)
         {
             ChangeQuotaAmount(quotaIncreaseLastDay);
             return;
@@ -84,6 +82,7 @@ public class QuotaManager : MonoBehaviour
 
     void OnDayStartedSub()
     {
-        dayManager.OnDayStarted += IncreaseQuota;
+        if(dayManager != null)
+            dayManager.OnDayStarted += IncreaseQuota;
     }
 }

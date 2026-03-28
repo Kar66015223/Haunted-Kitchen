@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,13 +8,6 @@ public class AngryBehavior : CustomerBehavior
 
     private bool hasAttacked;
     private bool isCorrectServe;
-
-    private PlayerMoney playerMoney;
-
-    void Start()
-    {
-        playerMoney = FindAnyObjectByType<PlayerMoney>();
-    }
 
     public override void HandleLeaving(Customer_New customer)
     {
@@ -33,28 +25,21 @@ public class AngryBehavior : CustomerBehavior
         int bonus = totalPrice * 2;
         isCorrectServe = true;
 
-        if(playerMoney != null)
-            playerMoney.ChangeMoneyAmount(bonus);
+        MoneyManager.Instance.ChangeMoneyAmount(bonus);
     }
 
     public override void OnPatienceExpired(Customer_New customer)
     {
-        if(playerMoney != null)
-        {
-            int steal = UnityEngine.Random.Range(300, 1000);
-            playerMoney.ChangeMoneyAmount(-steal);
-        }
+        int steal = Random.Range(300, 1000);
+        MoneyManager.Instance.ChangeMoneyAmount(-steal);
 
         GameEvents.OnShowEventText?.Invoke(CustomerConstants.STEAL_EVENT_TEXT, Color.red);
     }
 
     public override void OnWrongServe(Customer_New customer)
     {
-        if(playerMoney != null)
-        {
-            int steal = UnityEngine.Random.Range(300, 1000);
-            playerMoney.ChangeMoneyAmount(-steal);
-        }
+        int steal = Random.Range(300, 1000);
+        MoneyManager.Instance.ChangeMoneyAmount(-steal);
 
         GameEvents.OnShowEventText?.Invoke(CustomerConstants.STEAL_EVENT_TEXT, Color.red);
     }

@@ -20,7 +20,6 @@ public class DayManager : MonoBehaviour
 
     [SerializeField] private Timer timer;
     [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private PlayerMoney playerMoney;
 
     public event Action<int> OnDayEnded;
     public event Action<int> OnDayStarted;
@@ -55,7 +54,7 @@ public class DayManager : MonoBehaviour
 
     void Start()
     {
-        if(playerMoney != null)
+        if (MoneyManager.Instance != null)
         {
             AddMoney(firstDayMoney);
         }
@@ -71,7 +70,6 @@ public class DayManager : MonoBehaviour
 
         timer = FindAnyObjectByType<Timer>();
         playerInput = FindAnyObjectByType<PlayerInput>();
-        playerMoney = FindAnyObjectByType<PlayerMoney>();
 
         if (timer != null)
         {
@@ -122,6 +120,6 @@ public class DayManager : MonoBehaviour
     
     private void AddMoney(int amount)
     {
-        playerMoney.ChangeMoneyAmount(amount);
+        MoneyManager.Instance.ChangeMoneyAmount(amount);
     }
 }

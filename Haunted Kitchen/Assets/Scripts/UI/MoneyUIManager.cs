@@ -1,9 +1,15 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MoneyUIManager : MonoBehaviour
 {
+    public static MoneyUIManager Instance;
+
     [SerializeField] private TMP_Text moneyUI;
+    public TMP_Text MoneyUI => moneyUI;
+
     [SerializeField] private TMP_Text moneyChangedText;
 
     [SerializeField] private FadeOutText moneyChangedFadeOut;
@@ -11,25 +17,39 @@ public class MoneyUIManager : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerMoney.OnMoneyChanged += HandleMoneyChanged;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        MoneyManager.OnMoneyChanged += HandleMoneyChanged;
     }
     void OnDisable()
     {
-        PlayerMoney.OnMoneyChanged -= HandleMoneyChanged;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        MoneyManager.OnMoneyChanged -= HandleMoneyChanged;
     }
 
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+
         moneyChangedFadeOut = moneyChangedText.GetComponent<FadeOutText>();
 
         if (moneyChangedFadeOut == null)
             Debug.LogError($"FadeOutText not found in {moneyChangedText.gameObject.name}");
     }
-
-    public void SetUI(TMP_Text money, TMP_Text changed)
+    
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        moneyUI = money;
-        moneyChangedText = changed;
+        if(scene.name != "MainGame")
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void HandleMoneyChanged(int newMoney, int amountChanged)

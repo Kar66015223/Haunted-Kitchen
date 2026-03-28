@@ -1,6 +1,6 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MoneyManager : MonoBehaviour
 {
@@ -13,7 +13,7 @@ public class MoneyManager : MonoBehaviour
         private set => _currentMoney = Mathf.Max(0, value);
     }
 
-    public event Action<int, int> OnMoneyChanged;
+    public static event Action<int, int> OnMoneyChanged;
 
     private void Awake()
     {
@@ -25,6 +25,24 @@ public class MoneyManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.name != "MainGame")
+        {
+            ChangeMoneyAmount(-CurrentMoney);
+            Destroy(gameObject);
+        }
     }
 
     public void ChangeMoneyAmount(int value)

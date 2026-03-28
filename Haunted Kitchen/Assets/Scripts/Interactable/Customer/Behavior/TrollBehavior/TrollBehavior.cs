@@ -3,13 +3,6 @@ using UnityEngine;
 public class TrollBehavior : CustomerBehavior
 {
     [SerializeField] private int moneyReward = 2000;
-
-    private PlayerMoney playerMoney;
-
-    void Start()
-    {
-        playerMoney = FindAnyObjectByType<PlayerMoney>();
-    }
     
     public override void HandleLeaving(Customer_New customer)
     {
@@ -18,10 +11,7 @@ public class TrollBehavior : CustomerBehavior
 
     public override void OnCorrectServe(Customer_New customer, int totalPrice)
     {
-        if (playerMoney != null)
-        {
-            playerMoney.ChangeMoneyAmount(moneyReward);
-        }
+        MoneyManager.Instance.ChangeMoneyAmount(moneyReward);
         
         GameEvents.OnShowEventText?.Invoke(CustomerConstants.TROLL_REWARD_EVENT_TEXT, Color.green);
 

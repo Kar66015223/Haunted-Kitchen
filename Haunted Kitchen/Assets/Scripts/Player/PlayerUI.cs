@@ -40,10 +40,9 @@ public class PlayerUI : MonoBehaviour
         healthUI = uiPanel.GetComponentsInChildren<Image>().ToList();
     }
 
-    public void SetUI(GameObject panel, Image holdProgress)
+    public void SetUI(GameObject panel)
     {
         uiPanel = panel;
-        interactHoldProgress = holdProgress;
     }
 
     private void UpdateHealthUI(int currentHealth)

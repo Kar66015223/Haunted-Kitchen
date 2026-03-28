@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class QuotaUI : MonoBehaviour
@@ -14,7 +15,7 @@ public class QuotaUI : MonoBehaviour
     void OnEnable()
     {
         if (quotaManager == null)
-        quotaManager = QuotaManager.Instance;
+            quotaManager = QuotaManager.Instance;
 
         if (quotaManager != null)
             quotaManager.OnQuotaChanged += UpdateQuotaText;
@@ -22,17 +23,33 @@ public class QuotaUI : MonoBehaviour
 
     void OnDisable()
     {
-        quotaManager.OnQuotaChanged -= UpdateQuotaText;
+        if (quotaManager != null)
+            quotaManager.OnQuotaChanged -= UpdateQuotaText;
     }
 
     void Start()
     {
-        if (quotaManager != null)
+        if (quotaManager == null)
+        {
+            quotaManager = QuotaManager.Instance;
             UpdateQuotaText(quotaManager.CurrentQuota);
+        }
+    }
+
+    void Update()
+    {
+        if (MoneyManager.Instance.CurrentMoney >= quotaManager.CurrentQuota)
+        {
+            quotaText.color = Color.green;
+        }
+        else
+        {
+            quotaText.color = Color.red;
+        }
     }
 
     void UpdateQuotaText(int currentQuota)
     {
-        quotaText.text = $"Quota:\n{quotaManager.playerMoney.currentMoney}/{currentQuota}";
+        quotaText.text = $"Quota:\n{currentQuota}";
     }
 }

@@ -25,8 +25,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject healthUIPanel;
     [SerializeField] private List<Image> healthUI = new();
 
-    [SerializeField] private Image interactHoldProgress;
-
     private void Awake()
     {
         if (moneyUIManager == null) moneyUIManager = FindAnyObjectByType<MoneyUIManager>();
@@ -34,11 +32,10 @@ public class UIManager : MonoBehaviour
         if (pauseManager == null) pauseManager = FindAnyObjectByType<PauseManager>();
 
         if (playerUI == null) playerUI = FindAnyObjectByType<PlayerUI>();
-
-        moneyUIManager?.SetUI(moneyUI, moneyChangedText);
+        
         eventTextUI?.SetUI(eventText);
         pauseManager?.SetUI(pauseUI);
 
-        playerUI?.SetUI(healthUIPanel, interactHoldProgress);
+        playerUI?.SetUI(healthUIPanel);
     }
 }

@@ -12,13 +12,8 @@ public class ShopItemButton : MonoBehaviour
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private Button buyButton;
 
-    [SerializeField] private PlayerMoney playerMoney;
-
     private void Start()
     {
-        if (playerMoney == null)
-            playerMoney = FindAnyObjectByType<PlayerMoney>();
-
         nameText.text = itemData.itemName;
         priceText.text = $"{itemData.price} <color=yellow>$</color>";
 
@@ -27,13 +22,13 @@ public class ShopItemButton : MonoBehaviour
 
     void Buy()
     {
-        if (playerMoney.currentMoney < itemData.price)
+        if (MoneyManager.Instance.CurrentMoney < itemData.price)
         {
             GameEvents.OnShowEventText?.Invoke($"You don't have enough money.", Color.red);
             return;
         }
 
-        playerMoney.ChangeMoneyAmount(-itemData.price);
+        MoneyManager.Instance.ChangeMoneyAmount(-itemData.price);
         GameEvents.OnShowEventText?.Invoke($"Bought {itemData.itemName}", Color.green);
 
         SpawnItem();
