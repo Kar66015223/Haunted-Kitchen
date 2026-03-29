@@ -16,10 +16,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text eventText;
     [SerializeField] private EventTextUI eventTextUI;
 
-    //Pause
-    [SerializeField] private GameObject pauseUI;
-    [SerializeField] private PauseManager pauseManager;
-
     [Header("Player")]
     [SerializeField] private PlayerUI playerUI; 
     [SerializeField] private GameObject healthUIPanel;
@@ -29,12 +25,10 @@ public class UIManager : MonoBehaviour
     {
         if (moneyUIManager == null) moneyUIManager = FindAnyObjectByType<MoneyUIManager>();
         if (eventTextUI == null) eventTextUI = FindAnyObjectByType<EventTextUI>();
-        if (pauseManager == null) pauseManager = FindAnyObjectByType<PauseManager>();
 
         if (playerUI == null) playerUI = FindAnyObjectByType<PlayerUI>();
         
         eventTextUI?.SetUI(eventText);
-        pauseManager?.SetUI(pauseUI);
 
         playerUI?.SetUI(healthUIPanel);
     }

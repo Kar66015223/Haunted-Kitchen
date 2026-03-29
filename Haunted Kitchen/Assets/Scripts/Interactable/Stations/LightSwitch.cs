@@ -1,16 +1,22 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class LightSwitch : MonoBehaviour, Iinteractable
 {
-    [SerializeField] private bool isOff = false;
-    [SerializeField] private Light mainLight;
-
     private PowerOutageSystem outageSystem;
 
     void Start()
     {
         outageSystem = FindAnyObjectByType<PowerOutageSystem>();
+    }
+
+    void Update()
+    {
+        if (outageSystem == null) return;
+
+        if (!outageSystem.IsOff) return;
+
+        if (outageSystem.IsOff)
+            GetComponent<Outline>().enabled = true;
     }
 
     public bool CanInteract(Interactor interactor)
@@ -21,7 +27,7 @@ public class LightSwitch : MonoBehaviour, Iinteractable
         if (interactor.interactionType == InteractionType.Hold)
             return false;
 
-        if (!isOff)
+        if (outageSystem != null && !outageSystem.IsOff)
             return false;
 
         return true;
@@ -30,27 +36,18 @@ public class LightSwitch : MonoBehaviour, Iinteractable
     public void Interact(Interactor interactor)
     {
         Debug.Log("interacting with LightSwitch");
-        if (mainLight == null)
-        {
-            Debug.LogError("Light is null");
-        }
-
         SetSwitchOn();
-    }
-
-    public void SetSwitchOff()
-    {
-        if (isOff) return;
-
-        isOff = true;
-        outageSystem.TogglePower();
     }
 
     public void SetSwitchOn()
     {
-        if (!isOff) return;
-        
-        isOff = false;
+        if (!outageSystem.IsOff) return;
+        outageSystem.TogglePower();
+    }
+
+    public void SetSwitchOff()
+    {
+        if (outageSystem.IsOff) return;
         outageSystem.TogglePower();
     }
 }

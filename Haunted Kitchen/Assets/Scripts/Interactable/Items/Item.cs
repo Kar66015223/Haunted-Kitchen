@@ -5,6 +5,17 @@ public class Item : MonoBehaviour, Iinteractable
     public ItemData itemData;
     public ItemState itemState;
 
+    void Start()
+    {
+        if(!itemData.canDrop)
+        {
+            if(TryGetComponent(out Collider collider))
+            {
+                collider.isTrigger = true;
+            }
+        }
+    }
+
     public virtual bool CanInteract(Interactor interactor)
     {
         if (interactor == null)

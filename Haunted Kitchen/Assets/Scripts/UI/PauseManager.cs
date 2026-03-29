@@ -26,11 +26,6 @@ public class PauseManager : MonoBehaviour
             mainMenuButton.onClick.AddListener(ReturnToMenu);
     }
 
-    public void SetUI(GameObject pauseUI)
-    {
-        this.pauseUI = pauseUI;
-    }
-
     public void Pause()
     {
         isPaused = true;

@@ -2,7 +2,6 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Rendering;
 
 public class PlayerInteractableDetector : MonoBehaviour
 {
@@ -17,10 +16,21 @@ public class PlayerInteractableDetector : MonoBehaviour
     [SerializeField] private PlayerPossession playerPossess;
     private PlayerCross playerCross;
 
+    [SerializeField] private bool isLightOut;
+
     void Awake()
     {
         playerPossess = GetComponent<PlayerPossession>();
         playerCross = GetComponent<PlayerCross>();
+    }
+
+    void OnEnable()
+    {
+        GameEvents.OnLightOut += OnLightOut;
+    }
+    void OnDisable()
+    {
+        GameEvents.OnLightOut -= OnLightOut;
     }
 
     private void OnTriggerStay(Collider other)
@@ -39,6 +49,12 @@ public class PlayerInteractableDetector : MonoBehaviour
 
         var mb = other.GetComponentInParent<MonoBehaviour>();
         if (mb == null) return;
+
+        if (isLightOut && interactable is not LightSwitch)
+        {
+            ClearInteractable();
+            return;
+        }
 
         if (!detectedInteractables.ContainsKey(interactable))
         {
@@ -148,6 +164,11 @@ public class PlayerInteractableDetector : MonoBehaviour
         currentInteractableMB = null;
 
         detectedInteractables.Clear();
+    }
+
+    private void OnLightOut(bool value)
+    {
+        isLightOut = value;
     }
     
     public Iinteractable GetCurrentInteractable() => currentInteractable;
