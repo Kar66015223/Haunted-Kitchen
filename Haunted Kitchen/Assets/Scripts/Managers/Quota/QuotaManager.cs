@@ -71,6 +71,9 @@ public class QuotaManager : MonoBehaviour
 
     private void IncreaseQuota(int day)
     {
+        if (MoneyManager.Instance != null)
+            MoneyManager.Instance.ChangeMoneyAmount(-currentQuota);
+            
         if (day == 1 || day == dayManager.MaxDays)
         {
             ChangeQuotaAmount(quotaIncreaseLastDay);
@@ -78,6 +81,7 @@ public class QuotaManager : MonoBehaviour
         }
 
         ChangeQuotaAmount(quotaIncrease);
+
     }
 
     void OnDayStartedSub()
