@@ -32,8 +32,10 @@ public class PauseManager : MonoBehaviour
         pauseUI.SetActive(true);
         Time.timeScale = 0f;
 
-        if (input != null)
-            input.SwitchCurrentActionMap(PlayerConstants.INPUTACTION_UI);
+        GameEvents.OnUIShow?.Invoke(true);
+
+        // if (input != null)
+        //     input.SwitchCurrentActionMap(PlayerConstants.INPUTACTION_UI);
     }
 
     public void Resume()
@@ -43,8 +45,10 @@ public class PauseManager : MonoBehaviour
         pauseUI.SetActive(false);
 
         EventSystem.current.SetSelectedGameObject(null);
-        if (input != null)
-            input.SwitchCurrentActionMap(PlayerConstants.INPUTACTION_PLAYER);
+        
+        GameEvents.OnUIShow?.Invoke(false);
+        // if (input != null)
+        //     input.SwitchCurrentActionMap(PlayerConstants.INPUTACTION_PLAYER);
     }
 
     private void ReturnToMenu()

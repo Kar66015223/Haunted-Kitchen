@@ -87,8 +87,10 @@ public class DayManager : MonoBehaviour
 
         OnDayEnded?.Invoke(CurrentDay);
 
-        if (playerInput != null)
-            playerInput.SwitchCurrentActionMap(PlayerConstants.INPUTACTION_UI);
+        GameEvents.OnUIShow?.Invoke(true);
+
+        // if (playerInput != null)
+        //     playerInput.SwitchCurrentActionMap(PlayerConstants.INPUTACTION_UI);
     }
 
     public void NextDay()

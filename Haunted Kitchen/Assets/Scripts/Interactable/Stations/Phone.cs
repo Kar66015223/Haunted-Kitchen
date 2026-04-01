@@ -20,6 +20,10 @@ public class Phone : MonoBehaviour, Iinteractable
 
     public void Interact(Interactor interactor)
     {
-        shopUI.Open();
+        if (shopUI == null)
+            shopUI = FindAnyObjectByType<ShopUI>();
+            
+        if(shopUI != null)
+            shopUI.Open();
     }
 }

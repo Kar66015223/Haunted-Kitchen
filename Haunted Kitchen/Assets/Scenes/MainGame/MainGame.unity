@@ -517,7 +517,6 @@ GameObject:
   - component: {fileID: 43383105}
   - component: {fileID: 43383107}
   - component: {fileID: 43383106}
-  - component: {fileID: 43383104}
   m_Layer: 5
   m_Name: ShopUIPanel
   m_TagString: Untagged
@@ -525,22 +524,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &43383104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 43383103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1be275ffcff5bdf4c8d778b3a06258b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShopUI
-  root: {fileID: 1924541107}
-  firstItemButton: {fileID: 893535040}
-  input: {fileID: 0}
-  possession: {fileID: 0}
 --- !u!224 &43383105
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2146,19 +2129,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 196974718}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 450942206}
-        m_TargetAssemblyTypeName: RecipeUI, Assembly-CSharp
-        m_MethodName: Open
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &196974718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5399,6 +5370,7 @@ MonoBehaviour:
   nextButton: {fileID: 820813606}
   previousButton: {fileID: 1007523911}
   openButton: {fileID: 196974717}
+  showOpenButton: 0
   uiPanel: {fileID: 1057731960}
 --- !u!1 &457628207
 GameObject:
@@ -13903,11 +13875,11 @@ MonoBehaviour:
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: b56755c204a35b4419b5580ee53c5274, type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: b56755c204a35b4419b5580ee53c5274, type: 3}
+  m_PointAction: {fileID: -5417252980170416371, guid: b56755c204a35b4419b5580ee53c5274, type: 3}
   m_MoveAction: {fileID: -8784545083839296357, guid: b56755c204a35b4419b5580ee53c5274, type: 3}
   m_SubmitAction: {fileID: 392368643174621059, guid: b56755c204a35b4419b5580ee53c5274, type: 3}
   m_CancelAction: {fileID: 7727032971491509709, guid: b56755c204a35b4419b5580ee53c5274, type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: b56755c204a35b4419b5580ee53c5274, type: 3}
+  m_LeftClickAction: {fileID: -1066668809124187271, guid: b56755c204a35b4419b5580ee53c5274, type: 3}
   m_MiddleClickAction: {fileID: -2185481485913320682, guid: b56755c204a35b4419b5580ee53c5274, type: 3}
   m_RightClickAction: {fileID: -4090225696740746782, guid: b56755c204a35b4419b5580ee53c5274, type: 3}
   m_ScrollWheelAction: {fileID: 6240969308177333660, guid: b56755c204a35b4419b5580ee53c5274, type: 3}
@@ -15608,7 +15580,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 43383104}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShopUI, Assembly-CSharp
         m_MethodName: Close
         m_Mode: 1
@@ -17105,7 +17077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -19659,6 +19631,7 @@ GameObject:
   - component: {fileID: 1924541111}
   - component: {fileID: 1924541110}
   - component: {fileID: 1924541109}
+  - component: {fileID: 1924541112}
   m_Layer: 5
   m_Name: Canva_Shop
   m_TagString: Untagged
@@ -19749,6 +19722,23 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 10
   m_TargetDisplay: 0
+--- !u!114 &1924541112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924541107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1be275ffcff5bdf4c8d778b3a06258b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopUI
+  root: {fileID: 43383103}
+  firstItemButton: {fileID: 893535040}
+  closeButton: {fileID: 1532731452}
+  input: {fileID: 0}
+  possession: {fileID: 0}
 --- !u!1 &1924971787
 GameObject:
   m_ObjectHideFlags: 0
@@ -22398,7 +22388,7 @@ PrefabInstance:
     - target: {fileID: 5546072907866165798, guid: 37888b1086e7815468e5eeeafce5864a, type: 3}
       propertyPath: shopUI
       value: 
-      objectReference: {fileID: 43383104}
+      objectReference: {fileID: 0}
     - target: {fileID: 7991746942968753714, guid: 37888b1086e7815468e5eeeafce5864a, type: 3}
       propertyPath: m_LocalScale.x
       value: 100

@@ -7,6 +7,7 @@ public class ShopUI : MonoBehaviour
 {
     [SerializeField] private GameObject root;
     public Button firstItemButton;
+    [SerializeField] private Button closeButton;
 
     [SerializeField] private PlayerInput input;
     [SerializeField] private PlayerPossession possession;
@@ -23,12 +24,18 @@ public class ShopUI : MonoBehaviour
 
         if (possession != null)
             possession.OnPossessionStarted += OnPlayerPossessed;
+
+        if (closeButton != null)
+            closeButton.onClick.AddListener(Close);
     }
 
     void OnDestroy()
     {
         if (possession != null)
             possession.OnPossessionStarted -= OnPlayerPossessed;
+
+        if (closeButton != null)
+            closeButton.onClick.RemoveAllListeners();
     }
 
     void OnPlayerPossessed()
@@ -44,8 +51,13 @@ public class ShopUI : MonoBehaviour
     {
         root.SetActive(true);
 
-        if (input != null)
-            input.SwitchCurrentActionMap(PlayerConstants.INPUTACTION_UI);
+        // if (input == null)
+        // {
+        //     input = GameObject.FindWithTag(PlayerConstants.PLAYER_TAG).GetComponent<PlayerInput>();
+        // }
+        // input.SwitchCurrentActionMap(PlayerConstants.INPUTACTION_UI);
+
+        GameEvents.OnUIShow?.Invoke(true);
 
         if (IsUsingGamepad() && EventSystem.current != null && firstItemButton != null)
         {
@@ -57,8 +69,12 @@ public class ShopUI : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
 
-        root?.SetActive(false);
-        input.SwitchCurrentActionMap(PlayerConstants.INPUTACTION_PLAYER);
+        root.SetActive(false);
+
+        GameEvents.OnUIShow?.Invoke(false);
+
+        // if(input != null)
+        // input.SwitchCurrentActionMap(PlayerConstants.INPUTACTION_PLAYER);
     }
 
     public void OnCancel(InputAction.CallbackContext context)
