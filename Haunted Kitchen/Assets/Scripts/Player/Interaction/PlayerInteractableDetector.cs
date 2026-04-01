@@ -15,6 +15,7 @@ public class PlayerInteractableDetector : MonoBehaviour
 
     [SerializeField] private PlayerPossession playerPossess;
     private PlayerCross playerCross;
+    private PlayerController_New controller;
 
     [SerializeField] private bool isLightOut;
 
@@ -22,6 +23,7 @@ public class PlayerInteractableDetector : MonoBehaviour
     {
         playerPossess = GetComponent<PlayerPossession>();
         playerCross = GetComponent<PlayerCross>();
+        controller = GetComponent<PlayerController_New>();
     }
 
     void OnEnable()
@@ -35,9 +37,13 @@ public class PlayerInteractableDetector : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (playerPossess && playerCross != null)
+        if (playerPossess &&
+            playerCross &&
+            controller != null)
         {
-            if (playerPossess.IsPossessed || playerCross.IsHoldingCross)
+            if (playerPossess.IsPossessed ||
+                playerCross.IsHoldingCross ||
+                controller.IsSlipping)
             {
                 ClearInteractable();
                 return;

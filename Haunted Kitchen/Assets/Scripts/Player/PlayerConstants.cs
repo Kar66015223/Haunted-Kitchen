@@ -32,6 +32,8 @@ public static class PlayerConstants
 
     public const string ANIM_DIE = "Die";
 
+    public const string ANIM_CLEAN = "Clean";
+
     // Interaction
     public const float HOLD_THRESHOLD = 0.4f;
 

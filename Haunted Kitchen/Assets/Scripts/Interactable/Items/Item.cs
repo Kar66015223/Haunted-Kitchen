@@ -7,13 +7,13 @@ public class Item : MonoBehaviour, Iinteractable
 
     void Start()
     {
-        if(!itemData.canDrop)
-        {
-            if(TryGetComponent(out Collider collider))
-            {
-                collider.isTrigger = true;
-            }
-        }
+        // if(!itemData.canDrop && itemState == ItemState.Held)
+        // {
+        //     if(TryGetComponent(out Collider collider))
+        //     {
+        //         collider.isTrigger = true;
+        //     }
+        // }
     }
 
     public virtual bool CanInteract(Interactor interactor)

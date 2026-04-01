@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInteract_New))]
 [RequireComponent(typeof(PlayerItem))]
 [RequireComponent(typeof(PlayerAnimation))]
+
 public class PlayerController_New : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = PlayerConstants.MOVE_SPEED;

@@ -7,4 +7,5 @@ public static class GameEvents
     public static Action<string, Color> OnShowEventText;
     public static Action<bool> OnLightOut;
     public static Action<bool> OnUIShow;
+    public static Action<bool> OnInteractPressed;
 }

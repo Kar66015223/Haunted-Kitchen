@@ -16,7 +16,10 @@ public class PlayerInputHandler : MonoBehaviour
     private float interactStartTime;
     private bool isHoldingInteract;
     private bool holdTriggered;
-    [SerializeField] private float holdThreshold = PlayerConstants.HOLD_THRESHOLD;
+    [SerializeField] private float defaultHoldThreshold = PlayerConstants.HOLD_THRESHOLD;
+    private float holdThreshold;
+
+    [SerializeField] private PlayerInteractableDetector detector;
 
     public event Action OnInteractInput;
     public event Action OnHoldInteractInput;
@@ -33,6 +36,12 @@ public class PlayerInputHandler : MonoBehaviour
 
     public event Action OnHoldCrossInput;
     public event Action OnHoldCrossInputCanceled;
+
+    void Awake()
+    {
+        detector = GetComponent<PlayerInteractableDetector>();
+        holdThreshold = defaultHoldThreshold;
+    }
 
     void Update()
     {
@@ -58,9 +67,17 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (context.started)
         {
+            // Check if current interactable wants a custom threshold
+            var current = detector.GetCurrentInteractable();
+            holdThreshold = current is IHoldInteractable holdable
+                ? holdable.HoldThreshold
+                : defaultHoldThreshold;
+                
             interactStartTime = Time.time;
             isHoldingInteract = true;
             holdTriggered = false;
+
+            GameEvents.OnInteractPressed?.Invoke(true);
         }
 
         if (context.canceled)
@@ -72,6 +89,8 @@ public class PlayerInputHandler : MonoBehaviour
 
             isHoldingInteract = false;
             OnHoldProgressChanged?.Invoke(0f);
+
+            GameEvents.OnInteractPressed?.Invoke(false);
         }
     }
     
@@ -91,6 +110,8 @@ public class PlayerInputHandler : MonoBehaviour
             holdTriggered = true;
             OnHoldProgressChanged?.Invoke(0f);
             OnHoldInteractInput?.Invoke();
+
+            GameEvents.OnInteractPressed?.Invoke(false);
         }
     }
 

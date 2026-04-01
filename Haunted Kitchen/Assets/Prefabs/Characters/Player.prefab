@@ -286,7 +286,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -309,7 +309,7 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -411,6 +411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractableDetector
   currentInteractableMB: {fileID: 0}
   playerPossess: {fileID: 0}
+  isLightOut: 0
 --- !u!114 &8012671659196626522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -715,6 +716,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3653af30-f59a-4d63-9503-90dce89dad0c
     m_ActionName: 'Player/HoldCross[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3327df59-ebbd-49d0-b87f-962962f0f3e6
+    m_ActionName: 'Player/Click[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 009376a9-90b8-4933-9ebe-511974e8b360
+    m_ActionName: 'Player/Point[/Mouse/position]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

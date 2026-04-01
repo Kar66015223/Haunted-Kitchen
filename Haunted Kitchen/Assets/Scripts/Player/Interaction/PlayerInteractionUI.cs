@@ -45,7 +45,8 @@ public class PlayerInteractionUI : MonoBehaviour
     {
         if (detector.GetCurrentInteractable() != null)
         {
-            bool canInteract = handler.CanInteractWithCurrent();
+            bool canInteract = handler.CanInteractWithCurrent() ||
+                            handler.CanHoldInteractWithCurrent();
 
             if (canInteract && !interactPrompt.enabled)
             {
@@ -61,7 +62,7 @@ public class PlayerInteractionUI : MonoBehaviour
 
     private void OnInteractableDetected(Iinteractable interactable)
     {
-        if (handler.CanInteractWithCurrent())
+        if (handler.CanInteractWithCurrent() || handler.CanHoldInteractWithCurrent())
         {
             ShowPrompt();
         }
@@ -80,6 +81,10 @@ public class PlayerInteractionUI : MonoBehaviour
         }
 
         var mb = detector.GetCurrentInteractableMB();
+
+        if (detector.GetCurrentInteractable() is IinteractableVisual visual)
+        mb = visual.GetVisualTarget();
+
         if (mb != null)
         {
             SetOutline(mb);
@@ -100,7 +105,9 @@ public class PlayerInteractionUI : MonoBehaviour
     {
         if (interactableMB == null) return;
 
-        var outline = interactableMB.GetComponentInChildren<Outline>();
+        var outline = interactableMB.GetComponentInChildren<Outline>()
+                    ?? interactableMB.GetComponentInParent<Outline>();
+                    
         if (outline == null)
         {
             Debug.LogWarning($"No outline found on {interactableMB.gameObject.name}");
