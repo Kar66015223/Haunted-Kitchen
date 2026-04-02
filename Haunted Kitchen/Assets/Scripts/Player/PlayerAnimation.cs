@@ -9,26 +9,6 @@ public class PlayerAnimation : MonoBehaviour
     void Awake()
     {
         anim = GetComponentInChildren<Animator>();
-        detector = GetComponent<PlayerInteractableDetector>();
-        inputHandler = GetComponent<PlayerInputHandler>();
-    }
-
-    void OnEnable()
-    {
-        inputHandler.OnHoldProgressChanged += OnHoldProgressChanged;
-    }
-
-    void OnDisable()
-    {
-        inputHandler.OnHoldProgressChanged -= OnHoldProgressChanged;
-    }
-
-    private void OnHoldProgressChanged(float progress)
-    {
-        bool isCleaning = progress > 0f
-                        && detector.GetCurrentInteractable() is ICleanable;
-
-        SetClean(isCleaning);
     }
 
     public void SetState(int value)

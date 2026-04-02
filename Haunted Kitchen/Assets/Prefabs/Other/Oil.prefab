@@ -181,7 +181,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5428416242726341844
 MonoBehaviour:
@@ -196,7 +196,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Oil
   slipDuration: 2
-  visual: {fileID: 7174846754551620610}
 --- !u!1001 &5331320236497240542
 PrefabInstance:
   m_ObjectHideFlags: 0
