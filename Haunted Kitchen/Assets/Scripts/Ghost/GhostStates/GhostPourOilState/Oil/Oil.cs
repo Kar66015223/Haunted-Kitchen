@@ -5,6 +5,11 @@ public class Oil : MonoBehaviour, Iinteractable
 {
     public float slipDuration = 1f;
 
+    void Start()
+    {
+        GameEvents.OnOilSpawned?.Invoke(gameObject);
+    }
+
     public bool CanInteract(Interactor interactor)
     {
         if (interactor == null)
