@@ -8,5 +8,4 @@ public static class GameEvents
     public static Action<bool> OnLightOut;
     public static Action<bool> OnUIShow;
     public static Action<bool> OnInteractPressed;
-    public static Action<GameObject> OnOilSpawned;
 }

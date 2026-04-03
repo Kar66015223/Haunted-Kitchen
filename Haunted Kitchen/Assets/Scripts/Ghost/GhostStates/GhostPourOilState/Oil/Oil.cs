@@ -1,13 +1,16 @@
 using System;
 using UnityEngine;
 
-public class Oil : MonoBehaviour, Iinteractable
+public class Oil : MonoBehaviour, Iinteractable, IWorkerInteractable
 {
     public float slipDuration = 1f;
 
+    [SerializeField] private bool _isTarget = false;
+    public bool IsTargeted { get => _isTarget; set => _isTarget = value; }
+
     void Start()
     {
-        GameEvents.OnOilSpawned?.Invoke(gameObject);
+        WorkerEvents.NotifyTaskDiscovered(this);
     }
 
     public bool CanInteract(Interactor interactor)
@@ -50,7 +53,16 @@ public class Oil : MonoBehaviour, Iinteractable
             }
 
             Debug.Log($"{other.gameObject.name} stepped on an oil");
-            Destroy(gameObject);
+            Clean();
         }
     }
+
+    public void Clean()
+    {
+        Destroy(gameObject);
+    }
+
+    public void OnDiscovered() { }
+
+    public Transform GetPosition() => transform;
 }

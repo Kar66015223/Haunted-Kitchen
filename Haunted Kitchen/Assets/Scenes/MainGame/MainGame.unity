@@ -1036,7 +1036,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &131972692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9877,7 +9877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1025473543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11002,7 +11002,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1087769916
 Transform:
   m_ObjectHideFlags: 0
@@ -17557,7 +17557,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1722607903}
   initialState: 0
   spawnOnStart: 1
-  spawnCooldown: 3
+  spawnCooldown: 1
   canSpawn: 1
 --- !u!1 &1727216898 stripped
 GameObject:
@@ -22275,7 +22275,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5420300042679356639, guid: c4d670da587c0b7468e658b097b5e039, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.47085
+      value: 7.89
       objectReference: {fileID: 0}
     - target: {fileID: 5420300042679356639, guid: c4d670da587c0b7468e658b097b5e039, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22283,7 +22283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5420300042679356639, guid: c4d670da587c0b7468e658b097b5e039, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -20.15559
+      value: -2.52
       objectReference: {fileID: 0}
     - target: {fileID: 5420300042679356639, guid: c4d670da587c0b7468e658b097b5e039, type: 3}
       propertyPath: m_LocalRotation.w

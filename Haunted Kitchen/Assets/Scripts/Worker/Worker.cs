@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,7 +9,7 @@ public class Worker : MonoBehaviour
     private WorkerContext context;
     private List<IWorkerTask> availableTask = new();
     private IWorkerTask currentTask;
-    private WorkerState currentState = WorkerState.Idle;
+    [SerializeField] private WorkerState currentState = WorkerState.Idle;
 
     void Awake()
     {
@@ -20,9 +19,27 @@ public class Worker : MonoBehaviour
         RegisterTask();
     }
 
+    void OnDestroy()
+    {
+        WorkerEvents.OnTaskDiscovered -= OnTaskDiscovered;
+    }
+
     void RegisterTask()
     {
-        // availableTask.Add(new CleanOilTask());
+        availableTask.Add(new CleanOilTask());
+
+        WorkerEvents.OnTaskDiscovered += OnTaskDiscovered;
+    }
+
+    private void OnTaskDiscovered(IWorkerInteractable target)
+    {
+        foreach (var task in availableTask)
+        {
+            if(task is ITaskReceiver receiver)
+            {
+                receiver.OnTargetDiscovered(target);
+            }
+        }
     }
 
     void Update()
@@ -56,8 +73,6 @@ public class Worker : MonoBehaviour
 
     void UpdateMoving()
     {
-        currentTask?.Update(context);
-
         if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             currentState = WorkerState.Executing;
