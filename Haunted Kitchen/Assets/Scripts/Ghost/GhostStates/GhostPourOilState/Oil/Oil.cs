@@ -5,12 +5,14 @@ public class Oil : MonoBehaviour, Iinteractable, IWorkerInteractable
 {
     public float slipDuration = 1f;
 
-    [SerializeField] private bool _isTarget = false;
-    public bool IsTargeted { get => _isTarget; set => _isTarget = value; }
+    [SerializeField] private bool _isTargeted = false;
+    public bool IsTargeted { get => _isTargeted; set => _isTargeted = value; }
+
+    public event Action<IWorkerInteractable> OnFinished;
 
     void Start()
     {
-        WorkerEvents.NotifyTaskDiscovered(this);
+        OnDiscovered();
     }
 
     public bool CanInteract(Interactor interactor)
@@ -51,18 +53,18 @@ public class Oil : MonoBehaviour, Iinteractable, IWorkerInteractable
             {
                 controller.Slip(slipDuration);
             }
-
-            Debug.Log($"{other.gameObject.name} stepped on an oil");
+            
             Clean();
         }
     }
 
     public void Clean()
     {
+        OnFinished?.Invoke(this);
         Destroy(gameObject);
     }
 
-    public void OnDiscovered() { }
+    public void OnDiscovered() => WorkerEvents.NotifyTaskDiscovered(this);
 
     public Transform GetPosition() => transform;
 }

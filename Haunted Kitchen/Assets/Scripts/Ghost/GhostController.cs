@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
-using Unity.VisualScripting;
 
 public class GhostController : MonoBehaviour
 {
@@ -36,15 +35,15 @@ public class GhostController : MonoBehaviour
         var movementComponent = GetComponent<GhostMovement>();
         var animationComponent = GetComponent<GhostAnimation>();
 
-        movement = movementComponent ?? throw new System.NullReferenceException("GhostMovementController required");
-        anim = animationComponent ?? throw new System.NullReferenceException("GhostAnimationController required");
+        movement = movementComponent ?? throw new NullReferenceException("GhostMovementController required");
+        anim = animationComponent ?? throw new NullReferenceException("GhostAnimationController required");
         agent = movementComponent?.GetAgent();
 
-        var playerGO = GameObject.FindGameObjectWithTag(GhostConstants.PLAYER_TAG);
+        var playerGO = GameObject.FindGameObjectWithTag(PlayerConstants.PLAYER_TAG);
         player = playerGO?.transform;
 
         if (player == null)
-            Debug.LogWarning($"Player with tag '{GhostConstants.PLAYER_TAG}' not found");
+            Debug.LogWarning($"Player with tag '{PlayerConstants.PLAYER_TAG}' not found");
 
         FindDependencies();
     }
@@ -80,7 +79,7 @@ public class GhostController : MonoBehaviour
         //Prevent ghost from entering Idle again
         do
         {
-            int count = System.Enum.GetValues(typeof(GhostStartBehavior)).Length;
+            int count = Enum.GetValues(typeof(GhostStartBehavior)).Length;
             randomBehavior = (GhostStartBehavior)UnityEngine.Random.Range(0, count);
         }
         while (randomBehavior == GhostStartBehavior.Idle);

@@ -1,7 +1,8 @@
 using UnityEngine;
 using System;
+using System.Collections.Concurrent;
 
-public class Customer_New : MonoBehaviour, Iinteractable
+public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
 {
     public CustomerMovement movement;
     public CustomerPatience patience;
@@ -12,7 +13,11 @@ public class Customer_New : MonoBehaviour, Iinteractable
     public GameObject customerGraphic;
     [SerializeField] private CustomerState state = CustomerState.Idle;
 
+    [SerializeField] private bool _isTargeted = false;
+    public bool IsTargeted { get => _isTargeted; set => _isTargeted = value; }
+
     public event Action<CustomerState> OnStateChanged;
+    public event Action<IWorkerInteractable> OnFinished;
 
     private void OnEnable()
     {
@@ -90,10 +95,7 @@ public class Customer_New : MonoBehaviour, Iinteractable
         switch (state)
         {
             case CustomerState.Idle:
-                orderSystem.GenerateOrder();
-                state = CustomerState.Ordered;
-                OnStateChanged?.Invoke(state);
-
+                Order();
                 HandleArrival();
                 break;
 
@@ -106,6 +108,7 @@ public class Customer_New : MonoBehaviour, Iinteractable
     void HandleArrival()
     {
         patience.StartPatienceTimer();
+        OnDiscovered();
     }
         
     void HandlePatienceExpired()
@@ -137,4 +140,19 @@ public class Customer_New : MonoBehaviour, Iinteractable
             Debug.Log("Served at least one order wrong");
         }
     }
+
+    public void Order()
+    {
+        orderSystem.GenerateOrder();
+        state = CustomerState.Ordered;
+        OnStateChanged?.Invoke(state);
+
+        OnFinished?.Invoke(this);
+    }
+
+    public void OnDiscovered() => WorkerEvents.NotifyTaskDiscovered(this);
+
+    public Transform GetPosition() => transform;
+
+    public CustomerState GetCurrentState() => state;
 }

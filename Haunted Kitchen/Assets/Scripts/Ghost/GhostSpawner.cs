@@ -11,6 +11,7 @@ public class GhostSpawner : MonoBehaviour
 
     [Header("Rules")]
     [SerializeField] private bool spawnOnStart = true;
+    public bool allowSpawn = true;
     [SerializeField] private float spawnCooldown = 0f;
 
     [SerializeField] private bool canSpawn = true;
@@ -24,8 +25,26 @@ public class GhostSpawner : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if(allowSpawn && canSpawn)
+        {
+            TrySpawn();
+        }
+    }
+
+    void OnDisable()
+    {
+        if (currentGhost != null)
+        {
+            currentGhost.OnGhostDestroyed -= HandleGhostDestroyed;
+        }
+    }
+
     public void TrySpawn()
     {
+        if (!allowSpawn) return;
+
         if (!canSpawn || ghostPrefab == null || currentGhost != null)
             return;
 
@@ -45,6 +64,8 @@ public class GhostSpawner : MonoBehaviour
 
     private void HandleGhostDestroyed()
     {
+        if (!allowSpawn) return;
+
         currentGhost = null;
 
         if (spawnCooldown > 0f)
@@ -57,7 +78,6 @@ public class GhostSpawner : MonoBehaviour
             TrySpawn();
         }
     }
-    
     
     private void ResetSpawn()
     {

@@ -11,6 +11,8 @@ public class Worker : MonoBehaviour
     private IWorkerTask currentTask;
     [SerializeField] private WorkerState currentState = WorkerState.Idle;
 
+    [SerializeField] private Transform idleStandPoint;
+
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -27,6 +29,7 @@ public class Worker : MonoBehaviour
     void RegisterTask()
     {
         availableTask.Add(new CleanOilTask());
+        availableTask.Add(new GetCustomerOrderTask());
 
         WorkerEvents.OnTaskDiscovered += OnTaskDiscovered;
     }
@@ -60,6 +63,16 @@ public class Worker : MonoBehaviour
 
     void UpdateIdle()
     {
+        if (idleStandPoint != null)
+        {
+            agent.SetDestination(idleStandPoint.position);
+
+            if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+            {
+                transform.SetPositionAndRotation(idleStandPoint.position, idleStandPoint.rotation);
+            }
+        }
+
         var nextTask = availableTask
             .Where(t => t.CanExecute(context))
             .OrderByDescending(t => t.Priority)
@@ -73,6 +86,17 @@ public class Worker : MonoBehaviour
 
     void UpdateMoving()
     {
+        // If can't execute current task, go back to Idle
+        if(!currentTask.CanExecute(context))
+        {
+            Debug.Log($"Target became invalid, aborting task: {currentTask.TaskName}");
+            currentTask.End(context);
+            currentTask = null;
+            currentState = WorkerState.Idle;
+
+            return;
+        }
+
         if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             currentState = WorkerState.Executing;
