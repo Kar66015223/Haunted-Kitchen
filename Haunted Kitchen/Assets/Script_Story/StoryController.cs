@@ -1,21 +1,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class StoryController : MonoBehaviour
 {
     public List<GameObject> storyPages;
     private int currentIndex = 0;
 
+    public Button mainMenuButton;
+
     void Start()
     {
         ShowPage(0);
+
+        if (mainMenuButton != null)
+            mainMenuButton.onClick.AddListener(ReturnToMenu);
     }
 
-    // ÊèÇ¹·Õèà¾ÔèÁà¢éÒÁÒ: àªç¤¡ÒÃ¡´»ØèÁ·Ø¡æ Frame
+    void OnDestroy()
+    {
+        if (mainMenuButton != null)
+            mainMenuButton.onClick.RemoveAllListeners();
+    }
+
+    // ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: ï¿½ç¤¡ï¿½Ã¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¡ï¿½ Frame
     void Update()
     {
-        // ãªé¤ÓÊÑè§¢Í§ÃÐººãËÁè
+        // ï¿½ï¿½ï¿½ï¿½ï¿½è§¢Í§ï¿½Ðºï¿½ï¿½ï¿½ï¿½ï¿½
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             NextPage();
@@ -31,7 +43,7 @@ public class StoryController : MonoBehaviour
         }
         else
         {
-            Debug.Log("¨ºà¹×éÍàÃ×èÍ§áÅéÇ!");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í§ï¿½ï¿½ï¿½ï¿½!");
         }
     }
 
@@ -41,5 +53,10 @@ public class StoryController : MonoBehaviour
         {
             storyPages[i].SetActive(i == index);
         }
+    }
+
+    void ReturnToMenu()
+    {
+        SceneLoader.ChangeScene(SceneConstants.STARTSCENE_NAME);
     }
 }

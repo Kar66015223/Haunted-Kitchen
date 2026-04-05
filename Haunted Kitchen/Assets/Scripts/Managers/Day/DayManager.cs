@@ -62,7 +62,7 @@ public class DayManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name != "MainGame")
+        if (scene.name != "MainGame")
         {
             Destroy(gameObject);
             return;
@@ -76,21 +76,28 @@ public class DayManager : MonoBehaviour
             timer.OnTimerRunOut -= EndDay;
             timer.OnTimerRunOut += EndDay;
         }
-        
+
         OnDayStarted?.Invoke(CurrentDay);
     }
 
     private void EndDay()
     {
+        if(CurrentDay == maxDays)
+        {
+            int currentQuota = QuotaManager.Instance.CurrentQuota;
+            bool gotGoodEnd = MoneyManager.Instance.CurrentMoney >= currentQuota
+                ? true : false;
+
+            EnterEndingScene(gotGoodEnd ?
+                SceneConstants.ENDINE_GOODEND_NAME : SceneConstants.ENDING_BADEND_NAME);
+        }
+
         Time.timeScale = 0f;
         timer.ResetTime();
 
         OnDayEnded?.Invoke(CurrentDay);
 
         GameEvents.OnUIShow?.Invoke(true);
-
-        // if (playerInput != null)
-        //     playerInput.SwitchCurrentActionMap(PlayerConstants.INPUTACTION_UI);
     }
 
     public void NextDay()
@@ -118,6 +125,12 @@ public class DayManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneLoader.ChangeScene("StartScene");
+    }
+
+    public void EnterEndingScene(string sceneName)
+    {
+        Time.timeScale = 1f;
+        SceneLoader.ChangeScene(sceneName);
     }
     
     private void AddMoney(int amount)

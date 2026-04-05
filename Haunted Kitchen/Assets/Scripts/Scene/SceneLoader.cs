@@ -5,6 +5,7 @@ public static class SceneLoader
 {
     public static void ChangeScene(string _sceneName)
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene($"{_sceneName}");
     }
 

@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainGame/MainGame.unity
     guid: d46222d2169710d42aee4d1537103c79
+  - enabled: 1
+    path: Assets/Scenes/MainGame/Endings/GoodEnd.unity
+    guid: e3908e2a4834f99449313aaacea42c93
+  - enabled: 1
+    path: Assets/Scenes/MainGame/Endings/BadEnd.unity
+    guid: e4ac8e84495a4714d9e1d2afdc0803bf
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

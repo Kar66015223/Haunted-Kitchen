@@ -1,12 +1,15 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private float remainingTime = 0;
     [SerializeField] private float maxTime = 181;
+
+    [SerializeField] private Button endDayButton;
 
     private bool hasRunOut = false;
 
@@ -15,6 +18,15 @@ public class Timer : MonoBehaviour
     void Start()
     {
         ResetTime();
+
+        if (endDayButton != null)
+            endDayButton.onClick.AddListener(SetRunOut);
+    }
+
+    void OnDestroy()
+    {
+        if (endDayButton != null)
+            endDayButton.onClick.RemoveAllListeners();
     }
 
     private void Update()
@@ -41,5 +53,10 @@ public class Timer : MonoBehaviour
     {
         remainingTime = maxTime;
         hasRunOut = false;
+    }
+
+    public void SetRunOut()
+    {
+        remainingTime = 0;
     }
 }

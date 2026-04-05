@@ -82,7 +82,7 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
         }
 
         changeTarget = false;
-        discoveredOils.RemoveAll(oil => !IsTargetValid(oil));
+        discoveredOils.RemoveAll(oil => !IsTargetValid(oil) || oil.IsTargeted);
 
         elapsedTime += Time.deltaTime;
 
