@@ -31,7 +31,7 @@ public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
                 target.IsTargeted = true;
             }
 
-            Debug.Log($"Found {target}. Discovered Customers: {discoveredCustomers.Count}");
+            // Debug.Log($"Found {target}. Discovered Customers: {discoveredCustomers.Count}");
         }
     }
     
@@ -59,7 +59,7 @@ public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
         context.CurrentTarget = targetCustomer.GetPosition();
         context.Agent.SetDestination(context.CurrentTarget.position);
 
-        Debug.Log($"Walking to {context.CurrentTarget.gameObject.name}");
+        // Debug.Log($"Walking to {context.CurrentTarget.gameObject.name}");
     }
 
     public void Update(WorkerContext context)
@@ -73,7 +73,7 @@ public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
                 context.CurrentTarget = null;
             }
 
-            Debug.Log("Current target is not valid");
+            // Debug.Log("Current target is not valid");
             changeTarget = true;
 
             return;
@@ -107,7 +107,7 @@ public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
         if (targetCustomer != null)
             targetCustomer.IsTargeted = true;
 
-        Debug.Log($"Task ended, Next target customer: {targetCustomer}");
+        // Debug.Log($"Task ended, Next target customer: {targetCustomer}");
     }
 
     public bool IsComplete(WorkerContext context) =>

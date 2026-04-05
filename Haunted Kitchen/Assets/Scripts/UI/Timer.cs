@@ -9,7 +9,10 @@ public class Timer : MonoBehaviour
     [SerializeField] private float remainingTime = 0;
     [SerializeField] private float maxTime = 181;
 
+    [SerializeField] private float ghostPhaseStartTime = 150; //2:30 Min
+
     [SerializeField] private Button endDayButton;
+    [SerializeField] private Button startGhostPhaseButton;
 
     private bool hasRunOut = false;
 
@@ -21,12 +24,18 @@ public class Timer : MonoBehaviour
 
         if (endDayButton != null)
             endDayButton.onClick.AddListener(SetRunOut);
+
+        if (startGhostPhaseButton != null)
+            startGhostPhaseButton.onClick.AddListener(SetSpawnGhost);
     }
 
     void OnDestroy()
     {
         if (endDayButton != null)
             endDayButton.onClick.RemoveAllListeners();
+
+        if (startGhostPhaseButton != null)
+            startGhostPhaseButton.onClick.RemoveAllListeners();
     }
 
     private void Update()
@@ -35,12 +44,23 @@ public class Timer : MonoBehaviour
         {
             remainingTime -= Time.deltaTime;
         }
-
-        else if(!hasRunOut)
+        else if (!hasRunOut)
         {
             remainingTime = 0;
             hasRunOut = true;
             OnTimerRunOut?.Invoke();
+        }
+
+        float ghostPhaseEndTime = ghostPhaseStartTime - 30;
+
+        if (remainingTime <= ghostPhaseStartTime &&
+            remainingTime > ghostPhaseEndTime)
+        {
+            GameEvents.OnToggleGhostSpawning?.Invoke(true);
+        }
+        else
+        {
+            GameEvents.OnToggleGhostSpawning?.Invoke(false);
         }
 
         int minutes = Mathf.FloorToInt(remainingTime / 60);
@@ -58,5 +78,19 @@ public class Timer : MonoBehaviour
     public void SetRunOut()
     {
         remainingTime = 0;
+    }
+
+    public void SetSpawnGhost()
+    {
+        float ghostPhaseEndTime = ghostPhaseStartTime - 30;
+
+        if (remainingTime > ghostPhaseStartTime)
+        {
+            remainingTime = ghostPhaseStartTime;
+        }
+        else if(remainingTime <= ghostPhaseStartTime && remainingTime > ghostPhaseEndTime)
+        {
+            remainingTime = ghostPhaseEndTime;
+        }
     }
 }

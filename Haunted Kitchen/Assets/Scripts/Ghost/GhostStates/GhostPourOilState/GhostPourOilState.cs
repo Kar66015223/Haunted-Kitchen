@@ -55,7 +55,7 @@ public class GhostPourOilState : IGhostState
 
         controller.Anim.SetTrigger(GhostConstants.ANIM_POUROIL);
 
-        Debug.Log("Ghost enters PourOil state");
+        // Debug.Log("Ghost enters PourOil state");
     }
 
     public void Update()
@@ -85,7 +85,7 @@ public class GhostPourOilState : IGhostState
     {
         oilCup.SetActive(false);
         controller.Disappear();
-        Debug.Log("Ghost is exiting PourOil state");
+        // Debug.Log("Ghost is exiting PourOil state");
     }
 
     private void PourOil()

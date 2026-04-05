@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class GhostSpawner : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class GhostSpawner : MonoBehaviour
     [Header("Spawn")]
     [SerializeField] private Transform spawnPoint;
     public GhostStartBehavior initialState = GhostStartBehavior.Idle;
+    [SerializeField] private UniversalRendererData fullScreenFX;
 
     [Header("Rules")]
     [SerializeField] private bool spawnOnStart = true;
@@ -16,6 +18,21 @@ public class GhostSpawner : MonoBehaviour
 
     [SerializeField] private bool canSpawn = true;
     private GhostController currentGhost;
+
+    void OnEnable()
+    {
+        GameEvents.OnToggleGhostSpawning += SetAllowSpawn;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnToggleGhostSpawning -= SetAllowSpawn;
+
+        if (currentGhost != null)
+        {
+            currentGhost.OnGhostDestroyed -= HandleGhostDestroyed;
+        }
+    }
 
     private void Start()
     {
@@ -30,14 +47,6 @@ public class GhostSpawner : MonoBehaviour
         if(allowSpawn && canSpawn)
         {
             TrySpawn();
-        }
-    }
-
-    void OnDisable()
-    {
-        if (currentGhost != null)
-        {
-            currentGhost.OnGhostDestroyed -= HandleGhostDestroyed;
         }
     }
 
@@ -78,10 +87,26 @@ public class GhostSpawner : MonoBehaviour
             TrySpawn();
         }
     }
-    
+
     private void ResetSpawn()
     {
         canSpawn = true;
         TrySpawn();
+    }
+
+    private void SetAllowSpawn(bool value)
+    {
+        allowSpawn = value;
+
+        if(fullScreenFX != null)
+        {
+            foreach(var feature in fullScreenFX.rendererFeatures)
+            {
+                if (feature.name == "Rush Hour")
+                {
+                    feature.SetActive(allowSpawn);
+                }
+            }
+        }
     }
 }

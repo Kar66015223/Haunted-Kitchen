@@ -31,7 +31,7 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
                 target.IsTargeted = true;
             }
 
-            Debug.Log($"Found {target}, Discovered Oil: {discoveredOils.Count}");
+            // Debug.Log($"Found {target}, Discovered Oil: {discoveredOils.Count}");
         }
     }
     
@@ -61,7 +61,7 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
         context.Agent.SetDestination(context.CurrentTarget.position);
         elapsedTime = 0f;
 
-        Debug.Log($"Walking to {context.CurrentTarget.gameObject.name}");
+        // Debug.Log($"Walking to {context.CurrentTarget.gameObject.name}");
     }
 
     public void Update(WorkerContext context)
@@ -75,7 +75,7 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
                 context.CurrentTarget = null;
             }
 
-            Debug.Log("Current target is not valid");
+            // Debug.Log("Current target is not valid");
             changeTarget = true;
 
             return;
@@ -113,7 +113,7 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
         if (targetOil != null)
             targetOil.IsTargeted = true;
 
-        Debug.Log($"Task ended, next target oil: {targetOil}");
+        // Debug.Log($"Task ended, next target oil: {targetOil}");
     }
 
     public bool IsComplete(WorkerContext context) => elapsedTime >= cleanTime || changeTarget;
