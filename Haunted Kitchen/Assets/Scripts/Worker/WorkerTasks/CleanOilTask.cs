@@ -6,10 +6,10 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
 {
     private List<IWorkerInteractable> discoveredOils = new();
     private IWorkerInteractable targetOil;
+    private bool changeTarget = false;
+
     private float cleanTime = WorkerConstants.TASK_CLEANOIL_CLEANTIME;
     private float elapsedTime;
-
-    private bool changeTarget = false;
 
     public string TaskName => WorkerConstants.TASK_CLEANOIL_NAME;
     public int Priority => WorkerConstants.TASK_CLEANOIL_PRIORITY;
@@ -77,7 +77,6 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
 
             // Debug.Log("Current target is not valid");
             changeTarget = true;
-
             return;
         }
 

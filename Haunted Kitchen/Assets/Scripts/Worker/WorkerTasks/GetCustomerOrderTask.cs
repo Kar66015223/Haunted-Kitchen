@@ -6,7 +6,6 @@ public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
 {
     private List<IWorkerInteractable> discoveredCustomers = new();
     private IWorkerInteractable targetCustomer;
-
     private bool changeTarget = false;
 
     public string TaskName => WorkerConstants.TASK_GETCUSTOMERORDER_NAME;
@@ -75,7 +74,6 @@ public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
 
             // Debug.Log("Current target is not valid");
             changeTarget = true;
-
             return;
         }
 

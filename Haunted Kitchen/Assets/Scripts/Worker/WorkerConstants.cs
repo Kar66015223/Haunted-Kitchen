@@ -7,4 +7,7 @@ public static class WorkerConstants
 
     public const string TASK_GETCUSTOMERORDER_NAME = "Get Customer Order";
     public const int TASK_GETCUSTOMERORDER_PRIORITY = 50;
+
+    public const string TASK_SERVEFOOD_NAME = "Serve Food";
+    public const int TASK_SERVEFOOD_PRIORITY = 70;
 }

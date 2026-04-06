@@ -1,19 +1,21 @@
+using System;
 using UnityEngine;
 
-public class Item : MonoBehaviour, Iinteractable
+public class Item : MonoBehaviour, Iinteractable, IWorkerInteractable
 {
     public ItemData itemData;
     public ItemState itemState;
 
-    void Start()
+    public event Action<IWorkerInteractable> OnFinished;
+
+    public bool IsTargeted { get; set; }
+
+    void Update()
     {
-        // if(!itemData.canDrop && itemState == ItemState.Held)
-        // {
-        //     if(TryGetComponent(out Collider collider))
-        //     {
-        //         collider.isTrigger = true;
-        //     }
-        // }
+        if (itemData is FoodData && itemState == ItemState.NotHeld)
+        {
+            OnDiscovered();
+        }
     }
 
     public virtual bool CanInteract(Interactor interactor)
@@ -59,4 +61,8 @@ public class Item : MonoBehaviour, Iinteractable
 
         Debug.Log($"Interacted with item {itemData.itemName} by {interactor.source.name}");
     }
+
+    public void OnDiscovered() => WorkerEvents.NotifyTaskDiscovered(this);
+
+    public Transform GetPosition() => transform;
 }

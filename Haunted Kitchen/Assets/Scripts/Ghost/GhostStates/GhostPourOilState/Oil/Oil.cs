@@ -4,9 +4,7 @@ using UnityEngine;
 public class Oil : MonoBehaviour, Iinteractable, IWorkerInteractable
 {
     public float slipDuration = 1f;
-
-    [SerializeField] private bool _isTargeted = false;
-    public bool IsTargeted { get => _isTargeted; set => _isTargeted = value; }
+    public bool IsTargeted { get; set; }
 
     public event Action<IWorkerInteractable> OnFinished;
 

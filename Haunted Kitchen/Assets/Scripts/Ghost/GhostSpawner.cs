@@ -29,9 +29,10 @@ public class GhostSpawner : MonoBehaviour
         GameEvents.OnToggleGhostSpawning -= SetAllowSpawn;
 
         if (currentGhost != null)
-        {
             currentGhost.OnGhostDestroyed -= HandleGhostDestroyed;
-        }
+
+        if (fullScreenFX != null)
+            SetScreenFX(false);
     }
 
     private void Start()
@@ -40,6 +41,9 @@ public class GhostSpawner : MonoBehaviour
         {
             TrySpawn();
         }
+
+        if (fullScreenFX != null)
+            SetScreenFX(false);
     }
 
     void Update()
@@ -97,15 +101,16 @@ public class GhostSpawner : MonoBehaviour
     private void SetAllowSpawn(bool value)
     {
         allowSpawn = value;
-
-        if(fullScreenFX != null)
+        SetScreenFX(allowSpawn);
+    }
+    
+    private void SetScreenFX(bool value)
+    {
+        foreach (var feature in fullScreenFX.rendererFeatures)
         {
-            foreach(var feature in fullScreenFX.rendererFeatures)
+            if (feature.name == "Rush Hour")
             {
-                if (feature.name == "Rush Hour")
-                {
-                    feature.SetActive(allowSpawn);
-                }
+                feature.SetActive(value);
             }
         }
     }
