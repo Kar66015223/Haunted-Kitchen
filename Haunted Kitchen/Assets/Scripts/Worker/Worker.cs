@@ -30,7 +30,7 @@ public class Worker : MonoBehaviour
     {
         availableTask.Add(new CleanOilTask());
         availableTask.Add(new GetCustomerOrderTask());
-        availableTask.Add(new ServeFoodTask());
+        // availableTask.Add(new ServeFoodTask());
 
         WorkerEvents.OnTaskDiscovered += OnTaskDiscovered;
     }

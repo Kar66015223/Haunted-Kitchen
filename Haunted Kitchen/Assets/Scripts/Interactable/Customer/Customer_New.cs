@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
-using System.Collections.Concurrent;
+using System.Linq;
+using System.Collections.Generic;
 
 public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
 {
@@ -58,7 +59,7 @@ public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
 
     public bool CanInteract(Interactor interactor)
     {
-        if(interactor == null) 
+        if (interactor == null)
             return false;
 
         if (interactor.interactionType == InteractionType.Hold)
@@ -146,6 +147,27 @@ public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
         orderSystem.GenerateOrder();
         state = CustomerState.Ordered;
         OnStateChanged?.Invoke(state);
+
+        OnFinished?.Invoke(this);
+    }
+
+    public void WorkerOrderServe(List<ItemData> items)
+    {
+        bool isCorrect = orderSystem.ValidateWorkerOrder(items);
+
+        state = CustomerState.Leaving;
+        OnStateChanged?.Invoke(state);
+
+        if (isCorrect)
+        {
+            behavior.OnCorrectServe(this, items.Sum(i => i.price));
+            Debug.Log("Worker served correct order");
+        }
+        else
+        {
+            behavior.OnWrongServe(this);
+            Debug.Log("Worker served wrong order");
+        }
 
         OnFinished?.Invoke(this);
     }

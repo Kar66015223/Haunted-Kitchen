@@ -11,6 +11,8 @@ public class CustomerOrder : MonoBehaviour
     [SerializeField] private List<ItemData> servedItems = new();
     public int servedPrice;
 
+    public List<ItemData> GetOrderedItems() => new List<ItemData>(orderedItems);
+
     public event Action<bool, int> OnOrderServed;
     public event Action<List<ItemData>> OnOrderGenerated;
     public event Action<ItemData> OnItemServed;
@@ -58,5 +60,10 @@ public class CustomerOrder : MonoBehaviour
     {
         bool correct = orderHabit.ValidateOrder(servedItems, orderedItems);
         OnOrderServed?.Invoke(correct, servedPrice);
+    }
+
+    public bool ValidateWorkerOrder(List<ItemData> servedItems)
+    {
+        return orderHabit.ValidateOrder(servedItems, orderedItems);
     }
 }

@@ -41,4 +41,9 @@ public class CustomerPatience : MonoBehaviour
             Debug.Log("Customer lost patience.");
         }
     }
+
+    public float GetRemainingPatience()
+    {
+        return isCountingPatience ? patienceTimer : 0f;
+    }
 }
