@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FoodData
   itemName: Soda
   price: 60
-  icon: {fileID: 21300000, guid: 4a2acb4681653da42ac3e0b1a75684ef, type: 3}
+  icon: {fileID: 21300000, guid: 2218df3001d49ee44ad5b12e03611899, type: 3}
   oneHand: 1
+  canDrop: 0

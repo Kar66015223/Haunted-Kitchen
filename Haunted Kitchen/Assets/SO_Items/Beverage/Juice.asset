@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FoodData
   itemName: Juice
   price: 90
-  icon: {fileID: 21300000, guid: 1ab8d68a258137b4b92622fc08ac5bb9, type: 3}
+  icon: {fileID: 21300000, guid: 3f3b99f8427967d439dac6d82d41f792, type: 3}
   oneHand: 1
+  canDrop: 0

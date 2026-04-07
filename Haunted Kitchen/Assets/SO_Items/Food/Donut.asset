@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FoodData
   itemName: Donut
   price: 60
-  icon: {fileID: 21300000, guid: 55fb1a6729676fd4f883d86bcb5e7dd6, type: 3}
+  icon: {fileID: 21300000, guid: b5f1e921141b93a4a9c353516d001e39, type: 3}
   oneHand: 0
+  canDrop: 0

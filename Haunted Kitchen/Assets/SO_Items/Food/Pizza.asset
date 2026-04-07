@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FoodData
   itemName: Pizza
   price: 600
-  icon: {fileID: 21300000, guid: cfed970d9856a2340ab25512f3361fdb, type: 3}
+  icon: {fileID: 21300000, guid: fdc7e3eac5332a4498aa9c40253a9338, type: 3}
   oneHand: 0
+  canDrop: 0

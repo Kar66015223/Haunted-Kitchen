@@ -8,11 +8,15 @@ public class StoryController : MonoBehaviour
     public List<GameObject> storyPages;
     private int currentIndex = 0;
 
+    public Button nextButton;
     public Button mainMenuButton;
 
     void Start()
     {
         ShowPage(0);
+
+        if (nextButton != null)
+            nextButton.onClick.AddListener(GoToMainGame);
 
         if (mainMenuButton != null)
             mainMenuButton.onClick.AddListener(ReturnToMenu);
@@ -22,6 +26,9 @@ public class StoryController : MonoBehaviour
     {
         if (mainMenuButton != null)
             mainMenuButton.onClick.RemoveAllListeners();
+
+        if (nextButton != null)
+            nextButton.onClick.RemoveAllListeners();
     }
 
     // ��ǹ������������: �礡�á������ء� Frame
@@ -53,6 +60,11 @@ public class StoryController : MonoBehaviour
         {
             storyPages[i].SetActive(i == index);
         }
+    }
+
+    void GoToMainGame()
+    {
+        SceneLoader.ChangeScene(SceneConstants.MAINGAME_NAME);
     }
 
     void ReturnToMenu()

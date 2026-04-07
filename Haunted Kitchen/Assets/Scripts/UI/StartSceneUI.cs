@@ -16,7 +16,7 @@ public class StartSceneUI : MonoBehaviour
 
     private void StartGame()
     {
-        SceneLoader.ChangeScene("MainGame");
+        SceneLoader.ChangeScene(SceneConstants.STORY_NAME);
     }
 
     private void QuitGame()

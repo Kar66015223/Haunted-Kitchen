@@ -9,4 +9,5 @@ public static class GameEvents
     public static Action<bool> OnUIShow;
     public static Action<bool> OnInteractPressed;
     public static Action<bool> OnToggleGhostSpawning;
+    public static Action OnAddMoneyButtonClicked;
 }

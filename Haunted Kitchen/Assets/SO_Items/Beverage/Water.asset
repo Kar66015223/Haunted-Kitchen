@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FoodData
   itemName: Water
   price: 30
-  icon: {fileID: 21300000, guid: 68578d83639990d4594776d25a4cdcbb, type: 3}
+  icon: {fileID: 21300000, guid: 059e6e6e9ce8a7b438f5107181051966, type: 3}
   oneHand: 1
+  canDrop: 0

@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DayManager : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class DayManager : MonoBehaviour
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        GameEvents.OnAddMoneyButtonClicked += OnAddMoneyClicked;
         
         if(timer != null)
             timer.OnTimerRunOut += EndDay;
@@ -47,6 +49,7 @@ public class DayManager : MonoBehaviour
     void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        GameEvents.OnAddMoneyButtonClicked -= OnAddMoneyClicked;
 
         if (timer != null)
             timer.OnTimerRunOut -= EndDay;
@@ -131,6 +134,11 @@ public class DayManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneLoader.ChangeScene(sceneName);
+    }
+
+    public void OnAddMoneyClicked()
+    {
+        AddMoney(firstDayMoney);
     }
     
     private void AddMoney(int amount)

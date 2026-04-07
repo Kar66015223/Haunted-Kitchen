@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Hotdog
   m_EditorClassIdentifier: Assembly-CSharp::FoodData
   itemName: Hotdog
-  icon: {fileID: 21300000, guid: 24a2403ce36469647a3a9ad5132ecc86, type: 3}
   price: 220
+  icon: {fileID: 21300000, guid: 11abd13c46902194fa63396e7401825a, type: 3}
+  oneHand: 0
+  canDrop: 0
