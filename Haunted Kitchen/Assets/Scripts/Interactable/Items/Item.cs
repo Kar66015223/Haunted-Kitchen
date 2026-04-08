@@ -7,14 +7,18 @@ public class Item : MonoBehaviour, Iinteractable, IWorkerInteractable
     public ItemState itemState;
 
     public event Action<IWorkerInteractable> OnFinished;
-
+    [SerializeField] private bool hasDiscovered = false;
+    
     public bool IsTargeted { get; set; }
 
     void Update()
     {
-        if (itemData is FoodData && itemState == ItemState.NotHeld)
+        if (itemData is FoodData &&
+            itemState == ItemState.NotHeld &&
+            !hasDiscovered)
         {
             OnDiscovered();
+            hasDiscovered = true;
         }
     }
 
@@ -65,4 +69,9 @@ public class Item : MonoBehaviour, Iinteractable, IWorkerInteractable
     public void OnDiscovered() => WorkerEvents.NotifyTaskDiscovered(this);
 
     public Transform GetPosition() => transform;
+
+    public void SetWorkerHeld()
+    {
+        OnFinished?.Invoke(this);
+    }
 }

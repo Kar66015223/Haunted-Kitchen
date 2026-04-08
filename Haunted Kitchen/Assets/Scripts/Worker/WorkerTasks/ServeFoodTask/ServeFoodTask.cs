@@ -5,16 +5,17 @@ using UnityEngine;
 public class ServeFoodTask : IWorkerTask, ITaskReceiver
 {
     private List<Customer_New> discoveredCustomers = new();
-    private List<Item> discoveredItems;
+    private List<Item> discoveredItems = new();
 
     private OrderDelivery currentOrder;
+    private Customer_New currentCustomerTarget;
     private Item currentItemTarget;
 
     private enum ServeState { Idle, PickingUp, Delivering, Complete }
     private ServeState serveState = ServeState.Idle;
-    
+
     // private bool changeTarget = false;
-    
+
     public string TaskName => WorkerConstants.TASK_SERVEFOOD_NAME;
     public int Priority => WorkerConstants.TASK_SERVEFOOD_PRIORITY;
 
@@ -22,7 +23,7 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
     {
         if (target == null)
             return;
-            
+
         // Customer discovery
         if (target is Customer_New customer)
         {
@@ -31,7 +32,7 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
                 discoveredCustomers.Add(customer);
                 customer.OnFinished += OnCustomerFinished;
 
-                Debug.Log($"Discovered customer: {customer.name}");
+                // Debug.Log($"Discovered customer: {customer.name}");
             }
         }
 
@@ -52,32 +53,22 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
                 discoveredItems.Add(item);
                 item.OnFinished += OnItemFinished;
 
-                Debug.Log($"Discovered food: {item.itemData.itemName}");
+                // Debug.Log($"Discovered food: {item.itemData.itemName} Discovered Items: {discoveredItems.Count}");
             }
         }
     }
 
-    private void OnCustomerFinished(IWorkerInteractable target)
-    {
-        if (target == null)
-            return;
-
-        discoveredCustomers.Remove((Customer_New)target);
-        target.OnFinished -= OnCustomerFinished;
-    }
-    
-    private void OnItemFinished(IWorkerInteractable target)
-    {
-        if (target == null)
-            return;
-
-        discoveredItems.Remove((Item)target);
-        target.OnFinished -= OnCustomerFinished;
-    }
-
     public bool CanExecute(WorkerContext context)
     {
+        if (currentItemTarget != null && !discoveredItems.Contains(currentItemTarget))
+        {
+            Debug.LogWarning("No currentItemTarget found");
+            return false;
+        }
+    
         var validOrders = FindValidDeliveryOrders();
+        Debug.Log($"Valid Orders: {validOrders.Count}");
+        
         return validOrders.Count > 0;
     }
 
@@ -86,7 +77,7 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
         var validOrders = FindValidDeliveryOrders();
         currentOrder = validOrders.FirstOrDefault();
 
-        if(currentOrder != null)
+        if (currentOrder != null)
         {
             currentItemTarget = currentOrder.availableItems.First();
             context.CurrentTarget = currentItemTarget.GetPosition();
@@ -102,7 +93,13 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
 
     public void Update(WorkerContext context)
     {
-        if (currentOrder == null || !currentOrder.IsValid)
+        if (currentOrder == null)
+        {
+            serveState = ServeState.Complete;
+            return;
+        }
+
+        if(serveState == ServeState.PickingUp && !currentOrder.IsValid)
         {
             serveState = ServeState.Complete;
             return;
@@ -144,7 +141,7 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
             }
         }
     }
-    
+
     private void UpdateDelivering(WorkerContext context)
     {
         if (!context.Agent.pathPending &&
@@ -163,7 +160,7 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
         {
             currentOrder.customer.IsTargeted = false;
         }
-        
+
         currentOrder = null;
         currentItemTarget = null;
         serveState = ServeState.Idle;
@@ -178,10 +175,28 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
 
         foreach (var customer in discoveredCustomers)
         {
+            if (customer == null)
+            {
+                Debug.LogWarning("Not a customer");
+                continue;
+            }
+
             if (customer.GetCurrentState() != CustomerState.Ordered)
                 continue;
 
-            var orderedItems = customer.GetComponent<CustomerOrder>().GetOrderedItems();
+            var orderSystem = customer.GetComponent<CustomerOrder>();
+            if (orderSystem == null)
+            {
+                Debug.LogWarning("No orderSystem found");
+                continue;
+            }
+
+            var orderedItems = orderSystem.GetOrderedItems();
+            if (orderedItems == null || orderedItems.Count == 0)
+            {
+                Debug.LogWarning("No items ordered found");
+                continue;
+            }
 
             var matchingItems = FindMatchingItems(orderedItems);
 
@@ -209,12 +224,16 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
         {
             foreach (var item in discoveredItems)
             {
-                if (item.IsTargeted || !(item.itemData is FoodData))
+                if (!(item.itemData is FoodData))
                     continue;
-    
+
+                if (item.IsTargeted && item != currentItemTarget)
+                    continue;
+
                 if (orderedItems.Any(ordered => ordered.itemName == item.itemData.itemName))
                 {
                     matches.Add(item);
+                    // Debug.Log($"Matching item: {matches}");
                 }
             }
         }
@@ -224,17 +243,36 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
 
     private void PickupItem(Item item)
     {
+        Debug.Log($"Picking up: {item.itemData.itemName}");
+
         discoveredItems.Remove(item);
         currentOrder.availableItems.Remove(item);
+        // currentItemTarget.IsTargeted = false;
 
-        Object.Destroy(item.gameObject);
-
-        Debug.Log($"Picking up: {item.itemData.itemName}");
+        item.SetWorkerHeld();
     }
-    
+
     private void ServeCustomer(OrderDelivery order)
     {
         var itemsServed = order.orderedItems; // Items we were supposed to deliver
         order.customer.WorkerOrderServe(itemsServed);
+    }
+
+    private void OnCustomerFinished(IWorkerInteractable target)
+    {
+        if (target == null)
+            return;
+
+        discoveredCustomers.Remove((Customer_New)target);
+        target.OnFinished -= OnCustomerFinished;
+    }
+
+    private void OnItemFinished(IWorkerInteractable target)
+    {
+        if (target == null)
+            return;
+
+        discoveredItems.Remove((Item)target);
+        target.OnFinished -= OnItemFinished;
     }
 }

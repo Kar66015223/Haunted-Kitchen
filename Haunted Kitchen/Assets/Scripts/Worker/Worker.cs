@@ -29,8 +29,8 @@ public class Worker : MonoBehaviour
     void RegisterTask()
     {
         availableTask.Add(new CleanOilTask());
-        availableTask.Add(new GetCustomerOrderTask());
-        // availableTask.Add(new ServeFoodTask());
+        // availableTask.Add(new GetCustomerOrderTask());
+        availableTask.Add(new ServeFoodTask());
 
         WorkerEvents.OnTaskDiscovered += OnTaskDiscovered;
     }

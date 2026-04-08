@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using UnityEngine;
 
-public class OrderDelivery : MonoBehaviour
+public class OrderDelivery
 {
     public Customer_New customer;
     public List<ItemData> orderedItems;
     public List<Item> availableItems; //Items found in scene
+
 
     public bool IsValid
     {
@@ -15,7 +15,7 @@ public class OrderDelivery : MonoBehaviour
                 return false;
 
             if (availableItems == null || availableItems.Count == 0)
-                return false;
+                    return false;
 
             return true;
         }
@@ -23,7 +23,14 @@ public class OrderDelivery : MonoBehaviour
 
     public float GetPatienceRemaining()
     {
-        return customer ?
-            GetComponent<CustomerPatience>().GetRemainingPatience() : float.MaxValue;
+        if (customer == null)
+            return float.MaxValue;
+
+        var patience = customer.GetComponent<CustomerPatience>();
+
+        if (patience == null)
+            return float.MaxValue;
+
+        return patience.GetRemainingPatience();
     }
 }

@@ -14,8 +14,7 @@ public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
     public GameObject customerGraphic;
     [SerializeField] private CustomerState state = CustomerState.Idle;
 
-    [SerializeField] private bool _isTargeted = false;
-    public bool IsTargeted { get => _isTargeted; set => _isTargeted = value; }
+    public bool IsTargeted { get; set; }
 
     public event Action<CustomerState> OnStateChanged;
     public event Action<IWorkerInteractable> OnFinished;
