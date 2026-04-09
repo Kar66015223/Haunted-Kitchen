@@ -5,10 +5,11 @@ using UnityEngine;
 public class ServeFoodTask : IWorkerTask, ITaskReceiver
 {
     private List<Customer_New> discoveredCustomers = new();
+
     private List<Item> discoveredItems = new();
+    private List<Item> validItems = new();
 
     private OrderDelivery currentOrder;
-    private Customer_New currentCustomerTarget;
     private Item currentItemTarget;
 
     private enum ServeState { Idle, PickingUp, Delivering, Complete }
@@ -53,14 +54,17 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
                 discoveredItems.Add(item);
                 item.OnFinished += OnItemFinished;
 
-                // Debug.Log($"Discovered food: {item.itemData.itemName} Discovered Items: {discoveredItems.Count}");
+                Debug.Log($"Discovered food: {item.itemData.itemName} Discovered Items: {discoveredItems.Count}");
             }
         }
     }
 
     public bool CanExecute(WorkerContext context)
     {
-        if (currentItemTarget != null && !discoveredItems.Contains(currentItemTarget))
+        CheckValidItems();
+        CleanupInvalidCustomers();
+
+        if (currentItemTarget != null && !validItems.Contains(currentItemTarget))
         {
             Debug.LogWarning("No currentItemTarget found");
             return false;
@@ -161,6 +165,11 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
             currentOrder.customer.IsTargeted = false;
         }
 
+        if (currentItemTarget != null)
+        {
+            currentItemTarget.IsTargeted = false;
+        }
+
         currentOrder = null;
         currentItemTarget = null;
         serveState = ServeState.Idle;
@@ -169,6 +178,7 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
 
     public bool IsComplete(WorkerContext context) => serveState == ServeState.Complete;
 
+    #region CustomerHelpers
     private List<OrderDelivery> FindValidDeliveryOrders()
     {
         var orders = new List<OrderDelivery>();
@@ -177,7 +187,7 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
         {
             if (customer == null)
             {
-                Debug.LogWarning("Not a customer");
+                Debug.LogWarning("No customer found");
                 continue;
             }
 
@@ -216,16 +226,38 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
             .ToList();
     }
 
+    private void ServeCustomer(OrderDelivery order)
+    {
+        var itemsServed = order.orderedItems; // Items we were supposed to deliver
+        order.customer.WorkerOrderServe(itemsServed);
+    }
+
+    private void OnCustomerFinished(IWorkerInteractable target)
+    {
+        if (target == null)
+            return;
+
+        discoveredCustomers.Remove((Customer_New)target);
+        target.OnFinished -= OnCustomerFinished;
+    }
+
+    private void CleanupInvalidCustomers()
+    {
+        discoveredCustomers.RemoveAll(c => c == null || c.GetCurrentState() != CustomerState.Ordered);
+    }
+    #endregion
+    
+    #region ItemHelpers
     private List<Item> FindMatchingItems(List<ItemData> orderedItems)
     {
         var matches = new List<Item>();
 
-        if (discoveredItems != null)
+        if (validItems != null)
         {
-            foreach (var item in discoveredItems)
+            foreach (var item in validItems)
             {
-                if (!(item.itemData is FoodData))
-                    continue;
+                // if (!IsTargetItemValid(item))
+                //     continue;
 
                 if (item.IsTargeted && item != currentItemTarget)
                     continue;
@@ -245,26 +277,11 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
     {
         Debug.Log($"Picking up: {item.itemData.itemName}");
 
-        discoveredItems.Remove(item);
+        validItems.Remove(item);
         currentOrder.availableItems.Remove(item);
-        // currentItemTarget.IsTargeted = false;
+        currentItemTarget.IsTargeted = false;
 
         item.SetWorkerHeld();
-    }
-
-    private void ServeCustomer(OrderDelivery order)
-    {
-        var itemsServed = order.orderedItems; // Items we were supposed to deliver
-        order.customer.WorkerOrderServe(itemsServed);
-    }
-
-    private void OnCustomerFinished(IWorkerInteractable target)
-    {
-        if (target == null)
-            return;
-
-        discoveredCustomers.Remove((Customer_New)target);
-        target.OnFinished -= OnCustomerFinished;
     }
 
     private void OnItemFinished(IWorkerInteractable target)
@@ -272,7 +289,77 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
         if (target == null)
             return;
 
-        discoveredItems.Remove((Item)target);
+        Item item = (Item)target;
+        validItems.Remove(item);
+
+        discoveredItems.Remove(item);
         target.OnFinished -= OnItemFinished;
     }
+
+    private bool IsTargetItemValid(IWorkerInteractable target)
+    {
+        if (target == null)
+        {
+            Debug.LogWarning("No target");
+            return false;
+        }
+
+        if (target is MonoBehaviour mb && mb == null)
+        {
+            Debug.LogWarning("Target is destroyed");
+            return false;
+        }
+
+        if (target is MonoBehaviour mono && !mono.gameObject.activeInHierarchy)
+        {
+            Debug.LogWarning("Target is not active");
+            return false;
+        }
+
+        if (target is not Item)
+        {
+            Debug.LogWarning("Target is not item");
+            return false;
+        }
+
+        if (target is Item item)
+        {
+            if (item.GetItemState() == ItemState.Held)
+            {
+                Debug.LogWarning("Target is currently held");
+                return false;
+            }
+
+            if (!(item.itemData is FoodData))
+            {
+                Debug.LogWarning("Target is not food");
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+    private void CheckValidItems()
+    {
+        validItems.Clear();
+
+        foreach (var item in discoveredItems)
+        {
+            if (item == null) 
+                continue;
+            
+            if (!IsTargetItemValid(item))
+                continue;
+
+            if (item.IsTargeted && item != currentItemTarget)
+                continue;
+
+            if (!validItems.Contains(item))
+                validItems.Add(item);
+        }
+
+        Debug.Log($"Valid Items: {validItems.Count}");
+    }
+    #endregion
 }

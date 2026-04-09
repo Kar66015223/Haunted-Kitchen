@@ -4,22 +4,15 @@ using UnityEngine;
 public class Item : MonoBehaviour, Iinteractable, IWorkerInteractable
 {
     public ItemData itemData;
-    public ItemState itemState;
+    [SerializeField] private ItemState itemState;
 
     public event Action<IWorkerInteractable> OnFinished;
-    [SerializeField] private bool hasDiscovered = false;
     
     public bool IsTargeted { get; set; }
 
-    void Update()
+    void OnDestroy()
     {
-        if (itemData is FoodData &&
-            itemState == ItemState.NotHeld &&
-            !hasDiscovered)
-        {
-            OnDiscovered();
-            hasDiscovered = true;
-        }
+        OnFinished?.Invoke(this);
     }
 
     public virtual bool CanInteract(Interactor interactor)
@@ -60,11 +53,34 @@ public class Item : MonoBehaviour, Iinteractable, IWorkerInteractable
 
         if (playerItem == null) return;
 
+        IsTargeted = false;
+
         playerItem.PickUp(itemData, gameObject);
         currentTable?.SetItem(null);
 
-        Debug.Log($"Interacted with item {itemData.itemName} by {interactor.source.name}");
+        OnFinished?.Invoke(this);
+
+        // Debug.Log($"Interacted with item {itemData.itemName} by {interactor.source.name}");
     }
+
+    public void SetState(ItemState newState)
+    {
+        if (itemState == newState)
+            return;
+        
+        itemState = newState;
+
+        if (itemData is FoodData && itemState == ItemState.NotHeld)
+        {
+            OnDiscovered();
+        }
+        else
+        {
+            OnFinished?.Invoke(this);
+        }
+    }
+
+    public ItemState GetItemState() => itemState;
 
     public void OnDiscovered() => WorkerEvents.NotifyTaskDiscovered(this);
 
@@ -72,6 +88,7 @@ public class Item : MonoBehaviour, Iinteractable, IWorkerInteractable
 
     public void SetWorkerHeld()
     {
+        SetState(ItemState.Held);
         OnFinished?.Invoke(this);
     }
 }

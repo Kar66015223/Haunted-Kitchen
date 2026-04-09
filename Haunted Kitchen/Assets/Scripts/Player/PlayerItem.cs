@@ -97,7 +97,7 @@ public class PlayerItem : MonoBehaviour
 
         if (itemObj.TryGetComponent(out Item item))
         {
-            item.itemState = ItemState.Held;
+            item.SetState(ItemState.Held);
         }
     }
 
@@ -159,7 +159,7 @@ public class PlayerItem : MonoBehaviour
         var itemComp = currentHeldItemObj.GetComponent<Item>();
         if (itemComp != null)
         {
-            itemComp.itemState = ItemState.NotHeld;
+            itemComp.SetState(ItemState.NotHeld);
         }
 
         currentHeldItemData = null;
@@ -184,7 +184,7 @@ public class PlayerItem : MonoBehaviour
             rb.isKinematic = false;
 
         if (currentHeldItemObj.TryGetComponent(out Item itm))
-            itm.itemState = ItemState.NotHeld;
+            itm.SetState(ItemState.NotHeld);
 
         currentHeldItemObj.transform.SetParent(null, true); 
         currentHeldItemData = null; 

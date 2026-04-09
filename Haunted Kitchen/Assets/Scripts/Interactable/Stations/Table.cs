@@ -139,7 +139,7 @@ public class Table : MonoBehaviour, Iinteractable
         if (currentItem == null) return;
 
         playerItem.DropItemNoRaycast();
-        currentItem.itemState = ItemState.NotHeld;
+        currentItem.SetState(ItemState.NotHeld);
 
         itemObj.transform.position = placePoint.position;
         itemObj.transform.rotation = placePoint.rotation;

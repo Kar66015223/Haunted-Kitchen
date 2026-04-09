@@ -15,7 +15,7 @@ public class OrderDelivery
                 return false;
 
             if (availableItems == null || availableItems.Count == 0)
-                    return false;
+                return false;
 
             return true;
         }
