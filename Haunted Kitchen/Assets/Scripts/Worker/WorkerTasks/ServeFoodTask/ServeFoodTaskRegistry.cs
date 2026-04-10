@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 // Discovery & Cleanup logic
 public class ServeFoodTaskRegistry
@@ -14,6 +14,8 @@ public class ServeFoodTaskRegistry
         {
             Customers.Add(customer);
             customer.OnFinished += _ => Customers.Remove(customer);
+
+            Debug.Log($"Found {customer.gameObject.name}, Discovered customers: {Customers.Count}");
         }
         else if (target is Item item &&
         item.itemData is FoodData &&
@@ -21,6 +23,8 @@ public class ServeFoodTaskRegistry
         {
             Items.Add(item);
             item.OnFinished += _ => Items.Remove(item);
+
+            Debug.Log($"Found {item.gameObject.name}, Discovered items: {Items.Count}");
         }
     }
     

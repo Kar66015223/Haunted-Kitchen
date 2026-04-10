@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,10 +14,13 @@ public class Worker : MonoBehaviour
 
     [SerializeField] private Transform idleStandPoint;
 
+    private WorkerPickup pickup;
+
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         context = new WorkerContext { Agent = agent, StoppingDistance = agent.stoppingDistance };
+        pickup = GetComponent<WorkerPickup>();
 
         RegisterTask();
     }
@@ -30,7 +34,7 @@ public class Worker : MonoBehaviour
     {
         availableTask.Add(new CleanOilTask());
         // availableTask.Add(new GetCustomerOrderTask());
-        availableTask.Add(new ServeFoodTask());
+        availableTask.Add(new ServeFoodTask(pickup));
 
         WorkerEvents.OnTaskDiscovered += OnTaskDiscovered;
     }

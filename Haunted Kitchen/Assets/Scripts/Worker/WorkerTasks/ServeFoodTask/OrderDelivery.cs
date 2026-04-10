@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class OrderDelivery
 {
@@ -11,15 +12,11 @@ public class OrderDelivery
     {
         get
         {
-            if (customer == null || customer.GetCurrentState() != CustomerState.Ordered)
-                return false;
-
-            if (availableItems == null || availableItems.Count == 0)
-                return false;
-
-            return true;
+            return customer != null && customer.GetCurrentState() == CustomerState.Ordered;
         }
     }
+
+    public bool HasItemsToPickUp => availableItems != null && availableItems.Count > 0;
 
     public float GetPatienceRemaining()
     {

@@ -1,365 +1,153 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using System.Linq;
 
 public class ServeFoodTask : IWorkerTask, ITaskReceiver
 {
-    private List<Customer_New> discoveredCustomers = new();
-
-    private List<Item> discoveredItems = new();
-    private List<Item> validItems = new();
-
+    private readonly ServeFoodTaskRegistry registry = new();
     private OrderDelivery currentOrder;
-    private Item currentItemTarget;
+    private Item currentItem;
+    private ServeState state = ServeState.Idle;
 
-    private enum ServeState { Idle, PickingUp, Delivering, Complete }
-    private ServeState serveState = ServeState.Idle;
-
-    // private bool changeTarget = false;
+    private enum ServeState { Idle, PickingUp, Delivering, Completed }
 
     public string TaskName => WorkerConstants.TASK_SERVEFOOD_NAME;
     public int Priority => WorkerConstants.TASK_SERVEFOOD_PRIORITY;
 
-    public void OnTargetDiscovered(IWorkerInteractable target)
+    private WorkerPickup pickup;
+
+    public ServeFoodTask(WorkerPickup pickup)
     {
-        if (target == null)
-            return;
-
-        // Customer discovery
-        if (target is Customer_New customer)
-        {
-            if (!discoveredCustomers.Contains(customer))
-            {
-                discoveredCustomers.Add(customer);
-                customer.OnFinished += OnCustomerFinished;
-
-                // Debug.Log($"Discovered customer: {customer.name}");
-            }
-        }
-
-        // Item discovery
-        if (target is Item item)
-        {
-            if (item.itemData == null)
-            {
-                Debug.LogWarning($"Item {item.name} has null itemData");
-                return;
-            }
-
-            if (!(item.itemData is FoodData))
-                return;
-
-            if (!discoveredItems.Contains(item))
-            {
-                discoveredItems.Add(item);
-                item.OnFinished += OnItemFinished;
-
-                Debug.Log($"Discovered food: {item.itemData.itemName} Discovered Items: {discoveredItems.Count}");
-            }
-        }
+        this.pickup = pickup;
     }
+
+    public void OnTargetDiscovered(IWorkerInteractable target) =>
+        registry.Register(target);
 
     public bool CanExecute(WorkerContext context)
     {
-        CheckValidItems();
-        CleanupInvalidCustomers();
-
-        if (currentItemTarget != null && !validItems.Contains(currentItemTarget))
-        {
-            Debug.LogWarning("No currentItemTarget found");
-            return false;
-        }
-    
-        var validOrders = FindValidDeliveryOrders();
-        Debug.Log($"Valid Orders: {validOrders.Count}");
-        
-        return validOrders.Count > 0;
+        registry.Cleanup();
+        return OrderMatcher.FindBestOrder(
+            registry.Customers, registry.Items, currentItem) != null;
     }
 
     public void Start(WorkerContext context)
     {
-        var validOrders = FindValidDeliveryOrders();
-        currentOrder = validOrders.FirstOrDefault();
+        currentOrder = OrderMatcher.FindBestOrder(
+            registry.Customers, registry.Items, currentItem);
 
-        if (currentOrder != null)
-        {
-            currentItemTarget = currentOrder.availableItems.First();
-            context.CurrentTarget = currentItemTarget.GetPosition();
-            context.Agent.SetDestination(context.CurrentTarget.position);
+        if (currentOrder == null)
+            return;
 
-            serveState = ServeState.PickingUp;
-            currentOrder.customer.IsTargeted = true;
-            currentItemTarget.IsTargeted = true;
-
-            Debug.Log($"Starting delivery: {currentItemTarget.itemData.itemName} -> {currentOrder.customer.name}");
-        }
+        SetNextItemTarget(context);
+        currentOrder.customer.IsTargeted = true;
+        state = ServeState.PickingUp;
     }
 
     public void Update(WorkerContext context)
     {
-        if (currentOrder == null)
+        if (currentOrder == null || !currentOrder.IsValid)
         {
-            serveState = ServeState.Complete;
+            state = ServeState.Completed;
+            Debug.Log("currentOrder is null or invalid");
             return;
         }
 
-        if(serveState == ServeState.PickingUp && !currentOrder.IsValid)
+        if (state == ServeState.Completed)
         {
-            serveState = ServeState.Complete;
+            Debug.LogWarning("state is completed");
+            return;
+        }
+            
+        if (context.Agent.pathPending || !context.Agent.hasPath ||
+        context.Agent.remainingDistance > context.Agent.stoppingDistance)
+        {
+            Debug.LogWarning("Walking");
             return;
         }
 
-        switch (serveState)
+        if (context.Agent.remainingDistance <= context.Agent.stoppingDistance)
         {
-            case ServeState.PickingUp:
-                UpdatePickingUp(context);
-                break;
-            case ServeState.Delivering:
-                UpdateDelivering(context);
-                break;
-        }
-    }
-
-    private void UpdatePickingUp(WorkerContext context)
-    {
-        if (!context.Agent.pathPending &&
-            context.Agent.remainingDistance <= context.Agent.stoppingDistance)
-        {
-            PickupItem(currentItemTarget);
-
-            if (currentOrder.availableItems.Count == 0)
+            switch (state)
             {
-                serveState = ServeState.Delivering;
-                context.CurrentTarget = currentOrder.customer.GetPosition();
-                context.Agent.SetDestination(context.CurrentTarget.position);
-
-                Debug.Log($"Item picked up, delivering to {currentOrder.customer.name}");
-            }
-            else
-            {
-                currentItemTarget = currentOrder.availableItems.First();
-                context.CurrentTarget = currentItemTarget.GetPosition();
-                context.Agent.SetDestination(context.CurrentTarget.position);
-
-                Debug.Log($"Moving to next item: {currentItemTarget.itemData.itemName}");
+                case ServeState.PickingUp:
+                    HandlePickup(context);
+                    break;
+                case ServeState.Delivering:
+                    HandleDelivery(context);
+                    break;
+                case ServeState.Completed:
+                    Debug.Log("Task completed");
+                    break;
             }
         }
     }
 
-    private void UpdateDelivering(WorkerContext context)
+    private void HandlePickup(WorkerContext context)
     {
-        if (!context.Agent.pathPending &&
-            context.Agent.remainingDistance <= context.Agent.stoppingDistance)
-        {
-            ServeCustomer(currentOrder);
-            serveState = ServeState.Complete;
+        Debug.Log($"Picked up {currentItem}");
 
-            Debug.Log($"Order delivered to {currentOrder.customer.name}");
+        pickup.PickUp(currentItem);
+        currentOrder.availableItems.Remove(currentItem);
+
+        state = ServeState.Delivering;
+        UpdateMoveTarget(context, currentOrder.customer.GetPosition());
+    }
+
+    private void HandleDelivery(WorkerContext context)
+    {
+        Debug.Log($"Served {currentOrder.customer}");
+
+        currentOrder.customer.WorkerOrderServe(currentItem);
+        if (pickup.currentItem != null)
+        {
+            pickup.Serve(pickup.currentItem);
         }
+
+        state = ServeState.Completed;
+    }
+
+    private void SetNextItemTarget(WorkerContext context)
+    {
+        currentItem = currentOrder.availableItems.First();
+        currentItem.IsTargeted = true;
+        UpdateMoveTarget(context, currentItem.GetPosition());
+
+        Debug.Log($"Setting next item {currentItem}");
+    }
+
+    private void UpdateMoveTarget(WorkerContext context, Transform target)
+    {
+        context.CurrentTarget = target;
+
+        context.Agent.ResetPath();
+        context.Agent.SetDestination(target.position);
+
+        Debug.Log($"Moving to {target}");
     }
 
     public void End(WorkerContext context)
     {
-        if (currentOrder != null)
-        {
+        if (currentOrder?.customer != null)
             currentOrder.customer.IsTargeted = false;
+
+        if (currentOrder?.availableItems != null)
+        {
+            foreach (var item in currentOrder.availableItems)
+            {
+                if (item != null) item.IsTargeted = false;
+            }
         }
 
-        if (currentItemTarget != null)
-        {
-            currentItemTarget.IsTargeted = false;
-        }
+        if (currentItem != null)
+            currentItem.IsTargeted = false;
 
         currentOrder = null;
-        currentItemTarget = null;
-        serveState = ServeState.Idle;
-        context.CurrentTarget = null;
+        currentItem = null;
+        state = ServeState.Idle;
+
+        Debug.Log("End called");
     }
 
-    public bool IsComplete(WorkerContext context) => serveState == ServeState.Complete;
-
-    #region CustomerHelpers
-    private List<OrderDelivery> FindValidDeliveryOrders()
-    {
-        var orders = new List<OrderDelivery>();
-
-        foreach (var customer in discoveredCustomers)
-        {
-            if (customer == null)
-            {
-                Debug.LogWarning("No customer found");
-                continue;
-            }
-
-            if (customer.GetCurrentState() != CustomerState.Ordered)
-                continue;
-
-            var orderSystem = customer.GetComponent<CustomerOrder>();
-            if (orderSystem == null)
-            {
-                Debug.LogWarning("No orderSystem found");
-                continue;
-            }
-
-            var orderedItems = orderSystem.GetOrderedItems();
-            if (orderedItems == null || orderedItems.Count == 0)
-            {
-                Debug.LogWarning("No items ordered found");
-                continue;
-            }
-
-            var matchingItems = FindMatchingItems(orderedItems);
-
-            if (matchingItems.Count > 0)
-            {
-                orders.Add(new OrderDelivery
-                {
-                    customer = customer,
-                    orderedItems = orderedItems,
-                    availableItems = matchingItems
-                });
-            }
-        }
-
-        return orders
-            .OrderBy(o => o.GetPatienceRemaining())
-            .ToList();
-    }
-
-    private void ServeCustomer(OrderDelivery order)
-    {
-        var itemsServed = order.orderedItems; // Items we were supposed to deliver
-        order.customer.WorkerOrderServe(itemsServed);
-    }
-
-    private void OnCustomerFinished(IWorkerInteractable target)
-    {
-        if (target == null)
-            return;
-
-        discoveredCustomers.Remove((Customer_New)target);
-        target.OnFinished -= OnCustomerFinished;
-    }
-
-    private void CleanupInvalidCustomers()
-    {
-        discoveredCustomers.RemoveAll(c => c == null || c.GetCurrentState() != CustomerState.Ordered);
-    }
-    #endregion
-    
-    #region ItemHelpers
-    private List<Item> FindMatchingItems(List<ItemData> orderedItems)
-    {
-        var matches = new List<Item>();
-
-        if (validItems != null)
-        {
-            foreach (var item in validItems)
-            {
-                // if (!IsTargetItemValid(item))
-                //     continue;
-
-                if (item.IsTargeted && item != currentItemTarget)
-                    continue;
-
-                if (orderedItems.Any(ordered => ordered.itemName == item.itemData.itemName))
-                {
-                    matches.Add(item);
-                    // Debug.Log($"Matching item: {matches}");
-                }
-            }
-        }
-
-        return matches;
-    }
-
-    private void PickupItem(Item item)
-    {
-        Debug.Log($"Picking up: {item.itemData.itemName}");
-
-        validItems.Remove(item);
-        currentOrder.availableItems.Remove(item);
-        currentItemTarget.IsTargeted = false;
-
-        item.SetWorkerHeld();
-    }
-
-    private void OnItemFinished(IWorkerInteractable target)
-    {
-        if (target == null)
-            return;
-
-        Item item = (Item)target;
-        validItems.Remove(item);
-
-        discoveredItems.Remove(item);
-        target.OnFinished -= OnItemFinished;
-    }
-
-    private bool IsTargetItemValid(IWorkerInteractable target)
-    {
-        if (target == null)
-        {
-            Debug.LogWarning("No target");
-            return false;
-        }
-
-        if (target is MonoBehaviour mb && mb == null)
-        {
-            Debug.LogWarning("Target is destroyed");
-            return false;
-        }
-
-        if (target is MonoBehaviour mono && !mono.gameObject.activeInHierarchy)
-        {
-            Debug.LogWarning("Target is not active");
-            return false;
-        }
-
-        if (target is not Item)
-        {
-            Debug.LogWarning("Target is not item");
-            return false;
-        }
-
-        if (target is Item item)
-        {
-            if (item.GetItemState() == ItemState.Held)
-            {
-                Debug.LogWarning("Target is currently held");
-                return false;
-            }
-
-            if (!(item.itemData is FoodData))
-            {
-                Debug.LogWarning("Target is not food");
-                return false;
-            }
-        }
-
-        return true;
-    }
-    
-    private void CheckValidItems()
-    {
-        validItems.Clear();
-
-        foreach (var item in discoveredItems)
-        {
-            if (item == null) 
-                continue;
-            
-            if (!IsTargetItemValid(item))
-                continue;
-
-            if (item.IsTargeted && item != currentItemTarget)
-                continue;
-
-            if (!validItems.Contains(item))
-                validItems.Add(item);
-        }
-
-        Debug.Log($"Valid Items: {validItems.Count}");
-    }
-    #endregion
+    public bool IsComplete(WorkerContext context) =>
+        state == ServeState.Completed;
 }

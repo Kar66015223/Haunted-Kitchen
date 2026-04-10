@@ -56,6 +56,21 @@ public class CustomerOrder : MonoBehaviour
         //Debug.Log($"Served: {served.itemName}");
     }
 
+    public void ServeOrderWorker(Item item)
+    {
+        ItemData served = item.itemData;
+
+        servedItems.Add(served);
+        servedPrice += served.price;
+
+        OnItemServed?.Invoke(served);
+
+        if (orderHabit.ShouldCheckOrder(servedItems, orderedItems))
+        {
+            CheckOrder();
+        }
+    }
+
     private void CheckOrder()
     {
         bool correct = orderHabit.ValidateOrder(servedItems, orderedItems);

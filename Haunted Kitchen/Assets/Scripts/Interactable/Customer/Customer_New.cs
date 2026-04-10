@@ -117,6 +117,7 @@ public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
         behavior.OnPatienceExpired(this);
 
         OnStateChanged?.Invoke(state);
+        OnFinished?.Invoke(this);
     }
 
     void HandleOrder(bool b, int totalPrice)
@@ -139,6 +140,8 @@ public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
 
             Debug.Log("Served at least one order wrong");
         }
+
+        OnFinished?.Invoke(this);
     }
 
     public void Order()
@@ -150,25 +153,9 @@ public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
         OnFinished?.Invoke(this);
     }
 
-    public void WorkerOrderServe(List<ItemData> items)
+    public void WorkerOrderServe(Item item)
     {
-        bool isCorrect = orderSystem.ValidateWorkerOrder(items);
-
-        state = CustomerState.Leaving;
-        OnStateChanged?.Invoke(state);
-
-        if (isCorrect)
-        {
-            behavior.OnCorrectServe(this, items.Sum(i => i.price));
-            Debug.Log("Worker served correct order");
-        }
-        else
-        {
-            behavior.OnWrongServe(this);
-            Debug.Log("Worker served wrong order");
-        }
-
-        OnFinished?.Invoke(this);
+        orderSystem.ServeOrderWorker(item);
     }
 
     public void OnDiscovered() => WorkerEvents.NotifyTaskDiscovered(this);

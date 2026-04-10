@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+// Decides which customer is the priority and find their order
 public static class OrderMatcher
 {
     public static OrderDelivery FindBestOrder(
@@ -24,8 +25,10 @@ public static class OrderMatcher
         if (orderSystem == null) return null;
 
         var orderedData = orderSystem.GetOrderedItems();
-        var matches = items.Where(item =>
-            !item.IsTargeted || item == currentTarget)
+
+        var matches = items
+            .Where(item => !item.IsTargeted || item == currentTarget &&
+            item.GetItemState() != ItemState.Held)
             .Where(item => orderedData.Any(data => data.itemName == item.itemData.itemName))
             .ToList();
 
