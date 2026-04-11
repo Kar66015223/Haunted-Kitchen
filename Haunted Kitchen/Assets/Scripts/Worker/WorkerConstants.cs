@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 public static class WorkerConstants
 {
     // Tasks
@@ -10,4 +12,10 @@ public static class WorkerConstants
 
     public const string TASK_SERVEFOOD_NAME = "Serve Food";
     public const int TASK_SERVEFOOD_PRIORITY = 70;
+
+    // Anim
+    public const string ANIM_MOVE = "Move";
+    public const string ANIM_ONEHAND = "OneHand";
+    public const string ANIM_TWOHAND = "TwoHand";
+    public const string ANIM_CLEAN = "Clean";
 }

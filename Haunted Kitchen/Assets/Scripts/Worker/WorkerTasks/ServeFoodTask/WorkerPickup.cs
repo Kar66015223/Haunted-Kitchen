@@ -5,6 +5,13 @@ public class WorkerPickup : MonoBehaviour
     public Item currentItem;
     [SerializeField] private Transform holdPoint;
 
+    private WorkerAnimation anim;
+
+    void Awake()
+    {
+        anim = GetComponent<WorkerAnimation>();
+    }
+
     public void PickUp(Item item)
     {
         currentItem = item;
@@ -26,11 +33,25 @@ public class WorkerPickup : MonoBehaviour
         item.transform.localRotation = Quaternion.identity;
 
         item.SetState(ItemState.Held);
+
+        GameEvents.OnItemPickedUp?.Invoke(currentItem);
+
+        if (currentItem.itemData.oneHand)
+        {
+            anim.SetOneHand(true);
+        }
+        else
+        {
+            anim.SetTwoHand(true);
+        }
     }
     
     public void Serve(Item item)
     {
         Destroy(item.gameObject);
         currentItem = null;
+
+        anim.SetOneHand(false);
+        anim.SetTwoHand(false);
     }
 }

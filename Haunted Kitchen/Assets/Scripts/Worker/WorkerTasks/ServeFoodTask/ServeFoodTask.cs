@@ -57,11 +57,18 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
             Debug.LogWarning("state is completed");
             return;
         }
-            
-        if (context.Agent.pathPending || !context.Agent.hasPath ||
+
+        if (context.Agent.pathPending ||
         context.Agent.remainingDistance > context.Agent.stoppingDistance)
         {
             Debug.LogWarning("Walking");
+            return;
+        }
+        
+        if(!context.Agent.hasPath)
+        {
+            Debug.LogWarning("No path");
+            UpdateMoveTarget(context, context.CurrentTarget);
             return;
         }
 

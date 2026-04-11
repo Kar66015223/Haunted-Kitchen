@@ -17,6 +17,7 @@ public class Table : MonoBehaviour, Iinteractable
     void OnEnable()
     {
         chairs = GetComponentsInChildren<Chair>();
+        GameEvents.OnItemPickedUp += ClearItem;
     }
 
     public Chair GetFreeChair()
@@ -154,6 +155,14 @@ public class Table : MonoBehaviour, Iinteractable
     public void SetItem(Item item)
     {
         currentItem = item;
+    }
+
+    private void ClearItem(Item item)
+    {   
+        if (item == currentItem)
+        {
+            currentItem = null;
+        }
     }
 
     public void SpawnItem(GameObject prefab)

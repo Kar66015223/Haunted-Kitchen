@@ -14,6 +14,13 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
     public string TaskName => WorkerConstants.TASK_CLEANOIL_NAME;
     public int Priority => WorkerConstants.TASK_CLEANOIL_PRIORITY;
 
+    private WorkerAnimation anim;
+
+    public CleanOilTask(WorkerAnimation anim)
+    {
+        this.anim = anim;   
+    }
+
     public void OnTargetDiscovered(IWorkerInteractable target)
     {
         if (target is Oil && !discoveredOils.Contains(target) && !target.IsTargeted)
@@ -84,6 +91,7 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
         discoveredOils.RemoveAll(oil => !IsTargetValid(oil) || oil.IsTargeted);
 
         elapsedTime += Time.deltaTime;
+        anim.SetClean(true);
 
         if (IsComplete(context))
             End(context);
@@ -111,6 +119,8 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
 
         if (targetOil != null)
             targetOil.IsTargeted = true;
+
+        anim.SetClean(false);
 
         // Debug.Log($"Task ended, next target oil: {targetOil}");
     }

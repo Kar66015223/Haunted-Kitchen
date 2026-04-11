@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,12 +13,15 @@ public class Worker : MonoBehaviour
 
     [SerializeField] private Transform idleStandPoint;
 
+    private WorkerAnimation anim;
     private WorkerPickup pickup;
 
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         context = new WorkerContext { Agent = agent, StoppingDistance = agent.stoppingDistance };
+
+        anim = GetComponent<WorkerAnimation>();
         pickup = GetComponent<WorkerPickup>();
 
         RegisterTask();
@@ -32,7 +34,7 @@ public class Worker : MonoBehaviour
 
     void RegisterTask()
     {
-        availableTask.Add(new CleanOilTask());
+        availableTask.Add(new CleanOilTask(anim));
         // availableTask.Add(new GetCustomerOrderTask());
         availableTask.Add(new ServeFoodTask(pickup));
 
@@ -75,6 +77,7 @@ public class Worker : MonoBehaviour
             if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
             {
                 transform.SetPositionAndRotation(idleStandPoint.position, idleStandPoint.rotation);
+                anim.SetMove(0);
             }
         }
 
@@ -92,7 +95,7 @@ public class Worker : MonoBehaviour
     void UpdateMoving()
     {
         // If can't execute current task, go back to Idle
-        if(!currentTask.CanExecute(context))
+        if (!currentTask.CanExecute(context))
         {
             Debug.Log($"Target became invalid, aborting task: {currentTask.TaskName}");
             currentTask.End(context);
@@ -101,6 +104,8 @@ public class Worker : MonoBehaviour
 
             return;
         }
+
+        anim.SetMove(1);
 
         if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
