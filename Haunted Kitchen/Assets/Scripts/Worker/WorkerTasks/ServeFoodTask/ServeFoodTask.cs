@@ -6,6 +6,8 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
     private readonly ServeFoodTaskRegistry registry = new();
     private OrderDelivery currentOrder;
     private Item currentItem;
+    private Customer_New currentCustomer;
+
     private ServeState state = ServeState.Idle;
 
     private enum ServeState { Idle, PickingUp, Delivering, Completed }
@@ -27,19 +29,28 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
     {
         registry.Cleanup();
         return OrderMatcher.FindBestOrder(
-            registry.Customers, registry.Items, currentItem) != null;
+            registry.Customers,
+            registry.Items,
+            currentItem,
+            currentOrder?.customer) != null;
     }
 
     public void Start(WorkerContext context)
     {
         currentOrder = OrderMatcher.FindBestOrder(
-            registry.Customers, registry.Items, currentItem);
+            registry.Customers,
+            registry.Items,
+            currentItem,
+            currentOrder?.customer);
+        
+        currentCustomer = currentOrder.customer;
 
         if (currentOrder == null)
             return;
+            
+        currentOrder.customer.IsTargeted = true;
 
         SetNextItemTarget(context);
-        currentOrder.customer.IsTargeted = true;
         state = ServeState.PickingUp;
     }
 
@@ -47,8 +58,11 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
     {
         if (currentOrder == null || !currentOrder.IsValid)
         {
+            if (currentCustomer != null)
+                currentCustomer.IsTargeted = false;
+
             state = ServeState.Completed;
-            Debug.Log("currentOrder is null or invalid");
+            Debug.LogWarning("currentOrder is null or invalid");
             return;
         }
 
@@ -61,13 +75,13 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
         if (context.Agent.pathPending ||
         context.Agent.remainingDistance > context.Agent.stoppingDistance)
         {
-            Debug.LogWarning("Walking");
+            // Debug.LogWarning("Walking");
             return;
         }
         
         if(!context.Agent.hasPath)
         {
-            Debug.LogWarning("No path");
+            // Debug.LogWarning("No path");
             UpdateMoveTarget(context, context.CurrentTarget);
             return;
         }
@@ -115,7 +129,13 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
 
     private void SetNextItemTarget(WorkerContext context)
     {
-        currentItem = currentOrder.availableItems.First();
+        currentItem = currentOrder.availableItems.FirstOrDefault();
+        if (currentItem == null)
+        {
+            state = ServeState.Completed;
+            return;
+        }
+    
         currentItem.IsTargeted = true;
         UpdateMoveTarget(context, currentItem.GetPosition());
 

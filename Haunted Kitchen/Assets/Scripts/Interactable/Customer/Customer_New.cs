@@ -1,7 +1,5 @@
 using UnityEngine;
 using System;
-using System.Linq;
-using System.Collections.Generic;
 
 public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
 {
@@ -18,6 +16,7 @@ public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
 
     public event Action<CustomerState> OnStateChanged;
     public event Action<IWorkerInteractable> OnFinished;
+    public event Action<IWorkerInteractable> OnOrderTaken;
 
     private void OnEnable()
     {
@@ -150,7 +149,8 @@ public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
         state = CustomerState.Ordered;
         OnStateChanged?.Invoke(state);
 
-        OnFinished?.Invoke(this);
+        OnOrderTaken?.Invoke(this);
+        OnDiscovered();
     }
 
     public void WorkerOrderServe(Item item)

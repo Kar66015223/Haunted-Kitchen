@@ -12,7 +12,9 @@ public class OrderDelivery
     {
         get
         {
-            return customer != null && customer.GetCurrentState() == CustomerState.Ordered;
+            return customer != null &&
+                customer.GetCurrentState() == CustomerState.Ordered ||
+                HasItemsToPickUp;
         }
     }
 

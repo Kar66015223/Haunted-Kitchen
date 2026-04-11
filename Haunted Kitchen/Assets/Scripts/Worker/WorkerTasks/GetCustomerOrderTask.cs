@@ -19,9 +19,10 @@ public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
         {
             discoveredCustomers.Add(target);
 
-            if (target is Customer_New customer)
+            if (target is Customer_New customer &&
+            customer.GetCurrentState() == CustomerState.Idle)
             {
-                target.OnFinished += OnFinished;
+                customer.OnOrderTaken += OnFinished;
             }
 
             if (targetCustomer == null)
@@ -45,7 +46,7 @@ public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
 
         if(target is Customer_New customer)
         {
-            customer.OnFinished -= OnFinished;
+            customer.OnOrderTaken -= OnFinished;
         }
     }
 

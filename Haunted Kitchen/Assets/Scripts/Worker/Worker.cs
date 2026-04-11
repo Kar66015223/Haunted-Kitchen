@@ -35,7 +35,7 @@ public class Worker : MonoBehaviour
     void RegisterTask()
     {
         availableTask.Add(new CleanOilTask(anim));
-        // availableTask.Add(new GetCustomerOrderTask());
+        availableTask.Add(new GetCustomerOrderTask());
         availableTask.Add(new ServeFoodTask(pickup));
 
         WorkerEvents.OnTaskDiscovered += OnTaskDiscovered;
@@ -107,7 +107,7 @@ public class Worker : MonoBehaviour
 
         anim.SetMove(1);
 
-        if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             currentState = WorkerState.Executing;
         }
@@ -124,7 +124,7 @@ public class Worker : MonoBehaviour
             currentState = WorkerState.Idle;
         }
     }
-    
+
     void SwitchTask(IWorkerTask newTask)
     {
         currentTask?.End(context);
@@ -132,4 +132,6 @@ public class Worker : MonoBehaviour
         currentTask.Start(context);
         currentState = WorkerState.MovingToTarget;
     }
+
+    public WorkerState GetCurrentState() => currentState;
 }

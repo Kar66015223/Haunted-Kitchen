@@ -7,10 +7,12 @@ public static class OrderMatcher
     public static OrderDelivery FindBestOrder(
         List<Customer_New> customers,
         List<Item> availableItems,
-        Item currentTarget)
+        Item currentItemTarget,
+        Customer_New currentCustomerTarget)
     {
         return customers
-            .Select(customer => CreateDelivery(customer, availableItems, currentTarget))
+            .Select(customer => CreateDelivery(
+                customer, availableItems, currentItemTarget, currentCustomerTarget))
             .Where(order => order != null && order.IsValid)
             .OrderBy(order => order.GetPatienceRemaining())
             .FirstOrDefault();
@@ -19,16 +21,27 @@ public static class OrderMatcher
     private static OrderDelivery CreateDelivery(
         Customer_New customer,
         List<Item> items,
-        Item currentTarget)
+        Item currentItemTarget,
+        Customer_New currentCustomerTarget)
     {
+        // if (customer.IsTargeted && customer != currentCustomerTarget)
+        //     return null;
+        if (customer.GetCurrentState() != CustomerState.Ordered)
+            return null;
+            
         var orderSystem = customer.GetComponent<CustomerOrder>();
         if (orderSystem == null) return null;
 
         var orderedData = orderSystem.GetOrderedItems();
 
         var matches = items
-            .Where(item => !item.IsTargeted || item == currentTarget &&
-            item.GetItemState() != ItemState.Held)
+            .Where(item =>
+            {
+                bool isAvailable = !item.IsTargeted || item == currentItemTarget;
+                bool isNotHeld = item.GetItemState() != ItemState.Held;
+
+                return isAvailable && isNotHeld;
+            })
             .Where(item => orderedData.Any(data => data.itemName == item.itemData.itemName))
             .ToList();
 

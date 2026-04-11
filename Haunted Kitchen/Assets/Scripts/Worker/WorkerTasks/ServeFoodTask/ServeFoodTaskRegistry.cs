@@ -30,7 +30,9 @@ public class ServeFoodTaskRegistry
     
     public void Cleanup()
     {
-        Customers.RemoveAll(c => c == null || c.GetCurrentState() != CustomerState.Ordered);
-        Items.RemoveAll(i => i == null || i.GetItemState() == ItemState.Held);
+        // Customers.RemoveAll(c => c == null || c.GetCurrentState() != CustomerState.Ordered);
+        // Items.RemoveAll(i => i == null || i.GetItemState() == ItemState.Held);
+        Customers.RemoveAll(c => c == null);
+        Items.RemoveAll(i => i == null);
     }
 }

@@ -6,10 +6,21 @@ public class WorkerPickup : MonoBehaviour
     [SerializeField] private Transform holdPoint;
 
     private WorkerAnimation anim;
+    private Worker worker;
 
     void Awake()
     {
         anim = GetComponent<WorkerAnimation>();
+        worker = GetComponent<Worker>();
+    }
+
+    void Update()
+    {
+        if(worker.GetCurrentState() == WorkerState.Idle &&
+        currentItem != null)
+        {
+            Serve(currentItem);
+        }
     }
 
     public void PickUp(Item item)
