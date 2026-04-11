@@ -3895,7 +3895,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 338321826}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54079c54a9e4e944295c1e1dc41629ce, type: 3}
   m_Name: 
@@ -18031,7 +18031,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GhostSpawner
   ghostPrefab: {fileID: 8099154160449049202, guid: 11d40558f8b211c4cadd37873a12f2fa, type: 3}
   spawnPoint: {fileID: 1722607903}
-  initialState: 1
+  initialState: 0
   fullScreenFX: {fileID: 11400000, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
   spawnOnStart: 1
   allowSpawn: 0
