@@ -8,7 +8,7 @@ public class Item : MonoBehaviour, Iinteractable, IWorkerInteractable
 
     public event Action<IWorkerInteractable> OnFinished;
     
-    public bool IsTargeted { get; set; }
+    public IWorkerTask Claimer { get; private set; }
 
     void OnDestroy()
     {
@@ -28,12 +28,12 @@ public class Item : MonoBehaviour, Iinteractable, IWorkerInteractable
         }
 
         var playerItem = interactor.playerItem;
-        if(playerItem == null)
+        if (playerItem == null)
         {
             return false;
         }
 
-        if(itemState == ItemState.Held)
+        if (itemState == ItemState.Held)
         {
             return false;
         }
@@ -53,7 +53,7 @@ public class Item : MonoBehaviour, Iinteractable, IWorkerInteractable
 
         if (playerItem == null) return;
 
-        IsTargeted = false;
+        Claimer = null;
 
         playerItem.PickUp(itemData, gameObject);
         currentTable?.SetItem(null);
@@ -81,6 +81,21 @@ public class Item : MonoBehaviour, Iinteractable, IWorkerInteractable
     }
 
     public ItemState GetItemState() => itemState;
+
+    public bool TrySetClaimer(IWorkerTask claimer)
+    {
+        if (Claimer != null && Claimer != claimer)
+            return false;
+
+        Claimer = claimer;
+        return true;
+    }
+
+    public void ClearClaimer(IWorkerTask claimer)
+    {
+        if (Claimer == claimer)
+            Claimer = null;
+    }
 
     public void OnDiscovered() => WorkerEvents.NotifyTaskDiscovered(this);
 

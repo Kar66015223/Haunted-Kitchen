@@ -23,7 +23,7 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
 
     public void OnTargetDiscovered(IWorkerInteractable target)
     {
-        if (target is Oil && !discoveredOils.Contains(target) && !target.IsTargeted)
+        if (target is Oil && !discoveredOils.Contains(target) && target.Claimer == null)
         {
             discoveredOils.Add(target);
 
@@ -35,26 +35,10 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
             if (targetOil == null)
             {
                 targetOil = target;
-                target.IsTargeted = true;
+                // target.TrySetClaimer(this);
             }
 
             // Debug.Log($"Found {target}, Discovered Oil: {discoveredOils.Count}");
-        }
-    }
-    
-    // If targetOil is destroyed, remove from List and set targetOil to null
-    private void OnFinished(IWorkerInteractable target)
-    {
-        if (target == targetOil)
-        {
-            targetOil = null;
-        }
-
-        discoveredOils.Remove(target);
-
-        if(target is Oil oil)
-        {
-            oil.OnFinished -= OnFinished;
         }
     }
 
@@ -64,6 +48,15 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
 
     public void Start(WorkerContext context)
     {
+        if (targetOil == null)
+            return;
+
+        if (!targetOil.TrySetClaimer(this))
+        {
+            targetOil = null;
+            return;
+        }
+
         context.CurrentTarget = targetOil?.GetPosition();
         context.Agent.SetDestination(context.CurrentTarget.position);
         elapsedTime = 0f;
@@ -78,6 +71,7 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
             if (targetOil != null)
             {
                 discoveredOils.Remove(targetOil);
+                targetOil.ClearClaimer(this);
                 targetOil = null;
                 context.CurrentTarget = null;
             }
@@ -88,7 +82,8 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
         }
 
         changeTarget = false;
-        discoveredOils.RemoveAll(oil => !IsTargetValid(oil) || oil.IsTargeted);
+        discoveredOils.RemoveAll(oil => !IsTargetValid(oil) ||
+            oil.Claimer == null || oil.Claimer != this);
 
         elapsedTime += Time.deltaTime;
         anim.SetClean(true);
@@ -118,7 +113,14 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
         targetOil = discoveredOils.FirstOrDefault();
 
         if (targetOil != null)
-            targetOil.IsTargeted = true;
+        {
+            Oil oil = targetOil as Oil;
+            if(targetOil != null && targetOil.Claimer != this)
+            {
+                targetOil.ClearClaimer(this);
+                Start(context);
+            }
+        }
 
         anim.SetClean(false);
 
@@ -126,6 +128,21 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
     }
 
     public bool IsComplete(WorkerContext context) => elapsedTime >= cleanTime || changeTarget;
+
+    private void OnFinished(IWorkerInteractable target)
+    {
+        if (target == targetOil)
+        {
+            targetOil = null;
+        }
+
+        discoveredOils.Remove(target);
+
+        if(target is Oil oil)
+        {
+            oil.OnFinished -= OnFinished;
+        }
+    }
 
     private bool IsTargetValid(IWorkerInteractable target)
     {

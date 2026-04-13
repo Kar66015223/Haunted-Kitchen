@@ -12,7 +12,7 @@ public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
     public GameObject customerGraphic;
     [SerializeField] private CustomerState state = CustomerState.Idle;
 
-    public bool IsTargeted { get; set; }
+    public IWorkerTask Claimer { get; private set; }
 
     public event Action<CustomerState> OnStateChanged;
     public event Action<IWorkerInteractable> OnFinished;
@@ -150,12 +150,28 @@ public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
         OnStateChanged?.Invoke(state);
 
         OnOrderTaken?.Invoke(this);
+        Claimer = null;
         OnDiscovered();
     }
 
     public void WorkerOrderServe(Item item)
     {
         orderSystem.ServeOrderWorker(item);
+    }
+
+    public bool TrySetClaimer(IWorkerTask claimer)
+    {
+        if (Claimer != null && Claimer != claimer)
+            return false;
+
+        Claimer = claimer;
+        return true;
+    }
+    
+    public void ClearClaimer(IWorkerTask claimer)
+    {
+        if (Claimer == claimer)
+            Claimer = null;
     }
 
     public void OnDiscovered() => WorkerEvents.NotifyTaskDiscovered(this);

@@ -4,7 +4,7 @@ using UnityEngine;
 public class Oil : MonoBehaviour, Iinteractable, IWorkerInteractable
 {
     public float slipDuration = 1f;
-    public bool IsTargeted { get; set; }
+    public IWorkerTask Claimer { get; private set; }
 
     public event Action<IWorkerInteractable> OnFinished;
 
@@ -60,6 +60,21 @@ public class Oil : MonoBehaviour, Iinteractable, IWorkerInteractable
     {
         OnFinished?.Invoke(this);
         Destroy(gameObject);
+    }
+
+    public bool TrySetClaimer(IWorkerTask claimer)
+    {
+        if (Claimer != null && Claimer != claimer)
+            return false;
+
+        Claimer = claimer;
+        return true;
+    }
+
+    public void ClearClaimer(IWorkerTask claimer)
+    {
+        if (Claimer == claimer)
+            Claimer = null;
     }
 
     public void OnDiscovered() => WorkerEvents.NotifyTaskDiscovered(this);

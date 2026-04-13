@@ -3,9 +3,11 @@ using UnityEngine;
 
 public interface IWorkerInteractable
 {
-    bool IsTargeted { get; set; }
+    IWorkerTask Claimer { get; }
     event Action<IWorkerInteractable> OnFinished;
 
     void OnDiscovered();
+    bool TrySetClaimer(IWorkerTask claimer);
+    void ClearClaimer(IWorkerTask claimer);
     Transform GetPosition();
 }

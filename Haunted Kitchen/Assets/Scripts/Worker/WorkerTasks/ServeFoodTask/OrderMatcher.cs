@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using UnityEngine;
 using System.Linq;
+using UnityEngine.Analytics;
 
 // Decides which customer is the priority and find their order
 public static class OrderMatcher
@@ -8,11 +10,12 @@ public static class OrderMatcher
         List<Customer_New> customers,
         List<Item> availableItems,
         Item currentItemTarget,
-        Customer_New currentCustomerTarget)
+        Customer_New currentCustomerTarget,
+        IWorkerTask currentTask)
     {
         return customers
             .Select(customer => CreateDelivery(
-                customer, availableItems, currentItemTarget, currentCustomerTarget))
+                customer, availableItems, currentItemTarget, currentCustomerTarget, currentTask))
             .Where(order => order != null && order.IsValid)
             .OrderBy(order => order.GetPatienceRemaining())
             .FirstOrDefault();
@@ -22,10 +25,18 @@ public static class OrderMatcher
         Customer_New customer,
         List<Item> items,
         Item currentItemTarget,
-        Customer_New currentCustomerTarget)
+        Customer_New currentCustomerTarget,
+        IWorkerTask currentTask)
     {
-        // if (customer.IsTargeted && customer != currentCustomerTarget)
-        //     return null;
+        if (customer.Claimer != null &&
+            customer.Claimer != currentTask &&
+            customer.Claimer is ServeFoodTask)
+        {
+            // Debug.LogWarning($"[OrderMatcher] Customer {customer.name} already claimed, skipping");
+            customer.ClearClaimer(currentTask);
+            return null;
+        }
+
         if (customer.GetCurrentState() != CustomerState.Ordered)
             return null;
             
@@ -37,7 +48,7 @@ public static class OrderMatcher
         var matches = items
             .Where(item =>
             {
-                bool isAvailable = !item.IsTargeted || item == currentItemTarget;
+                bool isAvailable = item.Claimer == null || item == currentItemTarget;
                 bool isNotHeld = item.GetItemState() != ItemState.Held;
 
                 return isAvailable && isNotHeld;

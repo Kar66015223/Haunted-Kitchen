@@ -32,7 +32,8 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
             registry.Customers,
             registry.Items,
             currentItem,
-            currentOrder?.customer) != null;
+            currentOrder?.customer,
+            this) != null;
     }
 
     public void Start(WorkerContext context)
@@ -41,14 +42,27 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
             registry.Customers,
             registry.Items,
             currentItem,
-            currentOrder?.customer);
-        
+            currentOrder?.customer,
+            this);
+
+        if (currentOrder == null || currentOrder.customer == null)
+        {
+            Debug.LogWarning("currentOrder == null || currentOrder.customer == null");
+            state = ServeState.Completed;
+            return;
+        }
+
         currentCustomer = currentOrder.customer;
 
-        if (currentOrder == null)
+        if (!currentCustomer.TrySetClaimer(this))
+        {
+            Debug.LogWarning("!currentOrder.customer.TrySetClaimer(this)");
+
+            currentOrder = null;
+            currentCustomer = null;
+            state = ServeState.Completed;
             return;
-            
-        currentOrder.customer.IsTargeted = true;
+        }
 
         SetNextItemTarget(context);
         state = ServeState.PickingUp;
@@ -59,16 +73,18 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
         if (currentOrder == null || !currentOrder.IsValid)
         {
             if (currentCustomer != null)
-                currentCustomer.IsTargeted = false;
+                currentCustomer.ClearClaimer(this);
 
             state = ServeState.Completed;
             Debug.LogWarning("currentOrder is null or invalid");
             return;
         }
 
-        if (state == ServeState.Completed)
+        if(currentCustomer != null && currentCustomer.Claimer != this)
         {
-            Debug.LogWarning("state is completed");
+            Debug.LogWarning("This customer is claimed");
+            currentCustomer = null;
+            state = ServeState.Completed;
             return;
         }
 
@@ -105,6 +121,13 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
 
     private void HandlePickup(WorkerContext context)
     {
+        if (currentItem == null)
+        {
+            Debug.LogWarning("[ServeFoodTask] CurrentItem is null during pickup");
+            state = ServeState.Completed;
+            return;
+        }
+
         Debug.Log($"Picked up {currentItem}");
 
         pickup.PickUp(currentItem);
@@ -130,16 +153,23 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
     private void SetNextItemTarget(WorkerContext context)
     {
         currentItem = currentOrder.availableItems.FirstOrDefault();
+
         if (currentItem == null)
         {
             state = ServeState.Completed;
             return;
         }
-    
-        currentItem.IsTargeted = true;
+
+        if (!currentItem.TrySetClaimer(this))
+        {
+            state = ServeState.Completed;
+            return;
+        }
+
+        currentItem.TrySetClaimer(this);
         UpdateMoveTarget(context, currentItem.GetPosition());
 
-        Debug.Log($"Setting next item {currentItem}");
+        // Debug.Log($"Setting next item {currentItem}");
     }
 
     private void UpdateMoveTarget(WorkerContext context, Transform target)
@@ -149,30 +179,31 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
         context.Agent.ResetPath();
         context.Agent.SetDestination(target.position);
 
-        Debug.Log($"Moving to {target}");
+        // Debug.Log($"Moving to {target}");
     }
 
     public void End(WorkerContext context)
     {
         if (currentOrder?.customer != null)
-            currentOrder.customer.IsTargeted = false;
+            currentOrder.customer.ClearClaimer(this);
 
         if (currentOrder?.availableItems != null)
         {
             foreach (var item in currentOrder.availableItems)
             {
-                if (item != null) item.IsTargeted = false;
+                if (item != null) item.ClearClaimer(this);
             }
         }
 
         if (currentItem != null)
-            currentItem.IsTargeted = false;
+            currentItem.ClearClaimer(this);
 
         currentOrder = null;
         currentItem = null;
+        currentCustomer = null;
         state = ServeState.Idle;
 
-        Debug.Log("End called");
+        // Debug.Log("End called");
     }
 
     public bool IsComplete(WorkerContext context) =>

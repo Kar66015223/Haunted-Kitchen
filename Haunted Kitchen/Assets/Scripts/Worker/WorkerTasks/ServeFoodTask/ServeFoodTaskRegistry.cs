@@ -15,7 +15,7 @@ public class ServeFoodTaskRegistry
             Customers.Add(customer);
             customer.OnFinished += _ => Customers.Remove(customer);
 
-            Debug.Log($"Found {customer.gameObject.name}, Discovered customers: {Customers.Count}");
+            // Debug.Log($"Found {customer.gameObject.name}, Discovered customers: {Customers.Count}");
         }
         else if (target is Item item &&
         item.itemData is FoodData &&
@@ -24,7 +24,7 @@ public class ServeFoodTaskRegistry
             Items.Add(item);
             item.OnFinished += _ => Items.Remove(item);
 
-            Debug.Log($"Found {item.gameObject.name}, Discovered items: {Items.Count}");
+            // Debug.Log($"Found {item.gameObject.name}, Discovered items: {Items.Count}");
         }
     }
     

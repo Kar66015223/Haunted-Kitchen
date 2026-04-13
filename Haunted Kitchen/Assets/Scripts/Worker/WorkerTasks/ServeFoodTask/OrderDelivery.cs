@@ -13,8 +13,8 @@ public class OrderDelivery
         get
         {
             return customer != null &&
-                customer.GetCurrentState() == CustomerState.Ordered ||
-                HasItemsToPickUp;
+                customer.GetCurrentState() == CustomerState.Ordered /* && */
+                /* HasItemsToPickUp */;
         }
     }
 
