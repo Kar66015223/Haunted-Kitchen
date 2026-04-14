@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class RuneSpawner : MonoBehaviour
@@ -7,6 +6,7 @@ public class RuneSpawner : MonoBehaviour
 
     public void SpawnRune(Table currentTable)
     {
-        currentTable.SpawnItem(runePrefab);
+        if(currentTable.GetCurrentItem() != null)
+            currentTable.SpawnItem(runePrefab);
     }
 }
