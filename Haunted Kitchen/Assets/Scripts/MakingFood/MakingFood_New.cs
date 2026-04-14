@@ -189,6 +189,7 @@ public class MakingFood_New : MonoBehaviour, Iinteractable
 
         Item item = GetComponent<Item>();
         item.itemData = resultItem;
+        item.OnDiscovered();
 
         Table table = transform.parent.GetComponent<Table>();
         if (table != null)
