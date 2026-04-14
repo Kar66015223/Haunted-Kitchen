@@ -80,7 +80,7 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
             return;
         }
 
-        if(currentCustomer != null && currentCustomer.Claimer != this)
+        if (currentCustomer != null && currentCustomer.Claimer != this)
         {
             Debug.LogWarning("This customer is claimed");
             currentCustomer = null;

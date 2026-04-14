@@ -6,7 +6,7 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
 {
     private List<IWorkerInteractable> discoveredOils = new();
     private IWorkerInteractable targetOil;
-    private bool changeTarget = false;
+    // private bool changeTarget = false;
 
     private float cleanTime = WorkerConstants.TASK_CLEANOIL_CLEANTIME;
     private float elapsedTime;
@@ -44,6 +44,7 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
 
     public bool CanExecute(WorkerContext context) =>
         targetOil != null &&
+        // targetOil.Claimer == this &&
         IsTargetValid(targetOil);
 
     public void Start(WorkerContext context)
@@ -77,24 +78,24 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
             }
 
             // Debug.Log("Current target is not valid");
-            changeTarget = true;
-            return;
+            // changeTarget = true;
+            // return;
         }
 
-        changeTarget = false;
-        discoveredOils.RemoveAll(oil => !IsTargetValid(oil) ||
-            oil.Claimer == null || oil.Claimer != this);
+        // changeTarget = false;
+        // discoveredOils.RemoveAll(oil => !IsTargetValid(oil) ||
+        //     oil.Claimer == null || oil.Claimer != this);
 
         elapsedTime += Time.deltaTime;
         anim.SetClean(true);
 
-        if (IsComplete(context))
-            End(context);
+        // if (IsComplete(context))
+        //     End(context);
     }
 
     public void End(WorkerContext context)
     {
-        if (targetOil != null && context.CurrentTarget != null)
+        if (targetOil != null /* && context.CurrentTarget != null */)
         {
             Oil oil = context.CurrentTarget.gameObject.GetComponent<Oil>();
 
@@ -104,30 +105,32 @@ public class CleanOilTask : IWorkerTask, ITaskReceiver
                 oil.OnFinished -= OnFinished;
             }
 
+            oil.ClearClaimer(this);
             discoveredOils.Remove(targetOil);
-            context.CurrentTarget = null;
-            targetOil = null;
         }
+
+        context.CurrentTarget = null;
+        targetOil = null;
 
         // Pick new target
-        targetOil = discoveredOils.FirstOrDefault();
+        // targetOil = discoveredOils.FirstOrDefault();
 
-        if (targetOil != null)
-        {
-            Oil oil = targetOil as Oil;
-            if(targetOil != null && targetOil.Claimer != this)
-            {
-                targetOil.ClearClaimer(this);
-                Start(context);
-            }
-        }
+        // if (targetOil != null)
+        // {
+        //     Oil oil = targetOil as Oil;
+        //     if(targetOil != null && targetOil.Claimer != this)
+        //     {
+        //         targetOil.ClearClaimer(this);
+        //         Start(context);
+        //     }
+        // }
 
         anim.SetClean(false);
 
         // Debug.Log($"Task ended, next target oil: {targetOil}");
     }
 
-    public bool IsComplete(WorkerContext context) => elapsedTime >= cleanTime || changeTarget;
+    public bool IsComplete(WorkerContext context) => elapsedTime >= cleanTime;
 
     private void OnFinished(IWorkerInteractable target)
     {

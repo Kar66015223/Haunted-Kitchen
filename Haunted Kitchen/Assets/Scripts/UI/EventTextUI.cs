@@ -12,11 +12,12 @@ public class EventTextUI : MonoBehaviour
 
     void Awake()
     {
-        eventText = GetComponent<TMP_Text>();
-        textFadeOut = eventText.GetComponent<FadeOutText>();
+        if(eventText == null && textFadeOut == null)
+            eventText = GetComponent<TMP_Text>();
+            textFadeOut = eventText.GetComponent<FadeOutText>();
 
-        if (textFadeOut == null)
-            Debug.LogError($"FadeOutText not found on {eventText.gameObject.name}");
+        // if (textFadeOut == null)
+        //     Debug.LogError($"FadeOutText not found on {eventText.gameObject.name}");
     }
 
     void OnEnable()
@@ -26,7 +27,7 @@ public class EventTextUI : MonoBehaviour
 
     void OnDisable()
     {
-        GameEvents.OnShowEventText += ShowEvent;
+        GameEvents.OnShowEventText -= ShowEvent;
     }
 
     public void SetUI(TMP_Text eventText)

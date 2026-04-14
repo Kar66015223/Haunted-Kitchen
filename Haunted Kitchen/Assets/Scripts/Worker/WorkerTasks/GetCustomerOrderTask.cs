@@ -6,7 +6,7 @@ public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
 {
     private List<IWorkerInteractable> discoveredCustomers = new();
     private IWorkerInteractable targetCustomer;
-        // private bool changeTarget = false;
+    // private bool changeTarget = false;
 
     public string TaskName => WorkerConstants.TASK_GETCUSTOMERORDER_NAME;
     public int Priority => WorkerConstants.TASK_GETCUSTOMERORDER_PRIORITY;
@@ -32,7 +32,7 @@ public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
                 // target.TrySetClaimer(this);
             }
 
-            Debug.Log($"Found {target}. Discovered Customers: {discoveredCustomers.Count}");
+            // Debug.Log($"Found {target}. Discovered Customers: {discoveredCustomers.Count}");
         }
     }
 

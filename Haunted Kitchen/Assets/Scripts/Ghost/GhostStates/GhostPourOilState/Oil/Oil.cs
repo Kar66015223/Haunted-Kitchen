@@ -5,7 +5,7 @@ public class Oil : MonoBehaviour, Iinteractable, IWorkerInteractable
 {
     public float slipDuration = 1f;
     public IWorkerTask Claimer { get; private set; }
-
+    
     public event Action<IWorkerInteractable> OnFinished;
 
     void Start()
