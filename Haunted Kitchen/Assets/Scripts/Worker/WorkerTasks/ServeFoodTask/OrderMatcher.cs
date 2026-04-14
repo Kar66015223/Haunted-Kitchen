@@ -43,17 +43,25 @@ public static class OrderMatcher
         var orderSystem = customer.GetComponent<CustomerOrder>();
         if (orderSystem == null) return null;
 
-        var orderedData = orderSystem.GetOrderedItems();
+        // var orderedData = orderSystem.GetOrderedItems();
+        var remainingItemsNeeded = orderSystem.GetRemainingNeededItems();
+
+        if (currentItemTarget != null && customer == currentCustomerTarget)
+        {
+            remainingItemsNeeded.Add(currentItemTarget.itemData);
+        }
+
+        if (remainingItemsNeeded.Count == 0) return null;
 
         var matches = items
             .Where(item =>
             {
                 bool isAvailable = item.Claimer == null || item == currentItemTarget;
-                bool isNotHeld = item.GetItemState() != ItemState.Held;
+                bool isNotHeld = item.GetItemState() != ItemState.Held || item == currentItemTarget;
 
                 return isAvailable && isNotHeld;
             })
-            .Where(item => orderedData.Any(data => data.itemName == item.itemData.itemName))
+            .Where(item => remainingItemsNeeded.Any(data => data.itemName == item.itemData.itemName))
             .ToList();
 
         if (matches.Count == 0) return null;
@@ -61,7 +69,7 @@ public static class OrderMatcher
         return new OrderDelivery
         {
             customer = customer,
-            orderedItems = orderedData,
+            orderedItems = remainingItemsNeeded,
             availableItems = matches
         };
     }

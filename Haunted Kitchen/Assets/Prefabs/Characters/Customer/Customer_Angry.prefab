@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 5252519639554000639}
   - component: {fileID: 746723196778177024}
   - component: {fileID: 399757464936486255}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Customer_Angry
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

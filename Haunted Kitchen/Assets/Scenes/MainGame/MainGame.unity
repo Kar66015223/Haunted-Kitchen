@@ -21528,7 +21528,7 @@ MonoBehaviour:
   fullScreenFX: {fileID: 11400000, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
   spawnOnStart: 1
   allowSpawn: 0
-  spawnCooldown: 0.5
+  spawnCooldown: 3
   canSpawn: 1
 --- !u!1 &1727216898 stripped
 GameObject:

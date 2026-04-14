@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using UnityEditor;
 
 public class CustomerOrder : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class CustomerOrder : MonoBehaviour
 
     [SerializeField] private List<ItemData> orderedItems = new();
     [SerializeField] private List<ItemData> servedItems = new();
+    private List<ItemData> inFlightItems = new(); // Items currently being fetched by a worker
     public int servedPrice;
 
     public List<ItemData> GetOrderedItems() => new List<ItemData>(orderedItems);
@@ -54,6 +57,39 @@ public class CustomerOrder : MonoBehaviour
         }
 
         //Debug.Log($"Served: {served.itemName}");
+    }
+
+    public bool ReserveItem(ItemData data)
+    {
+        int orderedCount = orderedItems.Count(i => i == data);
+        int servedCount = servedItems.Count(i => i == data);
+        int reservedCount = inFlightItems.Count(i => i == data);
+
+        if (reservedCount + servedCount < orderedCount)
+        {
+            inFlightItems.Add(data);
+            return true;
+        }
+
+        return false;
+    }
+
+    public void CancelReserve(ItemData data)
+    {
+        inFlightItems.Remove(data);
+    }
+
+    public List<ItemData> GetRemainingNeededItems()
+    {
+        var remaining = new List<ItemData>(orderedItems);
+
+        foreach (var item in servedItems)
+            remaining.Remove(item);
+
+        foreach (var item in inFlightItems)
+            remaining.Remove(item);
+
+        return remaining;
     }
 
     public void ServeOrderWorker(Item item)

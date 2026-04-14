@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework.Interfaces;
 
 public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
 {
@@ -13,53 +14,73 @@ public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
 
     public void OnTargetDiscovered(IWorkerInteractable target)
     {
-        if (target is Customer_New &&
-        !discoveredCustomers.Contains(target) &&
-        target.Claimer == null)
+        if (target is Customer_New customer &&
+        !discoveredCustomers.Contains(target) /* && */
+        /* target.Claimer == null */)
         {
             discoveredCustomers.Add(target);
 
-            if (target is Customer_New customer &&
-            customer.GetCurrentState() == CustomerState.Idle)
-            {
-                customer.OnOrderTaken += OnFinished;
-                customer.OnFinished += _ => discoveredCustomers.Remove(customer);
-            }
+            customer.OnOrderTaken += OnFinished;
+            customer.OnFinished += _ => discoveredCustomers.Remove(customer);
 
-            if (targetCustomer == null)
-            {
-                targetCustomer = target;
-                // target.TrySetClaimer(this);
-            }
+            // if (target is Customer_New customer &&
+            // customer.GetCurrentState() == CustomerState.Idle)
+            // {
+            // }
+
+            // if (targetCustomer == null)
+            // {
+            //     targetCustomer = target;
+            //     target.TrySetClaimer(this);
+            // }
 
             // Debug.Log($"Found {target}. Discovered Customers: {discoveredCustomers.Count}");
         }
     }
 
+    private void RefreshTarget()
+    {
+        discoveredCustomers.RemoveAll(customer => !IsTargetValid(customer));
+
+        targetCustomer = discoveredCustomers.FirstOrDefault(c =>
+            c is Customer_New customer &&
+            customer.GetCurrentState() == CustomerState.Idle &&
+            (customer.Claimer == null || customer.Claimer == this));
+    }
+
     public bool CanExecute(WorkerContext context)
     {
-        Customer_New customer = targetCustomer as Customer_New;
+        RefreshTarget();
+        return targetCustomer != null;
+        // Customer_New customer = targetCustomer as Customer_New;
 
-        return targetCustomer != null &&
-            customer.GetCurrentState() == CustomerState.Idle &&
-            IsTargetValid(targetCustomer);
+        // return targetCustomer != null &&
+        //     customer.GetCurrentState() == CustomerState.Idle &&
+        //     IsTargetValid(targetCustomer);
     }
 
     public void Start(WorkerContext context)
     {
-        if (targetCustomer == null)
-            return;
+        // if (targetCustomer == null)
+        //     return;
 
-        if (!targetCustomer.TrySetClaimer(this))
+        // if (!targetCustomer.TrySetClaimer(this))
+        // {
+        //     targetCustomer = null;
+        //     return;
+        // }
+
+        if(targetCustomer == null || !targetCustomer.TrySetClaimer(this))
         {
-            targetCustomer = null;
-            return;
+            RefreshTarget();
+            if (targetCustomer == null || !targetCustomer.TrySetClaimer(this))
+                return;
         }
 
         context.CurrentTarget = targetCustomer.GetPosition();
         context.Agent.SetDestination(context.CurrentTarget.position);
 
-        Debug.Log($"Walking to {context.CurrentTarget.gameObject.name}");
+        // Debug.Log($"Walking to {context.CurrentTarget.gameObject.name}");
     }
 
     public void Update(WorkerContext context)
@@ -68,10 +89,11 @@ public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
         {
             if (targetCustomer != null)
             {
-                discoveredCustomers.Remove(targetCustomer);
-                targetCustomer.ClearClaimer(this);
+                // discoveredCustomers.Remove(targetCustomer);
+                // targetCustomer.ClearClaimer(this);
                 targetCustomer = null;
-                context.CurrentTarget = null;
+                return;
+                // context.CurrentTarget = null;
             }
 
             // Debug.Log("Current target is not valid");
@@ -88,21 +110,20 @@ public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
 
     public void End(WorkerContext context)
     {
-        if(targetCustomer != null /* && context.CurrentTarget != null */)
+        if(targetCustomer != null && IsComplete(context))
         {
-            Customer_New customer = context.CurrentTarget.gameObject.GetComponent<Customer_New>();
-
-            if (customer != null && customer.GetCurrentState() == CustomerState.Idle)
+            if(targetCustomer is Customer_New customer)
             {
                 customer.Order();
             }
 
-            customer.ClearClaimer(this);
-            discoveredCustomers.Remove(targetCustomer);
+            // customer.ClearClaimer(this);
+            // discoveredCustomers.Remove(targetCustomer);
         }
-        
-        context.CurrentTarget = null;
+
+        // context.CurrentTarget = null;
         targetCustomer = null;
+        RefreshTarget();
 
         // targetCustomer = discoveredCustomers.FirstOrDefault();
 
@@ -120,11 +141,11 @@ public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
 
     public bool IsComplete(WorkerContext context)
     {
-        if (targetCustomer == null) 
+        if (targetCustomer == null)
             return true;
+ 
         return !context.Agent.pathPending &&
-            context.Agent.remainingDistance <= context.Agent.stoppingDistance /* || */
-            /* changeTarget */;
+            context.Agent.remainingDistance <= context.Agent.stoppingDistance;
     }
 
     private void OnFinished(IWorkerInteractable target)
@@ -152,6 +173,15 @@ public class GetCustomerOrderTask : IWorkerTask, ITaskReceiver
 
         if (target is MonoBehaviour mono && !mono.gameObject.activeInHierarchy)
             return false;
+
+        // if(target is Customer_New customer)
+        // {
+        //     if (customer.GetCurrentState() != CustomerState.Idle)
+        //         return false;
+
+        //     if (customer.Claimer != null && customer.Claimer != this)
+        //         return false;
+        // }
 
         return true;
     }

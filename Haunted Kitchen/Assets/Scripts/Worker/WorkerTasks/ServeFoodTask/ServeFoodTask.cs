@@ -152,22 +152,33 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
 
     private void SetNextItemTarget(WorkerContext context)
     {
-        currentItem = currentOrder.availableItems.FirstOrDefault();
+        Item itemToFetch = currentOrder.availableItems.FirstOrDefault();
 
-        if (currentItem == null)
+        if (itemToFetch == null)
         {
             state = ServeState.Completed;
             return;
         }
 
-        if (!currentItem.TrySetClaimer(this))
+        if (itemToFetch != null &&
+        currentOrder.customer.orderSystem.ReserveItem(itemToFetch.itemData))
+        {
+            currentItem = itemToFetch;
+            currentItem.TrySetClaimer(this);
+            UpdateMoveTarget(context, currentItem.GetPosition());
+            state = ServeState.PickingUp;
+        }
+        else
+        {
+            Debug.LogWarning("Can't reserve");
+            state = ServeState.Completed;
+        }
+
+        if (!itemToFetch.TrySetClaimer(this))
         {
             state = ServeState.Completed;
             return;
         }
-
-        currentItem.TrySetClaimer(this);
-        UpdateMoveTarget(context, currentItem.GetPosition());
 
         // Debug.Log($"Setting next item {currentItem}");
     }
@@ -193,6 +204,11 @@ public class ServeFoodTask : IWorkerTask, ITaskReceiver
             {
                 if (item != null) item.ClearClaimer(this);
             }
+        }
+
+        if (currentOrder?.customer != null && currentItem != null)
+        {
+            currentOrder.customer.orderSystem.CancelReserve(currentItem.itemData);
         }
 
         if (currentItem != null)
