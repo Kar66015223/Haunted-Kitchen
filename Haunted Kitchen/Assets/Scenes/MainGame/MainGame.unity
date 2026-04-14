@@ -501,11 +501,38 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d18efd39dd8765409f6418205fde0f9, type: 3}
+--- !u!1 &25657212 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e37e6aa883163474ab0fe74514ddd4c5, type: 3}
+  m_PrefabInstance: {fileID: 2067404735}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &25657213 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e37e6aa883163474ab0fe74514ddd4c5, type: 3}
   m_PrefabInstance: {fileID: 2067404735}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &25657216
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25657212}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2279710125801642776, guid: e37e6aa883163474ab0fe74514ddd4c5, type: 3}
 --- !u!1 &36666203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1766,7 +1793,7 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: d02fdb21a6f73124fb19d3778cfa188c, type: 2}
   m_BuildHeightMesh: 0
---- !u!64 &119243566
+--- !u!64 &119243569
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3056,16 +3083,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kitchen_floor
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 071368ced0ab5cc47bb0e625f45c5c28, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 071368ced0ab5cc47bb0e625f45c5c28, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 119243566}
+      addedObject: {fileID: 119243565}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 071368ced0ab5cc47bb0e625f45c5c28, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 119243565}
+      addedObject: {fileID: 119243569}
   m_SourcePrefab: {fileID: 100100000, guid: 071368ced0ab5cc47bb0e625f45c5c28, type: 3}
 --- !u!1001 &201034645
 PrefabInstance:
@@ -16682,8 +16713,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -1993875156690634403, guid: 8f3d2259e3b3ffa4db5536320359fdbc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -1993875156690634403, guid: 8f3d2259e3b3ffa4db5536320359fdbc, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -311190667167000843, guid: 8f3d2259e3b3ffa4db5536320359fdbc, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -311190667167000843, guid: 8f3d2259e3b3ffa4db5536320359fdbc, type: 3}
       propertyPath: m_IsActive
@@ -25699,10 +25738,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Restuarant_Floor
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e37e6aa883163474ab0fe74514ddd4c5, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e37e6aa883163474ab0fe74514ddd4c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 25657216}
   m_SourcePrefab: {fileID: 100100000, guid: e37e6aa883163474ab0fe74514ddd4c5, type: 3}
 --- !u!1001 &2069814498
 PrefabInstance:
