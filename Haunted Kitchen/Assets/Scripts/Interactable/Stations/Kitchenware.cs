@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.VFX;
 
 public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
 {
@@ -198,7 +196,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
 
         else
         {
-            MeshRenderer[] itemMat = currentItem.GetComponentsInChildren<MeshRenderer>();
+            MeshRenderer[] itemMat = currentItem.GetComponentsInChildren<MeshRenderer>(true);
             foreach (var r in itemMat)
             {
                 r.material = ingredient.cookedMaterial;
