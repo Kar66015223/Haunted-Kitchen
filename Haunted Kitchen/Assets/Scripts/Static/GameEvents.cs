@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public static class GameEvents
@@ -11,4 +12,5 @@ public static class GameEvents
     public static Action<bool> OnToggleGhostSpawning;
     public static Action OnAddMoneyButtonClicked;
     public static Action<Item> OnItemPickedUp;
+    public static Action<Customer_New> OnCustomerArrived;
 }

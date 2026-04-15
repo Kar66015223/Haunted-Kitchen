@@ -82,6 +82,7 @@ public class CustomerMovement : MonoBehaviour
             SitOnChair();
 
             OnArrived?.Invoke();
+            GameEvents.OnCustomerArrived?.Invoke(GetComponent<Customer_New>());
 
             anim.SetBool(CustomerConstants.ANIM_SIT, true);
         }

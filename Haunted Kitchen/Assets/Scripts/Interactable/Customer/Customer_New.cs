@@ -10,10 +10,11 @@ public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
     public CustomerBehavior behavior;
 
     public GameObject customerGraphic;
+    public CustomerData data;
+
     [SerializeField] private CustomerState state = CustomerState.Idle;
 
     public IWorkerTask Claimer { get; private set; }
-    public IWorkerTask claimer => Claimer;
 
     public event Action<CustomerState> OnStateChanged;
     public event Action<IWorkerInteractable> OnFinished;

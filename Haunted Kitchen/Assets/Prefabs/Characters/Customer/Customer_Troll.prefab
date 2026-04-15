@@ -437,6 +437,7 @@ MonoBehaviour:
   ui: {fileID: 0}
   behavior: {fileID: 0}
   customerGraphic: {fileID: 0}
+  data: {fileID: 11400000, guid: 9a7d11857e8297441b78285a1cdffd95, type: 2}
   state: 0
 --- !u!114 &4259009341775268992
 MonoBehaviour:
