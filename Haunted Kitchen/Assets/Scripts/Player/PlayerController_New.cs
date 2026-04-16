@@ -194,7 +194,8 @@ public class PlayerController_New : MonoBehaviour
             }
         }
 
-        sound.PlaySound(sound.walkSound, false);
+        // Sound
+        sound.PlayWalkSound(canRun);
     }
 
     public void Slip(float duration)
@@ -244,6 +245,7 @@ public class PlayerController_New : MonoBehaviour
     {
         movement.Stop();
         anim?.SetState(0);
+        sound.StopSound();
     }
 
     public Vector3 GetFacingDirection()

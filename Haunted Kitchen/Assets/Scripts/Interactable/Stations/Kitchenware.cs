@@ -18,6 +18,13 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
     public StationStatus Status => status;
     [SerializeField] private CookingMethod supportedMethod;
 
+    [SerializeField] private AudioSource source;
+
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
+
     public bool CanInteract(Interactor interactor)
     {
         if (interactor == null)
@@ -171,9 +178,13 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
 
         cookTimer -= Time.deltaTime;
 
+        if (!source.isPlaying)
+            source.Play();
+
         if (cookTimer <= 0f)
         {
             FinishCooking();
+            source.Stop();
         }
     }
 
