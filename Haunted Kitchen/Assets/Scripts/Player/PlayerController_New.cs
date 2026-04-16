@@ -36,8 +36,12 @@ public class PlayerController_New : MonoBehaviour
     private PlayerInteract_New playerInteract;
     private PlayerItem playerItem;
     private PauseManager pauseManager;
+    private PlayerSound sound;
 
     private Vector3 currentFacingDirection = Vector3.forward;
+
+    // Sound
+    [SerializeField] private AudioClip walkSound;
 
     void Awake()
     {
@@ -47,6 +51,7 @@ public class PlayerController_New : MonoBehaviour
         playerInteract = GetComponent<PlayerInteract_New>();
         playerItem = GetComponent<PlayerItem>();
         playerCross = GetComponent<PlayerCross>();
+        sound = GetComponent<PlayerSound>();
 
         anim = GetComponent<PlayerAnimation>();
 
@@ -188,6 +193,8 @@ public class PlayerController_New : MonoBehaviour
                 anim.SetRun(false, 1f);
             }
         }
+
+        sound.PlaySound(sound.walkSound, false);
     }
 
     public void Slip(float duration)

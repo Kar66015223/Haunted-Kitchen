@@ -3,6 +3,12 @@ using UnityEngine;
 public class LightSwitch : MonoBehaviour, Iinteractable
 {
     private PowerOutageSystem outageSystem;
+    private AudioSource audioSource;
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Start()
     {
@@ -43,6 +49,7 @@ public class LightSwitch : MonoBehaviour, Iinteractable
     {
         if (!outageSystem.IsOff) return;
         outageSystem.TogglePower();
+        audioSource.Play();
     }
 
     public void SetSwitchOff()
