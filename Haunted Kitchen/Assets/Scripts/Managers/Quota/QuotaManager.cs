@@ -11,7 +11,7 @@ public class QuotaManager : MonoBehaviour
     [SerializeField] private int currentQuota;
     public int CurrentQuota => currentQuota;
 
-    private int quotaIncrease = 2000;
+    private int quotaIncrease = 1000;
     private int firstDayQuota = 3000;
 
     public event Action<int> OnQuotaChanged;

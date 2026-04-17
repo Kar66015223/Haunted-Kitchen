@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Burger
   m_EditorClassIdentifier: Assembly-CSharp::FoodData
   itemName: Burger
-  price: 350
+  price: 600
   icon: {fileID: 21300000, guid: aecb391f512107949929f8967c9b8105, type: 3}
   oneHand: 0
   canDrop: 0

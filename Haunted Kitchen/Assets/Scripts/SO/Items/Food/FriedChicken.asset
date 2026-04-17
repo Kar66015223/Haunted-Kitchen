@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FriedChicken
   m_EditorClassIdentifier: Assembly-CSharp::FoodData
   itemName: Fried Chicken
-  price: 150
+  price: 200
   icon: {fileID: 21300000, guid: a8224815d93e82f41be634acebfa8615, type: 3}
   oneHand: 0
   canDrop: 0

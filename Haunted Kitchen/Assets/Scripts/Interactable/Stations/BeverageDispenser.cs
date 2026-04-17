@@ -16,8 +16,14 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IDestroyable
     [SerializeField] private StationStatus status;
     public StationStatus Status => status;
 
+    [SerializeField] private AudioSource source;
     [SerializeField] private AudioClip getItemSound;
     [SerializeField] private AudioClip destroySound;
+
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -109,7 +115,7 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IDestroyable
 
         UpdateUI();
 
-        AudioManager.instance.PlaySFX(getItemSound, transform, 1f);
+        PlaySound(getItemSound);
     }
 
     bool IsCorrectRefillItem(PlayerItem playerItem)
@@ -141,6 +147,15 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IDestroyable
         status = newStatus;
 
         if (status == StationStatus.Destroyed)
-            AudioManager.instance.PlaySFX(destroySound, transform, 1f);
+            PlaySound(destroySound);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        if (source.isPlaying)
+            source.Stop();
+
+        source.clip = clip;
+        source.Play();
     }
 }

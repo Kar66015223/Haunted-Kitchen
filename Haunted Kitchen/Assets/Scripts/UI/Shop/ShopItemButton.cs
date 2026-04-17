@@ -12,6 +12,13 @@ public class ShopItemButton : MonoBehaviour
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private Button buyButton;
 
+    private AudioSource source;
+
+    void Awake()
+    {
+        source = GetComponentInParent<AudioSource>();
+    }
+
     private void Start()
     {
         nameText.text = itemData.itemName;
@@ -31,11 +38,20 @@ public class ShopItemButton : MonoBehaviour
         MoneyManager.Instance.ChangeMoneyAmount(-itemData.price);
         GameEvents.OnShowEventText?.Invoke($"Bought {itemData.itemName}", Color.green);
 
+        PlaySound();
         SpawnItem();
     }
 
     void SpawnItem()
     {
         Instantiate(itemPrefab, spawner.position, spawner.rotation);
+    }
+
+    void PlaySound()
+    {
+        if (source.isPlaying)
+            source.Stop();
+
+        source.Play();
     }
 }
