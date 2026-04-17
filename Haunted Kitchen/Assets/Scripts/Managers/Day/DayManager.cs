@@ -85,7 +85,7 @@ public class DayManager : MonoBehaviour
 
     private void EndDay()
     {
-        if(CurrentDay == maxDays)
+        if (CurrentDay == maxDays)
         {
             int currentQuota = QuotaManager.Instance.CurrentQuota;
             bool gotGoodEnd = MoneyManager.Instance.CurrentMoney >= currentQuota
@@ -94,6 +94,9 @@ public class DayManager : MonoBehaviour
             EnterEndingScene(gotGoodEnd ?
                 SceneConstants.ENDINE_GOODEND_NAME : SceneConstants.ENDING_BADEND_NAME);
         }
+
+        Worker worker = FindAnyObjectByType<Worker>();
+        Destroy(worker);
 
         Time.timeScale = 0f;
         timer.ResetTime();

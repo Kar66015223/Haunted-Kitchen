@@ -74,7 +74,9 @@ public class AngryBehavior : CustomerBehavior
         float impactDelay = 1f;
 
         yield return new WaitForSeconds(impactDelay);
+
         controller.Slip(stunDuration + impactDelay);
+        customer.PlaySound();
 
         PlayerHealth health = controller.GetComponent<PlayerHealth>();
         health.TakeDamage(1);

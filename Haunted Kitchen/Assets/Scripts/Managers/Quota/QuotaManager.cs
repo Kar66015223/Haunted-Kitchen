@@ -11,8 +11,8 @@ public class QuotaManager : MonoBehaviour
     [SerializeField] private int currentQuota;
     public int CurrentQuota => currentQuota;
 
-    private int quotaIncrease = 3000;
-    private int quotaIncreaseLastDay = 5000;
+    private int quotaIncrease = 2000;
+    private int firstDayQuota = 3000;
 
     public event Action<int> OnQuotaChanged;
 
@@ -74,14 +74,13 @@ public class QuotaManager : MonoBehaviour
         if (MoneyManager.Instance != null)
             MoneyManager.Instance.ChangeMoneyAmount(-currentQuota);
             
-        if (day == 1 || day == dayManager.MaxDays)
+        if (day == 1)
         {
-            ChangeQuotaAmount(quotaIncreaseLastDay);
+            ChangeQuotaAmount(firstDayQuota);
             return;
         }
 
         ChangeQuotaAmount(quotaIncrease);
-
     }
 
     void OnDayStartedSub()

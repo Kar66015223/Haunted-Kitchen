@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
 {
@@ -19,6 +20,8 @@ public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
     public event Action<CustomerState> OnStateChanged;
     public event Action<IWorkerInteractable> OnFinished;
     public event Action<IWorkerInteractable> OnOrderTaken;
+
+    private AudioSource source;
 
     private void OnEnable()
     {
@@ -41,6 +44,7 @@ public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
         ui = GetComponent<CustomerUI>();
         behavior = GetComponent<CustomerBehavior>();
         customerGraphic = GetComponentInChildren<Animator>().gameObject;
+        source = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -169,11 +173,19 @@ public class Customer_New : MonoBehaviour, Iinteractable, IWorkerInteractable
         Claimer = claimer;
         return true;
     }
-    
+
     public void ClearClaimer(IWorkerTask claimer)
     {
         if (Claimer == claimer)
             Claimer = null;
+    }
+    
+    public void PlaySound()
+    {
+        if (source.isPlaying)
+            source.Stop();
+        
+        source.Play();
     }
 
     public void OnDiscovered() => WorkerEvents.NotifyTaskDiscovered(this);

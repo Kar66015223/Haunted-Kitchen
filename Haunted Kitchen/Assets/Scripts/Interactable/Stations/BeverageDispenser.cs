@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,15 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IDestroyable
 
     [SerializeField] private StationStatus status;
     public StationStatus Status => status;
+
+    [SerializeField] private AudioSource source;
+    [SerializeField] private AudioClip getItemSound;
+    [SerializeField] private AudioClip destroySound;
+
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -105,6 +115,8 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IDestroyable
         beverageAmount--;
 
         UpdateUI();
+
+        PlaySound(getItemSound);
     }
 
     bool IsCorrectRefillItem(PlayerItem playerItem)
@@ -134,5 +146,17 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IDestroyable
     public void SetStationStatus(StationStatus newStatus)
     {
         status = newStatus;
+
+        if (status == StationStatus.Destroyed)
+            PlaySound(destroySound);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        if (source.isPlaying)
+            source.Stop();
+        
+        source.clip = clip;
+        source.Play();
     }
 }

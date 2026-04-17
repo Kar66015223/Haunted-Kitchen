@@ -133,5 +133,10 @@ public class Worker : MonoBehaviour
         currentState = WorkerState.MovingToTarget;
     }
 
+    public void SetIdlePoint(Transform pos)
+    {
+        idleStandPoint = pos;
+    }
+
     public WorkerState GetCurrentState() => currentState;
 }
