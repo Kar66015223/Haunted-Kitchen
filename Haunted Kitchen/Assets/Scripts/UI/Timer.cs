@@ -9,14 +9,27 @@ public class Timer : MonoBehaviour
     [SerializeField] private float remainingTime = 0;
     [SerializeField] private float maxTime = 181;
 
+    [SerializeField] private bool isCounting = false;
+
     [SerializeField] private float ghostPhaseStartTime = 150; //2:30 Min
 
+    [SerializeField] private Button startDayButton;
     [SerializeField] private Button endDayButton;
     [SerializeField] private Button startGhostPhaseButton;
 
     private bool hasRunOut = false;
 
     public event Action OnTimerRunOut;
+
+    void OnEnable()
+    {
+        GameEvents.OnGameStart += StartTimer;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnGameStart -= StartTimer;
+    }
 
     void Start()
     {
@@ -27,6 +40,10 @@ public class Timer : MonoBehaviour
 
         if (startGhostPhaseButton != null)
             startGhostPhaseButton.onClick.AddListener(SetSpawnGhost);
+
+        if (startDayButton != null)
+            startDayButton.onClick.AddListener(StartTimer);
+
     }
 
     void OnDestroy()
@@ -40,6 +57,9 @@ public class Timer : MonoBehaviour
 
     private void Update()
     {
+        if (!isCounting)
+            return;
+
         if (remainingTime > 0)
         {
             remainingTime -= Time.deltaTime;
@@ -88,9 +108,14 @@ public class Timer : MonoBehaviour
         {
             remainingTime = ghostPhaseStartTime;
         }
-        else if(remainingTime <= ghostPhaseStartTime && remainingTime > ghostPhaseEndTime)
+        else if (remainingTime <= ghostPhaseStartTime && remainingTime > ghostPhaseEndTime)
         {
             remainingTime = ghostPhaseEndTime;
         }
+    }
+    
+    void StartTimer()
+    {
+        isCounting = true;
     }
 }

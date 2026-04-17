@@ -13,4 +13,5 @@ public static class GameEvents
     public static Action OnAddMoneyButtonClicked;
     public static Action<Item> OnItemPickedUp;
     public static Action<Customer_New> OnCustomerArrived;
+    public static Action OnGameStart;
 }

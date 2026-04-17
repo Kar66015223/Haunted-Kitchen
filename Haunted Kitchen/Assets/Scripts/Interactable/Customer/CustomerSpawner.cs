@@ -12,6 +12,12 @@ public class CustomerSpawner : MonoBehaviour
     private void OnEnable()
     {
         Invoke(nameof(FindTables), 0.1f);
+        GameEvents.OnGameStart += SpawnCustomer;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnGameStart -= SpawnCustomer;
     }
 
     private void FindTables()
@@ -25,10 +31,10 @@ public class CustomerSpawner : MonoBehaviour
         // Debug.Log($"CustomerSpawner found {tables.Count} tables");
     }
 
-    private void Start()
-    {
-        Invoke(nameof(SpawnCustomer), 0.2f);
-    }
+    // private void Start()
+    // {
+    //     Invoke(nameof(SpawnCustomer), 0.2f);
+    // }
 
     void HandleCustomerLeft()
     {
@@ -56,5 +62,10 @@ public class CustomerSpawner : MonoBehaviour
         movement.Initialize(tables, spawnPoint);
 
         movement.OnLeft += HandleCustomerLeft;
+    }
+
+    void StartSpawning()
+    {
+        SpawnCustomer();
     }
 }

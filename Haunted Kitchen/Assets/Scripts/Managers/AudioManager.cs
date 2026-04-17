@@ -5,6 +5,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
 
     [SerializeField] private AudioSource sourcePrefab;
+    public AudioSource currentSource { get; private set; }
 
     void Awake()
     {
@@ -14,15 +15,15 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(AudioClip clip, Transform spawnTransform, float volume)
     {
-        AudioSource source = Instantiate(
+        currentSource = Instantiate(
             sourcePrefab, spawnTransform.position, Quaternion.identity);
 
-        source.clip = clip;
-        source.volume = volume;
+        currentSource.clip = clip;
+        currentSource.volume = volume;
 
-        source.Play();
+        currentSource.Play();
 
-        float clipLength = source.clip.length;
-        Destroy(source.gameObject, clipLength);
+        float clipLength = currentSource.clip.length;
+        Destroy(currentSource.gameObject, clipLength);
     }
 }

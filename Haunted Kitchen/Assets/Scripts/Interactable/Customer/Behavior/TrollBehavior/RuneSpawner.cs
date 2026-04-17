@@ -6,7 +6,7 @@ public class RuneSpawner : MonoBehaviour
 
     public void SpawnRune(Table currentTable)
     {
-        if(currentTable.GetCurrentItem() != null)
+        if(currentTable.GetCurrentItem() == null)
             currentTable.SpawnItem(runePrefab);
     }
 }
