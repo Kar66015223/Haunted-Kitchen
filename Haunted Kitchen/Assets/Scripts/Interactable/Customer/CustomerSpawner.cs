@@ -27,14 +27,7 @@ public class CustomerSpawner : MonoBehaviour
         tables = FindObjectsByType<Table>(FindObjectsSortMode.None)
         .Where(t => t.Chairs.Length != 0)
         .ToList();
-
-        // Debug.Log($"CustomerSpawner found {tables.Count} tables");
     }
-
-    // private void Start()
-    // {
-    //     Invoke(nameof(SpawnCustomer), 0.2f);
-    // }
 
     void HandleCustomerLeft()
     {
@@ -62,10 +55,5 @@ public class CustomerSpawner : MonoBehaviour
         movement.Initialize(tables, spawnPoint);
 
         movement.OnLeft += HandleCustomerLeft;
-    }
-
-    void StartSpawning()
-    {
-        SpawnCustomer();
     }
 }
