@@ -65,7 +65,7 @@ MonoBehaviour:
   active: 1
   mode:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
   neutralHDRRangeReductionMode:
     m_OverrideState: 0
     m_Value: 2
@@ -105,13 +105,13 @@ MonoBehaviour:
   active: 1
   lift:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.9817344, z: 0.9755614, w: 0}
+    m_Value: {x: 1, y: 0.9817344, z: 0.9755614, w: 0.010298584}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 0.9808622, y: 0.955148, z: 1, w: 0.10298663}
+    m_Value: {x: 1, y: 0.93004453, z: 0.934741, w: -0.09268794}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: -0.030895997}
+    m_Value: {x: 1, y: 1, z: 1, w: -0.38105056}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f335fb1ffd8684294ad653bf1c7564, type: 3}
   m_Name: ColorAdjustments
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.ColorAdjustments
-  active: 0
+  active: 1
   postExposure:
     m_OverrideState: 1
     m_Value: 0.32
