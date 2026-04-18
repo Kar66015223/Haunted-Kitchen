@@ -3,7 +3,7 @@ using System;
 
 public class CustomerPatience : MonoBehaviour
 {
-    public float patienceDuration = 60f;
+    public float patienceDuration = 90f;
     private float patienceTimer;
     private bool isCountingPatience = false;
 

@@ -192,6 +192,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
     {
         var ingredient = (IngredientData)currentItem.itemData;
         currentItem.itemData = ingredient.cookedResult;
+        currentItem.OnDiscovered();
 
         if (ingredient.cookedModel != null)
         {

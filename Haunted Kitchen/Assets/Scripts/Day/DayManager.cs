@@ -2,8 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-
 public class DayManager : MonoBehaviour
 {
     public static DayManager Instance { get; private set; }
@@ -92,7 +90,7 @@ public class DayManager : MonoBehaviour
                 ? true : false;
 
             EnterEndingScene(gotGoodEnd ?
-                SceneConstants.ENDINE_GOODEND_NAME : SceneConstants.ENDING_BADEND_NAME);
+                SceneConstants.ENDING_GOODEND_NAME : SceneConstants.ENDING_BADEND_NAME);
         }
 
         Worker worker = FindAnyObjectByType<Worker>();

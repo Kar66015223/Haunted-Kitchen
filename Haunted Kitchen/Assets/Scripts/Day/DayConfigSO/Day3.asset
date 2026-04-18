@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74029ac82ae530344a9bab1bbf5be01b, type: 3}
+  m_Name: Day3
+  m_EditorClassIdentifier: Assembly-CSharp::DayConfiguration
+  spawnInterval: 20
+  customerPool:
+  - prefab: {fileID: 3639085649114654099, guid: e7a5d8bb06951c84883a83ccbfb465c3, type: 3}
+    spawnLimits: 0
+    currentSpawnCount: 0
+  - prefab: {fileID: 3639085649114654099, guid: b4aa25f86b5072745b3cdc0678e49d75, type: 3}
+    spawnLimits: 0
+    currentSpawnCount: 0
+  - prefab: {fileID: 3639085649114654099, guid: 7a3ea6171030e9845834213c58ae4681, type: 3}
+    spawnLimits: 4
+    currentSpawnCount: 0

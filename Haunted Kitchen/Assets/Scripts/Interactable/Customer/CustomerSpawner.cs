@@ -1,23 +1,62 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System.Collections;
 
 public class CustomerSpawner : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> customerPrefabs;
+    [SerializeField] private List<DayConfiguration> dayConfigs;
     [SerializeField] private Transform spawnPoint;
 
     [SerializeField] private List<Table> tables = new();
+    private DayConfiguration currentConfig;
+    private Coroutine spawnLoop;
 
     private void OnEnable()
     {
-        Invoke(nameof(FindTables), 0.1f);
-        GameEvents.OnGameStart += SpawnCustomer;
+        GameEvents.OnGameStart += StartSpawning;
+        DayManager.Instance.OnDayStarted += SetupDay;
     }
 
     void OnDisable()
     {
-        GameEvents.OnGameStart -= SpawnCustomer;
+        GameEvents.OnGameStart -= StartSpawning;
+
+        if (DayManager.Instance != null)
+            DayManager.Instance.OnDayStarted -= SetupDay;
+    }
+
+    private void SetupDay(int dayNumber)
+    {
+        // Day 1 = index 0
+        int index = Mathf.Clamp(dayNumber - 1, 0, dayConfigs.Count - 1);
+        currentConfig = dayConfigs[index];
+
+        currentConfig.ResetCounts();
+
+        FindTables();
+    }
+
+    private void StartSpawning()
+    {
+        if (spawnLoop != null)
+            StopCoroutine(spawnLoop);
+
+        spawnLoop = StartCoroutine(SpawnRoutine());
+    }
+    
+    private IEnumerator SpawnRoutine()
+    {
+        while(true)
+        {
+            if (HasFreeTable() && TryGetConfig(out CustomerConfiguration config))
+            {
+                Spawn(config.prefab);
+                    config.currentSpawnCount++;
+
+                yield return new WaitForSeconds(currentConfig.spawnInterval);
+            }
+        }
     }
 
     private void FindTables()
@@ -29,31 +68,29 @@ public class CustomerSpawner : MonoBehaviour
         .ToList();
     }
 
-    void HandleCustomerLeft()
+    private bool HasFreeTable() => tables.Any(t => !t.isOccupied);
+
+    private bool TryGetConfig(out CustomerConfiguration result)
     {
-        SpawnCustomer();
+        var availablePool = currentConfig.customerPool
+            .Where(p => p.spawnLimits <= 0 || p.currentSpawnCount < p.spawnLimits)
+            .ToList();
+
+        if (availablePool.Count > 0)
+        {
+            result = availablePool[Random.Range(0, availablePool.Count)];
+            return true;
+        }
+
+        result = null;
+        return false;
     }
-
-    public void SpawnCustomer()
+    
+    private void Spawn(GameObject prefab)
     {
-        if (tables.Count == 0)
-        {
-            Debug.LogError("No tables assigned");
-            return;
-        }
-
-        if (customerPrefabs.Count == 0)
-        {
-            Debug.LogError("No customer prefabs assigned");
-            return;
-        }
-
-        GameObject randomPrefab = customerPrefabs[Random.Range(0, customerPrefabs.Count)];
-        GameObject customerObj = Instantiate(randomPrefab, spawnPoint.position, spawnPoint.rotation);
-
+        GameObject customerObj = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
         CustomerMovement movement = customerObj.GetComponentInParent<CustomerMovement>();
-        movement.Initialize(tables, spawnPoint);
 
-        movement.OnLeft += HandleCustomerLeft;
+        movement.Initialize(tables, spawnPoint);
     }
 }
