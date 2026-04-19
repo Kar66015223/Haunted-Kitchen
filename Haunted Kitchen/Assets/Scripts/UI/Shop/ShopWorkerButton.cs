@@ -23,7 +23,7 @@ public class ShopWorkerButton : MonoBehaviour
 
     private void Start()
     {
-        priceText.text = workerPrice.ToString();
+        priceText.text = $"{workerPrice} <color=yellow>$</color>";
         buyButton.onClick.AddListener(Hire);
     }
 
