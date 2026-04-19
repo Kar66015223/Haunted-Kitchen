@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74029ac82ae530344a9bab1bbf5be01b, type: 3}
   m_Name: Day6
   m_EditorClassIdentifier: Assembly-CSharp::DayConfiguration
-  spawnInterval: 12
+  spawnInterval: 10
   customerPool:
   - prefab: {fileID: 3639085649114654099, guid: e7a5d8bb06951c84883a83ccbfb465c3, type: 3}
     spawnLimits: 0
