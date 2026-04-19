@@ -20,8 +20,11 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
     [SerializeField] private CookingMethod supportedMethod;
 
     [SerializeField] private AudioSource source;
+
     [SerializeField] private AudioClip griddleCookSound;
     [SerializeField] private AudioClip deepFryerCookSound;
+    [SerializeField] private AudioClip ovenCookSound;
+
     [SerializeField] private AudioClip destroySound;
 
     void Awake()
@@ -191,7 +194,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
                 PlaySound(deepFryerCookSound, true);
 
             if (supportedMethod == CookingMethod.Oven)
-                PlaySound(griddleCookSound, true);
+                PlaySound(ovenCookSound, true);
         }
 
         if (cookTimer <= 0f)

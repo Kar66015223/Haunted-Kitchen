@@ -48,7 +48,7 @@ public class CustomerMovement : MonoBehaviour
         }
 
         //pick random free table
-        List<Table> freeTables = tables.FindAll(tables => !tables.isOccupied);
+        List<Table> freeTables = tables.FindAll(tables => tables.HasFreeChair());
 
         if (freeTables.Count == 0)
         {
@@ -60,7 +60,7 @@ public class CustomerMovement : MonoBehaviour
         targetChair = targetTable.GetFreeChair();
 
         standPoint = targetChair.CustomerStandPoint;
-        targetTable.isOccupied = true;
+        targetChair.isOccupied = true;
 
         agent.SetDestination(standPoint.position);
     }
@@ -120,7 +120,7 @@ public class CustomerMovement : MonoBehaviour
         //arrived at exitPoint
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
-            targetTable.isOccupied = false;
+            // targetChair.isOccupied = false;
             OnLeft?.Invoke();
             OnLeft = null;
 

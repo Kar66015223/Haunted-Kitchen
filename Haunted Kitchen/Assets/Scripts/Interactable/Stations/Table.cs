@@ -10,7 +10,7 @@ public class Table : MonoBehaviour, Iinteractable
 
     public TableRole tableRole = TableRole.Default;
 
-    public bool isOccupied;
+    // public bool isOccupied;
 
     public virtual bool AllowsStationInteraction => tableRole != TableRole.Counter;
 
@@ -22,7 +22,12 @@ public class Table : MonoBehaviour, Iinteractable
 
     public Chair GetFreeChair()
     {
-        return chairs.FirstOrDefault(chair => chair.CurrentCustomer == null);
+        return chairs.FirstOrDefault(chair => !chair.isOccupied);
+    }
+
+    public bool HasFreeChair()
+    {
+        return GetFreeChair() != null;
     }
 
     public bool CanInteract(Interactor interactor)

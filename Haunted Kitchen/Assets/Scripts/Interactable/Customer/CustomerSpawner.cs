@@ -44,10 +44,12 @@ public class CustomerSpawner : MonoBehaviour
 
         spawnLoop = StartCoroutine(SpawnRoutine());
     }
-    
+
     private IEnumerator SpawnRoutine()
     {
-        while(true)
+        while (currentConfig == null) yield return null;
+
+        while (true)
         {
             if (HasFreeTable() && TryGetConfig(out CustomerConfiguration config))
             {
@@ -68,7 +70,7 @@ public class CustomerSpawner : MonoBehaviour
         .ToList();
     }
 
-    private bool HasFreeTable() => tables.Any(t => !t.isOccupied);
+    private bool HasFreeTable() => tables.Any(t => t.HasFreeChair());
 
     private bool TryGetConfig(out CustomerConfiguration result)
     {

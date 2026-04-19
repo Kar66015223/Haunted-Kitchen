@@ -11,6 +11,8 @@ public class Chair : MonoBehaviour, Iinteractable
     private System.Type currentCustomerType;
     public CustomerBehavior CurrentCustomer => currentCustomer;
 
+    public bool isOccupied;
+
     private Animator visualAnim;
     
     [SerializeField] private List<SitVisual> sitVisuals = new();
@@ -60,6 +62,7 @@ public class Chair : MonoBehaviour, Iinteractable
         {
             currentCustomerType = currentCustomer.GetType();
         }
+
         EnableVisual();
     }
 
@@ -68,6 +71,7 @@ public class Chair : MonoBehaviour, Iinteractable
         DisableVisual();
         currentCustomer = null;
         currentCustomerType = null;
+        isOccupied = false;
     }
 
     public void EnableVisual()

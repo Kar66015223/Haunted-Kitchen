@@ -11,11 +11,14 @@ public class ShopWorkerButton : MonoBehaviour
 
     [SerializeField] private int workerPrice = 1000;
     [SerializeField] private TMP_Text priceText;
+
     private Button buyButton;
+    private AudioSource source;
 
     void Awake()
     {
         buyButton = GetComponent<Button>();
+        source = GetComponentInParent<AudioSource>();
     }
 
     private void Start()
@@ -41,6 +44,7 @@ public class ShopWorkerButton : MonoBehaviour
         MoneyManager.Instance.ChangeMoneyAmount(-workerPrice);
         GameEvents.OnShowEventText?.Invoke($"Hired Worker", Color.green);
 
+        PlaySound();
         SpawnWorker();
     }
 
@@ -48,5 +52,13 @@ public class ShopWorkerButton : MonoBehaviour
     {
         spawnedWorker = Instantiate(workerPrefab, spawner.position, spawner.rotation);
         spawnedWorker.GetComponent<Worker>().SetIdlePoint(spawner);
+    }
+
+    void PlaySound()
+    {
+        if (source.isPlaying)
+            source.Stop();
+
+        source.Play();
     }
 }
