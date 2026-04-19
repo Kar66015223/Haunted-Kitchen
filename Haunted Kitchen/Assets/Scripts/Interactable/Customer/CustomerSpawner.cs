@@ -52,10 +52,10 @@ public class CustomerSpawner : MonoBehaviour
             if (HasFreeTable() && TryGetConfig(out CustomerConfiguration config))
             {
                 Spawn(config.prefab);
-                    config.currentSpawnCount++;
-
-                yield return new WaitForSeconds(currentConfig.spawnInterval);
+                config.currentSpawnCount++;
             }
+
+            yield return new WaitForSeconds(currentConfig.spawnInterval);
         }
     }
 
