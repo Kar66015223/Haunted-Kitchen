@@ -2524,7 +2524,7 @@ GameObject:
   - component: {fileID: 846566902}
   - component: {fileID: 846566901}
   m_Layer: 5
-  m_Name: MainGameButton
+  m_Name: NextButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3054,6 +3054,7 @@ MonoBehaviour:
   - {fileID: 679925518}
   nextButton: {fileID: 846566901}
   mainMenuButton: {fileID: 0}
+  nextDialogue: {fileID: 1628695574}
 --- !u!4 &1309962905
 Transform:
   m_ObjectHideFlags: 0

@@ -11,15 +11,26 @@ public class StoryController : MonoBehaviour
     public Button nextButton;
     public Button mainMenuButton;
 
+    public Button nextDialogue;
+
     void Start()
     {
         ShowPage(0);
 
         if (nextButton != null)
+        {
             nextButton.onClick.AddListener(GoToMainGame);
+            nextButton.onClick.AddListener(UISound.instance.PlayClickSound);
+        }
 
         if (mainMenuButton != null)
+        {
             mainMenuButton.onClick.AddListener(ReturnToMenu);
+            mainMenuButton.onClick.AddListener(UISound.instance.PlayClickSound);
+        }
+
+        if (nextDialogue != null)
+            nextDialogue.onClick.AddListener(UISound.instance.PlayClickSound);
     }
 
     void OnDestroy()

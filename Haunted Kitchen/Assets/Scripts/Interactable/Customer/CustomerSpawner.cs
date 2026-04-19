@@ -12,10 +12,15 @@ public class CustomerSpawner : MonoBehaviour
     private DayConfiguration currentConfig;
     private Coroutine spawnLoop;
 
+    public int ActiveCustomerCount { get; private set; }
+
     private void OnEnable()
     {
         GameEvents.OnGameStart += StartSpawning;
         DayManager.Instance.OnDayStarted += SetupDay;
+
+        if (DayManager.Instance.Timer != null) 
+            DayManager.Instance.Timer.OnTimerRunOut += StopSpawning;
     }
 
     void OnDisable()
@@ -23,7 +28,17 @@ public class CustomerSpawner : MonoBehaviour
         GameEvents.OnGameStart -= StartSpawning;
 
         if (DayManager.Instance != null)
+        {
             DayManager.Instance.OnDayStarted -= SetupDay;
+
+            if (DayManager.Instance.Timer != null)
+                DayManager.Instance.Timer.OnTimerRunOut -= StopSpawning;
+        }
+    }
+
+    void Update()
+    {
+        Debug.Log($"Active Customers: {ActiveCustomerCount}");
     }
 
     private void SetupDay(int dayNumber)
@@ -43,6 +58,15 @@ public class CustomerSpawner : MonoBehaviour
             StopCoroutine(spawnLoop);
 
         spawnLoop = StartCoroutine(SpawnRoutine());
+    }
+
+    private void StopSpawning()
+    {
+        if(spawnLoop != null)
+        {
+            StopCoroutine(spawnLoop);
+            spawnLoop = null;
+        }
     }
 
     private IEnumerator SpawnRoutine()
@@ -87,12 +111,26 @@ public class CustomerSpawner : MonoBehaviour
         result = null;
         return false;
     }
-    
+
     private void Spawn(GameObject prefab)
     {
         GameObject customerObj = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
+
+        Customer_New customer = customerObj.GetComponent<Customer_New>();
         CustomerMovement movement = customerObj.GetComponentInParent<CustomerMovement>();
 
+        if (customer != null && movement != null)
+        {
+            ActiveCustomerCount++;
+            movement.OnLeft += HandleCustomerFinished;
+        }
+
         movement.Initialize(tables, spawnPoint);
+    }
+    
+    private void HandleCustomerFinished()
+    {
+        ActiveCustomerCount--;
+        ActiveCustomerCount = Mathf.Max(0, ActiveCustomerCount);
     }
 }

@@ -18,6 +18,11 @@ public class DayManager : MonoBehaviour
     [SerializeField] private int firstDayMoney = 5000;
 
     [SerializeField] private Timer timer;
+    public Timer Timer => timer;
+
+    [SerializeField] private CustomerSpawner spawner; 
+    private bool isWaitingForCustomers = false;
+
     [SerializeField] private PlayerInput playerInput;
 
     public event Action<int> OnDayEnded;
@@ -41,7 +46,7 @@ public class DayManager : MonoBehaviour
         GameEvents.OnAddMoneyButtonClicked += OnAddMoneyClicked;
         
         if(timer != null)
-            timer.OnTimerRunOut += EndDay;
+            timer.OnTimerRunOut += StartClosingPeriod;
     }
 
     void OnDisable()
@@ -50,7 +55,7 @@ public class DayManager : MonoBehaviour
         GameEvents.OnAddMoneyButtonClicked -= OnAddMoneyClicked;
 
         if (timer != null)
-            timer.OnTimerRunOut -= EndDay;
+            timer.OnTimerRunOut -= StartClosingPeriod;
     }
 
     void Start()
@@ -58,6 +63,18 @@ public class DayManager : MonoBehaviour
         if (MoneyManager.Instance != null)
         {
             AddMoney(firstDayMoney);
+        }
+    }
+
+    void Update()
+    {
+        if (isWaitingForCustomers)
+        {
+            if(spawner != null && spawner.ActiveCustomerCount <= 0)
+            {
+                isWaitingForCustomers = false;
+                EndDay();
+            }
         }
     }
 
@@ -71,14 +88,29 @@ public class DayManager : MonoBehaviour
 
         timer = FindAnyObjectByType<Timer>();
         playerInput = FindAnyObjectByType<PlayerInput>();
+        spawner = FindAnyObjectByType<CustomerSpawner>();
 
         if (timer != null)
         {
-            timer.OnTimerRunOut -= EndDay;
-            timer.OnTimerRunOut += EndDay;
+            timer.OnTimerRunOut -= StartClosingPeriod;
+            timer.OnTimerRunOut += StartClosingPeriod;
         }
 
+        isWaitingForCustomers = false;
         OnDayStarted?.Invoke(CurrentDay);
+    }
+
+    private void StartClosingPeriod()
+    {
+        isWaitingForCustomers = true;
+
+        if (spawner != null && spawner.ActiveCustomerCount <= 0)
+        {
+            isWaitingForCustomers = false;
+            EndDay();
+        }
+
+        GameEvents.OnShowEventText("The day will end when all customers has left", Color.red);
     }
 
     private void EndDay()
@@ -94,7 +126,8 @@ public class DayManager : MonoBehaviour
         }
 
         Worker worker = FindAnyObjectByType<Worker>();
-        Destroy(worker);
+        if(worker != null)
+            Destroy(worker);
 
         Time.timeScale = 0f;
         timer.ResetTime();
