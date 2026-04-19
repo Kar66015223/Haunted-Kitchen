@@ -10,6 +10,7 @@ public class GhostController : MonoBehaviour
     private IAnimationController anim;
     private GhostStateMachine stateMachine;
     private GhostStateFactory stateFactory;
+    public GhostSound sound;
 
     public Transform player { get; private set; }
     private LightSwitch lightSwitch;
@@ -38,6 +39,7 @@ public class GhostController : MonoBehaviour
         movement = movementComponent ?? throw new NullReferenceException("GhostMovementController required");
         anim = animationComponent ?? throw new NullReferenceException("GhostAnimationController required");
         agent = movementComponent?.GetAgent();
+        sound = GetComponent<GhostSound>();
 
         var playerGO = GameObject.FindGameObjectWithTag(PlayerConstants.PLAYER_TAG);
         player = playerGO?.transform;

@@ -805,7 +805,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e0c99cfdbbe69ea4380490e36d80ba4e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d18d2f37872e25246b2c64c2aa052a54, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -17168,10 +17168,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 219041751803806038, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1403091200965308655, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -17215,10 +17211,6 @@ PrefabInstance:
     - target: {fileID: 1536483965337830122, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8545700949772372307, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28292,6 +28284,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Griddle
       objectReference: {fileID: 0}
+    - target: {fileID: 911719315272734727, guid: d265119739d2a0b4c8d47f089f7a3a66, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3704358958767813051, guid: d265119739d2a0b4c8d47f089f7a3a66, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.739
@@ -28779,25 +28775,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 380503943}
     m_Modifications:
-    - target: {fileID: 80563827562581726, guid: 2f5079b37f59add40853ac7a55085761, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1405138327254866573, guid: 2f5079b37f59add40853ac7a55085761, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1830179178902791158, guid: 2f5079b37f59add40853ac7a55085761, type: 3}
       propertyPath: m_Name
       value: Smootthie Dispenser
-      objectReference: {fileID: 0}
-    - target: {fileID: 1830179178902791158, guid: 2f5079b37f59add40853ac7a55085761, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5161726626310151026, guid: 2f5079b37f59add40853ac7a55085761, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8578586388675776661, guid: 2f5079b37f59add40853ac7a55085761, type: 3}
       propertyPath: m_LocalPosition.x
@@ -28956,6 +28936,10 @@ PrefabInstance:
     - target: {fileID: 9003151097964237325, guid: 38026e0e4449df644a9297143b4b98f0, type: 3}
       propertyPath: m_Name
       value: DeepFryer
+      objectReference: {fileID: 0}
+    - target: {fileID: 9003151097964237325, guid: 38026e0e4449df644a9297143b4b98f0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

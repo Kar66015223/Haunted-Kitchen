@@ -7,12 +7,14 @@ public class PlayerClean : MonoBehaviour
     private PlayerInputHandler inputHandler;
     private PlayerAnimation anim;
     private PlayerInteractableDetector detector;
+    private PlayerSound sound;
 
     void Awake()
     {
         inputHandler = GetComponent<PlayerInputHandler>();
         anim = GetComponent<PlayerAnimation>();
         detector = GetComponent<PlayerInteractableDetector>();
+        sound = GetComponent<PlayerSound>();
     }
 
     void OnEnable()
@@ -32,6 +34,15 @@ public class PlayerClean : MonoBehaviour
 
         anim.SetClean(isCleaning);
         ToggleMop(isCleaning);
+
+        if (isCleaning)
+        {
+            sound.PlayMopSound();
+        }
+        else
+        {
+            sound.StopAction();
+        }
     }
     
     private void ToggleMop(bool value)

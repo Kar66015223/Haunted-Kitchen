@@ -56,5 +56,6 @@ public class LightSwitch : MonoBehaviour, Iinteractable
     {
         if (outageSystem.IsOff) return;
         outageSystem.TogglePower();
+        audioSource.Play();
     }
 }

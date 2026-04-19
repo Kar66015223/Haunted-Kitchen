@@ -1,6 +1,5 @@
-using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 public class GhostPossessState : IGhostState
 {
@@ -141,12 +140,13 @@ public class GhostPossessState : IGhostState
         {
             if (controller.player.GetComponent<PlayerCross>().IsHoldingCross)
             {
-                Debug.Log("Player is holding cross, can't possess");
-                Exit();
+                // Debug.Log("Player is holding cross, can't possess");
+                controller.sound.PlaySound(controller.sound.hitCrossSound);
+                controller.StartCoroutine(ExitDelayCo());
 
                 return;
             }
-            
+
             playerPossession.StartPossession(controller.gameObject);
         }
         else
@@ -157,11 +157,18 @@ public class GhostPossessState : IGhostState
         Exit(); // Ghost will exit when possession ends or fails
     }
 
-    // private void OnDashComplete()
-    // {
-    //     Debug.Log("Ghost dash complete");
-    //     Exit();
-    // }
+    private IEnumerator ExitDelayCo()
+    {
+        Debug.Log("exit delay started");
+        float exitDelay = controller.sound.hitCrossSound.length;
+
+        // Model has Animator component
+        GameObject ghostModel = controller.gameObject.GetComponentInChildren<Animator>().gameObject;
+        ghostModel.SetActive(false);
+
+        yield return new WaitForSeconds(exitDelay);
+        Exit();
+    }
 
     public void Exit()
     {

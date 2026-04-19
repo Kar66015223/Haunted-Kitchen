@@ -40,9 +40,6 @@ public class PlayerController_New : MonoBehaviour
 
     private Vector3 currentFacingDirection = Vector3.forward;
 
-    // Sound
-    [SerializeField] private AudioClip walkSound;
-
     void Awake()
     {
         movement = GetComponent<IPlayerMovementController>();
@@ -245,7 +242,7 @@ public class PlayerController_New : MonoBehaviour
     {
         movement.Stop();
         anim?.SetState(0);
-        sound.StopSound();
+        sound.StopMovementSound();
     }
 
     public Vector3 GetFacingDirection()

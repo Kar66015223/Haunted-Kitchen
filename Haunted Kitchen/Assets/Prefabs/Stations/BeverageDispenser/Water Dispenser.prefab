@@ -421,7 +421,7 @@ MonoBehaviour:
   destroyedVFX: {fileID: 7860785267051492317}
   status: 0
   source: {fileID: 0}
-  getItemSound: {fileID: 8300000, guid: ba2583606bec0a54ea65cc7377c45fd3, type: 3}
+  getItemSound: {fileID: 8300000, guid: 83711917e71328b40ba1ba3ab2494987, type: 3}
   destroySound: {fileID: 8300000, guid: 2b87fabfc4ab24844978061081542b8a, type: 3}
 --- !u!82 &473801507437617603
 AudioSource:

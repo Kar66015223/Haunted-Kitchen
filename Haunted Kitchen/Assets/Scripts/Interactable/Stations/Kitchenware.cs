@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
@@ -19,6 +20,9 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
     [SerializeField] private CookingMethod supportedMethod;
 
     [SerializeField] private AudioSource source;
+    [SerializeField] private AudioClip griddleCookSound;
+    [SerializeField] private AudioClip deepFryerCookSound;
+    [SerializeField] private AudioClip destroySound;
 
     void Awake()
     {
@@ -179,7 +183,16 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
         cookTimer -= Time.deltaTime;
 
         if (!source.isPlaying)
-            source.Play();
+        {
+            if (supportedMethod == CookingMethod.Griddle)
+                PlaySound(griddleCookSound, true);
+
+            if (supportedMethod == CookingMethod.DeepFryer)
+                PlaySound(deepFryerCookSound, true);
+
+            if (supportedMethod == CookingMethod.Oven)
+                PlaySound(griddleCookSound, true);
+        }
 
         if (cookTimer <= 0f)
         {
@@ -225,6 +238,11 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
     public void SetStationStatus(StationStatus newStatus)
     {
         status = newStatus;
+
+        if(status == StationStatus.Destroyed)
+        {
+            PlaySound(destroySound, false);
+        }
     }
 
     public void ToggleItemVisual(bool value)
@@ -247,5 +265,14 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
     public void ClearItemVisual()
     {
         itemVisual = null;
+    }
+
+    private void PlaySound(AudioClip clip, bool isLoop)
+    {
+        source.clip = clip;
+        source.loop = isLoop;
+
+        if (!source.isPlaying)
+            source.Play();
     }
 }

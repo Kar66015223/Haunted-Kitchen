@@ -129,6 +129,9 @@ MonoBehaviour:
   status: 0
   supportedMethod: 2
   source: {fileID: 0}
+  griddleCookSound: {fileID: 8300000, guid: 2e33db140d3720b48b2d863d56fcfdfe, type: 3}
+  deepFryerCookSound: {fileID: 8300000, guid: a94d588a5b121f34a84bd379a4782d80, type: 3}
+  destroySound: {fileID: 8300000, guid: 2b87fabfc4ab24844978061081542b8a, type: 3}
 --- !u!82 &4913813070890138809
 AudioSource:
   m_ObjectHideFlags: 0
@@ -140,11 +143,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 2e33db140d3720b48b2d863d56fcfdfe, type: 3}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

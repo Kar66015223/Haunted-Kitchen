@@ -1,40 +1,50 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerSound : MonoBehaviour
 {
-    [SerializeField] private AudioSource source;
+    [SerializeField] private AudioSource movementSource;
+    [SerializeField] private AudioSource actionSource;
 
     public AudioClip walkSound;
+    public AudioClip runSound;
 
-    void Awake()
-    {
-        source = GetComponent<AudioSource>();
-    }
+    public AudioClip beginPossessedSound;
+    public AudioClip mopSound;
+    public AudioClip dropSound;
 
     public void PlaySound(AudioClip clip)
     {
-        source.clip = clip;
-        source.Play();
+        actionSource.PlayOneShot(clip);
     }
 
     public void PlayWalkSound(bool isRunning)
     {
-        if (source.clip != walkSound)
-        {
-            source.clip = walkSound;
-            source.loop = true;
-        }
+        AudioClip targetClip = isRunning ? runSound : walkSound;
 
-        source.pitch = isRunning ? 1.5f : 1.0f;
+        if (movementSource.clip == targetClip && movementSource.isPlaying) return;
 
-        if (!source.isPlaying)
-            source.Play();
+        movementSource.clip = targetClip;
+        movementSource.loop = true;
+        movementSource.volume = 0.3f;
+
+        movementSource.Play();
     }
 
-    public void StopSound()
+    public void PlayMopSound()
     {
-        if (source.isPlaying)
-            source.Stop();
+        if (actionSource.clip == mopSound && actionSource.isPlaying) return;
+
+        actionSource.clip = mopSound;
+        actionSource.loop = true;
+        actionSource.Play();
+    }
+
+    public void StopMovementSound() => movementSource.Stop();
+    public void StopAction() => actionSource.Stop();
+
+    public void StopAll()
+    {
+        movementSource.Stop();
+        actionSource.Stop();
     }
 }

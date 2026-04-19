@@ -5,12 +5,21 @@ public class Oil : MonoBehaviour, Iinteractable, IWorkerInteractable
 {
     public float slipDuration = 1f;
     public IWorkerTask Claimer { get; private set; }
+
+    private AudioSource source;
+    [SerializeField] private AudioClip pourOilSound;
     
     public event Action<IWorkerInteractable> OnFinished;
+
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
 
     void Start()
     {
         OnDiscovered();
+        PlaySound(pourOilSound);
     }
 
     public bool CanInteract(Interactor interactor)
@@ -75,6 +84,12 @@ public class Oil : MonoBehaviour, Iinteractable, IWorkerInteractable
     {
         if (Claimer == claimer)
             Claimer = null;
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        source.clip = clip;
+        source.Play();
     }
 
     public void OnDiscovered() => WorkerEvents.NotifyTaskDiscovered(this);

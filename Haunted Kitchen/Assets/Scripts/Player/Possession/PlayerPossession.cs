@@ -23,6 +23,7 @@ public class PlayerPossession : MonoBehaviour
     // references
     private PlayerAnimation playerAnim;
     private PlayerInput input;
+    private PlayerSound sound;
 
     // Events
     public event Action<float> OnStruggleProgressChanged;
@@ -33,6 +34,7 @@ public class PlayerPossession : MonoBehaviour
     {
         playerAnim = GetComponent<PlayerAnimation>();
         input = GetComponent<PlayerInput>();
+        sound = GetComponent<PlayerSound>();
     }
 
     void Update()
@@ -51,6 +53,8 @@ public class PlayerPossession : MonoBehaviour
         possessingGhost = ghost;
         possessionTimer = 0f;
         struggleProgress = 0f;
+
+        sound.PlaySound(sound.beginPossessedSound);
 
         Debug.Log("Player Possessed");
 

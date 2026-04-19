@@ -72,6 +72,8 @@ public class GhostSpawner : MonoBehaviour
         currentGhost = Instantiate(ghostPrefab, spawnPosition, spawnRotation);
         currentGhost.SetInitialState(initialState);
 
+        currentGhost.sound.PlaySound(currentGhost.sound.spawnSound);
+
         currentGhost.OnGhostDestroyed += HandleGhostDestroyed;
     }
 

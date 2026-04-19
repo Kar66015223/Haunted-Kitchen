@@ -12,6 +12,7 @@ public class PlayerItem : MonoBehaviour
 
     private PlayerAnimation anim;
     private PlayerCross playerCross;
+    private PlayerSound sound;
 
     [SerializeField] private Transform holdPointOneHand;
 
@@ -20,7 +21,8 @@ public class PlayerItem : MonoBehaviour
     void Awake()
     {
         anim = GetComponent<PlayerAnimation>();
-        playerCross = GetComponent<PlayerCross>(); 
+        playerCross = GetComponent<PlayerCross>();
+        sound = GetComponent<PlayerSound>();
     }
 
     private void Update()
@@ -148,9 +150,12 @@ public class PlayerItem : MonoBehaviour
             c.enabled = true;
         }
 
+        // Drop
         currentHeldItemObj.transform.SetParent(null);
         itemTransform.position = dropPosition;
         itemTransform.rotation = Quaternion.identity;
+        sound.PlaySound(sound.dropSound);
+
 
         if (currentHeldItemObj.TryGetComponent(out Rigidbody rb))
             rb.isKinematic = false;

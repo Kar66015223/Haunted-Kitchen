@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class Trashcan : MonoBehaviour, Iinteractable
 {
+    private AudioSource source;
+
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
     public bool CanInteract(Interactor interactor)
     {
         if (interactor == null)
@@ -11,6 +17,9 @@ public class Trashcan : MonoBehaviour, Iinteractable
             return false;
 
         if (interactor.source == null)
+            return false;
+
+        if (interactor.playerItem == null)
             return false;
 
         if (interactor.playerItem.currentHeldItemData == null)
@@ -30,6 +39,9 @@ public class Trashcan : MonoBehaviour, Iinteractable
             GameObject itemObj = playerItem.currentHeldItemObj;
             playerItem.DropItemNoRaycast();
             Destroy(itemObj);
+
+            if(!source.isPlaying)
+                source.Play();
         }
     }
 }
