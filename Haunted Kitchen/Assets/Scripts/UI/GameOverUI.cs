@@ -28,10 +28,13 @@ public class GameOverUI : MonoBehaviour
     void TurnOnUI()
     {
         root.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     private void Retry()
     {
+        Time.timeScale = 1f;
+        
         DayManager.Instance.ResetDay();
         MoneyManager.Instance.ChangeMoneyAmount(-MoneyManager.Instance.CurrentMoney);
 
