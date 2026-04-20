@@ -45,7 +45,7 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         PlayerController_New controller = GetComponent<PlayerController_New>();
-        controller.SetCanMove(false);
+        controller.OnPlayerDie();
 
         anim.SetDie();
         StartCoroutine(DieSequence());
@@ -56,10 +56,6 @@ public class PlayerHealth : MonoBehaviour
         float destroyDelay = 3f;
 
         yield return new WaitForSeconds(destroyDelay);
-
         GameEvents.OnDie?.Invoke();
-        Destroy(gameObject);
-
-        //Show GameOver UI
     }
 }

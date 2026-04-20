@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Video;
 
 [RequireComponent(typeof(IPlayerMovementController))]
 [RequireComponent(typeof(PlayerInputHandler))]
@@ -39,6 +41,8 @@ public class PlayerController_New : MonoBehaviour
     private PlayerSound sound;
 
     private Vector3 currentFacingDirection = Vector3.forward;
+
+    private bool isDead = false;
 
     void Awake()
     {
@@ -86,6 +90,7 @@ public class PlayerController_New : MonoBehaviour
         inputHandler.OnHoldCrossInputCanceled += HandleHoldCrossCancel;
 
         GameEvents.OnSpeedBuff += ApplySpeedBuff;
+        GameEvents.OnDie += OnPlayerDie;
     }
 
     void OnDisable()
@@ -100,6 +105,7 @@ public class PlayerController_New : MonoBehaviour
         inputHandler.OnHoldCrossInputCanceled -= HandleHoldCrossCancel;
 
         GameEvents.OnSpeedBuff -= ApplySpeedBuff;
+        GameEvents.OnDie -= OnPlayerDie;
     }
 
     void Start()
@@ -109,6 +115,8 @@ public class PlayerController_New : MonoBehaviour
 
     void Update()
     {
+        if (isDead) return;
+
         if (isSlipping)
         {
             if (Time.time >= slipTimer)
@@ -243,6 +251,12 @@ public class PlayerController_New : MonoBehaviour
         movement.Stop();
         anim?.SetState(0);
         sound.StopMovementSound();
+    }
+
+    public void OnPlayerDie()
+    {
+        isDead = true;
+        StopMoving();
     }
 
     public Vector3 GetFacingDirection()

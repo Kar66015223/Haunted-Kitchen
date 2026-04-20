@@ -12,7 +12,7 @@ public class GameOverUI : MonoBehaviour
         GameEvents.OnDie += TurnOnUI;
     }
 
-    void OnDestroy()
+    void OnDisable()
     {
         GameEvents.OnDie -= TurnOnUI;
     }
@@ -27,22 +27,19 @@ public class GameOverUI : MonoBehaviour
 
     void TurnOnUI()
     {
-        root.SetActive(true);
         Time.timeScale = 0f;
+        root.SetActive(true);
     }
 
     private void Retry()
     {
-        Time.timeScale = 1f;
-        
         DayManager.Instance.ResetDay();
-        MoneyManager.Instance.ChangeMoneyAmount(-MoneyManager.Instance.CurrentMoney);
-
         root.SetActive(false);
     }
     
     private void ReturnToStartScene()
     {
+        Time.timeScale = 1f;
         SceneLoader.ChangeScene(SceneConstants.STARTSCENE_NAME);
     }
 }

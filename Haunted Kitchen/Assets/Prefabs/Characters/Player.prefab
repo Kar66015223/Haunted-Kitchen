@@ -958,7 +958,7 @@ MonoBehaviour:
   movementSource: {fileID: 2840688595557529008}
   actionSource: {fileID: 114279487508565195}
   walkSound: {fileID: 8300000, guid: 2da799e54defd5347a7178e25e6e3451, type: 3}
-  runSound: {fileID: 8300000, guid: f00a30155ebab704fba1f432c645efee, type: 3}
+  runSound: {fileID: 8300000, guid: 85507457d84759e45835d839106dbc53, type: 3}
   beginPossessedSound: {fileID: 8300000, guid: acea03d8f1f37db4ca8f6e3c9669cb21, type: 3}
   mopSound: {fileID: 8300000, guid: a67096e7451ce9a48a0664af7f8bcb42, type: 3}
   dropSound: {fileID: 8300000, guid: 0f0d9beb049db6a4589a20501bc260a5, type: 3}
