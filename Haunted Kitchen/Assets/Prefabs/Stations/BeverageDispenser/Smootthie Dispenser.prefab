@@ -315,6 +315,7 @@ MonoBehaviour:
   source: {fileID: 0}
   getItemSound: {fileID: 8300000, guid: 83711917e71328b40ba1ba3ab2494987, type: 3}
   destroySound: {fileID: 8300000, guid: 2b87fabfc4ab24844978061081542b8a, type: 3}
+  repairSound: {fileID: 8300000, guid: 6e616d0aa04ef11428f39c8a2f3b6d3d, type: 3}
 --- !u!82 &3295719186231516949
 AudioSource:
   m_ObjectHideFlags: 0

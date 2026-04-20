@@ -1914,7 +1914,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 95b7bcdd8dae39a46801cb129d19a208, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d93f3203525bcfc4885c341367577521, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11457,7 +11457,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 95115f05eebe1224e8cb9d2ecb65525c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 28d18695f4af6a94d8d18957229b3d9d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15651,7 +15651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CustomerSpawner
   dayConfigs:
-  - {fileID: 11400000, guid: b146d484e8aa182489327aced5a0ec04, type: 2}
+  - {fileID: 11400000, guid: 589dfeec4b08b7b4caa310e3a9cae31d, type: 2}
   - {fileID: 11400000, guid: 92067ad9597e6af4e85c4ccc64f897a4, type: 2}
   - {fileID: 11400000, guid: 6ae4f9d706d23884e8c9f26208371984, type: 2}
   - {fileID: 11400000, guid: 5c018111ee204f946aa37510f1ce89ec, type: 2}
@@ -17714,7 +17714,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8b2653af7927bee4baf1d46ed1241b21, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6205022aea1ce5f419331bdd6bceb2c5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -30114,10 +30114,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 380503943}
     m_Modifications:
-    - target: {fileID: 2501021535791156825, guid: b33bcbc993a7550458117def07577922, type: 3}
-      propertyPath: repairSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 6e616d0aa04ef11428f39c8a2f3b6d3d, type: 3}
     - target: {fileID: 5484003776413881516, guid: b33bcbc993a7550458117def07577922, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.18
@@ -30232,10 +30228,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 380503943}
     m_Modifications:
-    - target: {fileID: 529428355892246711, guid: c390080fb6b9fd3438c6c464595c7803, type: 3}
-      propertyPath: repairSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 6e616d0aa04ef11428f39c8a2f3b6d3d, type: 3}
     - target: {fileID: 1238548850148386427, guid: c390080fb6b9fd3438c6c464595c7803, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.363941
@@ -30333,10 +30325,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2092904145800342105, guid: 2efeda1015894e04c88be2327aee58b6, type: 3}
-      propertyPath: repairSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 6e616d0aa04ef11428f39c8a2f3b6d3d, type: 3}
     - target: {fileID: 3742610324773938945, guid: 2efeda1015894e04c88be2327aee58b6, type: 3}
       propertyPath: m_Name
       value: Soda Dispenser
@@ -30451,10 +30439,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4491330545309616647, guid: f89fe9b869285a745855d2640543ea9e, type: 3}
-      propertyPath: repairSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 6e616d0aa04ef11428f39c8a2f3b6d3d, type: 3}
     - target: {fileID: 6222357105859691874, guid: f89fe9b869285a745855d2640543ea9e, type: 3}
       propertyPath: m_Name
       value: Water Dispenser
@@ -30654,10 +30638,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 380503943}
     m_Modifications:
-    - target: {fileID: 131214886755925598, guid: 2f5079b37f59add40853ac7a55085761, type: 3}
-      propertyPath: repairSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 6e616d0aa04ef11428f39c8a2f3b6d3d, type: 3}
     - target: {fileID: 1830179178902791158, guid: 2f5079b37f59add40853ac7a55085761, type: 3}
       propertyPath: m_Name
       value: Smootthie Dispenser
