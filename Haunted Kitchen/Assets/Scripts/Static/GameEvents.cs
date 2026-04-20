@@ -14,4 +14,5 @@ public static class GameEvents
     public static Action<Item> OnItemPickedUp;
     public static Action<Customer_New> OnCustomerArrived;
     public static Action OnGameStart;
+    public static Action OnDie;
 }

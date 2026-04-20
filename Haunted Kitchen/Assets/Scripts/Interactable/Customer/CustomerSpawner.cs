@@ -18,9 +18,7 @@ public class CustomerSpawner : MonoBehaviour
     {
         GameEvents.OnGameStart += StartSpawning;
         DayManager.Instance.OnDayStarted += SetupDay;
-
-        if (DayManager.Instance.Timer != null) 
-            DayManager.Instance.Timer.OnTimerRunOut += StopSpawning;
+        SubscribeToTimer();
     }
 
     void OnDisable()
@@ -122,10 +120,19 @@ public class CustomerSpawner : MonoBehaviour
 
         movement.Initialize(tables, spawnPoint);
     }
-    
+
     private void HandleCustomerFinished()
     {
         ActiveCustomerCount--;
         ActiveCustomerCount = Mathf.Max(0, ActiveCustomerCount);
+    }
+    
+    public void SubscribeToTimer()
+    {
+        if (DayManager.Instance?.Timer != null)
+        {
+            DayManager.Instance.Timer.OnTimerRunOut -= StopSpawning;
+            DayManager.Instance.Timer.OnTimerRunOut += StopSpawning;
+        }
     }
 }

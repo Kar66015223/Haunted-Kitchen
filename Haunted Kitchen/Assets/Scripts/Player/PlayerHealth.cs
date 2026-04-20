@@ -6,7 +6,7 @@ public class PlayerHealth : MonoBehaviour
 {
     [Header("Health")]
     private int _health;
-    public int health
+    public int Health
     {
         get => _health;
         set
@@ -33,21 +33,22 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
-        health = maxHealth;
+        Health = maxHealth;
     }
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        OnHealthChanged?.Invoke(health);
+        Health -= damage;
+        OnHealthChanged?.Invoke(Health);
     }
 
     private void Die()
     {
+        PlayerController_New controller = GetComponent<PlayerController_New>();
+        controller.SetCanMove(false);
+
         anim.SetDie();
         StartCoroutine(DieSequence());
-
-        Debug.Log("player has died");
     }
 
     private IEnumerator DieSequence()
@@ -55,6 +56,8 @@ public class PlayerHealth : MonoBehaviour
         float destroyDelay = 3f;
 
         yield return new WaitForSeconds(destroyDelay);
+
+        GameEvents.OnDie?.Invoke();
         Destroy(gameObject);
 
         //Show GameOver UI

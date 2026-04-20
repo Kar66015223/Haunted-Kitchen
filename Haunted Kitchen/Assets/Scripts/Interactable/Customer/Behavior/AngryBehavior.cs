@@ -75,11 +75,16 @@ public class AngryBehavior : CustomerBehavior
 
         yield return new WaitForSeconds(impactDelay);
 
-        controller.Slip(stunDuration + impactDelay);
-        customer.PlaySound();
-
         PlayerHealth health = controller.GetComponent<PlayerHealth>();
+
         health.TakeDamage(1);
+
+        if (health.Health > 0)
+        {
+            controller.Slip(stunDuration + impactDelay);
+        }
+        
+        customer.PlaySound();
 
         yield return new WaitForSeconds(disappearDelay);
         customer.movement.OnLeft?.Invoke();

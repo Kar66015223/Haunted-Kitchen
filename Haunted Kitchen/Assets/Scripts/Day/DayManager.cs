@@ -96,6 +96,11 @@ public class DayManager : MonoBehaviour
             timer.OnTimerRunOut += StartClosingPeriod;
         }
 
+        if (spawner != null && timer != null)
+        {
+            spawner.SubscribeToTimer();
+        }
+
         isWaitingForCustomers = false;
         OnDayStarted?.Invoke(CurrentDay);
     }
