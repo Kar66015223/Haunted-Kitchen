@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
 {
@@ -26,6 +27,7 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
     [SerializeField] private AudioClip ovenCookSound;
 
     [SerializeField] private AudioClip destroySound;
+    [SerializeField] private AudioClip repairSound;
 
     void Awake()
     {
@@ -242,9 +244,14 @@ public class Kitchenware : MonoBehaviour, Iinteractable, IDestroyable
     {
         status = newStatus;
 
-        if(status == StationStatus.Destroyed)
+        if (status == StationStatus.Destroyed)
         {
             PlaySound(destroySound, false);
+        }
+        
+        if(status == StationStatus.Usable)
+        {
+            PlaySound(repairSound, false);
         }
     }
 

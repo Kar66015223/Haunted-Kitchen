@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,9 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IDestroyable
 
     [SerializeField] private AudioSource source;
     [SerializeField] private AudioClip getItemSound;
+
     [SerializeField] private AudioClip destroySound;
+    [SerializeField] private AudioClip repairSound;
 
     void Awake()
     {
@@ -148,6 +151,9 @@ public class BeverageDispenser : MonoBehaviour, Iinteractable, IDestroyable
 
         if (status == StationStatus.Destroyed)
             PlaySound(destroySound);
+
+        if (status == StationStatus.Usable)
+            PlaySound(repairSound);
     }
 
     public void PlaySound(AudioClip clip)

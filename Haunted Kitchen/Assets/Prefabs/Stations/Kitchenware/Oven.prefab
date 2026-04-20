@@ -133,6 +133,7 @@ MonoBehaviour:
   deepFryerCookSound: {fileID: 8300000, guid: a94d588a5b121f34a84bd379a4782d80, type: 3}
   ovenCookSound: {fileID: 8300000, guid: 1dd4e7ebdbe43ee459081b7750d4695a, type: 3}
   destroySound: {fileID: 8300000, guid: 2b87fabfc4ab24844978061081542b8a, type: 3}
+  repairSound: {fileID: 8300000, guid: 6e616d0aa04ef11428f39c8a2f3b6d3d, type: 3}
 --- !u!82 &4913813070890138809
 AudioSource:
   m_ObjectHideFlags: 0
