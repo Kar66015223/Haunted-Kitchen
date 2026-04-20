@@ -15850,7 +15850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CustomerSpawner
   dayConfigs:
-  - {fileID: 11400000, guid: 589dfeec4b08b7b4caa310e3a9cae31d, type: 2}
+  - {fileID: 11400000, guid: b146d484e8aa182489327aced5a0ec04, type: 2}
   - {fileID: 11400000, guid: 92067ad9597e6af4e85c4ccc64f897a4, type: 2}
   - {fileID: 11400000, guid: 6ae4f9d706d23884e8c9f26208371984, type: 2}
   - {fileID: 11400000, guid: 5c018111ee204f946aa37510f1ce89ec, type: 2}
@@ -18742,10 +18742,6 @@ PrefabInstance:
     - target: {fileID: 1536483965337830122, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7463326046245762615, guid: 1d28818508eaeb942bbcbca39cbd2eee, type: 3}
-      propertyPath: maxHealth
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
