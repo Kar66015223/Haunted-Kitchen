@@ -32,9 +32,12 @@ public class SoundMixerManager : MonoBehaviour
 
     void Start()
     {
-        masterSlider.onValueChanged.AddListener(SetMasterVolume);
-        musicSlider.onValueChanged.AddListener(SetMusicVolume);
-        sfxSlider.onValueChanged.AddListener(SetSFXVolume);
+        if(masterSlider != null)
+            masterSlider.onValueChanged.AddListener(SetMasterVolume);
+        if(musicSlider != null)
+            musicSlider.onValueChanged.AddListener(SetMusicVolume);
+        if(sfxSlider != null)
+            sfxSlider.onValueChanged.AddListener(SetSFXVolume);
     }
 
     public void SetMasterVolume(float value)

@@ -22,13 +22,19 @@ public class ButtonManager : MonoBehaviour
 
         if(SoundMixerManager.instance != null)
         {
-            masterSlider.value = SoundMixerManager.instance.MasterValue;
-            musicSlider.value = SoundMixerManager.instance.MusicValue;
-            sfxSlider.value = SoundMixerManager.instance.SfxValue;
+            if (masterSlider != null)
+                masterSlider.value = SoundMixerManager.instance.MasterValue;
+            if(musicSlider != null)  
+                musicSlider.value = SoundMixerManager.instance.MusicValue;
+            if(sfxSlider != null) 
+                sfxSlider.value = SoundMixerManager.instance.SfxValue;
 
-            masterSlider.onValueChanged.AddListener(SoundMixerManager.instance.SetMasterVolume);
-            musicSlider.onValueChanged.AddListener(SoundMixerManager.instance.SetMusicVolume);
-            sfxSlider.onValueChanged.AddListener(SoundMixerManager.instance.SetSFXVolume);
+            if (masterSlider != null)
+                masterSlider.onValueChanged.AddListener(SoundMixerManager.instance.SetMasterVolume);
+            if(musicSlider != null)  
+                musicSlider.onValueChanged.AddListener(SoundMixerManager.instance.SetMusicVolume);
+            if(sfxSlider != null) 
+                sfxSlider.onValueChanged.AddListener(SoundMixerManager.instance.SetSFXVolume);
         }
     }
 }
