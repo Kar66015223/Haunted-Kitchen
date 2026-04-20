@@ -6,11 +6,29 @@ public class ButtonManager : MonoBehaviour
 {
     [SerializeField] private List<Button> allButtons = new();
 
+    public Slider masterSlider;
+    public Slider musicSlider;
+    public Slider sfxSlider;
+
     void Start()
     {
-        foreach(Button button in allButtons)
+        if (allButtons.Count > 0)
         {
-            button.onClick.AddListener(UISound.instance.PlayClickSound);
+            foreach (Button button in allButtons)
+            {
+                button.onClick.AddListener(SoundManager.instance.PlayClickSound);
+            }
+        }
+
+        if(SoundMixerManager.instance != null)
+        {
+            masterSlider.value = SoundMixerManager.instance.MasterValue;
+            musicSlider.value = SoundMixerManager.instance.MusicValue;
+            sfxSlider.value = SoundMixerManager.instance.SfxValue;
+
+            masterSlider.onValueChanged.AddListener(SoundMixerManager.instance.SetMasterVolume);
+            musicSlider.onValueChanged.AddListener(SoundMixerManager.instance.SetMusicVolume);
+            sfxSlider.onValueChanged.AddListener(SoundMixerManager.instance.SetSFXVolume);
         }
     }
 }

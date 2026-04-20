@@ -25,7 +25,6 @@ public class PlayerSound : MonoBehaviour
 
         movementSource.clip = targetClip;
         movementSource.loop = true;
-        movementSource.volume = 0.3f;
 
         movementSource.Play();
     }

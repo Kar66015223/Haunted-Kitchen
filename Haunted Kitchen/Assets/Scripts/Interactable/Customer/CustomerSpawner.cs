@@ -36,11 +36,6 @@ public class CustomerSpawner : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        Debug.Log($"Active Customers: {ActiveCustomerCount}");
-    }
-
     private void SetupDay(int dayNumber)
     {
         // Day 1 = index 0

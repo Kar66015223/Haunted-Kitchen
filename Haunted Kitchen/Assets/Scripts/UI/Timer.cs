@@ -12,6 +12,7 @@ public class Timer : MonoBehaviour
     [SerializeField] private bool isCounting = false;
 
     [SerializeField] private float ghostPhaseStartTime = 150; //2:30 Min
+    private bool isGhostPhaseActive = false;
 
     [SerializeField] private Button startDayButton;
     [SerializeField] private Button endDayButton;
@@ -72,15 +73,13 @@ public class Timer : MonoBehaviour
         }
 
         float ghostPhaseEndTime = ghostPhaseStartTime - 30;
+        bool currentlyInGhostPhase =
+            remainingTime <= ghostPhaseStartTime && remainingTime > ghostPhaseEndTime;
 
-        if (remainingTime <= ghostPhaseStartTime &&
-            remainingTime > ghostPhaseEndTime)
+        if (currentlyInGhostPhase != isGhostPhaseActive)
         {
-            GameEvents.OnToggleGhostSpawning?.Invoke(true);
-        }
-        else
-        {
-            GameEvents.OnToggleGhostSpawning?.Invoke(false);
+            isGhostPhaseActive = currentlyInGhostPhase;
+            GameEvents.OnToggleGhostSpawning?.Invoke(isGhostPhaseActive);
         }
 
         int minutes = Mathf.FloorToInt(remainingTime / 60);

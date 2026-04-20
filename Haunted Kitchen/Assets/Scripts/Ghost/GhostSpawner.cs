@@ -104,6 +104,8 @@ public class GhostSpawner : MonoBehaviour
     {
         allowSpawn = value;
         SetScreenFX(allowSpawn);
+        SoundManager.instance.PlayMusic(
+            value ? SoundManager.instance.ghostPhaseMusic : SoundManager.instance.normalMusic);
     }
     
     private void SetScreenFX(bool value)

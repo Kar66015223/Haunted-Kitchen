@@ -20,17 +20,17 @@ public class StoryController : MonoBehaviour
         if (nextButton != null)
         {
             nextButton.onClick.AddListener(GoToMainGame);
-            nextButton.onClick.AddListener(UISound.instance.PlayClickSound);
+            nextButton.onClick.AddListener(SoundManager.instance.PlayClickSound);
         }
 
         if (mainMenuButton != null)
         {
             mainMenuButton.onClick.AddListener(ReturnToMenu);
-            mainMenuButton.onClick.AddListener(UISound.instance.PlayClickSound);
+            mainMenuButton.onClick.AddListener(SoundManager.instance.PlayClickSound);
         }
 
         if (nextDialogue != null)
-            nextDialogue.onClick.AddListener(UISound.instance.PlayClickSound);
+            nextDialogue.onClick.AddListener(SoundManager.instance.PlayClickSound);
     }
 
     void OnDestroy()
